@@ -448,7 +448,7 @@
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#packages" class="nav-link">Packages</a>
                 <a href="#about" class="nav-link">About</a>
-                <a href="menu.html" class="menu-btn" style="background: linear-gradient(135deg, #e31b23, #b8161f);"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="menu.html" class="menu-btn"><i class="fas fa-utensils"></i> Menu</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="portal.html" class="portal-btn"><i class="fas fa-clipboard-list"></i> Order Portal</a>
                 <button class="print-btn" id="printButton"><i class="fas fa-print"></i> Print</button>
@@ -496,12 +496,12 @@
         </div>
     </section>
     
-    <!-- Testimonials Section (Keep as Reviews) -->
+    <!-- Testimonials Section -->
     <section id="testimonials" class="section">
         <div class="container"><h2 class="section-title fade-up">What Our <span class="red-text">Guests Say</span></h2><div class="testimonial-grid"><div class="testimonial-card fade-up"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The Dynasty package was perfect for our office party. Everyone raved about the freshness. Best sushi in Addis!"</p><p class="testimonial-name">– Mekdes A.</p></div><div class="testimonial-card fade-up"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Sushi Vibe catered our wedding. The Dragon rolls were incredible. Professional service and amazing vibes!"</p><p class="testimonial-name">– Henok & Sara</p></div><div class="testimonial-card fade-up"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Finally, premium sushi catering in Addis! The Entourage package fed my whole family. Will order again."</p><p class="testimonial-name">– Liya T.</p></div></div></div>
     </section>
     
-    <!-- Contact Section with Formspree Integration -->
+    <!-- Contact Section with FormSubmit (100% Free) -->
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title fade-up">Book Your <span class="red-text">Sushi Experience</span></h2>
@@ -514,21 +514,26 @@
                     <div class="info-item"><div class="info-icon"><i class="fab fa-tiktok"></i></div><div><h3>TikTok</h3><p><a href="https://www.tiktok.com/@sushivibe.caterin" target="_blank" style="color: var(--sushi-red);">@sushivibe.caterin</a></p></div></div>
                     <div class="info-item"><div class="info-icon"><i class="fas fa-map-marker-alt"></i></div><div><h3>Location</h3><p>Addis Ababa, Ethiopia (Delivery across city)</p></div></div>
                 </div>
-                <!-- Formspree Form - FREE (replace 'YOUR_FORM_ID' with your actual Formspree endpoint) -->
-                <form class="contact-form" id="bookingForm" action="https://formspree.io/f/xgvorgrv" method="POST">
-                    <input type="text" id="name" name="name" placeholder="Your Full Name *" required>
-                    <input type="tel" id="phone" name="phone" placeholder="Phone Number *" required>
-                    <input type="email" id="email" name="email" placeholder="Email Address">
-                    <select id="package" name="package" required>
+                <!-- FormSubmit - 100% FREE, No Account Needed -->
+                <form class="contact-form" id="bookingForm" action="https://formsubmit.co/sushivibes@proton.me" method="POST">
+                    <!-- FormSubmit Configurations -->
+                    <input type="hidden" name="_subject" value="🍣 NEW SUSHI VIBE BOOKING REQUEST 🍣">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://sushivibe.com/thank-you">
+                    <input type="text" name="_honey" style="display:none">
+                    
+                    <input type="text" id="name" name="Name" placeholder="Your Full Name *" required>
+                    <input type="tel" id="phone" name="Phone" placeholder="Phone Number *" required>
+                    <input type="email" id="email" name="Email" placeholder="Email Address">
+                    <select id="package" name="Package" required>
                         <option value="">Select Package</option>
-                        <option value="The Addition">The Addition (14,500 ETB - feeds 10)</option>
-                        <option value="The Entourage">The Entourage (26,000 ETB - feeds 20)</option>
-                        <option value="The Dynasty">The Dynasty (36,000 ETB - feeds 30)</option>
+                        <option value="The Addition (14,500 ETB - feeds 10)">The Addition - 14,500 ETB (feeds 10)</option>
+                        <option value="The Entourage (26,000 ETB - feeds 20)">The Entourage - 26,000 ETB (feeds 20)</option>
+                        <option value="The Dynasty (36,000 ETB - feeds 30)">The Dynasty - 36,000 ETB (feeds 30)</option>
                     </select>
-                    <input type="date" id="eventDate" name="eventDate">
-                    <textarea id="message" name="message" rows="3" placeholder="Special requests or dietary notes"></textarea>
-                    <input type="hidden" name="_subject" value="New Sushi Vibe Booking Request">
-                    <input type="hidden" name="_replyto" id="replyto">
+                    <input type="date" id="eventDate" name="Event Date">
+                    <textarea id="message" name="Special Requests" rows="3" placeholder="Special requests or dietary notes"></textarea>
                     <button type="submit"><i class="fas fa-calendar-check"></i> Request Booking →</button>
                     <div id="formMsg" class="form-message"></div>
                 </form>
@@ -581,24 +586,13 @@
             }); 
         }
         
-        // FORMSPREE + LOCALSTORAGE (saves to both email and portal)
+        // FORM HANDLER - Saves to localStorage + FormSubmit
         const form = document.getElementById('bookingForm');
         const msgDiv = document.getElementById('formMsg');
         
-        // Set replyto email
-        const emailInput = document.getElementById('email');
-        const replytoInput = document.getElementById('replyto');
-        if(emailInput && replytoInput) {
-            emailInput.addEventListener('change', () => {
-                replytoInput.value = emailInput.value;
-            });
-        }
-        
         if(form) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Get form values
+            form.addEventListener('submit', function(e) {
+                // Get form values for localStorage
                 const name = document.getElementById('name').value.trim();
                 const phone = document.getElementById('phone').value.trim();
                 const email = document.getElementById('email').value;
@@ -606,11 +600,12 @@
                 const eventDate = document.getElementById('eventDate').value;
                 const message = document.getElementById('message').value;
                 
-                // Validation
+                // Validate
                 if(!name || !phone || !packageSelected) {
+                    e.preventDefault();
                     msgDiv.innerHTML = '❌ Please fill all required fields';
                     msgDiv.style.color = '#f44336';
-                    return;
+                    return false;
                 }
                 
                 // Save to localStorage for portal
@@ -628,32 +623,12 @@
                 orders.push(order);
                 localStorage.setItem('sushi_orders', JSON.stringify(orders));
                 
-                // Submit to Formspree
-                try {
-                    const formData = new FormData(form);
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    
-                    if (response.ok) {
-                        msgDiv.innerHTML = '✅ Thank you! Your booking request has been sent. We will contact you shortly.';
-                        msgDiv.style.color = '#4CAF50';
-                        form.reset();
-                    } else {
-                        msgDiv.innerHTML = '⚠️ Form submitted but email notification may be delayed. We received your order!';
-                        msgDiv.style.color = '#FF9800';
-                        form.reset();
-                    }
-                } catch(error) {
-                    // Fallback - still saved to localStorage
-                    msgDiv.innerHTML = '✅ Booking saved! We will contact you within 24 hours.';
-                    msgDiv.style.color = '#4CAF50';
-                    form.reset();
-                }
+                // Show success message (form will submit to FormSubmit normally)
+                msgDiv.innerHTML = '✅ Sending your booking...';
+                msgDiv.style.color = '#4CAF50';
                 
-                setTimeout(() => { msgDiv.innerHTML = ''; }, 5000);
+                // Allow form to submit to FormSubmit
+                return true;
             });
         }
         
@@ -680,7 +655,7 @@
             }); 
         });
         
-        console.log('SUSHI VIBE - Ready | Menu button added | Portal working | Formspree integrated');
+        console.log('SUSHI VIBE - Ready | FormSubmit integrated (100% FREE)');
     </script>
 </body>
 </html>
