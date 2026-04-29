@@ -61,4 +61,58 @@
             <button class="action-btn delete-btn" onclick="adminLogout()">🚪 Logout</button></div>
         </div>
         <div class="stats">
-            <div class="stat-card"><h3 id="totalOrders">0
+            <div class="stat-card"><h3 id="totalOrders">0</h3><p>Total Orders</p></div>
+            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>Pending</p></div>
+            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>Confirmed</p></div>
+        </div>
+        <div class="card"><h3>📋 Customer Orders</h3><div style="overflow-x:auto;"><table><thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="ordersTable"></tbody></table></div></div>
+    </div>
+    
+    <script>
+        const firebaseConfig = { apiKey: "AIzaSyCn5PGyIgPobaL8WE4E89dFQwcjsx9Pcqs", authDomain: "lovely-beauty-college.firebaseapp.com", projectId: "lovely-beauty-college", storageBucket: "lovely-beauty-college.firebasestorage.app", messagingSenderId: "283710330376", appId: "1:283710330376:web:d34276a5918500b020e3bd" };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        auth.onAuthStateChanged(user => {
+            if (user) { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('dashboardScreen').style.display = 'block'; loadOrders(); }
+            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('dashboardScreen').style.display = 'none'; }
+        });
+        
+        async function adminLogin() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            const msg = document.getElementById('loginMsg');
+            try { await auth.signInWithEmailAndPassword(email, password); }
+            catch(e) { msg.className = 'message error'; msg.textContent = 'Invalid credentials'; }
+        }
+        
+        function adminLogout() { auth.signOut(); }
+        
+        async function loadOrders() {
+            const table = document.getElementById('ordersTable');
+            table.innerHTML = '<tr><td colspan="7">⏳ Loading...</td></tr>';
+            try {
+                const snap = await db.collection('orders').orderBy('createdAt', 'desc').get();
+                let total = 0, pending = 0, confirmed = 0;
+                table.innerHTML = '';
+                snap.forEach(doc => {
+                    const o = doc.data();
+                    total++; if(o.status === 'pending') pending++; else confirmed++;
+                    const statusClass = o.status === 'confirmed' ? 'badge' : 'badge-pending';
+                    const statusText = o.status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending';
+                    table.innerHTML += `<tr><td>${doc.id.slice(0,8)}</td><td>${o.name||'N/A'}</td><td>${o.phone||'N/A'}</td><td>${o.package||'N/A'}</td><td>${o.eventDate||'N/A'}</td><td><span class="${statusClass}">${statusText}</span></td>
+                    <td><button class="action-btn approve-btn" onclick="confirmOrder('${doc.id}')">✅ Confirm</button> <button class="action-btn delete-btn" onclick="deleteOrder('${doc.id}')">🗑️</button></td></tr>`;
+                });
+                if(total === 0) table.innerHTML = '<tr><td colspan="7" style="text-align:center;">No orders yet</td></tr>';
+                document.getElementById('totalOrders').textContent = total;
+                document.getElementById('pendingOrders').textContent = pending;
+                document.getElementById('confirmedOrders').textContent = confirmed;
+            } catch(e) { table.innerHTML = '<tr><td colspan="7">Error loading orders</td></tr>'; }
+        }
+        
+        async function confirmOrder(id) { await db.collection('orders').doc(id).update({ status: 'confirmed' }); loadOrders(); }
+        async function deleteOrder(id) { if(confirm('Delete order?')) { await db.collection('orders').doc(id).delete(); loadOrders(); } }
+    </script>
+</body>
+</html>
