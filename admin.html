@@ -1,0 +1,64 @@
+<!-- portal.html - Order Management Admin Panel -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Portal | SUSHI VIBE Catering</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --sushi-red: #e31b23; --sushi-black: #0a0a0a; --sushi-dark: #1a1a1a; --sushi-gold: #f5c518; --white: #fff; --gray-mid: #b0b0b0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--sushi-black); color: var(--white); }
+        #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .login-card { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 24px; padding: 40px 30px; max-width: 420px; width: 100%; text-align: center; }
+        .login-card h1 { color: var(--sushi-red); font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        input, select, textarea { width: 100%; padding: 13px; background: #0a0a0a; border: 1px solid rgba(227,27,35,0.3); color: white; border-radius: 12px; margin-bottom: 14px; }
+        input:focus, select:focus { outline: none; border-color: var(--sushi-red); }
+        button { padding: 14px; background: var(--sushi-red); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%; }
+        button:hover { background: #b8161f; }
+        .btn-outline { background: transparent; border: 2px solid var(--sushi-red); color: var(--sushi-red); margin-top: 10px; }
+        .message { margin-top: 14px; font-size: 14px; }
+        .success { color: #4CAF50; } .error { color: #f44336; }
+        #dashboardScreen { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .header { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 20px; padding: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .header h1 { color: var(--sushi-red); font-family: 'Playfair Display', serif; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .stat-card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 16px; padding: 20px; text-align: center; }
+        .stat-card h3 { color: var(--sushi-red); font-size: 32px; }
+        .card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        .card h3 { color: var(--sushi-red); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { color: var(--sushi-red); text-align: left; padding: 10px 8px; border-bottom: 2px solid var(--sushi-red); }
+        td { padding: 10px 8px; border-bottom: 1px solid #333; }
+        .action-btn { padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; margin: 2px; color: white; }
+        .approve-btn { background: #4CAF50; } .delete-btn { background: #dc3545; }
+        .badge { background: #1a3a1a; color: #4CAF50; padding: 4px 10px; border-radius: 20px; font-size: 11px; display: inline-block; }
+        .badge-pending { background: #3a2a1a; color: #FF9800; }
+        @media (max-width: 768px) { table { font-size: 11px; } th, td { padding: 6px 4px; } }
+    </style>
+</head>
+<body>
+    <div id="loginScreen">
+        <div class="login-card">
+            <h1>🍣 SUSHI VIBE</h1>
+            <p>Order Management Portal</p>
+            <input type="email" id="adminEmail" placeholder="admin@sushivibe.com">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button onclick="adminLogin()">🔐 Login</button>
+            <div id="loginMsg" class="message"></div>
+        </div>
+    </div>
+    
+    <div id="dashboardScreen">
+        <div class="header">
+            <h1>🍣 Order Dashboard</h1>
+            <div><button class="action-btn approve-btn" onclick="loadOrders()">🔄 Refresh</button>
+            <a href="index.html"><button class="action-btn delete-btn" style="background:#666;">🏠 Site</button></a>
+            <button class="action-btn delete-btn" onclick="adminLogout()">🚪 Logout</button></div>
+        </div>
+        <div class="stats">
+            <div class="stat-card"><h3 id="totalOrders">0
