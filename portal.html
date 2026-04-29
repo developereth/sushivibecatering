@@ -1,131 +1,465 @@
-<!-- portal.html - Order Management Admin Panel for Sushi Vibe -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Portal | SUSHI VIBE Catering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Admin Portal | SUSHI VIBE - Order Management</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/developereth/sushivibecatering/bdc64d84327d2b959f4e5cb9eb93da0615bcc838/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --sushi-red: #e31b23;
+            --sushi-red-dark: #b8161f;
             --sushi-black: #0a0a0a;
-            --sushi-dark: #1a1a1a;
+            --sushi-dark: #121212;
+            --sushi-card: #1a1a1a;
             --sushi-gold: #f5c518;
-            --white: #ffffff;
-            --gray-mid: #b0b0b0;
+            --sushi-gray: #a0a0a0;
+            --sushi-light: #f0f0f0;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Poppins', sans-serif;
+            --transition: all 0.3s ease;
+            --shadow-md: 0 20px 40px rgba(0,0,0,0.4);
+            --glow-red: 0 0 15px rgba(227,27,35,0.3);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: var(--font-body); background: var(--sushi-black); color: var(--white); min-height: 100vh; }
-        
+
+        body {
+            font-family: var(--font-body);
+            background: var(--sushi-black);
+            color: var(--sushi-light);
+            min-height: 100vh;
+        }
+
         /* Login Screen */
-        #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .login-card { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 24px; padding: 40px 30px; max-width: 420px; width: 100%; text-align: center; }
-        .login-card h1 { color: var(--sushi-red); font-family: var(--font-heading); font-size: 28px; margin-bottom: 8px; }
-        .login-card p { color: var(--gray-mid); font-size: 14px; margin-bottom: 24px; }
-        .input-group { margin-bottom: 14px; text-align: left; }
-        .input-group label { display: block; color: var(--sushi-red); font-size: 12px; margin-bottom: 5px; font-weight: 500; }
-        input, textarea, select { width: 100%; padding: 13px; background: #0a0a0a; border: 1px solid rgba(227,27,35,0.3); color: var(--white); border-radius: 12px; font-size: 15px; }
-        input:focus, select:focus { outline: none; border-color: var(--sushi-red); }
-        button { padding: 14px; background: var(--sushi-red); color: var(--white); border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; }
-        button:hover { background: #b8161f; }
-        .message { margin-top: 14px; font-weight: 500; font-size: 14px; }
-        .success { color: #4CAF50; } .error { color: #f44336; } .info { color: #2196F3; }
-        
+        #loginScreen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: radial-gradient(circle at 20% 30%, #0a0a0a 0%, #050505 100%);
+        }
+
+        .login-card {
+            background: var(--sushi-card);
+            border: 2px solid var(--sushi-red);
+            border-radius: 32px;
+            padding: 45px 35px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-card h1 {
+            color: var(--sushi-red);
+            font-family: var(--font-heading);
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            color: var(--sushi-gray);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--sushi-red);
+            font-size: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0e0e0e;
+            border: 1px solid rgba(227,27,35,0.3);
+            color: var(--sushi-light);
+            border-radius: 16px;
+            font-size: 14px;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--sushi-red);
+            box-shadow: var(--glow-red);
+        }
+
+        button {
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--sushi-red), var(--sushi-red-dark));
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-red);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--sushi-red);
+            color: var(--sushi-red);
+        }
+
+        .btn-outline:hover {
+            background: var(--sushi-red);
+            color: white;
+        }
+
+        .message {
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .success {
+            color: #4CAF50;
+        }
+
+        .error {
+            color: #f44336;
+        }
+
+        .info {
+            color: #2196F3;
+        }
+
         /* Dashboard */
-        #dashboardScreen { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
-        .header { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 20px; padding: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .header h1 { color: var(--sushi-red); font-family: var(--font-heading); font-size: 24px; }
-        .header-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-portal { background: var(--sushi-red); color: white !important; padding: 10px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 13px; display: inline-block; }
-        .btn-logout { background: #dc3545; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; width: auto; }
-        .btn-refresh { background: #2196F3; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; width: auto; }
-        
-        /* Stats */
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .stat-card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 16px; padding: 20px; text-align: center; }
-        .stat-card h3 { color: var(--sushi-red); font-size: 32px; font-family: var(--font-heading); }
-        .stat-card p { color: var(--gray-mid); font-size: 13px; }
-        
+        #dashboardScreen {
+            display: none;
+            padding: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: var(--sushi-card);
+            border: 1px solid rgba(227,27,35,0.3);
+            border-radius: 24px;
+            padding: 20px 28px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .dashboard-header h1 {
+            color: var(--sushi-red);
+            font-family: var(--font-heading);
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .small-btn {
+            padding: 10px 18px;
+            font-size: 13px;
+            width: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-refresh {
+            background: #2196F3;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+        }
+
+        .btn-home {
+            background: #6c757d;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 22px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, var(--sushi-card) 0%, #111 100%);
+            border: 1px solid rgba(227,27,35,0.2);
+            border-radius: 24px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--sushi-red);
+            transform: translateY(-3px);
+        }
+
+        .stat-card h3 {
+            color: var(--sushi-red);
+            font-size: 38px;
+            font-family: var(--font-heading);
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            color: var(--sushi-gray);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
         /* Cards */
-        .card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
-        .card h3 { color: var(--sushi-red); margin-bottom: 20px; font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { color: var(--sushi-red); text-align: left; padding: 10px 8px; border-bottom: 2px solid var(--sushi-red); }
-        td { padding: 10px 8px; border-bottom: 1px solid #333; }
-        .action-btn { padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; margin: 2px; color: white; }
-        .approve-btn { background: #4CAF50; }
-        .delete-btn { background: #dc3545; }
-        .badge-confirmed { background: #1a3a1a; color: #4CAF50; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-block; }
-        .badge-pending { background: #3a2a1a; color: #FF9800; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-block; }
-        
-        /* Order Form */
-        .order-form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
-        .order-form-row input, .order-form-row select { margin-bottom: 0; }
-        
-        /* Manual Order Section */
-        .manual-order { background: linear-gradient(135deg, #1a1a1a, #111); border: 2px solid var(--sushi-red); margin-top: 20px; }
-        
-        @media (max-width: 768px) { table { font-size: 11px; } th, td { padding: 6px 4px; } .header { flex-direction: column; text-align: center; } }
+        .card {
+            background: var(--sushi-card);
+            border: 1px solid rgba(227,27,35,0.2);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+
+        .card h3 {
+            color: var(--sushi-red);
+            margin-bottom: 22px;
+            font-size: 20px;
+            border-left: 4px solid var(--sushi-red);
+            padding-left: 15px;
+        }
+
+        .manual-card {
+            background: linear-gradient(135deg, #1a1a1a, #121212);
+            border: 2px solid var(--sushi-red);
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            color: var(--sushi-red);
+            text-align: left;
+            padding: 14px 10px;
+            border-bottom: 2px solid var(--sushi-red);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 14px 10px;
+            border-bottom: 1px solid #2a2a2a;
+            vertical-align: middle;
+        }
+
+        .badge {
+            background: #1a3a1a;
+            color: #4CAF50;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-pending {
+            background: #3a2a1a;
+            color: #FF9800;
+        }
+
+        .action-btn {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            margin: 2px;
+            color: white;
+            width: auto;
+        }
+
+        .approve-btn {
+            background: #4CAF50;
+        }
+
+        .approve-btn:hover {
+            background: #45a049;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+            transform: none;
+        }
+
+        /* Form Row */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row input, .form-row select {
+            margin-bottom: 0;
+        }
+
+        .btn-save {
+            width: auto;
+            padding: 12px 24px;
+            background: #28a745;
+        }
+
+        .btn-save:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            width: auto;
+        }
+
+        .flex-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--sushi-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            th, td {
+                font-size: 11px;
+                padding: 8px 5px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Login Screen -->
+    <!-- LOGIN SCREEN -->
     <div id="loginScreen">
         <div class="login-card">
+            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/bdc64d84327d2b959f4e5cb9eb93da0615bcc838/logo.png" alt="SUSHI VIBE" class="logo-icon" style="width: 70px; border-radius: 16px;">
             <h1>🍣 SUSHI VIBE</h1>
             <p>Order Management Portal</p>
-            <div class="input-group"><label>Email</label><input type="email" id="adminEmail" placeholder="admin@sushivibe.com"></div>
-            <div class="input-group"><label>Password</label><input type="password" id="adminPassword" placeholder="••••••••"></div>
-            <button onclick="adminLogin()">🔐 Login to Dashboard</button>
-            <div id="loginMsg" class="message"></div>
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> Username</label>
+                <input type="text" id="adminUser" placeholder="admin" value="admin">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="adminPass" placeholder="••••••••" value="admin123">
+            </div>
+            <button onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> Login to Dashboard</button>
+            <div id="loginMsg" class="message info">🔐 Demo: Use <strong>admin / admin123</strong></div>
         </div>
     </div>
-    
-    <!-- Dashboard -->
+
+    <!-- DASHBOARD SCREEN -->
     <div id="dashboardScreen">
-        <div class="header">
+        <div class="dashboard-header">
             <h1><i class="fas fa-utensils"></i> Sushi Vibe - Order Dashboard</h1>
             <div class="header-btns">
-                <button class="btn-refresh" onclick="loadAllOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
-                <a href="index.html" class="btn-portal"><i class="fas fa-home"></i> Website</a>
-                <button class="btn-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button class="small-btn btn-refresh" onclick="loadAllOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <a href="index.html" target="_blank"><button class="small-btn btn-home"><i class="fas fa-home"></i> Website</button></a>
+                <a href="menu.html" target="_blank"><button class="small-btn btn-home"><i class="fas fa-book"></i> Menu</button></a>
+                <button class="small-btn btn-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
-        
-        <!-- Stats -->
-        <div class="stats">
-            <div class="stat-card"><h3 id="totalOrders">0</h3><p>Total Orders</p></div>
-            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>Pending</p></div>
-            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>Confirmed</p></div>
-            <div class="stat-card"><h3 id="revenueTotal">0</h3><p>Revenue (ETB)</p></div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card"><h3 id="totalOrders">0</h3><p>📦 Total Orders</p></div>
+            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>⏳ Pending</p></div>
+            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>✅ Confirmed</p></div>
+            <div class="stat-card"><h3 id="revenueTotal">0</h3><p>💰 Revenue (ETB)</p></div>
         </div>
-        
+
         <!-- Orders Table -->
         <div class="card">
-            <h3><i class="fas fa-list"></i> Customer Orders</h3>
-            <div style="overflow-x:auto;">
-                <table>
+            <h3><i class="fas fa-list"></i> Customer Orders (Website + Manual)</h3>
+            <div class="table-wrapper">
+                <table id="ordersTable">
                     <thead>
                         <tr><th>ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr>
                     </thead>
-                    <tbody id="ordersTable">
-                        <tr><td colspan="8" style="text-align:center; color:var(--gray-mid);">Loading orders...</td></tr>
+                    <tbody id="ordersTableBody">
+                        <tr><td colspan="8" class="empty-state">Loading orders...<tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
         <!-- Manual Order Entry -->
-        <div class="card manual-order">
-            <h3><i class="fas fa-plus-circle"></i> Add Manual Order (Phone/WhatsApp)</h3>
-            <div class="order-form-row">
+        <div class="card manual-card">
+            <h3><i class="fas fa-plus-circle"></i> Add Manual Order (Phone / WhatsApp)</h3>
+            <div class="form-row">
                 <input type="text" id="manualName" placeholder="Full Name *">
                 <input type="tel" id="manualPhone" placeholder="Phone Number *">
                 <input type="email" id="manualEmail" placeholder="Email">
@@ -135,56 +469,77 @@
                     <option value="The Dynasty">The Dynasty - 36,000 ETB</option>
                 </select>
             </div>
-            <div class="order-form-row">
+            <div class="form-row">
                 <input type="date" id="manualEventDate" placeholder="Event Date">
                 <input type="text" id="manualAddress" placeholder="Delivery Address">
                 <select id="manualStatus">
                     <option value="confirmed">✅ Confirmed (Paid)</option>
-                    <option value="pending">⏳ Pending</option>
+                    <option value="pending" selected>⏳ Pending</option>
                 </select>
-                <button onclick="addManualOrder()" style="width: auto; padding: 13px 20px;"><i class="fas fa-save"></i> Save Order</button>
+                <button class="btn-save" onclick="addManualOrder()"><i class="fas fa-save"></i> Save Order</button>
             </div>
-            <div id="manualMsg" class="message" style="margin-top: 10px;"></div>
+            <div id="manualMsg" class="message" style="margin-top: 12px;"></div>
         </div>
-        
-        <!-- Quick Stats Note -->
+
+        <!-- Export & Clear Actions -->
         <div class="card">
-            <h3><i class="fas fa-chart-line"></i> Quick Actions</h3>
-            <p style="color: var(--gray-mid); margin-bottom: 15px;">Package Prices: The Addition (14,500 ETB) | The Entourage (26,000 ETB) | The Dynasty (36,000 ETB)</p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="exportOrdersToCSV()" style="width: auto; background: #4CAF50;"><i class="fas fa-download"></i> Export CSV</button>
-                <button onclick="clearAllOrders()" style="width: auto; background: #dc3545;"><i class="fas fa-trash"></i> Clear All Orders</button>
+            <h3><i class="fas fa-chart-line"></i> Data Management</h3>
+            <p style="color: var(--sushi-gray); margin-bottom: 18px; font-size: 14px;">Package Prices: Addition (14,500) | Entourage (26,000) | Dynasty (36,000)</p>
+            <div class="flex-btns">
+                <button onclick="exportOrdersToCSV()" style="background: #28a745; width: auto;"><i class="fas fa-download"></i> Export CSV</button>
+                <button onclick="clearAllOrders()" style="background: #dc3545; width: auto;"><i class="fas fa-trash-alt"></i> Clear All Orders</button>
+                <button onclick="loadDemoOrders()" style="background: #ff9800; width: auto;"><i class="fas fa-chart-simple"></i> Load Demo Data</button>
             </div>
+            <div id="actionMsg" class="message" style="margin-top: 15px;"></div>
         </div>
     </div>
 
     <script>
-        // Storage key
+        // STORAGE KEY - matches main index.html
         const STORAGE_KEY = 'sushi_orders';
-        
-        // Load orders from localStorage
+        let isLoggedIn = false;
+
+        // Helper: Show temporary message
+        function showToast(msg, type = 'success') {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.background = type === 'success' ? '#4CAF50' : (type === 'error' ? '#f44336' : '#2196F3');
+            toast.style.color = 'white';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '12px';
+            toast.style.fontSize = '14px';
+            toast.style.fontWeight = '500';
+            toast.style.zIndex = '9999';
+            toast.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            toast.innerHTML = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Load all orders from localStorage
         function loadAllOrders() {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const table = document.getElementById('ordersTable');
+            const tbody = document.getElementById('ordersTableBody');
             
             if (orders.length === 0) {
-                table.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--gray-mid);">No orders yet. Orders from website will appear here.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">📭 No orders yet. Orders from website contact form will appear here.</td></tr>';
                 document.getElementById('totalOrders').textContent = '0';
                 document.getElementById('pendingOrders').textContent = '0';
                 document.getElementById('confirmedOrders').textContent = '0';
                 document.getElementById('revenueTotal').textContent = '0';
                 return;
             }
-            
-            // Sort by date (newest first)
-            orders.reverse();
-            
+
+            // Sort: newest first
+            const sorted = [...orders].reverse();
             let pending = 0, confirmed = 0, totalRevenue = 0;
-            table.innerHTML = '';
-            
-            orders.forEach((order, index) => {
+            tbody.innerHTML = '';
+
+            sorted.forEach((order, idx) => {
                 const status = order.status || 'pending';
-                const statusClass = status === 'confirmed' ? 'badge-confirmed' : 'badge-pending';
+                const statusClass = status === 'confirmed' ? 'badge' : 'badge-pending';
                 const statusText = status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending';
                 
                 if (status === 'pending') pending++;
@@ -197,21 +552,22 @@
                 else if (order.package === 'The Dynasty') price = 36000;
                 if (status === 'confirmed') totalRevenue += price;
                 
-                const orderDate = order.date ? new Date(order.date).toLocaleDateString() : 'N/A';
+                const orderDate = order.date ? new Date(order.date).toLocaleDateString() : new Date().toLocaleDateString();
                 const eventDate = order.eventDate || 'TBD';
+                const displayId = idx + 1;
                 
-                table.innerHTML += `
+                tbody.innerHTML += `
                     <tr>
-                        <td>#${index + 1}</td>
+                        <td>#${displayId}</td>
                         <td>${orderDate}</td>
-                        <td>${escapeHtml(order.name || 'N/A')}</td>
+                        <td><strong>${escapeHtml(order.name || 'N/A')}</strong></td>
                         <td>${escapeHtml(order.phone || 'N/A')}</td>
                         <td>${escapeHtml(order.package || 'N/A')}</td>
                         <td>${eventDate}</td>
                         <td><span class="${statusClass}">${statusText}</span></td>
                         <td>
-                            ${status === 'pending' ? `<button class="action-btn approve-btn" onclick="confirmOrder(${index})">✅ Confirm</button>` : ''}
-                            <button class="action-btn delete-btn" onclick="deleteOrder(${index})">🗑️ Delete</button>
+                            ${status === 'pending' ? `<button class="action-btn approve-btn" onclick="confirmOrder(${idx})">✅ Confirm</button>` : ''}
+                            <button class="action-btn delete-btn" onclick="deleteOrder(${idx})">🗑️ Delete</button>
                         </td>
                     </tr>
                 `;
@@ -222,8 +578,7 @@
             document.getElementById('confirmedOrders').textContent = confirmed;
             document.getElementById('revenueTotal').textContent = totalRevenue.toLocaleString();
         }
-        
-        // Helper function to escape HTML
+
         function escapeHtml(str) {
             if (!str) return '';
             return str.replace(/[&<>]/g, function(m) {
@@ -233,31 +588,31 @@
                 return m;
             });
         }
-        
-        // Confirm order
-        function confirmOrder(index) {
+
+        // Confirm order (using original index)
+        function confirmOrder(displayIndex) {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const actualIndex = orders.length - 1 - index; // because we reversed
+            const actualIndex = orders.length - 1 - displayIndex;
             if (orders[actualIndex]) {
                 orders[actualIndex].status = 'confirmed';
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
                 loadAllOrders();
-                showMessage('Order confirmed!', 'success');
+                showToast('✅ Order confirmed successfully!', 'success');
             }
         }
-        
+
         // Delete order
-        function deleteOrder(index) {
-            if (confirm('Delete this order?')) {
+        function deleteOrder(displayIndex) {
+            if (confirm('⚠️ Are you sure you want to delete this order?')) {
                 const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                const actualIndex = orders.length - 1 - index;
+                const actualIndex = orders.length - 1 - displayIndex;
                 orders.splice(actualIndex, 1);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
                 loadAllOrders();
-                showMessage('Order deleted', 'info');
+                showToast('🗑️ Order deleted', 'info');
             }
         }
-        
+
         // Add manual order
         function addManualOrder() {
             const name = document.getElementById('manualName').value.trim();
@@ -268,24 +623,27 @@
             const status = document.getElementById('manualStatus').value;
             const email = document.getElementById('manualEmail').value;
             
+            const msgDiv = document.getElementById('manualMsg');
+            
             if (!name || !phone) {
-                document.getElementById('manualMsg').innerHTML = '❌ Name and phone are required';
-                document.getElementById('manualMsg').style.color = '#f44336';
+                msgDiv.innerHTML = '❌ Please fill Name and Phone';
+                msgDiv.style.color = '#f44336';
                 return;
             }
             
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            orders.push({
+            const newOrder = {
                 name: name,
                 phone: phone,
-                email: email,
+                email: email || '',
                 package: packageVal,
-                eventDate: eventDate,
-                address: address,
+                eventDate: eventDate || 'TBD',
+                address: address || '',
                 status: status,
                 date: new Date().toISOString(),
                 source: 'manual'
-            });
+            };
+            orders.push(newOrder);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
             
             // Clear form
@@ -294,103 +652,95 @@
             document.getElementById('manualEmail').value = '';
             document.getElementById('manualEventDate').value = '';
             document.getElementById('manualAddress').value = '';
+            document.getElementById('manualStatus').value = 'pending';
             
-            document.getElementById('manualMsg').innerHTML = '✅ Order added successfully!';
-            document.getElementById('manualMsg').style.color = '#4CAF50';
+            msgDiv.innerHTML = '✅ Order added successfully!';
+            msgDiv.style.color = '#4CAF50';
             loadAllOrders();
-            
-            setTimeout(() => { document.getElementById('manualMsg').innerHTML = ''; }, 3000);
+            setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
+            showToast('📋 Manual order added', 'success');
         }
-        
+
         // Export to CSV
         function exportOrdersToCSV() {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (orders.length === 0) {
-                alert('No orders to export');
+                showToast('No orders to export', 'error');
                 return;
             }
             
-            let csv = 'Date,Customer Name,Phone,Email,Package,Event Date,Address,Status\n';
+            let csv = '"Date","Customer Name","Phone","Email","Package","Event Date","Address","Status"\n';
             orders.forEach(order => {
-                csv += `"${order.date || ''}","${order.name || ''}","${order.phone || ''}","${order.email || ''}","${order.package || ''}","${order.eventDate || ''}","${order.address || ''}","${order.status || 'pending'}"\n`;
+                csv += `"${order.date || ''}","${(order.name || '').replace(/"/g, '""')}","${order.phone || ''}","${order.email || ''}","${order.package || ''}","${order.eventDate || ''}","${order.address || ''}","${order.status || 'pending'}"\n`;
             });
             
-            const blob = new Blob([csv], { type: 'text/csv' });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `sushi_orders_${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
+            link.href = url;
+            link.setAttribute('download', `sushi_orders_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             URL.revokeObjectURL(url);
+            showToast('📁 CSV exported', 'success');
         }
-        
+
         // Clear all orders
         function clearAllOrders() {
-            if (confirm('⚠️ WARNING: This will delete ALL orders. Are you sure?')) {
+            if (confirm('⚠️ WARNING: This will delete ALL orders. This action cannot be undone. Are you sure?')) {
                 localStorage.setItem(STORAGE_KEY, '[]');
                 loadAllOrders();
-                showMessage('All orders cleared', 'info');
+                showToast('All orders cleared', 'info');
             }
         }
-        
-        // Show temporary message
-        function showMessage(msg, type) {
-            // Create temporary message element
-            const div = document.createElement('div');
-            div.className = 'message ' + (type === 'success' ? 'success' : 'info');
-            div.textContent = msg;
-            div.style.position = 'fixed';
-            div.style.bottom = '20px';
-            div.style.right = '20px';
-            div.style.background = type === 'success' ? '#4CAF50' : '#2196F3';
-            div.style.color = 'white';
-            div.style.padding = '12px 24px';
-            div.style.borderRadius = '8px';
-            div.style.zIndex = '9999';
-            document.body.appendChild(div);
-            setTimeout(() => div.remove(), 3000);
+
+        // Load demo orders for testing
+        function loadDemoOrders() {
+            const demoOrders = [
+                { name: "Mekdes Alemu", phone: "0912345678", email: "mekdes@example.com", package: "The Addition", eventDate: "2026-05-15", address: "Bole, Addis", status: "confirmed", date: new Date().toISOString(), source: "demo" },
+                { name: "Henok Desta", phone: "0923456789", email: "henok@example.com", package: "The Entourage", eventDate: "2026-05-20", address: "Kazanchis", status: "pending", date: new Date().toISOString(), source: "demo" },
+                { name: "Sara Tadesse", phone: "0934567890", email: "sara@example.com", package: "The Dynasty", eventDate: "2026-06-01", address: "CMC", status: "confirmed", date: new Date().toISOString(), source: "demo" }
+            ];
+            const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            const merged = [...existing, ...demoOrders];
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+            loadAllOrders();
+            showToast('📊 Demo orders loaded', 'success');
         }
-        
-        // Simple authentication (demo mode - no Firebase required)
-        let isLoggedIn = false;
-        
+
+        // LOGIN functions
         function adminLogin() {
-            const email = document.getElementById('adminEmail').value.trim();
-            const password = document.getElementById('adminPassword').value;
-            const msg = document.getElementById('loginMsg');
+            const user = document.getElementById('adminUser').value.trim();
+            const pass = document.getElementById('adminPass').value;
+            const msgDiv = document.getElementById('loginMsg');
             
-            // Demo credentials: admin / admin123
-            if (email === 'admin' && password === 'admin123') {
+            // Simple demo authentication
+            if (user === 'admin' && pass === 'admin123') {
                 isLoggedIn = true;
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboardScreen').style.display = 'block';
                 loadAllOrders();
-                msg.innerHTML = '';
+                msgDiv.innerHTML = '';
             } else {
-                msg.innerHTML = '❌ Invalid credentials. Use admin / admin123';
-                msg.style.color = '#f44336';
+                msgDiv.innerHTML = '❌ Invalid credentials. Use admin / admin123';
+                msgDiv.style.color = '#f44336';
             }
         }
-        
+
         function adminLogout() {
             isLoggedIn = false;
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('dashboardScreen').style.display = 'none';
-            document.getElementById('adminEmail').value = '';
-            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminUser').value = 'admin';
+            document.getElementById('adminPass').value = 'admin123';
+            const loginMsg = document.getElementById('loginMsg');
+            loginMsg.innerHTML = '🔐 Demo: Use <strong>admin / admin123</strong>';
+            loginMsg.style.color = '#2196F3';
         }
-        
-        // Check if already has orders from website contact form
-        function syncWebsiteOrders() {
-            // The website contact form saves to same localStorage key
-            loadAllOrders();
-        }
-        
-        // Auto-load on dashboard show
-        window.syncOrders = loadAllOrders;
-        
-        // Initialize
-        console.log('Sushi Vibe Order Portal Ready');
+
+        // Auto-check if already logged in (for demo, default to login screen)
+        console.log('SUSHI VIBE Order Portal v2.0 - Ready');
     </script>
 </body>
 </html>
