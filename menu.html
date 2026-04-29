@@ -1,4 +1,4 @@
-<!-- menu.html - Printable PDF Menu for Sushi Vibe -->
+<!-- menu.html - Printable Menu with Navigation & Click-to-Call -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,6 @@
             --sushi-dark: #141414;
             --sushi-gold: #f5c518;
             --sushi-light: #f5f5f5;
-            --sushi-warm: #fff8f0;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Poppins', sans-serif;
         }
@@ -36,16 +35,17 @@
             .package-header { background: #f5f5f5; color: black; }
             .package-header h3 { color: #e31b23; }
             .section-title .red-text { color: #e31b23; }
-            .footer, .qr-section, .contact-section { display: none; }
+            footer, .qr-section, .call-action-section { display: none; }
             .print-header { display: block !important; text-align: center; margin-bottom: 30px; }
             @page { size: A4; margin: 1.5cm; }
         }
         
         .print-header { display: none; }
         
+        /* Navigation */
         .header { position: sticky; top: 0; z-index: 1000; background: var(--sushi-black); border-bottom: 1px solid rgba(227, 27, 35, 0.3); }
         .header-container { display: flex; align-items: center; justify-content: space-between; height: 70px; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo-image { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; border: 1px solid var(--sushi-red); }
         .logo-text { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
         .logo-main { font-size: 20px; color: var(--sushi-red); letter-spacing: 2px; }
@@ -56,10 +56,27 @@
         .portal-btn { background: var(--sushi-red); color: white !important; padding: 10px 20px; border-radius: 50px; font-weight: 600; }
         .mobile-menu-btn { display: none; background: transparent; border: none; color: var(--sushi-light); font-size: 28px; cursor: pointer; }
         
+        /* Call Action Button */
+        .call-btn { 
+            background: linear-gradient(135deg, #25D366, #128C7E); 
+            color: white; 
+            padding: 8px 18px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .call-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(37,211,102,0.4); }
+        
         .btn { display: inline-block; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 14px; text-align: center; transition: all 0.3s; cursor: pointer; border: none; text-decoration: none; }
         .btn-red { background: linear-gradient(135deg, var(--sushi-red), #b8161f); color: white; }
         .btn-outline-red { background: transparent; border: 2px solid var(--sushi-red); color: var(--sushi-red); }
         .btn-outline-red:hover { background: var(--sushi-red); color: white; }
+        .btn-green { background: linear-gradient(135deg, #25D366, #128C7E); color: white; }
         
         .hero { background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1617196034796-73dfa7b1fd55?w=1600'); background-size: cover; background-position: center; padding: 80px 0; text-align: center; }
         .hero-content { max-width: 800px; margin: 0 auto; padding: 0 20px; }
@@ -108,6 +125,12 @@
         .extra-item h4 { color: var(--sushi-red); margin-bottom: 8px; }
         .extra-price { font-size: 18px; font-weight: bold; color: var(--sushi-gold); }
         
+        /* Call Action Section */
+        .call-action-section { text-align: center; padding: 40px; background: linear-gradient(135deg, #1a1a1a, #111); border-radius: 30px; margin: 40px 0; border: 2px solid var(--sushi-red); }
+        .call-action-section h3 { font-size: 28px; margin-bottom: 15px; }
+        .call-action-section .phone-number { font-size: 32px; font-weight: 800; color: var(--sushi-red); margin: 15px 0; letter-spacing: 2px; }
+        .call-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        
         /* Footer Actions */
         .footer-actions { text-align: center; padding: 40px; background: var(--sushi-dark); border-radius: 30px; margin-top: 40px; }
         .footer-actions h3 { font-size: 28px; margin-bottom: 15px; }
@@ -123,25 +146,28 @@
             .section-title { font-size: 28px; }
             .packages-grid { grid-template-columns: 1fr; }
             .menu-grid { grid-template-columns: 1fr; }
+            .call-action-section .phone-number { font-size: 24px; }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
     <header class="header no-print">
         <div class="header-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/bdc64d84327d2b959f4e5cb9eb93da0615bcc838/logo.png" alt="SUSHI VIBE" class="logo-image">
                 <div class="logo-text">
                     <div class="logo-main">SUSHI VIBE</div>
                     <div class="logo-sub">THE ART OF 快樂 司</div>
                 </div>
-            </div>
+            </a>
             <nav class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="menu.html" class="nav-link active">Menu</a>
                 <a href="#packages" class="nav-link">Packages</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
                 <a href="portal.html" class="nav-link portal-btn">📋 Order Portal</a>
+                <a href="tel:+251927249999" class="call-btn"><i class="fas fa-phone-alt"></i> 📞 Call Now</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
@@ -151,21 +177,36 @@
     <div class="print-header">
         <h1 style="color: #e31b23;">SUSHI VIBE</h1>
         <p style="font-size: 14px;">THE ART OF 快樂 司 | Premium Japanese Catering</p>
-        <p style="font-size: 12px;">Addis Ababa, Ethiopia | sushivibes@proton.me</p>
+        <p style="font-size: 12px;">Addis Ababa, Ethiopia | 📞 +251 927 249999</p>
         <hr style="margin: 10px 0;">
     </div>
     
+    <!-- Hero Section -->
     <section class="hero no-print">
         <div class="hero-content">
             <span class="hero-badge">🍣 2026 MENU 🍣</span>
             <h1 class="hero-title">SUSHI <span class="red-text">VIBE</span></h1>
             <p class="hero-subtitle">Premium Japanese Catering - Addis Ababa</p>
-            <a href="#packages" class="btn btn-red">View Catering Packages →</a>
-            <a href="javascript:window.print()" class="btn btn-outline-red" style="margin-left: 10px;"><i class="fas fa-print"></i> Print Menu</a>
+            <div class="call-buttons">
+                <a href="#packages" class="btn btn-red">View Catering Packages →</a>
+                <a href="javascript:window.print()" class="btn btn-outline-red"><i class="fas fa-print"></i> Print Menu</a>
+                <a href="tel:+251927249999" class="btn btn-green"><i class="fas fa-phone-alt"></i> 📞 Call +251 927 249999</a>
+            </div>
         </div>
     </section>
     
     <div class="container">
+        <!-- CALL ACTION SECTION (Prominent) -->
+        <div class="call-action-section no-print">
+            <h3>📞 Need Help Ordering?</h3>
+            <div class="phone-number">+251 927 249999</div>
+            <p>Call us directly for catering inquiries, custom orders, or immediate assistance</p>
+            <div class="call-buttons">
+                <a href="tel:+251927249999" class="btn btn-green"><i class="fas fa-phone-alt"></i> Call Now</a>
+                <a href="https://wa.me/251927249999" class="btn btn-green"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+            </div>
+        </div>
+        
         <!-- À La Carte Menu -->
         <div class="section">
             <h2 class="section-title">À La <span class="red-text">Carte</span></h2>
@@ -203,7 +244,7 @@
                     </div>
                 </div>
                 
-                <!-- Special Rolls -->
+                <!-- Signature Rolls -->
                 <div class="menu-category">
                     <div class="category-header">
                         <h3>⭐ SIGNATURE ROLLS</h3>
@@ -341,7 +382,8 @@
             <p>Contact us for bookings or customize your package</p>
             <div class="btn-group">
                 <a href="index.html#contact" class="btn btn-red"><i class="fas fa-calendar-check"></i> Book Now</a>
-                <a href="https://wa.me/2519XXXXXXX" class="btn btn-outline-red"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                <a href="tel:+251927249999" class="btn btn-green"><i class="fas fa-phone-alt"></i> 📞 Call +251 927 249999</a>
+                <a href="https://wa.me/251927249999" class="btn btn-green"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 <a href="javascript:window.print()" class="btn btn-outline-red"><i class="fas fa-print"></i> Print Menu PDF</a>
             </div>
         </div>
@@ -350,7 +392,7 @@
     <footer class="no-print">
         <div class="container">
             <p>© 2026 SUSHI VIBE by Peacemakers Club | Best Sushi. Best Mood. Best Vibes.</p>
-            <p style="margin-top: 10px; font-size: 12px;">📞 Call: +251-9XX-XXX-XXX | ✉️ Email: sushivibes@proton.me</p>
+            <p style="margin-top: 10px; font-size: 12px;">📞 Call: <a href="tel:+251927249999" style="color: var(--sushi-red);">+251 927 249999</a> | ✉️ Email: sushivibes@proton.me</p>
             <p style="margin-top: 5px; font-size: 11px;">📍 Addis Ababa, Ethiopia | Delivery across the city</p>
         </div>
     </footer>
@@ -367,14 +409,14 @@
         }
         
         // Close menu on link click
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-link, .call-btn').forEach(link => {
             link.addEventListener('click', () => {
                 nm.classList.remove('active');
                 if(mmb) mmb.textContent = '☰';
             });
         });
         
-        console.log('Sushi Vibe Menu Page Ready - Print optimized');
+        console.log('Sushi Vibe Menu Page Ready - with Navigation & Call Action');
     </script>
 </body>
 </html>
