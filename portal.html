@@ -2,244 +2,322 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Admin Portal | SUSHI VIBE - Order Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | SUSHI VIBE</title>
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/developereth/sushivibecatering/bdc64d84327d2b959f4e5cb9eb93da0615bcc838/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: #f0f0f0; min-height: 100vh; }
-        
-        #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: radial-gradient(circle at 20% 30%, #0a0a0a 0%, #050505 100%); }
-        .login-card { background: #1a1a1a; border: 2px solid #e31b23; border-radius: 32px; padding: 45px 35px; max-width: 450px; width: 100%; text-align: center; }
-        .login-card h1 { color: #e31b23; font-family: 'Playfair Display', serif; font-size: 32px; }
-        .login-card p { color: #a0a0a0; margin-bottom: 28px; }
-        .input-group { margin-bottom: 18px; text-align: left; }
-        .input-group label { display: block; color: #e31b23; font-size: 12px; margin-bottom: 6px; font-weight: 600; }
-        input { width: 100%; padding: 14px 16px; background: #0e0e0e; border: 1px solid rgba(227,27,35,0.3); color: white; border-radius: 16px; font-size: 14px; }
-        input:focus { outline: none; border-color: #e31b23; }
-        button { padding: 14px 20px; background: linear-gradient(135deg, #e31b23, #b8161f); color: white; border: none; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; }
-        button:hover { transform: translateY(-2px); }
-        .message { margin-top: 18px; font-size: 13px; }
-        .error { color: #f44336; }
-        .info { color: #2196F3; }
-        
-        #dashboardScreen { display: none; padding: 25px; max-width: 1400px; margin: 0 auto; }
-        .dashboard-header { background: #1a1a1a; border: 1px solid rgba(227,27,35,0.3); border-radius: 24px; padding: 20px 28px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .dashboard-header h1 { color: #e31b23; font-family: 'Playfair Display', serif; font-size: 26px; }
-        .header-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-        .small-btn { padding: 10px 18px; font-size: 13px; width: auto; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-refresh { background: #2196F3; }
-        .btn-logout { background: #dc3545; }
-        .btn-home { background: #6c757d; text-decoration: none; color: white; }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 22px; margin-bottom: 35px; }
-        .stat-card { background: linear-gradient(145deg, #1a1a1a, #111); border: 1px solid rgba(227,27,35,0.2); border-radius: 24px; padding: 25px 20px; text-align: center; }
-        .stat-card h3 { color: #e31b23; font-size: 38px; font-family: 'Playfair Display', serif; }
-        .stat-card p { color: #a0a0a0; font-size: 13px; }
-        
-        .card { background: #1a1a1a; border: 1px solid rgba(227,27,35,0.2); border-radius: 24px; padding: 28px; margin-bottom: 30px; }
-        .card h3 { color: #e31b23; margin-bottom: 22px; font-size: 20px; border-left: 4px solid #e31b23; padding-left: 15px; }
-        .manual-card { background: linear-gradient(135deg, #1a1a1a, #121212); border: 2px solid #e31b23; }
-        
-        .table-wrapper { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { color: #e31b23; text-align: left; padding: 14px 10px; border-bottom: 2px solid #e31b23; }
-        td { padding: 14px 10px; border-bottom: 1px solid #2a2a2a; }
-        .badge { background: #1a3a1a; color: #4CAF50; padding: 5px 12px; border-radius: 30px; font-size: 11px; display: inline-block; }
-        .badge-pending { background: #3a2a1a; color: #FF9800; }
-        .action-btn { padding: 6px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 600; margin: 2px; color: white; width: auto; }
-        .approve-btn { background: #4CAF50; }
-        .delete-btn { background: #dc3545; }
-        
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
-        .btn-save { width: auto; padding: 12px 24px; background: #28a745; }
-        .flex-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
-        .empty-state { text-align: center; padding: 40px; color: #a0a0a0; }
-        
-        @media (max-width: 768px) {
-            .dashboard-header { flex-direction: column; text-align: center; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            th, td { font-size: 11px; padding: 8px 5px; }
-            .form-row { grid-template-columns: 1fr; }
+        :root {
+            --sushi-red: #e31b23;
+            --sushi-black: #0a0a0a;
+            --sushi-dark: #1a1a1a;
+            --sushi-gold: #f5c518;
+            --white: #ffffff;
+            --gray-mid: #b0b0b0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background: var(--sushi-black); color: var(--white); min-height: 100vh; }
+        
+        #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .login-card { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 24px; padding: 40px 30px; max-width: 420px; width: 100%; text-align: center; }
+        .login-card h1 { color: var(--sushi-red); font-family: var(--font-heading); font-size: 28px; margin-bottom: 8px; }
+        .login-card p { color: var(--gray-mid); font-size: 14px; margin-bottom: 24px; }
+        input { width: 100%; padding: 13px; background: #0a0a0a; border: 1px solid rgba(227,27,35,0.3); color: white; border-radius: 12px; margin-bottom: 14px; }
+        input:focus { outline: none; border-color: var(--sushi-red); }
+        button { padding: 14px; background: var(--sushi-red); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; }
+        button:hover { background: #b8161f; }
+        .message { margin-top: 14px; font-size: 14px; }
+        .error { color: #f44336; }
+        
+        #dashboardScreen { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .header { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 20px; padding: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .header h1 { color: var(--sushi-red); font-family: var(--font-heading); }
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; }
+        .btn-refresh { background: #2196F3; color: white; }
+        .btn-logout { background: #dc3545; color: white; }
+        .btn-portal { background: var(--sushi-red); color: white; text-decoration: none; display: inline-block; }
+        
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .stat-card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 16px; padding: 20px; text-align: center; }
+        .stat-card h3 { color: var(--sushi-red); font-size: 32px; font-family: var(--font-heading); }
+        .stat-card p { color: var(--gray-mid); font-size: 13px; }
+        
+        .card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        .card h3 { color: var(--sushi-red); margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { color: var(--sushi-red); text-align: left; padding: 10px 8px; border-bottom: 2px solid var(--sushi-red); }
+        td { padding: 10px 8px; border-bottom: 1px solid #333; }
+        .action-btn { padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; margin: 2px; color: white; }
+        .confirm-btn { background: #4CAF50; }
+        .delete-btn { background: #dc3545; }
+        .badge-confirmed { background: #1a3a1a; color: #4CAF50; padding: 4px 10px; border-radius: 20px; font-size: 11px; display: inline-block; }
+        .badge-pending { background: #3a2a1a; color: #FF9800; padding: 4px 10px; border-radius: 20px; font-size: 11px; display: inline-block; }
+        
+        .manual-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .manual-form input, .manual-form select { margin-bottom: 0; }
+        
+        @media (max-width: 768px) { table { font-size: 11px; } th, td { padding: 6px 4px; } }
     </style>
 </head>
 <body>
+    <!-- Login Screen -->
     <div id="loginScreen">
         <div class="login-card">
-            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/bdc64d84327d2b959f4e5cb9eb93da0615bcc838/logo.png" style="width: 70px; border-radius: 16px; margin-bottom: 15px;">
             <h1>🍣 SUSHI VIBE</h1>
-            <p>Order Management Portal</p>
-            <div class="input-group"><label><i class="fas fa-user"></i> Username</label><input type="text" id="adminUser" placeholder="admin" value="admin"></div>
-            <div class="input-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="adminPass" placeholder="••••••••" value="admin123"></div>
-            <button onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> Login to Dashboard</button>
-            <div id="loginMsg" class="message info">🔐 Use: <strong>admin / admin123</strong></div>
+            <p>Admin Order Management</p>
+            <input type="text" id="adminUser" placeholder="Username" value="admin">
+            <input type="password" id="adminPass" placeholder="Password" value="admin123">
+            <button onclick="login()">🔐 Login</button>
+            <div id="loginMsg" class="message"></div>
+            <p style="margin-top: 15px; font-size: 12px; color: #666;">Demo: admin / admin123</p>
         </div>
     </div>
-
+    
+    <!-- Dashboard -->
     <div id="dashboardScreen">
-        <div class="dashboard-header">
-            <h1><i class="fas fa-utensils"></i> Sushi Vibe - Order Dashboard</h1>
-            <div class="header-btns">
-                <button class="small-btn btn-refresh" onclick="loadAllOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
-                <a href="index.html" class="small-btn btn-home"><i class="fas fa-home"></i> Website</a>
-                <a href="menu.html" class="small-btn btn-home"><i class="fas fa-book"></i> Menu</a>
-                <button class="small-btn btn-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <div class="header">
+            <h1><i class="fas fa-sushi"></i> Sushi Vibe - Orders</h1>
+            <div class="btn-group">
+                <button class="btn btn-refresh" onclick="loadOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button class="btn" style="background:#4CAF50;" onclick="exportCSV()"><i class="fas fa-download"></i> Export CSV</button>
+                <a href="index.html" class="btn btn-portal"><i class="fas fa-home"></i> Website</a>
+                <button class="btn btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
-
-        <div class="stats-grid">
-            <div class="stat-card"><h3 id="totalOrders">0</h3><p>📦 Total Orders</p></div>
-            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>⏳ Pending</p></div>
-            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>✅ Confirmed</p></div>
-            <div class="stat-card"><h3 id="revenueTotal">0</h3><p>💰 Revenue (ETB)</p></div>
+        
+        <div class="stats">
+            <div class="stat-card"><h3 id="totalOrders">0</h3><p>Total Orders</p></div>
+            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>Pending</p></div>
+            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>Confirmed</p></div>
+            <div class="stat-card"><h3 id="totalRevenue">0</h3><p>Revenue (ETB)</p></div>
         </div>
-
+        
         <div class="card">
             <h3><i class="fas fa-list"></i> Customer Orders</h3>
-            <div class="table-wrapper">
+            <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr></thead>
-                    <tbody id="ordersTableBody"><tr><td colspan="8" class="empty-state">Loading orders...</td></tr>
+                    <thead>
+                        <tr><th>#</th><th>Date</th><th>Name</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <tr><td colspan="8" style="text-align:center;">Loading orders...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-
-        <div class="card manual-card">
-            <h3><i class="fas fa-plus-circle"></i> Add Manual Order (Phone/WhatsApp)</h3>
-            <div class="form-row">
-                <input type="text" id="manualName" placeholder="Full Name *">
-                <input type="tel" id="manualPhone" placeholder="Phone Number *">
-                <input type="email" id="manualEmail" placeholder="Email">
-                <select id="manualPackage"><option value="The Addition">The Addition - 14,500 ETB</option><option value="The Entourage">The Entourage - 26,000 ETB</option><option value="The Dynasty">The Dynasty - 36,000 ETB</option></select>
-            </div>
-            <div class="form-row">
-                <input type="date" id="manualEventDate" placeholder="Event Date">
-                <input type="text" id="manualAddress" placeholder="Delivery Address">
-                <select id="manualStatus"><option value="confirmed">✅ Confirmed (Paid)</option><option value="pending" selected>⏳ Pending</option></select>
-                <button class="btn-save" onclick="addManualOrder()"><i class="fas fa-save"></i> Save Order</button>
-            </div>
-            <div id="manualMsg" class="message"></div>
-        </div>
-
+        
         <div class="card">
-            <h3><i class="fas fa-chart-line"></i> Data Management</h3>
-            <p style="color: #a0a0a0; margin-bottom: 18px;">Package Prices: Addition (14,500) | Entourage (26,000) | Dynasty (36,000)</p>
-            <div class="flex-btns">
-                <button onclick="exportOrdersToCSV()" style="background: #28a745; width: auto;"><i class="fas fa-download"></i> Export CSV</button>
-                <button onclick="clearAllOrders()" style="background: #dc3545; width: auto;"><i class="fas fa-trash-alt"></i> Clear All Orders</button>
-                <button onclick="loadDemoOrders()" style="background: #ff9800; width: auto;"><i class="fas fa-chart-simple"></i> Load Demo Data</button>
+            <h3><i class="fas fa-plus-circle"></i> Add Manual Order (Phone/WhatsApp)</h3>
+            <div class="manual-form">
+                <input type="text" id="manualName" placeholder="Full Name *">
+                <input type="tel" id="manualPhone" placeholder="Phone *">
+                <select id="manualPackage">
+                    <option value="The Addition">The Addition - 14,500 ETB</option>
+                    <option value="The Entourage">The Entourage - 26,000 ETB</option>
+                    <option value="The Dynasty">The Dynasty - 36,000 ETB</option>
+                </select>
+                <input type="date" id="manualEventDate">
+                <select id="manualStatus">
+                    <option value="pending">⏳ Pending</option>
+                    <option value="confirmed">✅ Confirmed</option>
+                </select>
+                <button onclick="addManualOrder()" style="background:#4CAF50;">➕ Add Order</button>
             </div>
+            <div id="manualMsg" style="margin-top: 10px; font-size: 13px;"></div>
         </div>
     </div>
 
     <script>
         const STORAGE_KEY = 'sushi_orders';
         
-        function showToast(msg, type) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `position:fixed; bottom:20px; right:20px; background:${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'}; color:white; padding:12px 24px; border-radius:12px; z-index:9999;`;
-            toast.innerHTML = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+        function login() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+            const msg = document.getElementById('loginMsg');
+            
+            if (user === 'admin' && pass === 'admin123') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboardScreen').style.display = 'block';
+                loadOrders();
+                msg.innerHTML = '';
+            } else {
+                msg.innerHTML = '❌ Invalid credentials. Use admin / admin123';
+                msg.className = 'message error';
+            }
         }
         
-        function loadAllOrders() {
+        function logout() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('dashboardScreen').style.display = 'none';
+            document.getElementById('adminUser').value = 'admin';
+            document.getElementById('adminPass').value = 'admin123';
+        }
+        
+        function loadOrders() {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const tbody = document.getElementById('ordersTableBody');
-            if (orders.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state">📭 No orders yet</td></tr>';
-                document.getElementById('totalOrders').textContent = '0'; document.getElementById('pendingOrders').textContent = '0';
-                document.getElementById('confirmedOrders').textContent = '0'; document.getElementById('revenueTotal').textContent = '0';
+            const table = document.getElementById('ordersTable');
+            
+            if (orders.length === 0) {
+                table.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#888;">No orders yet. Submit a test order from the website!</td></tr>';
+                document.getElementById('totalOrders').textContent = '0';
+                document.getElementById('pendingOrders').textContent = '0';
+                document.getElementById('confirmedOrders').textContent = '0';
+                document.getElementById('totalRevenue').textContent = '0';
                 return;
             }
-            const sorted = [...orders].reverse();
-            let pending = 0, confirmed = 0, totalRevenue = 0;
-            tbody.innerHTML = '';
-            sorted.forEach((order, idx) => {
+            
+            let pending = 0, confirmed = 0, revenue = 0;
+            table.innerHTML = '';
+            
+            // Show newest first
+            [...orders].reverse().forEach((order, idx) => {
                 const status = order.status || 'pending';
-                status === 'pending' ? pending++ : confirmed++;
-                let price = 0;
-                if (order.package === 'The Addition') price = 14500;
-                else if (order.package === 'The Entourage') price = 26000;
-                else if (order.package === 'The Dynasty') price = 36000;
-                if (status === 'confirmed') totalRevenue += price;
-                const orderDate = order.date ? new Date(order.date).toLocaleDateString() : new Date().toLocaleDateString();
-                tbody.innerHTML += `<tr><td>#${idx+1}</td><td>${orderDate}</td><td><strong>${escapeHtml(order.name)}</strong></td><td>${escapeHtml(order.phone)}</td><td>${escapeHtml(order.package)}</td><td>${order.eventDate || 'TBD'}</td><td><span class="${status === 'confirmed' ? 'badge' : 'badge-pending'}">${status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending'}</span></td>
-                <td>${status === 'pending' ? `<button class="action-btn approve-btn" onclick="confirmOrder(${idx})">Confirm</button>` : ''}<button class="action-btn delete-btn" onclick="deleteOrder(${idx})">Delete</button></td></tr>`;
+                if (status === 'pending') pending++;
+                if (status === 'confirmed') {
+                    confirmed++;
+                    let price = 0;
+                    if (order.package === 'The Addition') price = 14500;
+                    else if (order.package === 'The Entourage') price = 26000;
+                    else if (order.package === 'The Dynasty') price = 36000;
+                    revenue += price;
+                }
+                
+                const statusHtml = status === 'confirmed' ? '<span class="badge-confirmed">✅ Confirmed</span>' : '<span class="badge-pending">⏳ Pending</span>';
+                const date = order.date ? new Date(order.date).toLocaleDateString() : 'N/A';
+                const eventDate = order.eventDate || 'TBD';
+                const originalIndex = orders.length - 1 - idx;
+                
+                table.innerHTML += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td>${date}</td>
+                        <td>${escapeHtml(order.name || 'N/A')}</td>
+                        <td>${escapeHtml(order.phone || 'N/A')}</td>
+                        <td>${order.package || 'N/A'}</td>
+                        <td>${eventDate}</td>
+                        <td>${statusHtml}</td>
+                        <td>
+                            ${status !== 'confirmed' ? `<button class="action-btn confirm-btn" onclick="confirmOrder(${originalIndex})">✅ Confirm</button>` : ''}
+                            <button class="action-btn delete-btn" onclick="deleteOrder(${originalIndex})">🗑️ Delete</button>
+                        </td>
+                    </tr>
+                `;
             });
+            
             document.getElementById('totalOrders').textContent = orders.length;
             document.getElementById('pendingOrders').textContent = pending;
             document.getElementById('confirmedOrders').textContent = confirmed;
-            document.getElementById('revenueTotal').textContent = totalRevenue.toLocaleString();
+            document.getElementById('totalRevenue').textContent = revenue.toLocaleString();
         }
         
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
         
-        function confirmOrder(displayIndex) {
+        function confirmOrder(index) {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const actualIndex = orders.length - 1 - displayIndex;
-            if (orders[actualIndex]) { orders[actualIndex].status = 'confirmed'; localStorage.setItem(STORAGE_KEY, JSON.stringify(orders)); loadAllOrders(); showToast('✅ Order confirmed!', 'success'); }
+            if (orders[index]) {
+                orders[index].status = 'confirmed';
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+                loadOrders();
+                showToast('✅ Order confirmed!', '#4CAF50');
+            }
         }
         
-        function deleteOrder(displayIndex) {
+        function deleteOrder(index) {
             if (confirm('Delete this order?')) {
                 const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                const actualIndex = orders.length - 1 - displayIndex;
-                orders.splice(actualIndex, 1);
+                orders.splice(index, 1);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
-                loadAllOrders();
-                showToast('🗑️ Order deleted', 'info');
+                loadOrders();
+                showToast('🗑️ Order deleted', '#dc3545');
             }
         }
         
         function addManualOrder() {
             const name = document.getElementById('manualName').value.trim();
             const phone = document.getElementById('manualPhone').value.trim();
-            if (!name || !phone) { document.getElementById('manualMsg').innerHTML = '❌ Name and phone required'; document.getElementById('manualMsg').style.color = '#f44336'; return; }
+            const packageVal = document.getElementById('manualPackage').value;
+            const eventDate = document.getElementById('manualEventDate').value;
+            const status = document.getElementById('manualStatus').value;
+            
+            if (!name || !phone) {
+                document.getElementById('manualMsg').innerHTML = '❌ Name and phone required';
+                document.getElementById('manualMsg').style.color = '#f44336';
+                return;
+            }
+            
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            orders.push({ name, phone, email: document.getElementById('manualEmail').value, package: document.getElementById('manualPackage').value, eventDate: document.getElementById('manualEventDate').value || 'TBD', address: document.getElementById('manualAddress').value, status: document.getElementById('manualStatus').value, date: new Date().toISOString(), source: 'manual' });
+            orders.push({
+                name: name,
+                phone: phone,
+                package: packageVal,
+                eventDate: eventDate,
+                status: status,
+                date: new Date().toISOString(),
+                source: 'manual'
+            });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
-            document.getElementById('manualName').value = ''; document.getElementById('manualPhone').value = ''; document.getElementById('manualEmail').value = ''; document.getElementById('manualEventDate').value = ''; document.getElementById('manualAddress').value = '';
-            document.getElementById('manualMsg').innerHTML = '✅ Order added!'; document.getElementById('manualMsg').style.color = '#4CAF50';
-            loadAllOrders(); setTimeout(() => document.getElementById('manualMsg').innerHTML = '', 3000);
+            
+            document.getElementById('manualName').value = '';
+            document.getElementById('manualPhone').value = '';
+            document.getElementById('manualEventDate').value = '';
+            document.getElementById('manualMsg').innerHTML = '✅ Order added successfully!';
+            document.getElementById('manualMsg').style.color = '#4CAF50';
+            loadOrders();
+            setTimeout(() => { document.getElementById('manualMsg').innerHTML = ''; }, 3000);
         }
         
-        function exportOrdersToCSV() {
+        function exportCSV() {
             const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (orders.length === 0) { showToast('No orders to export', 'error'); return; }
-            let csv = '"Date","Name","Phone","Email","Package","Event Date","Address","Status"\n';
-            orders.forEach(o => { csv += `"${o.date || ''}","${o.name || ''}","${o.phone || ''}","${o.email || ''}","${o.package || ''}","${o.eventDate || ''}","${o.address || ''}","${o.status || 'pending'}"\n`; });
-            const blob = new Blob([csv], { type: 'text/csv' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `sushi_orders_${new Date().toISOString().split('T')[0]}.csv`; link.click(); URL.revokeObjectURL(link.href);
-            showToast('CSV exported', 'success');
+            if (orders.length === 0) {
+                alert('No orders to export');
+                return;
+            }
+            
+            let csv = 'Date,Name,Phone,Package,Event Date,Status,Source\n';
+            orders.forEach(order => {
+                csv += `"${order.date || ''}","${order.name || ''}","${order.phone || ''}","${order.package || ''}","${order.eventDate || ''}","${order.status || 'pending'}","${order.source || 'website'}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sushi_orders_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
         }
         
-        function clearAllOrders() { if (confirm('Delete ALL orders?')) { localStorage.setItem(STORAGE_KEY, '[]'); loadAllOrders(); showToast('All orders cleared', 'info'); } }
-        
-        function loadDemoOrders() {
-            const demo = [{ name: "Mekdes Alemu", phone: "0912345678", package: "The Addition", eventDate: "2026-05-15", status: "confirmed", date: new Date().toISOString() }, { name: "Henok Desta", phone: "0923456789", package: "The Entourage", eventDate: "2026-05-20", status: "pending", date: new Date().toISOString() }];
-            const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            localStorage.setItem(STORAGE_KEY, JSON.stringify([...existing, ...demo]));
-            loadAllOrders(); showToast('Demo orders loaded', 'success');
+        function showToast(msg, color) {
+            const toast = document.createElement('div');
+            toast.innerHTML = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.background = color;
+            toast.style.color = 'white';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '8px';
+            toast.style.zIndex = '9999';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
         }
         
-        function adminLogin() {
-            const user = document.getElementById('adminUser').value.trim();
-            const pass = document.getElementById('adminPass').value;
-            if (user === 'admin' && pass === 'admin123') {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboardScreen').style.display = 'block';
-                loadAllOrders();
-            } else { document.getElementById('loginMsg').innerHTML = '❌ Invalid credentials'; document.getElementById('loginMsg').style.color = '#f44336'; }
-        }
-        
-        function adminLogout() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboardScreen').style.display = 'none';
-            document.getElementById('adminUser').value = 'admin';
-            document.getElementById('adminPass').value = 'admin123';
-        }
+        // Debug - show storage info
+        console.log('Admin Portal Loaded');
+        console.log('Orders in storage:', JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
     </script>
 </body>
 </html>
