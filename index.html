@@ -118,7 +118,7 @@
             }
         }
 
-        /* REST OF YOUR STYLES */
+        /* Hero */
         .hero {
             min-height: 90vh;
             display: flex;
@@ -165,6 +165,10 @@
             border: 2px solid #e31b23;
             color: #e31b23;
             background: transparent;
+        }
+        .btn-outline:hover {
+            background: #e31b23;
+            color: white;
         }
         .packages {
             display: grid;
@@ -229,12 +233,30 @@
             justify-content: center;
             color: #e31b23;
             font-size: 18px;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            background: #e31b23;
+            color: white;
+            transform: translateY(-3px);
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ✅ NAVIGATION BAR - VISIBLE NOW ✅ -->
+    <!-- NAVIGATION BAR -->
     <div class="navbar">
         <div class="logo">
             <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE">
@@ -322,34 +344,49 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <h2>Book Your <span style="color:#e31b23;">Sushi Experience</span></h2>
-        <p style="margin-bottom: 30px;">Call or message us to order</p>
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <p style="margin-bottom: 20px;">Call or message us to order</p>
+        <div class="contact-buttons">
             <a href="tel:+251927249999" class="btn btn-red">📞 Call +251 927 249999</a>
             <a href="https://wa.me/251927249999" class="btn btn-outline">💬 WhatsApp</a>
-            <a href="https://t.me/sushivibe" class="btn btn-outline">✈️ Telegram</a>
+            <a href="https://t.me/sushivib" class="btn btn-outline">✈️ Telegram</a>
             <a href="https://www.instagram.com/sushi_vibe26" class="btn btn-outline">📷 Instagram</a>
+            <a href="https://www.tiktok.com/@sushivibe.caterin" class="btn btn-outline">🎵 TikTok</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" style="width: 40px; height: 40px;">
+            <div class="logo-text">
+                <h1 style="font-size: 18px;">SUSHI VIBE</h1>
+                <p>THE ART OF 快樂 司</p>
+            </div>
+        </div>
         <p>© 2026 SUSHI VIBE by Peacemakers Club | Best Sushi. Best Mood. Best Vibes.</p>
         <div class="social-links">
-            <a href="https://t.me/sushivibe"><i class="fab fa-telegram"></i></a>
+            <a href="https://t.me/sushivib"><i class="fab fa-telegram"></i></a>
             <a href="https://www.instagram.com/sushi_vibe26"><i class="fab fa-instagram"></i></a>
             <a href="https://www.tiktok.com/@sushivibe.caterin"><i class="fab fa-tiktok"></i></a>
             <a href="https://wa.me/251927249999"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <p style="margin-top: 20px;">Powered by Addis Power Web Solution</p>
+        <p style="margin-top: 20px;">Powered by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23;">Addis Power Web Solution</a></p>
     </footer>
 
     <script>
-        // Mobile menu toggle
         const mobileBtn = document.getElementById('mobileMenu');
         const navLinks = document.getElementById('navLinks');
         
-        mobileBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        if(mobileBtn) {
+            mobileBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
         });
     </script>
 </body>
