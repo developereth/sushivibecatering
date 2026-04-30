@@ -2,232 +2,417 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu | SUSHI VIBE - Premium Sushi Catering Addis Ababa</title>
     <meta name="description" content="SUSHI VIBE menu - À la carte sushi, maki rolls, nigiri, sashimi, and catering packages. Fresh sushi delivery in Addis Ababa, Ethiopia.">
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root {
-            --sushi-red: #e31b23;
-            --sushi-black: #0a0a0a;
-            --sushi-dark: #141414;
-            --sushi-card: #1a1a1a;
-            --sushi-gold: #f5c518;
-            --sushi-gray: #888888;
-            --header-height: 80px;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Poppins', sans-serif;
-            --transition: all 0.3s ease;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: var(--font-body); 
-            background-color: var(--sushi-black); 
-            color: var(--sushi-light); 
-            line-height: 1.6;
-            overflow-x: hidden;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
         }
-        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; }
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        
-        /* Print Styles */
-        @media print {
-            body { background: white; color: black; }
-            .no-print { display: none !important; }
-            .package-card, .menu-category { break-inside: avoid; }
-            .print-header { display: block !important; text-align: center; margin-bottom: 30px; }
-            .section-title .red-text { color: #e31b23; }
-            @page { size: A4; margin: 1.5cm; }
-        }
-        .print-header { display: none; }
-        
-        /* Header */
-        .header { 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+
+        /* NAVIGATION BAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
             background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(227, 27, 35, 0.3);
+            border-bottom: 1px solid #e31b23;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .header-container { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            height: var(--header-height); 
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .logo { display: flex; align-items: center; gap: 12px; }
-        .logo-image { 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 12px; 
-            object-fit: cover; 
-            border: 2px solid var(--sushi-red);
-            transition: var(--transition);
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            border: 1px solid #e31b23;
         }
-        .logo-image:hover { transform: scale(1.05); border-color: var(--sushi-gold); }
-        .logo-text { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
-        .logo-main { font-size: 22px; color: var(--sushi-red); letter-spacing: 2px; }
-        .logo-sub { font-size: 9px; color: var(--sushi-gray); letter-spacing: 1.5px; }
-        .nav-menu { display: flex; align-items: center; gap: 28px; }
-        .nav-link { 
-            font-weight: 500; 
-            font-size: 14px; 
-            color: var(--sushi-light); 
-            position: relative; 
-            padding: 8px 0;
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
         }
-        .nav-link:hover, .nav-link.active { color: var(--sushi-red); }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--sushi-red);
-            transition: width 0.3s ease;
+
+        .logo-text h1 {
+            font-size: 20px;
+            color: #e31b23;
         }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .call-nav-btn {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            padding: 8px 18px;
+
+        .logo-text p {
+            font-size: 8px;
+            color: #888;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e31b23;
+        }
+
+        .call-btn {
+            background: #25D366;
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
-        .call-nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(37,211,102,0.4); }
-        .mobile-menu-btn { display: none; background: transparent; border: none; color: var(--sushi-light); font-size: 28px; cursor: pointer; }
-        
+
+        .call-btn:hover {
+            background: #128C7E;
+            color: white !important;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Print Styles */
+        @media print {
+            .navbar, .no-print, .call-btn {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .menu-category, .package-card {
+                break-inside: avoid;
+            }
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+        }
+        .print-header {
+            display: none;
+        }
+
         /* Buttons */
-        .btn { 
-            display: inline-block; 
-            padding: 12px 28px; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            text-align: center; 
-            transition: var(--transition); 
-            cursor: pointer; 
-            border: none;
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            margin: 5px;
         }
-        .btn-red { background: linear-gradient(135deg, var(--sushi-red), #b8161f); color: white; }
-        .btn-red:hover { transform: translateY(-2px); }
-        .btn-outline-red { background: transparent; border: 2px solid var(--sushi-red); color: var(--sushi-red); }
-        .btn-outline-red:hover { background: var(--sushi-red); color: white; }
-        
+        .btn-red {
+            background: #e31b23;
+            color: white;
+        }
+        .btn-outline {
+            border: 2px solid #e31b23;
+            color: #e31b23;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: #e31b23;
+            color: white;
+        }
+
         /* Hero */
-        .hero { background: linear-gradient(135deg, #0a0a0a, #141414); padding: 60px 0; text-align: center; }
-        .hero-content { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-        .hero-badge { display: inline-block; background: rgba(227,27,35,0.2); border: 1px solid var(--sushi-red); color: var(--sushi-red); padding: 6px 20px; border-radius: 50px; font-size: 12px; margin-bottom: 20px; }
-        .hero-title { font-size: 48px; font-weight: 800; color: white; margin-bottom: 16px; }
-        .hero-title .red-text { color: var(--sushi-red); }
-        .hero-subtitle { font-size: 18px; color: #ddd; margin-bottom: 20px; }
-        
-        .section { padding: 60px 0; }
-        .section-dark { background: var(--sushi-dark); }
-        .section-title { font-size: 36px; margin-bottom: 16px; text-align: center; font-family: var(--font-heading); }
-        .section-title .red-text { color: var(--sushi-red); }
-        .section-desc { text-align: center; color: var(--sushi-gray); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 15px; }
-        
-        /* Menu Grid */
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 50px; }
-        .menu-category { background: var(--sushi-card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(227,27,35,0.2); }
-        .category-header { background: linear-gradient(135deg, #1a1a1a, #111); padding: 20px; text-align: center; border-bottom: 2px solid var(--sushi-red); }
-        .category-header h3 { color: var(--sushi-red); font-size: 24px; font-family: var(--font-heading); }
-        .category-header p { color: var(--sushi-gray); font-size: 12px; margin-top: 5px; }
-        .menu-items { padding: 20px; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); }
-        .menu-item:last-child { border-bottom: none; }
-        .item-name { font-weight: 500; }
-        .item-desc { font-size: 11px; color: var(--sushi-gray); margin-top: 4px; }
-        .item-price { color: var(--sushi-red); font-weight: 700; }
-        
-        /* Packages */
-        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 20px; }
-        .package-card { background: linear-gradient(145deg, var(--sushi-card) 0%, #111 100%); border-radius: 28px; overflow: hidden; border: 1px solid rgba(227,27,35,0.2); transition: var(--transition); position: relative; }
-        .package-card:hover { transform: translateY(-5px); border-color: var(--sushi-red); }
-        .package-badge { position: absolute; top: 15px; right: 15px; background: var(--sushi-red); padding: 4px 12px; border-radius: 30px; font-size: 11px; font-weight: bold; }
-        .package-header { padding: 1.5rem; background: linear-gradient(135deg, #1a1a1a 0%, #111 100%); border-bottom: 2px solid var(--sushi-red); }
-        .package-header h3 { font-size: 1.5rem; margin-bottom: 4px; color: white; }
-        .package-sub { color: var(--sushi-gold); font-size: 0.8rem; }
-        .package-price { font-size: 1.8rem; font-weight: 800; color: var(--sushi-red); margin-top: 10px; display: inline-block; }
-        .package-price small { font-size: 0.8rem; font-weight: normal; color: #aaa; }
-        .package-content { padding: 1.5rem; }
-        .package-content ul { list-style: none; margin: 0.5rem 0; }
-        .package-content li { padding: 6px 0; padding-left: 28px; position: relative; color: #ccc; font-size: 13px; }
-        .package-content li::before { content: "🍣"; position: absolute; left: 0; color: var(--sushi-red); font-size: 12px; }
-        
-        /* Extras */
-        .extras-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: 30px; }
-        .extra-item { background: var(--sushi-card); border-radius: 20px; padding: 20px; text-align: center; border: 1px solid rgba(227,27,35,0.2); }
-        .extra-item h4 { color: var(--sushi-red); margin-bottom: 8px; }
-        .extra-price { font-size: 18px; font-weight: bold; color: var(--sushi-gold); margin-top: 10px; }
-        
-        /* Footer Actions */
-        .footer-actions { text-align: center; padding: 40px; background: var(--sushi-dark); border-radius: 30px; margin-top: 40px; }
-        .footer-actions h3 { font-size: 28px; margin-bottom: 15px; }
-        .footer-actions .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-        
-        /* Footer */
-        .footer { background: var(--sushi-black); padding: 60px 0 30px; border-top: 1px solid rgba(227,27,35,0.2); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px; }
-        .footer-title { color: var(--sushi-red); font-size: 18px; margin-bottom: 20px; font-weight: 700; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: var(--sushi-gray); font-size: 14px; }
-        .footer-links a:hover { color: var(--sushi-red); padding-left: 5px; }
-        .social-links { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-        .social-link { width: 40px; height: 40px; background: var(--sushi-card); border: 1px solid rgba(227,27,35,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--sushi-red); font-size: 18px; transition: var(--transition); }
-        .social-link:hover { background: var(--sushi-red); color: white; transform: translateY(-3px); }
-        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(227,27,35,0.1); color: var(--sushi-gray); font-size: 13px; }
-        .footer-bottom a { color: var(--sushi-red); }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu { display: none; position: fixed; top: var(--header-height); left: 0; right: 0; background: var(--sushi-black); flex-direction: column; padding: 25px; border-bottom: 2px solid var(--sushi-red); z-index: 999; gap: 18px; }
-            .nav-menu.active { display: flex; }
-            .mobile-menu-btn { display: block; }
-            .hero-title { font-size: 32px; }
-            .section-title { font-size: 28px; }
-            .packages-grid { grid-template-columns: 1fr; }
-            .menu-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0a0a0a, #141414);
         }
-        @media (max-width: 480px) {
-            .container { padding: 0 16px; }
-            .package-header h3 { font-size: 1.3rem; }
+        .hero h1 {
+            font-size: 48px;
+            font-family: 'Playfair Display', serif;
+        }
+        .hero h1 span {
+            color: #e31b23;
+        }
+
+        /* Menu Grid */
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+        }
+        .section-title span {
+            color: #e31b23;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .menu-category {
+            background: #1a1a1a;
+            border-radius: 20px;
+            border: 1px solid rgba(227,27,35,0.2);
+            overflow: hidden;
+        }
+        .category-header {
+            background: #111;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e31b23;
+        }
+        .category-header h3 {
+            color: #e31b23;
+            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+        }
+        .category-header p {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .menu-items {
+            padding: 20px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .item-name {
+            font-weight: 500;
+        }
+        .item-desc {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .item-price {
+            color: #e31b23;
+            font-weight: 700;
+        }
+
+        /* Packages */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .package-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            border: 1px solid rgba(227,27,35,0.2);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: #e31b23;
+        }
+        .package-badge {
+            background: #e31b23;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin: 15px 15px 0;
+        }
+        .package-header {
+            padding: 20px;
+            border-bottom: 2px solid #e31b23;
+        }
+        .package-header h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .package-sub {
+            color: #f5c518;
+            font-size: 13px;
+        }
+        .package-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e31b23;
+            margin-top: 10px;
+        }
+        .package-price small {
+            font-size: 12px;
+            color: #888;
+        }
+        .package-content {
+            padding: 20px;
+        }
+        .package-content ul {
+            list-style: none;
+        }
+        .package-content li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .package-content li::before {
+            content: "🍣";
+            position: absolute;
+            left: 0;
+            color: #e31b23;
+        }
+
+        /* Extras */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .extra-item {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(227,27,35,0.2);
+        }
+        .extra-item h4 {
+            color: #e31b23;
+            margin-bottom: 10px;
+        }
+        .extra-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f5c518;
+            margin-top: 10px;
+        }
+
+        /* Footer Actions */
+        .footer-actions {
+            text-align: center;
+            padding: 40px;
+            background: #141414;
+            border-radius: 30px;
+            margin: 40px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 50px 20px 30px;
+            border-top: 1px solid rgba(227,27,35,0.2);
+            text-align: center;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e31b23;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            background: #e31b23;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                right: 0;
+                background: #0a0a0a;
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 2px solid #e31b23;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .menu-grid, .packages-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header no-print">
-        <div class="container header-container">
-            <a href="index.html" class="logo">
-                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" class="logo-image">
-                <div class="logo-text">
-                    <div class="logo-main">SUSHI VIBE</div>
-                    <div class="logo-sub">THE ART OF 快樂 司</div>
-                </div>
-            </a>
-            <nav class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="menu.html" class="nav-link active">Menu</a>
-                <a href="index.html#packages" class="nav-link">Packages</a>
-                <a href="index.html#about" class="nav-link">About</a>
-                <a href="index.html#contact" class="nav-link">Contact</a>
-                <a href="tel:+251927249999" class="call-nav-btn"><i class="fas fa-phone-alt"></i> Call</a>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+
+    <!-- ✅ NAVIGATION BAR - SAME AS INDEX.HTML ✅ -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE">
+            <div class="logo-text">
+                <h1>SUSHI VIBE</h1>
+                <p>THE ART OF 快樂 司</p>
+            </div>
         </div>
-    </header>
-    
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="menu.html">📋 Menu</a></li>
+            <li><a href="index.html#packages">📦 Packages</a></li>
+            <li><a href="index.html#about">📖 About</a></li>
+            <li><a href="index.html#contact">📞 Contact</a></li>
+            <li><a href="tel:+251927249999" class="call-btn">📞 Call</a></li>
+        </ul>
+        <div class="mobile-menu" id="mobileMenu">☰</div>
+    </div>
+
     <!-- Print Header -->
     <div class="print-header">
         <h1 style="color: #e31b23;">SUSHI VIBE</h1>
@@ -235,211 +420,223 @@
         <p style="font-size: 12px;">Addis Ababa, Ethiopia | 📞 +251 927 249999</p>
         <hr style="margin: 10px 0;">
     </div>
-    
+
     <!-- Hero Section -->
     <section class="hero no-print">
-        <div class="hero-content">
-            <span class="hero-badge">🍣 2026 MENU 🍣</span>
-            <h1 class="hero-title">SUSHI <span class="red-text">VIBE</span></h1>
-            <p class="hero-subtitle">Premium Sushi Catering - Addis Ababa, Ethiopia</p>
-            <div>
-                <a href="javascript:window.print()" class="btn btn-outline-red"><i class="fas fa-print"></i> Print Menu</a>
-                <a href="tel:+251927249999" class="btn btn-red" style="margin-left: 10px;"><i class="fas fa-phone-alt"></i> Call to Order</a>
-            </div>
-        </div>
+        <h1>SUSHI <span>VIBE</span> MENU</h1>
+        <p style="margin: 15px 0;">Premium Sushi Catering - Addis Ababa, Ethiopia</p>
+        <a href="javascript:window.print()" class="btn btn-outline"><i class="fas fa-print"></i> Print Menu</a>
+        <a href="tel:+251927249999" class="btn btn-red"><i class="fas fa-phone-alt"></i> Call to Order</a>
     </section>
-    
-    <div class="container">
+
+    <div class="menu-container">
         <!-- À La Carte Menu -->
-        <div class="section">
-            <h2 class="section-title">À La <span class="red-text">Carte</span></h2>
-            <p class="section-desc">Individual items perfect for any occasion</p>
+        <h2 class="section-title">À La <span>Carte</span></h2>
+        <div class="menu-grid">
+            <!-- Maki & Rolls -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>🍚 MAKI & ROLLS</h3>
+                    <p>8 pieces per roll</p>
+                </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">California Roll</div><div class="item-desc">Crab, avocado, cucumber</div></div><div class="item-price">650 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Spicy Tuna Roll</div><div class="item-desc">Tuna, spicy mayo, cucumber</div></div><div class="item-price">750 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Salmon Avocado Roll</div><div class="item-desc">Fresh salmon, avocado</div></div><div class="item-price">720 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Dragon Roll</div><div class="item-desc">Eel, cucumber, avocado topping</div></div><div class="item-price">850 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Rainbow Roll</div><div class="item-desc">Assorted fish on California roll</div></div><div class="item-price">900 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Futomaki</div><div class="item-desc">Traditional thick roll, 5 ingredients</div></div><div class="item-price">680 ETB</div></div>
+                </div>
+            </div>
             
-            <div class="menu-grid">
-                <!-- Maki & Rolls -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>🍚 MAKI & ROLLS</h3><p>8 pieces per roll</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">California Roll</div><div class="item-desc">Crab, avocado, cucumber</div></div><div class="item-price">650 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Spicy Tuna Roll</div><div class="item-desc">Tuna, spicy mayo, cucumber</div></div><div class="item-price">750 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Salmon Avocado Roll</div><div class="item-desc">Fresh salmon, avocado</div></div><div class="item-price">720 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Dragon Roll</div><div class="item-desc">Eel, cucumber, avocado topping</div></div><div class="item-price">850 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Rainbow Roll</div><div class="item-desc">Assorted fish on California roll</div></div><div class="item-price">900 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Futomaki</div><div class="item-desc">Traditional thick roll, 5 ingredients</div></div><div class="item-price">680 ETB</div></div>
-                    </div>
+            <!-- Nigiri & Sashimi -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>🐟 NIGIRI & SASHIMI</h3>
+                    <p>2 pieces per order</p>
                 </div>
-                
-                <!-- Nigiri & Sashimi -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>🐟 NIGIRI & SASHIMI</h3><p>2 pieces per order</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">Salmon Nigiri</div><div class="item-desc">Fresh Atlantic salmon</div></div><div class="item-price">400 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Tuna Nigiri</div><div class="item-desc">Premium maguro tuna</div></div><div class="item-price">450 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Shrimp Nigiri (Ebi)</div><div class="item-desc">Cooked sweet shrimp</div></div><div class="item-price">380 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Salmon Sashimi</div><div class="item-desc">5 slices</div></div><div class="item-price">550 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Mixed Sashimi</div><div class="item-desc">Salmon, tuna, yellowtail - 9 pcs</div></div><div class="item-price">1,200 ETB</div></div>
-                    </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">Salmon Nigiri</div><div class="item-desc">Fresh Atlantic salmon</div></div><div class="item-price">400 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Tuna Nigiri</div><div class="item-desc">Premium maguro tuna</div></div><div class="item-price">450 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Shrimp Nigiri (Ebi)</div><div class="item-desc">Cooked sweet shrimp</div></div><div class="item-price">380 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Salmon Sashimi</div><div class="item-desc">5 slices</div></div><div class="item-price">550 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Mixed Sashimi</div><div class="item-desc">Salmon, tuna, yellowtail - 9 pcs</div></div><div class="item-price">1,200 ETB</div></div>
                 </div>
-                
-                <!-- Signature Rolls -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>⭐ SIGNATURE ROLLS</h3><p>Chef's special creations</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">Sushi Vibe Special</div><div class="item-desc">Spicy tuna, shrimp tempura, avocado, special sauce</div></div><div class="item-price">1,100 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Volcano Roll</div><div class="item-desc">Baked scallop and salmon on California roll</div></div><div class="item-price">1,050 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Peacemaker Roll</div><div class="item-desc">Salmon, cream cheese, avocado, topped with tuna</div></div><div class="item-price">1,200 ETB</div></div>
-                    </div>
+            </div>
+            
+            <!-- Signature Rolls -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>⭐ SIGNATURE ROLLS</h3>
+                    <p>Chef's special creations</p>
                 </div>
-                
-                <!-- Hot Dishes -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>🔥 HOT DISHES</h3><p>Warm favorites</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">Chicken Teriyaki</div><div class="item-desc">Grilled chicken with teriyaki sauce, rice</div></div><div class="item-price">450 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Beef Yakiniku</div><div class="item-desc">Grilled beef with BBQ sauce</div></div><div class="item-price">550 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Vegetable Tempura</div><div class="item-desc">Assorted crispy tempura vegetables</div></div><div class="item-price">350 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Shrimp Tempura</div><div class="item-desc">5 pieces with dipping sauce</div></div><div class="item-price">480 ETB</div></div>
-                    </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">Sushi Vibe Special</div><div class="item-desc">Spicy tuna, shrimp tempura, avocado, special sauce</div></div><div class="item-price">1,100 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Volcano Roll</div><div class="item-desc">Baked scallop and salmon on California roll</div></div><div class="item-price">1,050 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Peacemaker Roll</div><div class="item-desc">Salmon, cream cheese, avocado, topped with tuna</div></div><div class="item-price">1,200 ETB</div></div>
                 </div>
-                
-                <!-- Sides & Soups -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>🥣 SIDES & SOUPS</h3><p>Perfect accompaniments</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">Miso Soup</div><div class="item-desc">Traditional soybean soup with tofu</div></div><div class="item-price">120 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Edamame</div><div class="item-desc">Steamed salted soybeans</div></div><div class="item-price">150 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Seaweed Salad</div><div class="item-desc">Fresh wakame with sesame</div></div><div class="item-price">180 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Japanese Rice</div><div class="item-desc">Steamed sushi rice</div></div><div class="item-price">80 ETB</div></div>
-                    </div>
+            </div>
+            
+            <!-- Hot Dishes -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>🔥 HOT DISHES</h3>
+                    <p>Warm favorites</p>
                 </div>
-                
-                <!-- Desserts -->
-                <div class="menu-category">
-                    <div class="category-header"><h3>🍰 DESSERTS</h3><p>Sweet endings</p></div>
-                    <div class="menu-items">
-                        <div class="menu-item"><div><div class="item-name">Mochi Ice Cream</div><div class="item-desc">Green tea, strawberry, or mango</div></div><div class="item-price">250 ETB</div></div>
-                        <div class="menu-item"><div><div class="item-name">Matcha Cheesecake</div><div class="item-desc">Japanese green tea cheesecake</div></div><div class="item-price">220 ETB</div></div>
-                    </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">Chicken Teriyaki</div><div class="item-desc">Grilled chicken with teriyaki sauce, rice</div></div><div class="item-price">450 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Beef Yakiniku</div><div class="item-desc">Grilled beef with BBQ sauce</div></div><div class="item-price">550 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Vegetable Tempura</div><div class="item-desc">Assorted crispy tempura vegetables</div></div><div class="item-price">350 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Shrimp Tempura</div><div class="item-desc">5 pieces with dipping sauce</div></div><div class="item-price">480 ETB</div></div>
+                </div>
+            </div>
+            
+            <!-- Sides & Soups -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>🥣 SIDES & SOUPS</h3>
+                    <p>Perfect accompaniments</p>
+                </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">Miso Soup</div><div class="item-desc">Traditional soybean soup with tofu</div></div><div class="item-price">120 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Edamame</div><div class="item-desc">Steamed salted soybeans</div></div><div class="item-price">150 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Seaweed Salad</div><div class="item-desc">Fresh wakame with sesame</div></div><div class="item-price">180 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Japanese Rice</div><div class="item-desc">Steamed sushi rice</div></div><div class="item-price">80 ETB</div></div>
+                </div>
+            </div>
+            
+            <!-- Desserts -->
+            <div class="menu-category">
+                <div class="category-header">
+                    <h3>🍰 DESSERTS</h3>
+                    <p>Sweet endings</p>
+                </div>
+                <div class="menu-items">
+                    <div class="menu-item"><div><div class="item-name">Mochi Ice Cream</div><div class="item-desc">Green tea, strawberry, or mango</div></div><div class="item-price">250 ETB</div></div>
+                    <div class="menu-item"><div><div class="item-name">Matcha Cheesecake</div><div class="item-desc">Japanese green tea cheesecake</div></div><div class="item-price">220 ETB</div></div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Catering Packages -->
-        <div id="packages" class="section">
-            <h2 class="section-title">Catering <span class="red-text">Packages</span></h2>
-            <p class="section-desc">Perfect for parties, events, and corporate gatherings</p>
-            <div class="packages-grid">
-                <div class="package-card">
-                    <div class="package-badge">BEST VALUE</div>
-                    <div class="package-header"><h3>THE ADDITION</h3><div class="package-sub">Perfect for 10 guests</div><div class="package-price">14,500 ETB</div></div>
-                    <div class="package-content"><ul><li>3x Mixed Futomaki rolls</li><li>3x Dragon Uramaki rolls</li><li>2x California Uramaki rolls</li><li>10x Assorted Nigiri pieces</li><li>10x Mixed Gunkan Maki</li><li>2x Hosomaki (Tuna & Salmon)</li></ul></div>
+        <h2 class="section-title">Catering <span>Packages</span></h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-badge">BEST VALUE</div>
+                <div class="package-header">
+                    <h3>THE ADDITION</h3>
+                    <div class="package-sub">Perfect for 10 guests</div>
+                    <div class="package-price">14,500 ETB</div>
                 </div>
-                <div class="package-card">
-                    <div class="package-badge">GROUP DELIGHTS</div>
-                    <div class="package-header"><h3>THE ENTOURAGE</h3><div class="package-sub">Feeds 20 guests</div><div class="package-price">26,000 ETB <small>PROMO</small></div></div>
-                    <div class="package-content"><ul><li>6x Mixed Futomaki rolls</li><li>6x Dragon Uramaki rolls</li><li>4x California Uramaki rolls</li><li>20x Assorted Nigiri pieces</li><li>20x Mixed Gunkan Maki</li><li>4x Hosomaki (Tuna, Salmon & Mixed)</li></ul></div>
+                <div class="package-content">
+                    <ul>
+                        <li>3x Mixed Futomaki rolls</li>
+                        <li>3x Dragon Uramaki rolls</li>
+                        <li>2x California Uramaki rolls</li>
+                        <li>10x Assorted Nigiri pieces</li>
+                        <li>10x Mixed Gunkan Maki</li>
+                        <li>2x Hosomaki (Tuna & Salmon)</li>
+                    </ul>
                 </div>
-                <div class="package-card">
-                    <div class="package-badge">ULTIMATE FEAST</div>
-                    <div class="package-header"><h3>THE DYNASTY</h3><div class="package-sub">Feast for 30 guests</div><div class="package-price">36,000 ETB <small>PROMO</small></div></div>
-                    <div class="package-content"><ul><li>9x Mixed Futomaki rolls</li><li>9x Dragon Uramaki rolls</li><li>6x California Uramaki rolls</li><li>30x Assorted Nigiri pieces</li><li>30x Mixed Gunkan Maki</li><li>6x Hosomaki (Tuna, Salmon & Special Mixed)</li></ul></div>
+            </div>
+            <div class="package-card">
+                <div class="package-badge">GROUP DELIGHTS</div>
+                <div class="package-header">
+                    <h3>THE ENTOURAGE</h3>
+                    <div class="package-sub">Feeds 20 guests</div>
+                    <div class="package-price">26,000 ETB <small>PROMO</small></div>
+                </div>
+                <div class="package-content">
+                    <ul>
+                        <li>6x Mixed Futomaki rolls</li>
+                        <li>6x Dragon Uramaki rolls</li>
+                        <li>4x California Uramaki rolls</li>
+                        <li>20x Assorted Nigiri pieces</li>
+                        <li>20x Mixed Gunkan Maki</li>
+                        <li>4x Hosomaki (Tuna, Salmon & Mixed)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="package-card">
+                <div class="package-badge">ULTIMATE FEAST</div>
+                <div class="package-header">
+                    <h3>THE DYNASTY</h3>
+                    <div class="package-sub">Feast for 30 guests</div>
+                    <div class="package-price">36,000 ETB <small>PROMO</small></div>
+                </div>
+                <div class="package-content">
+                    <ul>
+                        <li>9x Mixed Futomaki rolls</li>
+                        <li>9x Dragon Uramaki rolls</li>
+                        <li>6x California Uramaki rolls</li>
+                        <li>30x Assorted Nigiri pieces</li>
+                        <li>30x Mixed Gunkan Maki</li>
+                        <li>6x Hosomaki (Tuna, Salmon & Special Mixed)</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        
+
         <!-- Extras -->
-        <div class="section">
-            <h2 class="section-title">Add-<span class="red-text">Ons</span></h2>
-            <p class="section-desc">Enhance your catering package</p>
-            <div class="extras-grid">
-                <div class="extra-item"><h4>🍣 Extra Sushi Platter</h4><p>32 assorted pieces</p><div class="extra-price">2,500 ETB</div></div>
-                <div class="extra-item"><h4>🥢 Chopsticks & Napkins</h4><p>Premium disposable set</p><div class="extra-price">200 ETB</div></div>
-                <div class="extra-item"><h4>🍱 Bento Boxes</h4><p>Individual meal boxes</p><div class="extra-price">450 ETB/ea</div></div>
-                <div class="extra-item"><h4>🥤 Soft Drinks</h4><p>Assorted (per bottle)</p><div class="extra-price">50 ETB</div></div>
-            </div>
+        <h2 class="section-title">Add-<span>Ons</span></h2>
+        <div class="extras-grid">
+            <div class="extra-item"><h4>🍣 Extra Sushi Platter</h4><p>32 assorted pieces</p><div class="extra-price">2,500 ETB</div></div>
+            <div class="extra-item"><h4>🥢 Chopsticks & Napkins</h4><p>Premium disposable set</p><div class="extra-price">200 ETB</div></div>
+            <div class="extra-item"><h4>🍱 Bento Boxes</h4><p>Individual meal boxes</p><div class="extra-price">450 ETB/ea</div></div>
+            <div class="extra-item"><h4>🥤 Soft Drinks</h4><p>Assorted (per bottle)</p><div class="extra-price">50 ETB</div></div>
         </div>
-        
+
         <!-- Call to Action -->
         <div class="footer-actions no-print">
             <h3>Ready to Order?</h3>
             <p>Contact us for bookings or customize your package</p>
-            <div class="btn-group">
+            <div>
                 <a href="index.html#contact" class="btn btn-red"><i class="fas fa-calendar-check"></i> Book Now</a>
-                <a href="tel:+251927249999" class="btn btn-outline-red"><i class="fas fa-phone-alt"></i> Call +251 927 249999</a>
-                <a href="https://wa.me/251927249999" class="btn btn-outline-red"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="javascript:window.print()" class="btn btn-outline-red"><i class="fas fa-print"></i> Print Menu</a>
+                <a href="tel:+251927249999" class="btn btn-outline"><i class="fas fa-phone-alt"></i> Call +251 927 249999</a>
+                <a href="https://wa.me/251927249999" class="btn btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="javascript:window.print()" class="btn btn-outline"><i class="fas fa-print"></i> Print Menu</a>
             </div>
         </div>
     </div>
-    
+
     <!-- Footer -->
-    <footer class="footer no-print">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div style="font-family:var(--font-heading); font-size:22px; color:var(--sushi-red);">SUSHI VIBE</div>
-                    <div style="font-size:10px; color:var(--sushi-gray); letter-spacing:2px;">THE ART OF 快樂 司</div>
-                    <p style="color:var(--sushi-gray); font-size:14px; margin:16px 0;">Premium Sushi Catering in Addis Ababa, Ethiopia.</p>
-                    <div class="social-links">
-                        <a href="https://t.me/sushivibe" target="_blank" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.instagram.com/sushi_vibe26" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@sushivibe.caterin" target="_blank" class="social-link"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://wa.me/251927249999" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                        <a href="tel:+251927249999" class="social-link"><i class="fas fa-phone-alt"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="footer-title">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="index.html#packages">Packages</a></li>
-                        <li><a href="index.html#about">About Us</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-title">Packages</h4>
-                    <ul class="footer-links">
-                        <li>The Addition - 14,500 ETB</li>
-                        <li>The Entourage - 26,000 ETB</li>
-                        <li>The Dynasty - 36,000 ETB</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="footer-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li>📍 Addis Ababa, Ethiopia</li>
-                        <li><a href="tel:+251927249999">📞 +251 927 249999</a></li>
-                        <li><a href="mailto:sushivibes@proton.me">✉️ sushivibes@proton.me</a></li>
-                        <li><a href="https://t.me/sushivibe" target="_blank">✈️ @sushivibe</a></li>
-                        <li><a href="https://www.instagram.com/sushi_vibe26" target="_blank">📷 @sushi_vibe26</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 SUSHI VIBE by Peacemakers Club | Best Sushi. Best Mood. Best Vibes.</p>
-                <p style="margin-top: 10px;">Powered by <a href="http://addispower.pages.dev/" target="_blank">Addis Power Web Solution</a></p>
+    <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" style="width: 40px; height: 40px;">
+            <div class="logo-text">
+                <h1 style="font-size: 18px;">SUSHI VIBE</h1>
+                <p>THE ART OF 快樂 司</p>
             </div>
         </div>
+        <p>© 2026 SUSHI VIBE by Peacemakers Club | Best Sushi. Best Mood. Best Vibes.</p>
+        <div class="social-links">
+            <a href="https://t.me/sushivibe"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.instagram.com/sushi_vibe26"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@sushivibe.caterin"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/251927249999"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p style="margin-top: 20px;">Powered by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23;">Addis Power Web Solution</a></p>
     </footer>
 
     <script>
-        const mmb = document.getElementById('mobileMenuBtn');
-        const nm = document.getElementById('navMenu');
-        if(mmb) {
-            mmb.addEventListener('click', () => {
-                nm.classList.toggle('active');
-                mmb.textContent = nm.classList.contains('active') ? '✕' : '☰';
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
+        if(mobileBtn) {
+            mobileBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
             });
         }
-        document.querySelectorAll('.nav-link, .call-nav-btn').forEach(link => {
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                nm.classList.remove('active');
-                if(mmb) mmb.textContent = '☰';
+                navLinks.classList.remove('active');
             });
         });
-        console.log('SUSHI VIBE Menu Loaded - Print ready! 🍣');
+        
+        console.log('SUSHI VIBE Menu Loaded! 🍣');
     </script>
 </body>
 </html>
