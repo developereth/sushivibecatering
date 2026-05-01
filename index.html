@@ -61,10 +61,6 @@
             transition: transform 0.3s;
         }
 
-        .logo img:hover {
-            transform: scale(1.05);
-        }
-
         .logo-text {
             font-family: 'Playfair Display', serif;
         }
@@ -125,10 +121,6 @@
             box-shadow: 0 5px 15px rgba(37,211,102,0.3);
         }
 
-        .call-btn::after {
-            display: none;
-        }
-
         .mobile-menu {
             display: none;
             font-size: 28px;
@@ -159,37 +151,9 @@
             animation: floatSlow 15s infinite;
         }
 
-        .hero-bg-sushi2 {
-            position: absolute;
-            font-size: 250px;
-            opacity: 0.03;
-            top: -80px;
-            left: -80px;
-            animation: floatSlow2 12s infinite reverse;
-        }
-
-        .hero-bg-sushi3 {
-            position: absolute;
-            font-size: 180px;
-            opacity: 0.03;
-            top: 30%;
-            right: 10%;
-            animation: floatSlow3 18s infinite;
-        }
-
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-30px) rotate(15deg); }
-        }
-
-        @keyframes floatSlow2 {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(30px) rotate(-15deg); }
-        }
-
-        @keyframes floatSlow3 {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-20px) translateY(-20px); }
         }
 
         .hero-container {
@@ -229,7 +193,6 @@
             font-size: 14px;
             display: inline-block;
             margin-bottom: 25px;
-            backdrop-filter: blur(5px);
             letter-spacing: 3px;
         }
 
@@ -238,7 +201,6 @@
             font-family: 'Playfair Display', serif;
             font-weight: 800;
             margin-bottom: 15px;
-            line-height: 1.2;
         }
 
         .hero h1 span {
@@ -250,7 +212,6 @@
             font-size: 24px;
             color: #ddd;
             margin-bottom: 20px;
-            font-weight: 400;
         }
 
         .hero-desc {
@@ -334,7 +295,6 @@
             transition: all 0.3s;
             text-decoration: none;
             background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(5px);
         }
 
         .hero-social a:hover {
@@ -347,12 +307,7 @@
         .hero-social .tiktok { color: #00f2ea; border: 1px solid #00f2ea; }
         .hero-social .phone { color: #e31b23; border: 1px solid #e31b23; }
 
-        .hero-social .whatsapp:hover { background: #25D366; color: white; }
-        .hero-social .telegram:hover { background: #0088cc; color: white; }
-        .hero-social .instagram:hover { background: #E4405F; color: white; }
-        .hero-social .tiktok:hover { background: #00f2ea; color: black; }
-        .hero-social .phone:hover { background: #e31b23; color: white; }
-
+        /* Section Styles */
         .section {
             padding: 80px 20px;
             text-align: center;
@@ -391,6 +346,101 @@
             max-width: 700px;
             margin: 20px auto 50px;
             font-size: 16px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay p {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Lightbox Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            border: 3px solid #e31b23;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #e31b23;
         }
 
         /* Trust Badges */
@@ -525,10 +575,6 @@
             margin-top: 40px;
         }
 
-        .stat-item {
-            text-align: center;
-        }
-
         .stat-number {
             font-size: 52px;
             font-weight: 800;
@@ -542,11 +588,6 @@
         }
 
         /* Testimonials */
-        .testimonials {
-            background: linear-gradient(135deg, #0f0f0f, #0a0a0a);
-            padding: 80px 20px;
-        }
-
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -584,126 +625,8 @@
             font-style: italic;
         }
 
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .testimonial-avatar {
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #e31b23, #b8161f);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-
         .testimonial-name {
             font-weight: 700;
-            color: #e31b23;
-            font-size: 16px;
-        }
-
-        .testimonial-role {
-            font-size: 12px;
-            color: #888;
-        }
-
-        /* ===== GALLERY SECTION ===== */
-        .gallery {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #0a0a0a, #0f0f0f);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 1 / 1;
-            transition: all 0.4s;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        .gallery-overlay p {
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* Modal for full image */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 20px;
-            border: 3px solid #e31b23;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .modal-close:hover {
             color: #e31b23;
         }
 
@@ -732,7 +655,6 @@
         .contact-info-card:hover {
             transform: translateY(-5px);
             border-color: #e31b23;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .contact-info-card h3 {
@@ -780,11 +702,6 @@
             color: #ccc;
             text-decoration: none;
             font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .contact-detail a:hover {
-            color: #e31b23;
         }
 
         .contact-logo-card {
@@ -796,34 +713,11 @@
             text-align: center;
             border: 2px solid rgba(227,27,35,0.4);
             transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
         }
 
         .contact-logo-card:hover {
             transform: translateY(-5px);
             border-color: #e31b23;
-            box-shadow: 0 25px 45px rgba(227,27,35,0.2);
-        }
-
-        .contact-logo-card::before {
-            content: "🍣";
-            position: absolute;
-            font-size: 100px;
-            opacity: 0.05;
-            bottom: -20px;
-            right: -20px;
-            pointer-events: none;
-        }
-
-        .contact-logo-card::after {
-            content: "🥢";
-            position: absolute;
-            font-size: 80px;
-            opacity: 0.05;
-            top: -20px;
-            left: -20px;
-            pointer-events: none;
         }
 
         .contact-logo-img {
@@ -833,43 +727,12 @@
             margin-bottom: 25px;
             border: 3px solid #e31b23;
             box-shadow: 0 0 40px rgba(227,27,35,0.4);
-            transition: all 0.3s;
-        }
-
-        .contact-logo-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 60px rgba(227,27,35,0.6);
         }
 
         .contact-logo-card h3 {
             font-size: 28px;
             color: #e31b23;
             margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .contact-logo-card p {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .contact-logo-card .btn-contact {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid #e31b23;
-            color: #e31b23;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .contact-logo-card .btn-contact:hover {
-            background: #e31b23;
-            color: white;
-            transform: translateY(-3px);
         }
 
         .contact-buttons {
@@ -886,31 +749,6 @@
             padding: 60px 20px 35px;
             text-align: center;
             border-top: 1px solid rgba(227,27,35,0.2);
-        }
-
-        .footer-logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .footer-logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-        }
-
-        .footer-logo-text h3 {
-            font-size: 20px;
-            color: #e31b23;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .footer-logo-text p {
-            font-size: 9px;
-            color: #888;
         }
 
         .social-links {
@@ -948,7 +786,6 @@
             color: #666;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -987,12 +824,8 @@
                 border-radius: 35px;
                 gap: 20px;
             }
-            .contact-wrapper {
-                flex-direction: column;
-            }
             .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 15px;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
         }
     </style>
@@ -1011,8 +844,8 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html">🏠 Home</a></li>
             <li><a href="menu.html">📋 Menu</a></li>
-            <li><a href="#packages">📦 Packages</a></li>
             <li><a href="#gallery">📸 Gallery</a></li>
+            <li><a href="#packages">📦 Packages</a></li>
             <li><a href="#about">📖 About</a></li>
             <li><a href="#testimonials">⭐ Reviews</a></li>
             <li><a href="#contact">📞 Contact</a></li>
@@ -1024,9 +857,6 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg-sushi">🍣</div>
-        <div class="hero-bg-sushi2">🥢</div>
-        <div class="hero-bg-sushi3">🍱</div>
-        
         <div class="hero-container">
             <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" class="hero-logo-large">
             <div>
@@ -1059,8 +889,52 @@
         <div class="badge"><i class="fas fa-medal"></i> Premium Quality</div>
     </div>
 
+    <!-- GALLERY SECTION - NEW! -->
+    <section id="gallery" class="section">
+        <h2 class="section-title">Our <span>Sushi Gallery</span></h2>
+        <p class="section-desc">Fresh, delicious, and beautifully presented - See what makes us special</p>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/california-maki.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/california-maki.jpg" alt="California Maki">
+                <div class="gallery-overlay"><p>🍣 California Maki</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/dragon-roll.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/dragon-roll.jpg" alt="Dragon Roll">
+                <div class="gallery-overlay"><p>🐉 Dragon Roll</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/philadelphia-roll.PNG')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/philadelphia-roll.PNG" alt="Philadelphia Roll">
+                <div class="gallery-overlay"><p>🧀 Philadelphia Roll</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/rainbow-roll.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/rainbow-roll.jpg" alt="Rainbow Roll">
+                <div class="gallery-overlay"><p>🌈 Rainbow Roll</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/seafood-futomaki.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/seafood-futomaki.jpg" alt="Seafood Futomaki">
+                <div class="gallery-overlay"><p>🦐 Seafood Futomaki</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/shrimp-nigiri.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/shrimp-nigiri.jpg" alt="Shrimp Nigiri">
+                <div class="gallery-overlay"><p>🍤 Shrimp Nigiri</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/sushi-platter.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/sushi-platter.jpg" alt="Sushi Platter">
+                <div class="gallery-overlay"><p>🍱 Sushi Platter</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/menu-one.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/menu-one.jpg" alt="Menu Special">
+                <div class="gallery-overlay"><p>📋 Signature Collection</p></div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://raw.githubusercontent.com/developereth/sushivibecatering/main/menu.jpg')">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/menu.jpg" alt="Sushi Vibe Menu">
+                <div class="gallery-overlay"><p>🍣 SUSHI VIBE Specials</p></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Packages Section -->
-    <section id="packages" class="section">
+    <section id="packages" class="section section-dark">
         <h2 class="section-title">NEW! <span>PACKAGE DEALS</span></h2>
         <p class="section-desc">Curated Selection & Exceptional Value | Amazing Vibes Only</p>
         <div class="packages">
@@ -1109,17 +983,8 @@
         </div>
     </section>
 
-    <!-- ===== GALLERY SECTION ===== -->
-    <section id="gallery" class="gallery">
-        <h2 class="section-title">Our <span>Gallery</span></h2>
-        <p class="section-desc">Browse our delicious sushi creations</p>
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Gallery items will be loaded here -->
-        </div>
-    </section>
-
     <!-- About Section -->
-    <section id="about" class="section section-dark">
+    <section id="about" class="section">
         <h2 class="section-title">About <span>SUSHI VIBE</span></h2>
         <p style="max-width: 800px; margin: 20px auto; color: #aaa; line-height: 1.8;">
             Sushi Vibe brings the authentic taste of sushi to Addis Ababa, Ethiopia. We specialize in premium catering services for events, parties, corporate gatherings, and special celebrations across the city.
@@ -1128,41 +993,32 @@
             Our expert chefs use only the freshest ingredients to create delicious, beautifully presented sushi that will impress your guests. From intimate family gatherings to large corporate events, we deliver exceptional quality and service every time.
         </p>
         <div class="stats-container">
-            <div class="stat-item"><div class="stat-number">5+</div><div class="stat-label">Years Experience</div></div>
-            <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Events Catered</div></div>
-            <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Fresh Daily</div></div>
-            <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Order Support</div></div>
+            <div><div class="stat-number">5+</div><div class="stat-label">Years Experience</div></div>
+            <div><div class="stat-number">500+</div><div class="stat-label">Events Catered</div></div>
+            <div><div class="stat-number">100%</div><div class="stat-label">Fresh Daily</div></div>
+            <div><div class="stat-number">24/7</div><div class="stat-label">Order Support</div></div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="section section-dark">
         <h2 class="section-title">What Our <span>Guests Say</span></h2>
         <p class="section-desc">Hear from our happy customers</p>
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"The Dynasty package was perfect for our office party. Everyone raved about the freshness. Best sushi in Addis! Will definitely order again."</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
-                    <div><div class="testimonial-name">Mekdes A.</div><div class="testimonial-role">Corporate Event</div></div>
-                </div>
+                <p class="testimonial-text">"The Dynasty package was perfect for our office party. Everyone raved about the freshness. Best sushi in Addis!"</p>
+                <p class="testimonial-name">– Mekdes A.</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"Amazing sushi! The Dragon rolls were incredible. Professional service, on-time delivery, and amazing vibes! Highly recommended."</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
-                    <div><div class="testimonial-name">Henok & Sara</div><div class="testimonial-role">Wedding</div></div>
-                </div>
+                <p class="testimonial-text">"Amazing sushi! The Dragon rolls were incredible. Professional service and amazing vibes!"</p>
+                <p class="testimonial-name">– Henok & Sara</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">"Finally, premium sushi catering in Addis! The Entourage package fed my whole family. Fresh ingredients, beautiful presentation, great value."</p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
-                    <div><div class="testimonial-name">Liya T.</div><div class="testimonial-role">Family Party</div></div>
-                </div>
+                <p class="testimonial-text">"Finally, premium sushi catering in Addis! The Entourage package fed my whole family. Will order again."</p>
+                <p class="testimonial-name">– Liya T.</p>
             </div>
         </div>
     </section>
@@ -1206,7 +1062,7 @@
                 <h3>SUSHI VIBE</h3>
                 <p>THE ART OF 快樂 司</p>
                 <p style="font-size: 12px; margin: 10px 0;">Premium Quality • Fresh Daily</p>
-                <a href="tel:+251927249999" class="btn-contact"><i class="fas fa-phone-alt"></i> Order Now</a>
+                <a href="tel:+251927249999" class="btn-outline" style="display: inline-block; padding: 12px 30px;">📞 Order Now</a>
             </div>
         </div>
         
@@ -1220,10 +1076,10 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">
-            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE">
-            <div class="footer-logo-text">
-                <h3>SUSHI VIBE</h3>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" style="width: 45px;">
+            <div class="logo-text">
+                <h1 style="font-size: 18px;">SUSHI VIBE</h1>
                 <p>THE ART OF 快樂 司</p>
             </div>
         </div>
@@ -1241,10 +1097,10 @@
         </div>
     </footer>
 
-    <!-- Modal for full image -->
-    <div class="modal" id="imageModal">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <img id="modalImage" src="" alt="SUSHI VIBE Gallery">
+    <!-- Lightbox Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" src="" alt="Sushi Gallery">
     </div>
 
     <script>
@@ -1269,79 +1125,30 @@
         window.addEventListener('scroll', () => {
             if(window.scrollY > 50) {
                 navbar.style.padding = '10px 5%';
-                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
             } else {
                 navbar.style.padding = '15px 5%';
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
             }
         });
         
-        // ===== GALLERY IMAGES =====
-        // You can replace these with your own sushi images
-        const galleryImages = [
-            { url: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd55?w=600", title: "Fresh Sushi Platter" },
-            { url: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600", title: "Dragon Roll" },
-            { url: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600", title: "Chef Preparing Sushi" },
-            { url: "https://images.unsplash.com/photo-1617196034184-421b4917c92d?w=600", title: "Salmon Nigiri" },
-            { url: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600", title: "Sashimi Platter" },
-            { url: "https://images.unsplash.com/photo-1617195968743-61f8a5f2ddfa?w=600", title: "California Roll" },
-            { url: "https://images.unsplash.com/photo-1617195983010-1f28c5b0b5f5?w=600", title: "Rainbow Roll" },
-            { url: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd55?w=600", title: "Sushi Set" }
-        ];
-        
-        // Load gallery
-        const galleryGrid = document.getElementById('galleryGrid');
-        
-        function loadGallery() {
-            galleryGrid.innerHTML = '';
-            galleryImages.forEach((img, index) => {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-                galleryItem.innerHTML = `
-                    <img src="${img.url}" alt="${img.title}" loading="lazy">
-                    <div class="gallery-overlay">
-                        <p>🍣 ${img.title}</p>
-                    </div>
-                `;
-                galleryItem.onclick = () => openModal(img.url, img.title);
-                galleryGrid.appendChild(galleryItem);
-            });
-        }
-        
         // Modal functions
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        
-        function openModal(url, title) {
-            modalImage.src = url;
-            modalImage.alt = title;
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            modalImg.src = imageSrc;
         }
         
         function closeModal() {
+            const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
-            document.body.style.overflow = '';
         }
         
-        // Close modal on click outside image
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-        
-        // Close modal on Escape key
+        // Close modal with ESC key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
+            if(e.key === 'Escape') {
                 closeModal();
             }
         });
-        
-        // Load gallery when page loads
-        loadGallery();
-        
-        console.log('SUSHI VIBE - Gallery Section Added! 🍣📸');
     </script>
 </body>
 </html>
