@@ -1,35 +1,479 @@
-// Add this at the top of your order.html script section
-// This connects the order form to the admin dashboard
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Pre-order Catering</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html" class="order-cta active">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+    </div>
+  </header>
 
-// After validation, save order to localStorage and also send email
-const orderToSave = {
-    package: pkgSelected.value,
-    package_price: pkgSelected.dataset.price,
-    guests: pkgSelected.dataset.people,
-    event_date: dateVal,
-    event_time: document.getElementById('eventTime').value,
-    occasion: document.getElementById('occasion').value,
-    full_name: nameVal,
-    phone: phoneVal,
-    email: emailVal,
-    delivery_type: document.querySelector('input[name="deliveryType"]:checked')?.value,
-    delivery_address: document.getElementById('address').value,
-    allergies: allergyVal,
-    special_requests: document.getElementById('specialRequests').value
-};
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Pre-order your sushi catering</h1>
+        <p>24 hours advance notice required · Freshly prepared for your event</p>
+      </div>
+    </section>
 
-// Save to localStorage (for dashboard)
-try {
-    const existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
-    const newOrder = {
-        order_id: 'ORD-' + Date.now(),
-        order_date: new Date().toISOString(),
-        status: 'pending',
-        ...orderToSave
-    };
-    existingOrders.unshift(newOrder);
-    localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
-    console.log('Order saved to dashboard');
-} catch(e) {
-    console.log('Could not save to localStorage');
-}
+    <div class="container order-container">
+      <div class="order-grid">
+        <!-- Order Form -->
+        <div class="order-form-section">
+          <form id="orderForm" class="order-form">
+            <div class="form-card">
+              <h2><i class="fas fa-info-circle"></i> 1. Select your package</h2>
+              <div class="package-selector">
+                <label class="pkg-option" data-pkg="vibe">
+                  <input type="radio" name="package" value="Vibe Party Set" data-price="32000" data-people="10">
+                  <div class="pkg-details">
+                    <strong>🎉 Vibe Party Set</strong> <span class="pkg-price">32,000 ETB</span>
+                    <small>10 people · Nigiri, Gunkan, California, Dragon & Mango rolls</small>
+                  </div>
+                </label>
+                <label class="pkg-option" data-pkg="celebration">
+                  <input type="radio" name="package" value="Celebration Feast" data-price="65000" data-people="20">
+                  <div class="pkg-details">
+                    <strong>🌟 Celebration Feast</strong> <span class="pkg-price">65,000 ETB</span>
+                    <small>20 people · 40 Nigiri & Gunkan + Rainbow, California, Spicy Tuna</small>
+                  </div>
+                </label>
+                <label class="pkg-option" data-pkg="ultimate">
+                  <input type="radio" name="package" value="Ultimate Sushi Experience" data-price="105000" data-people="30">
+                  <div class="pkg-details">
+                    <strong>✨ Ultimate Sushi Experience</strong> <span class="pkg-price">105,000 ETB</span>
+                    <small>30 people · Premium selection: Dragon, Alaska, Philly, Rainbow, Spicy Tuna</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-card">
+              <h2><i class="fas fa-calendar-alt"></i> 2. Event details</h2>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Event date *</label>
+                  <input type="date" id="eventDate" required>
+                  <small>Minimum 24h advance order</small>
+                </div>
+                <div class="form-group">
+                  <label>Event time *</label>
+                  <input type="time" id="eventTime" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Number of guests (matches selected package)</label>
+                <input type="number" id="guestCount" readonly placeholder="Auto-filled from package">
+              </div>
+              <div class="form-group">
+                <label>Special occasion (optional)</label>
+                <select id="occasion">
+                  <option value="">Select occasion</option>
+                  <option>Birthday Party</option>
+                  <option>Corporate Event</option>
+                  <option>Wedding / Engagement</option>
+                  <option>Anniversary</option>
+                  <option>Private Gathering</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-card">
+              <h2><i class="fas fa-user-check"></i> 3. Contact & delivery</h2>
+              <div class="form-row">
+                <div class="form-group"><label>Full name *</label><input type="text" id="fullName" required></div>
+                <div class="form-group"><label>Phone number *</label><input type="tel" id="phone" required></div>
+              </div>
+              <div class="form-group"><label>Email address *</label><input type="email" id="email" required></div>
+              <div class="form-group">
+                <label>Delivery or pickup?</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="deliveryType" value="Delivery" checked> Delivery (charges may apply)</label>
+                  <label><input type="radio" name="deliveryType" value="Pickup"> Pickup (free)</label>
+                </div>
+              </div>
+              <div class="form-group" id="deliveryAddressGroup">
+                <label>Delivery address</label>
+                <textarea rows="2" id="address" placeholder="Street, landmark, city"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Allergies or dietary notes *</label>
+                <textarea rows="2" id="allergies" placeholder="E.g., gluten-free, no sesame, shellfish allergy, vegetarian options..."></textarea>
+                <small>We take allergies seriously — please list any restrictions</small>
+              </div>
+              <div class="form-group">
+                <label>Additional requests (extra wasabi, chopsticks, serving trays, etc.)</label>
+                <textarea rows="2" id="specialRequests" placeholder="Optional notes"></textarea>
+              </div>
+            </div>
+
+            <div class="form-card order-summary-card">
+              <h2><i class="fas fa-receipt"></i> Order summary</h2>
+              <div class="summary-line"><span>Selected package:</span> <strong id="summaryPackage">—</strong></div>
+              <div class="summary-line"><span>Package price:</span> <strong id="summaryPrice">0 ETB</strong></div>
+              <div class="summary-line"><span>Delivery (estimate):</span> <strong id="deliveryFee">+ 0 ETB</strong> <small>(final fee confirmed after order)</small></div>
+              <div class="summary-total"><span>Total estimate:</span> <strong id="totalPrice">0 ETB</strong></div>
+              <p class="note-summary"><i class="fas fa-clock"></i> Pre-order 24h required. Free wasabi, ginger & soy sauce included with every order.</p>
+            </div>
+
+            <button type="submit" class="btn-primary btn-large btn-submit-order"><i class="fas fa-shopping-cart"></i> Complete pre-order →</button>
+            <div id="orderStatus" class="form-status"></div>
+          </form>
+        </div>
+
+        <!-- Order Info Sidebar -->
+        <div class="order-sidebar">
+          <div class="info-box">
+            <i class="fas fa-clock"></i>
+            <h4>Pre-order policy</h4>
+            <p>All catering orders require <strong>24 hours advance notice</strong>. We'll confirm availability within 2 hours.</p>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-truck"></i>
+            <h4>Delivery information</h4>
+            <p>Delivery available in Addis Ababa. Charges vary by distance — our team will confirm exact fee after order placement.</p>
+          </div>
+          <div class="info-box highlight-box">
+            <i class="fas fa-gift"></i>
+            <h4>Always included FREE</h4>
+            <p>✔ Wasabi<br>✔ Pickled ginger<br>✔ Premium soy sauce<br>✔ Disposable chopsticks & napkins</p>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-phone-alt"></i>
+            <h4>Need help?</h4>
+            <p>Call us: <strong>+251 927 299999</strong><br>Email: <strong>sushivibes@proton.me</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p><div class="social-icons">
+        <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+      </div></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="contact-info">
+        <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
+        <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
+        <li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li>
+        <li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li>
+      </ul></div>
+      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script>
+    // ========== ORDER SUMMARY FUNCTIONS ==========
+    const radioPackages = document.querySelectorAll('input[name="package"]');
+    const summaryPackageSpan = document.getElementById('summaryPackage');
+    const summaryPriceSpan = document.getElementById('summaryPrice');
+    const totalPriceSpan = document.getElementById('totalPrice');
+    const guestCountInput = document.getElementById('guestCount');
+    const deliveryRadio = document.querySelectorAll('input[name="deliveryType"]');
+    const deliveryFeeSpan = document.getElementById('deliveryFee');
+    
+    function updateSummary() {
+      let selected = null;
+      for(let r of radioPackages) {
+        if(r.checked) {
+          selected = r;
+          break;
+        }
+      }
+      if(selected) {
+        const pkgName = selected.value;
+        const price = parseInt(selected.dataset.price);
+        const people = selected.dataset.people;
+        summaryPackageSpan.innerText = pkgName;
+        summaryPriceSpan.innerText = price.toLocaleString() + ' ETB';
+        if(guestCountInput) guestCountInput.value = people;
+        const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value;
+        deliveryFeeSpan.innerHTML = deliveryType === 'Delivery' ? 'To be quoted' : '0 ETB (pickup)';
+        let totalDisplay = price.toLocaleString() + ' ETB';
+        if(deliveryType === 'Delivery') totalDisplay = price.toLocaleString() + ' ETB + delivery fee';
+        totalPriceSpan.innerText = totalDisplay;
+      } else {
+        summaryPackageSpan.innerText = '—';
+        summaryPriceSpan.innerText = '0 ETB';
+        if(guestCountInput) guestCountInput.value = '';
+        totalPriceSpan.innerText = '0 ETB';
+      }
+    }
+    
+    radioPackages.forEach(r => r.addEventListener('change', updateSummary));
+    deliveryRadio.forEach(d => d.addEventListener('change', updateSummary));
+    
+    // show/hide delivery address
+    const deliveryGroup = document.getElementById('deliveryAddressGroup');
+    function toggleAddress() {
+      const val = document.querySelector('input[name="deliveryType"]:checked')?.value;
+      if(val === 'Delivery') deliveryGroup.style.display = 'block';
+      else deliveryGroup.style.display = 'none';
+    }
+    deliveryRadio.forEach(r => r.addEventListener('change', toggleAddress));
+    toggleAddress();
+    
+    // ========== SAVE ORDER TO LOCALSTORAGE (FOR DASHBOARD) ==========
+    function saveOrderToLocalStorage(orderData) {
+      try {
+        let existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+        const newOrder = {
+          order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+          order_date: new Date().toISOString(),
+          status: 'pending',
+          ...orderData
+        };
+        existingOrders.unshift(newOrder);
+        localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
+        console.log('✅ Order saved to dashboard:', newOrder.order_id);
+        return newOrder.order_id;
+      } catch(e) {
+        console.log('⚠️ Could not save to localStorage:', e);
+        return null;
+      }
+    }
+    
+    // ========== SEND EMAIL NOTIFICATION ==========
+    async function sendEmailNotification(orderData, orderId) {
+      try {
+        const formSubmitUrl = 'https://formsubmit.co/ajax/sushivibes@proton.me';
+        
+        const emailBody = `
+📦 NEW SUSHI ORDER #${orderId}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 CUSTOMER DETAILS:
+   Name: ${orderData.full_name}
+   Phone: ${orderData.phone}
+   Email: ${orderData.email}
+
+🍣 ORDER DETAILS:
+   Package: ${orderData.package}
+   Price: ${orderData.package_price} ETB
+   Guests: ${orderData.guests}
+   Event Date: ${orderData.event_date}
+   Event Time: ${orderData.event_time}
+   Occasion: ${orderData.occasion || 'Not specified'}
+
+🚚 DELIVERY:
+   Type: ${orderData.delivery_type}
+   Address: ${orderData.delivery_address || 'N/A'}
+
+⚠️ SPECIAL NOTES:
+   Allergies: ${orderData.allergies}
+   Requests: ${orderData.special_requests || 'None'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📍 View in Admin Dashboard: https://developereth.github.io/sushivibecatering/admin-login.html
+        `;
+        
+        const response = await fetch(formSubmitUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: `🆕 NEW SUSHI ORDER #${orderId} - ${orderData.package}`,
+            _template: 'table',
+            _captcha: 'false',
+            ...orderData,
+            order_id: orderId,
+            message: emailBody
+          })
+        });
+        
+        return response.ok;
+      } catch(e) {
+        console.log('Email notification error:', e);
+        return false;
+      }
+    }
+    
+    // ========== MAIN FORM SUBMIT HANDLER ==========
+    const orderForm = document.getElementById('orderForm');
+    const orderStatus = document.getElementById('orderStatus');
+    
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // VALIDATION
+      const pkgSelected = document.querySelector('input[name="package"]:checked');
+      if(!pkgSelected) { 
+        showStatus('❌ Please select a catering package.', 'error');
+        return; 
+      }
+      
+      const dateVal = document.getElementById('eventDate').value;
+      if(!dateVal) { 
+        showStatus('❌ Please select event date (24h advance notice).', 'error');
+        return; 
+      }
+      
+      const timeVal = document.getElementById('eventTime').value;
+      if(!timeVal) { 
+        showStatus('❌ Please select event time.', 'error');
+        return; 
+      }
+      
+      const nameVal = document.getElementById('fullName').value.trim();
+      if(!nameVal) { 
+        showStatus('❌ Please enter your full name.', 'error');
+        return; 
+      }
+      
+      const phoneVal = document.getElementById('phone').value.trim();
+      if(!phoneVal) { 
+        showStatus('❌ Phone number required.', 'error');
+        return; 
+      }
+      
+      const emailVal = document.getElementById('email').value.trim();
+      if(!emailVal) { 
+        showStatus('❌ Email address required.', 'error');
+        return; 
+      }
+      
+      const allergyVal = document.getElementById('allergies').value.trim();
+      if(!allergyVal) { 
+        showStatus('⚠️ Please tell us about any allergies (even if "none").', 'error');
+        return; 
+      }
+      
+      // COLLECT ORDER DATA
+      const orderData = {
+        full_name: nameVal,
+        phone: phoneVal,
+        email: emailVal,
+        package: pkgSelected.value,
+        package_price: pkgSelected.dataset.price,
+        guests: pkgSelected.dataset.people,
+        event_date: dateVal,
+        event_time: timeVal,
+        occasion: document.getElementById('occasion').value,
+        delivery_type: document.querySelector('input[name="deliveryType"]:checked')?.value,
+        delivery_address: document.getElementById('address').value,
+        allergies: allergyVal,
+        special_requests: document.getElementById('specialRequests').value
+      };
+      
+      // SHOW LOADING STATE
+      showStatus('📤 Submitting your order...', 'loading');
+      
+      // SAVE TO LOCALSTORAGE (DASHBOARD)
+      const orderId = saveOrderToLocalStorage(orderData);
+      
+      // SEND EMAIL NOTIFICATION
+      const emailSent = await sendEmailNotification(orderData, orderId || 'pending');
+      
+      // SUCCESS MESSAGE
+      if (orderId || emailSent) {
+        showStatus(`
+          ✅ <strong>Order received!</strong><br>
+          Order #${orderId || 'received'}<br><br>
+          We will contact you within 2 hours to confirm delivery details.<br><br>
+          📞 Call us: +251 927 299999 if urgent.<br>
+          🍣 Thank you for choosing Sushi Vibe!
+        `, 'success');
+        
+        // RESET FORM
+        orderForm.reset();
+        updateSummary();
+        toggleAddress();
+        
+        // Scroll to status
+        orderStatus.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // FALLBACK: Manual email option
+        const emailBody = encodeURIComponent(`
+NEW ORDER FROM SUSHI VIBE WEBSITE
+--------------------------------
+Customer: ${orderData.full_name}
+Phone: ${orderData.phone}
+Email: ${orderData.email}
+Package: ${orderData.package}
+Price: ${orderData.package_price} ETB
+Guests: ${orderData.guests}
+Event Date: ${orderData.event_date}
+Event Time: ${orderData.event_time}
+Delivery: ${orderData.delivery_type}
+Address: ${orderData.delivery_address || 'N/A'}
+Allergies: ${orderData.allergies}
+Requests: ${orderData.special_requests || 'None'}
+--------------------------------
+        `);
+        
+        showStatus(`
+          ⚠️ <strong>Unable to submit automatically.</strong><br><br>
+          Please click the link below to send your order via email:<br><br>
+          <a href="mailto:sushivibes@proton.me?subject=NEW%20SUSHI%20ORDER%20-%20${orderData.full_name}&body=${emailBody}" 
+             style="background: #e31b23; color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; display: inline-block; margin-top: 10px;">
+             📧 Click here to send order via Email
+          </a>
+          <br><br>
+          Or call us directly: <strong>+251 927 299999</strong>
+        `, 'warning');
+      }
+    });
+    
+    function showStatus(message, type) {
+      orderStatus.innerHTML = message;
+      orderStatus.style.padding = '1rem';
+      orderStatus.style.borderRadius = '12px';
+      orderStatus.style.marginTop = '1rem';
+      
+      switch(type) {
+        case 'error':
+          orderStatus.style.color = '#c93a3a';
+          orderStatus.style.backgroundColor = '#ffe6e5';
+          orderStatus.style.border = '1px solid #c93a3a';
+          break;
+        case 'success':
+          orderStatus.style.color = '#2b6e3c';
+          orderStatus.style.backgroundColor = '#e6f4ea';
+          orderStatus.style.border = '1px solid #2b6e3c';
+          break;
+        case 'warning':
+          orderStatus.style.color = '#856404';
+          orderStatus.style.backgroundColor = '#fff3cd';
+          orderStatus.style.border = '1px solid #ffc107';
+          break;
+        case 'loading':
+          orderStatus.style.color = '#ffffff';
+          orderStatus.style.backgroundColor = '#e31b23';
+          orderStatus.style.border = 'none';
+          break;
+      }
+    }
+    
+    // Auto-update from URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const preset = urlParams.get('package');
+    if(preset === 'vibe') document.querySelector('input[value="Vibe Party Set"]')?.click();
+    if(preset === 'celebration') document.querySelector('input[value="Celebration Feast"]')?.click();
+    if(preset === 'ultimate') document.querySelector('input[value="Ultimate Sushi Experience"]')?.click();
+    updateSummary();
+  </script>
+</body>
+</html>
