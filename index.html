@@ -136,7 +136,7 @@
             color: white;
         }
 
-        /* BIG HERO LANDSCAPE SECTION */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             width: 100%;
@@ -150,7 +150,6 @@
             padding-top: 80px;
         }
 
-        /* Animated Background Elements */
         .hero-bg-sushi {
             position: absolute;
             font-size: 400px;
@@ -270,7 +269,6 @@
             margin-bottom: 40px;
         }
 
-        /* Buttons */
         .btn {
             display: inline-block;
             padding: 14px 40px;
@@ -318,7 +316,6 @@
             transform: translateY(-3px);
         }
 
-        /* Social Icons in Hero */
         .hero-social {
             display: flex;
             justify-content: center;
@@ -356,7 +353,6 @@
         .hero-social .tiktok:hover { background: #00f2ea; color: black; }
         .hero-social .phone:hover { background: #e31b23; color: white; }
 
-        /* Section Styles */
         .section {
             padding: 80px 20px;
             text-align: center;
@@ -616,7 +612,266 @@
             color: #888;
         }
 
-        /* Contact Buttons */
+        /* ===== GALLERY SECTION ===== */
+        .gallery {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #0a0a0a, #0f0f0f);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.4s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay p {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Modal for full image */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            border: 3px solid #e31b23;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #e31b23;
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            padding: 40px 20px;
+        }
+
+        .contact-info-card {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(145deg, #1a1a1a, #141414);
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid rgba(227,27,35,0.3);
+            transition: all 0.3s;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            border-color: #e31b23;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .contact-info-card h3 {
+            font-size: 28px;
+            color: #e31b23;
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 25px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .contact-detail:hover {
+            background: rgba(227,27,35,0.1);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #e31b23, #b8161f);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .contact-detail h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #e31b23;
+        }
+
+        .contact-detail p, .contact-detail a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .contact-detail a:hover {
+            color: #e31b23;
+        }
+
+        .contact-logo-card {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(145deg, #1a1a1a, #141414);
+            border-radius: 40px;
+            padding: 45px 35px;
+            text-align: center;
+            border: 2px solid rgba(227,27,35,0.4);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-logo-card:hover {
+            transform: translateY(-5px);
+            border-color: #e31b23;
+            box-shadow: 0 25px 45px rgba(227,27,35,0.2);
+        }
+
+        .contact-logo-card::before {
+            content: "🍣";
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.05;
+            bottom: -20px;
+            right: -20px;
+            pointer-events: none;
+        }
+
+        .contact-logo-card::after {
+            content: "🥢";
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.05;
+            top: -20px;
+            left: -20px;
+            pointer-events: none;
+        }
+
+        .contact-logo-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 35px;
+            margin-bottom: 25px;
+            border: 3px solid #e31b23;
+            box-shadow: 0 0 40px rgba(227,27,35,0.4);
+            transition: all 0.3s;
+        }
+
+        .contact-logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(227,27,35,0.6);
+        }
+
+        .contact-logo-card h3 {
+            font-size: 28px;
+            color: #e31b23;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-logo-card p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .contact-logo-card .btn-contact {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #e31b23;
+            color: #e31b23;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .contact-logo-card .btn-contact:hover {
+            background: #e31b23;
+            color: white;
+            transform: translateY(-3px);
+        }
+
         .contact-buttons {
             display: flex;
             justify-content: center;
@@ -713,32 +968,15 @@
             .mobile-menu {
                 display: block;
             }
-            
             .hero h1 {
                 font-size: 42px;
             }
             .hero-subtitle {
                 font-size: 18px;
             }
-            .hero-desc {
-                font-size: 14px;
-            }
             .hero-logo-large {
                 width: 100px;
                 height: 100px;
-            }
-            .hero-badge {
-                font-size: 11px;
-                padding: 6px 18px;
-            }
-            .hero-buttons .btn {
-                padding: 10px 25px;
-                font-size: 14px;
-            }
-            .hero-social a {
-                width: 42px;
-                height: 42px;
-                font-size: 20px;
             }
             .section-title {
                 font-size: 32px;
@@ -749,24 +987,12 @@
                 border-radius: 35px;
                 gap: 20px;
             }
-            .stats-container {
-                gap: 30px;
-            }
-            .stat-number {
-                font-size: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-            .hero-buttons {
+            .contact-wrapper {
                 flex-direction: column;
-                align-items: center;
             }
-            .hero-buttons .btn {
-                width: 80%;
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 15px;
             }
         }
     </style>
@@ -786,6 +1012,7 @@
             <li><a href="index.html">🏠 Home</a></li>
             <li><a href="menu.html">📋 Menu</a></li>
             <li><a href="#packages">📦 Packages</a></li>
+            <li><a href="#gallery">📸 Gallery</a></li>
             <li><a href="#about">📖 About</a></li>
             <li><a href="#testimonials">⭐ Reviews</a></li>
             <li><a href="#contact">📞 Contact</a></li>
@@ -794,9 +1021,8 @@
         <div class="mobile-menu" id="mobileMenu">☰</div>
     </div>
 
-    <!-- BIG HERO LANDSCAPE SECTION -->
+    <!-- Hero Section -->
     <section class="hero">
-        <!-- Animated Background Sushi Icons -->
         <div class="hero-bg-sushi">🍣</div>
         <div class="hero-bg-sushi2">🥢</div>
         <div class="hero-bg-sushi3">🍱</div>
@@ -883,6 +1109,15 @@
         </div>
     </section>
 
+    <!-- ===== GALLERY SECTION ===== -->
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">Our <span>Gallery</span></h2>
+        <p class="section-desc">Browse our delicious sushi creations</p>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Gallery items will be loaded here -->
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="section section-dark">
         <h2 class="section-title">About <span>SUSHI VIBE</span></h2>
@@ -935,9 +1170,47 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <h2 class="section-title">Book Your <span>Sushi Experience</span></h2>
-        <p style="margin-bottom: 25px;">Call or message us to place your order</p>
+        <p class="section-desc">Call or message us to place your order</p>
+        
+        <div class="contact-wrapper">
+            <div class="contact-info-card">
+                <h3><i class="fas fa-headset"></i> Contact Us</h3>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div><h4>Phone</h4><a href="tel:+251927249999">+251 927 249999</a></div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div><h4>Email</h4><p>sushivibes@proton.me</p></div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+                    <div><h4>Telegram</h4><a href="https://t.me/sushivib" target="_blank">@sushivib</a></div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                    <div><h4>Instagram</h4><a href="https://www.instagram.com/sushi_vibe26" target="_blank">@sushi_vibe26</a></div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fab fa-tiktok"></i></div>
+                    <div><h4>TikTok</h4><a href="https://www.tiktok.com/@sushivibe.caterin" target="_blank">@sushivibe.caterin</a></div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div><h4>Location</h4><p>Addis Ababa, Ethiopia</p></div>
+                </div>
+            </div>
+
+            <div class="contact-logo-card">
+                <img src="https://raw.githubusercontent.com/developereth/sushivibecatering/main/logo.png" alt="SUSHI VIBE" class="contact-logo-img">
+                <h3>SUSHI VIBE</h3>
+                <p>THE ART OF 快樂 司</p>
+                <p style="font-size: 12px; margin: 10px 0;">Premium Quality • Fresh Daily</p>
+                <a href="tel:+251927249999" class="btn-contact"><i class="fas fa-phone-alt"></i> Order Now</a>
+            </div>
+        </div>
+        
         <div class="contact-buttons">
-            <a href="tel:+251927249999" class="btn btn-red">📞 Call +251 927 249999</a>
             <a href="https://wa.me/251927249999" class="btn btn-outline">💬 WhatsApp</a>
             <a href="https://t.me/sushivib" class="btn btn-outline">✈️ Telegram</a>
             <a href="https://www.instagram.com/sushi_vibe26" class="btn btn-outline">📷 Instagram</a>
@@ -968,6 +1241,12 @@
         </div>
     </footer>
 
+    <!-- Modal for full image -->
+    <div class="modal" id="imageModal">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="SUSHI VIBE Gallery">
+    </div>
+
     <script>
         // Mobile menu toggle
         const mobileBtn = document.getElementById('mobileMenu');
@@ -979,7 +1258,6 @@
             });
         }
         
-        // Close menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -997,6 +1275,73 @@
                 navbar.style.background = 'rgba(10, 10, 10, 0.95)';
             }
         });
+        
+        // ===== GALLERY IMAGES =====
+        // You can replace these with your own sushi images
+        const galleryImages = [
+            { url: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd55?w=600", title: "Fresh Sushi Platter" },
+            { url: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600", title: "Dragon Roll" },
+            { url: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600", title: "Chef Preparing Sushi" },
+            { url: "https://images.unsplash.com/photo-1617196034184-421b4917c92d?w=600", title: "Salmon Nigiri" },
+            { url: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600", title: "Sashimi Platter" },
+            { url: "https://images.unsplash.com/photo-1617195968743-61f8a5f2ddfa?w=600", title: "California Roll" },
+            { url: "https://images.unsplash.com/photo-1617195983010-1f28c5b0b5f5?w=600", title: "Rainbow Roll" },
+            { url: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd55?w=600", title: "Sushi Set" }
+        ];
+        
+        // Load gallery
+        const galleryGrid = document.getElementById('galleryGrid');
+        
+        function loadGallery() {
+            galleryGrid.innerHTML = '';
+            galleryImages.forEach((img, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `
+                    <img src="${img.url}" alt="${img.title}" loading="lazy">
+                    <div class="gallery-overlay">
+                        <p>🍣 ${img.title}</p>
+                    </div>
+                `;
+                galleryItem.onclick = () => openModal(img.url, img.title);
+                galleryGrid.appendChild(galleryItem);
+            });
+        }
+        
+        // Modal functions
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        
+        function openModal(url, title) {
+            modalImage.src = url;
+            modalImage.alt = title;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal on click outside image
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        // Load gallery when page loads
+        loadGallery();
+        
+        console.log('SUSHI VIBE - Gallery Section Added! 🍣📸');
     </script>
 </body>
 </html>
