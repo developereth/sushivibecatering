@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Pre-order Catering</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html" class="order-cta active">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Pre-order your sushi catering</h1>
+        <p>24 hours advance notice required · Freshly prepared for your event</p>
+      </div>
+    </section>
+
+    <div class="container order-container">
+      <div class="order-grid">
+        <!-- Order Form -->
+        <div class="order-form-section">
+          <form id="orderForm" class="order-form">
+            <div class="form-card">
+              <h2><i class="fas fa-info-circle"></i> 1. Select your package</h2>
+              <div class="package-selector">
+                <label class="pkg-option" data-pkg="vibe">
+                  <input type="radio" name="package" value="Vibe Party Set" data-price="32000" data-people="10">
+                  <div class="pkg-details">
+                    <strong>🎉 Vibe Party Set</strong> <span class="pkg-price">32,000 ETB</span>
+                    <small>10 people · Nigiri, Gunkan, California, Dragon & Mango rolls</small>
+                  </div>
+                </label>
+                <label class="pkg-option" data-pkg="celebration">
+                  <input type="radio" name="package" value="Celebration Feast" data-price="65000" data-people="20">
+                  <div class="pkg-details">
+                    <strong>🌟 Celebration Feast</strong> <span class="pkg-price">65,000 ETB</span>
+                    <small>20 people · 40 Nigiri & Gunkan + Rainbow, California, Spicy Tuna</small>
+                  </div>
+                </label>
+                <label class="pkg-option" data-pkg="ultimate">
+                  <input type="radio" name="package" value="Ultimate Sushi Experience" data-price="105000" data-people="30">
+                  <div class="pkg-details">
+                    <strong>✨ Ultimate Sushi Experience</strong> <span class="pkg-price">105,000 ETB</span>
+                    <small>30 people · Premium selection: Dragon, Alaska, Philly, Rainbow, Spicy Tuna</small>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-card">
+              <h2><i class="fas fa-calendar-alt"></i> 2. Event details</h2>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Event date *</label>
+                  <input type="date" id="eventDate" required>
+                  <small>Minimum 24h advance order</small>
+                </div>
+                <div class="form-group">
+                  <label>Event time *</label>
+                  <input type="time" id="eventTime" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Number of guests (matches selected package)</label>
+                <input type="number" id="guestCount" readonly placeholder="Auto-filled from package">
+              </div>
+              <div class="form-group">
+                <label>Special occasion (optional)</label>
+                <select id="occasion">
+                  <option value="">Select occasion</option>
+                  <option>Birthday Party</option>
+                  <option>Corporate Event</option>
+                  <option>Wedding / Engagement</option>
+                  <option>Anniversary</option>
+                  <option>Private Gathering</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-card">
+              <h2><i class="fas fa-user-check"></i> 3. Contact & delivery</h2>
+              <div class="form-row">
+                <div class="form-group"><label>Full name *</label><input type="text" id="fullName" required></div>
+                <div class="form-group"><label>Phone number *</label><input type="tel" id="phone" required></div>
+              </div>
+              <div class="form-group"><label>Email address *</label><input type="email" id="email" required></div>
+              <div class="form-group">
+                <label>Delivery or pickup?</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="deliveryType" value="Delivery" checked> Delivery (charges may apply)</label>
+                  <label><input type="radio" name="deliveryType" value="Pickup"> Pickup (free)</label>
+                </div>
+              </div>
+              <div class="form-group" id="deliveryAddressGroup">
+                <label>Delivery address</label>
+                <textarea rows="2" id="address" placeholder="Street, landmark, city"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Allergies or dietary notes *</label>
+                <textarea rows="2" id="allergies" placeholder="E.g., gluten-free, no sesame, shellfish allergy, vegetarian options..."></textarea>
+                <small>We take allergies seriously — please list any restrictions</small>
+              </div>
+              <div class="form-group">
+                <label>Additional requests (extra wasabi, chopsticks, serving trays, etc.)</label>
+                <textarea rows="2" id="specialRequests" placeholder="Optional notes"></textarea>
+              </div>
+            </div>
+
+            <div class="form-card order-summary-card">
+              <h2><i class="fas fa-receipt"></i> Order summary</h2>
+              <div class="summary-line"><span>Selected package:</span> <strong id="summaryPackage">—</strong></div>
+              <div class="summary-line"><span>Package price:</span> <strong id="summaryPrice">0 ETB</strong></div>
+              <div class="summary-line"><span>Delivery (estimate):</span> <strong id="deliveryFee">+ 0 ETB</strong> <small>(final fee confirmed after order)</small></div>
+              <div class="summary-total"><span>Total estimate:</span> <strong id="totalPrice">0 ETB</strong></div>
+              <p class="note-summary"><i class="fas fa-clock"></i> Pre-order 24h required. Free wasabi, ginger & soy sauce included with every order.</p>
+            </div>
+
+            <button type="submit" class="btn-primary btn-large btn-submit-order"><i class="fas fa-shopping-cart"></i> Complete pre-order →</button>
+            <div id="orderStatus" class="form-status"></div>
+          </form>
+        </div>
+
+        <!-- Order Info Sidebar -->
+        <div class="order-sidebar">
+          <div class="info-box">
+            <i class="fas fa-clock"></i>
+            <h4>Pre-order policy</h4>
+            <p>All catering orders require <strong>24 hours advance notice</strong>. We'll confirm availability within 2 hours.</p>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-truck"></i>
+            <h4>Delivery information</h4>
+            <p>Delivery available in Addis Ababa. Charges vary by distance — our team will confirm exact fee after order placement.</p>
+          </div>
+          <div class="info-box highlight-box">
+            <i class="fas fa-gift"></i>
+            <h4>Always included FREE</h4>
+            <p>✔ Wasabi<br>✔ Pickled ginger<br>✔ Premium soy sauce<br>✔ Disposable chopsticks & napkins</p>
+          </div>
+          <div class="info-box">
+            <i class="fas fa-phone-alt"></i>
+            <h4>Need help?</h4>
+            <p>Call us: <strong>+251 912 345 678</strong><br>Email: <strong>orders@sushivibe.com</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering elevating your events.</p><div class="social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt"></i> +251 912 345 678</li><li><i class="fas fa-envelope"></i> hello@sushivibe.com</li></ul></div>
+      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle"></i> Delivery charges may apply</p><p><i class="fas fa-allergies"></i> Allergies? Let us know</p><p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB</p></div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script>
+    // Additional order-specific JS for package selection & summary
+    const radioPackages = document.querySelectorAll('input[name="package"]');
+    const summaryPackageSpan = document.getElementById('summaryPackage');
+    const summaryPriceSpan = document.getElementById('summaryPrice');
+    const totalPriceSpan = document.getElementById('totalPrice');
+    const guestCountInput = document.getElementById('guestCount');
+    const deliveryRadio = document.querySelectorAll('input[name="deliveryType"]');
+    const deliveryFeeSpan = document.getElementById('deliveryFee');
+    
+    function updateSummary() {
+      let selected = null;
+      for(let r of radioPackages) {
+        if(r.checked) {
+          selected = r;
+          break;
+        }
+      }
+      if(selected) {
+        const pkgName = selected.value;
+        const price = parseInt(selected.dataset.price);
+        const people = selected.dataset.people;
+        summaryPackageSpan.innerText = pkgName;
+        summaryPriceSpan.innerText = price.toLocaleString() + ' ETB';
+        if(guestCountInput) guestCountInput.value = people;
+        let deliveryCost = 0;
+        const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value;
+        if(deliveryType === 'Delivery') deliveryCost = 0; // Will be quoted later, but show placeholder
+        deliveryFeeSpan.innerHTML = deliveryType === 'Delivery' ? 'To be quoted' : '0 ETB (pickup)';
+        let totalDisplay = price.toLocaleString() + ' ETB';
+        if(deliveryType === 'Delivery') totalDisplay = price.toLocaleString() + ' ETB + delivery fee';
+        totalPriceSpan.innerText = totalDisplay;
+      } else {
+        summaryPackageSpan.innerText = '—';
+        summaryPriceSpan.innerText = '0 ETB';
+        if(guestCountInput) guestCountInput.value = '';
+        totalPriceSpan.innerText = '0 ETB';
+      }
+    }
+    
+    radioPackages.forEach(r => r.addEventListener('change', updateSummary));
+    deliveryRadio.forEach(d => d.addEventListener('change', updateSummary));
+    
+    // show/hide delivery address
+    const deliveryGroup = document.getElementById('deliveryAddressGroup');
+    function toggleAddress() {
+      const val = document.querySelector('input[name="deliveryType"]:checked')?.value;
+      if(val === 'Delivery') deliveryGroup.style.display = 'block';
+      else deliveryGroup.style.display = 'none';
+    }
+    deliveryRadio.forEach(r => r.addEventListener('change', toggleAddress));
+    toggleAddress();
+    
+    // Form submit handler
+    const orderForm = document.getElementById('orderForm');
+    const orderStatus = document.getElementById('orderStatus');
+    orderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // validation
+      const pkgSelected = document.querySelector('input[name="package"]:checked');
+      if(!pkgSelected) { orderStatus.innerText = '❌ Please select a catering package.'; orderStatus.style.color = '#c93a3a'; return; }
+      const dateVal = document.getElementById('eventDate').value;
+      if(!dateVal) { orderStatus.innerText = '❌ Please select event date (24h advance notice).'; return; }
+      const nameVal = document.getElementById('fullName').value.trim();
+      if(!nameVal) { orderStatus.innerText = '❌ Please enter your full name.'; return; }
+      const phoneVal = document.getElementById('phone').value.trim();
+      if(!phoneVal) { orderStatus.innerText = '❌ Phone number required.'; return; }
+      const allergyVal = document.getElementById('allergies').value.trim();
+      if(!allergyVal) { orderStatus.innerText = '⚠️ Please tell us about any allergies (even if "none").'; return; }
+      
+      // Success simulation
+      orderStatus.innerHTML = '✅ Your pre-order has been received! A Sushi Vibe representative will contact you within 2 hours to confirm availability, delivery fee, and finalize. Thank you! 🍣';
+      orderStatus.style.color = '#2b6e3c';
+      orderStatus.style.backgroundColor = '#e6f4ea';
+      orderForm.scrollIntoView({ behavior: 'smooth' });
+      // Optionally reset? but keep visible
+    });
+    
+    // auto-update from url params if needed
+    const urlParams = new URLSearchParams(window.location.search);
+    const preset = urlParams.get('package');
+    if(preset === 'vibe') document.querySelector('input[value="Vibe Party Set"]')?.click();
+    if(preset === 'celebration') document.querySelector('input[value="Celebration Feast"]')?.click();
+    if(preset === 'ultimate') document.querySelector('input[value="Ultimate Sushi Experience"]')?.click();
+    updateSummary();
+  </script>
+</body>
+</html>
