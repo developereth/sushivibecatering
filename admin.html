@@ -34,10 +34,22 @@
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo img {
+      height: 40px;
+      width: auto;
     }
     
     .logo i {
       color: #e31b23;
+    }
+    
+    .logo span {
+      color: white;
     }
     
     .stats {
@@ -50,6 +62,7 @@
       padding: 0.5rem 1rem;
       border-radius: 12px;
       text-align: center;
+      border: 1px solid #2a2a2a;
     }
     
     .stat-number {
@@ -66,6 +79,11 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      transition: 0.2s;
+    }
+    
+    .logout-btn:hover {
+      background: #b8151c;
     }
     
     /* Main Content */
@@ -75,12 +93,51 @@
       padding: 2rem;
     }
     
+    /* Welcome Banner */
+    .welcome-banner {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      border: 1px solid #e31b23;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .welcome-text h2 {
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+    
+    .welcome-text p {
+      color: #aaaaaa;
+    }
+    
+    .refresh-btn {
+      background: #1a1a1a;
+      border: 1px solid #e31b23;
+      color: #e31b23;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    
+    .refresh-btn:hover {
+      background: #e31b23;
+      color: white;
+    }
+    
     /* Filters */
     .filters {
       display: flex;
       gap: 1rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
+      align-items: center;
     }
     
     .filter-btn {
@@ -93,9 +150,14 @@
       transition: 0.2s;
     }
     
+    .filter-btn:hover {
+      border-color: #e31b23;
+    }
+    
     .filter-btn.active {
       background: #e31b23;
       border-color: #e31b23;
+      color: white;
     }
     
     .search-box {
@@ -110,19 +172,39 @@
       border: 1px solid #2a2a2a;
       border-radius: 40px;
       color: white;
+      font-family: inherit;
+    }
+    
+    .search-box input:focus {
+      outline: none;
+      border-color: #e31b23;
+    }
+    
+    .export-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    
+    .export-btn:hover {
+      background: #1e7e34;
     }
     
     /* Orders Table */
     .orders-table-container {
       overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
     }
     
     table {
       width: 100%;
       border-collapse: collapse;
       background: #111111;
-      border-radius: 16px;
-      overflow: hidden;
     }
     
     th, td {
@@ -162,11 +244,15 @@
       font-size: 1rem;
       padding: 0.25rem 0.5rem;
       border-radius: 6px;
+      transition: 0.2s;
     }
     
     .action-view { color: #17a2b8; }
+    .action-view:hover { background: #17a2b820; }
     .action-edit { color: #ffc107; }
+    .action-edit:hover { background: #ffc10720; }
     .action-delete { color: #dc3545; }
+    .action-delete:hover { background: #dc354520; }
     
     /* Modal */
     .modal {
@@ -187,7 +273,7 @@
       border: 1px solid #e31b23;
       border-radius: 24px;
       padding: 2rem;
-      max-width: 500px;
+      max-width: 550px;
       width: 90%;
       max-height: 80vh;
       overflow-y: auto;
@@ -205,20 +291,24 @@
       color: #e31b23;
     }
     
-    .export-btn {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-left: 1rem;
-    }
-    
     .empty-state {
       text-align: center;
       padding: 3rem;
       color: #888;
+    }
+    
+    /* Footer */
+    .admin-footer {
+      background: #000000;
+      border-top: 1px solid #2a2a2a;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .admin-footer a {
+      color: #e31b23;
+      text-decoration: none;
     }
     
     @media (max-width: 768px) {
@@ -233,13 +323,21 @@
         padding: 0.5rem;
         font-size: 0.8rem;
       }
+      .filters {
+        justify-content: center;
+      }
+      .search-box {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="admin-header">
     <div class="logo">
-      <i class="fas fa-fish"></i> Sushi Vibe | Admin Dashboard
+      <img src="logo.png" alt="Sushi Vibe Logo" onerror="this.style.display='none'; this.nextSibling.style.display='inline';">
+      <i class="fas fa-fish" style="display: none;"></i>
+      <span>Sushi Vibe | Admin Dashboard</span>
     </div>
     <div class="stats" id="statsPanel">
       <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Total Orders</div></div>
@@ -249,6 +347,15 @@
   </div>
   
   <div class="container">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2><i class="fas fa-chart-line" style="color: #e31b23;"></i> Welcome back, Admin</h2>
+        <p>Manage your sushi catering orders, update statuses, and track customer requests.</p>
+      </div>
+      <button class="refresh-btn" onclick="loadOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </div>
+    
     <div class="filters">
       <button class="filter-btn active" data-filter="all">All Orders</button>
       <button class="filter-btn" data-filter="pending">Pending</button>
@@ -276,10 +383,15 @@
           </tr>
         </thead>
         <tbody id="ordersTableBody">
-          <tr><td colspan="8" class="empty-state">Loading orders...</td></tr>
+          <tr><td colspan="8" class="empty-state">📭 Loading orders...</td></tr>
         </tbody>
-      </table>
+       </table>
     </div>
+  </div>
+  
+  <div class="admin-footer">
+    <p>&copy; 2025 Sushi Vibe Catering — All Rights Reserved.</p>
+    <p style="margin-top: 0.25rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank">Addis Power</a></p>
   </div>
   
   <!-- Order Details Modal -->
@@ -316,7 +428,7 @@
         return false;
       }
       
-      // Optional: Auto logout after 24 hours
+      // Auto logout after 24 hours
       if (loginTime && (Date.now() - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
         logout();
         return false;
@@ -332,7 +444,13 @@
     
     // Load and display orders
     function loadOrders() {
-      currentOrders = getAllOrders();
+      if (typeof getAllOrders !== 'undefined') {
+        currentOrders = getAllOrders();
+      } else {
+        // Fallback if orders-storage.js not loaded
+        const stored = localStorage.getItem('sushi_vibe_orders');
+        currentOrders = stored ? JSON.parse(stored) : [];
+      }
       updateStats();
       filterAndDisplayOrders();
     }
@@ -355,9 +473,9 @@
       if (currentSearch) {
         const searchLower = currentSearch.toLowerCase();
         filtered = filtered.filter(o => 
-          o.order_id.toLowerCase().includes(searchLower) ||
-          o.full_name.toLowerCase().includes(searchLower) ||
-          o.phone.includes(searchLower)
+          (o.order_id && o.order_id.toLowerCase().includes(searchLower)) ||
+          (o.full_name && o.full_name.toLowerCase().includes(searchLower)) ||
+          (o.phone && o.phone.includes(searchLower))
         );
       }
       
@@ -371,19 +489,19 @@
       const tbody = document.getElementById('ordersTableBody');
       
       if (orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">📭 No orders found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">📭 No orders found. When customers place orders, they will appear here.</td></tr>';
         return;
       }
       
       tbody.innerHTML = orders.map(order => `
         <tr>
-          <td><strong>${order.order_id}</strong></td>
-          <td>${new Date(order.order_date).toLocaleDateString()}</td>
-          <td>${escapeHtml(order.full_name)}</td>
-          <td>${order.phone}</td>
-          <td>${order.package.substring(0, 20)}${order.package.length > 20 ? '...' : ''}</td>
+          <td><strong>${escapeHtml(order.order_id || 'N/A')}</strong></td>
+          <td>${order.order_date ? new Date(order.order_date).toLocaleDateString() : 'N/A'}</td>
+          <td>${escapeHtml(order.full_name || 'N/A')}</td>
+          <td>${order.phone || 'N/A'}</td>
+          <td>${order.package ? (order.package.substring(0, 20) + (order.package.length > 20 ? '...' : '')) : 'N/A'}</td>
           <td>${order.event_date || 'N/A'}</td>
-          <td><span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span></td>
+          <td><span class="status-badge status-${order.status || 'pending'}">${((order.status || 'pending').toUpperCase())}</span></td>
           <td>
             <button class="action-btn action-view" onclick="viewOrder('${order.order_id}')" title="View Details"><i class="fas fa-eye"></i></button>
             <button class="action-btn action-edit" onclick="editOrder('${order.order_id}')" title="Update Status"><i class="fas fa-pencil-alt"></i></button>
@@ -394,39 +512,50 @@
     }
     
     function viewOrder(orderId) {
-      const order = getOrderById(orderId);
+      let order = null;
+      if (typeof getOrderById !== 'undefined') {
+        order = getOrderById(orderId);
+      } else {
+        order = currentOrders.find(o => o.order_id === orderId);
+      }
       if (!order) return;
       
       const modalContent = document.getElementById('modalContent');
       modalContent.innerHTML = `
-        <div style="margin-bottom: 1rem;"><strong>Order ID:</strong> ${order.order_id}</div>
-        <div style="margin-bottom: 1rem;"><strong>Date Placed:</strong> ${new Date(order.order_date).toLocaleString()}</div>
-        <div style="margin-bottom: 1rem;"><strong>Customer:</strong> ${escapeHtml(order.full_name)}</div>
-        <div style="margin-bottom: 1rem;"><strong>Phone:</strong> ${order.phone}</div>
-        <div style="margin-bottom: 1rem;"><strong>Email:</strong> ${order.email}</div>
-        <div style="margin-bottom: 1rem;"><strong>Package:</strong> ${order.package}</div>
-        <div style="margin-bottom: 1rem;"><strong>Price:</strong> ${parseInt(order.package_price).toLocaleString()} ETB</div>
-        <div style="margin-bottom: 1rem;"><strong>Guests:</strong> ${order.guests}</div>
-        <div style="margin-bottom: 1rem;"><strong>Event Date:</strong> ${order.event_date} at ${order.event_time}</div>
-        <div style="margin-bottom: 1rem;"><strong>Occasion:</strong> ${order.occasion || 'Not specified'}</div>
-        <div style="margin-bottom: 1rem;"><strong>Delivery Type:</strong> ${order.delivery_type}</div>
-        <div style="margin-bottom: 1rem;"><strong>Delivery Address:</strong> ${order.delivery_address || 'N/A'}</div>
-        <div style="margin-bottom: 1rem;"><strong>Allergies:</strong> ${order.allergies}</div>
-        <div style="margin-bottom: 1rem;"><strong>Special Requests:</strong> ${order.special_requests || 'None'}</div>
-        <div style="margin-bottom: 1rem;"><strong>Status:</strong> <span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span></div>
+        <div style="margin-bottom: 0.75rem;"><strong>Order ID:</strong> ${order.order_id}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Date Placed:</strong> ${order.order_date ? new Date(order.order_date).toLocaleString() : 'N/A'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Customer:</strong> ${escapeHtml(order.full_name)}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Phone:</strong> ${order.phone}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Email:</strong> ${order.email || 'N/A'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Package:</strong> ${order.package}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Price:</strong> ${parseInt(order.package_price).toLocaleString()} ETB</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Guests:</strong> ${order.guests}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Event Date:</strong> ${order.event_date} at ${order.event_time || 'N/A'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Occasion:</strong> ${order.occasion || 'Not specified'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Delivery Type:</strong> ${order.delivery_type}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Delivery Address:</strong> ${order.delivery_address || 'N/A'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Allergies:</strong> ${order.allergies || 'None'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Special Requests:</strong> ${order.special_requests || 'None'}</div>
+        <div style="margin-bottom: 0.75rem;"><strong>Status:</strong> <span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span></div>
       `;
       
       document.getElementById('orderModal').style.display = 'flex';
     }
     
     function editOrder(orderId) {
-      const order = getOrderById(orderId);
+      let order = null;
+      if (typeof getOrderById !== 'undefined') {
+        order = getOrderById(orderId);
+      } else {
+        order = currentOrders.find(o => o.order_id === orderId);
+      }
       if (!order) return;
       
       const editContent = document.getElementById('editContent');
       editContent.innerHTML = `
         <p><strong>Order ID:</strong> ${order.order_id}</p>
         <p><strong>Customer:</strong> ${escapeHtml(order.full_name)}</p>
+        <p><strong>Phone:</strong> ${order.phone}</p>
         <div style="margin: 1rem 0;">
           <label style="display: block; margin-bottom: 0.5rem;"><strong>Update Status:</strong></label>
           <select id="newStatus" style="width: 100%; padding: 0.5rem; background: #1a1a1a; border: 1px solid #e31b23; border-radius: 8px; color: white;">
@@ -447,14 +576,31 @@
     
     function updateOrderStatus(orderId) {
       const newStatus = document.getElementById('newStatus').value;
-      updateOrderStatusById(orderId, newStatus);
+      if (typeof updateOrderStatusById !== 'undefined') {
+        updateOrderStatusById(orderId, newStatus);
+      } else {
+        // Fallback: update localStorage directly
+        const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+        const index = orders.findIndex(o => o.order_id === orderId);
+        if (index !== -1) {
+          orders[index].status = newStatus;
+          localStorage.setItem('sushi_vibe_orders', JSON.stringify(orders));
+        }
+      }
       closeEditModal();
-      loadOrders(); // Refresh the table
+      loadOrders();
     }
     
     function deleteOrder(orderId) {
       if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
-        deleteOrderById(orderId);
+        if (typeof deleteOrderById !== 'undefined') {
+          deleteOrderById(orderId);
+        } else {
+          // Fallback: delete from localStorage directly
+          const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+          const filtered = orders.filter(o => o.order_id !== orderId);
+          localStorage.setItem('sushi_vibe_orders', JSON.stringify(filtered));
+        }
         loadOrders();
       }
     }
@@ -470,36 +616,40 @@
     function exportToCSV() {
       let orders = [...currentOrders];
       
-      // Apply current filters
       if (currentFilter !== 'all') {
         orders = orders.filter(o => o.status === currentFilter);
       }
       if (currentSearch) {
         const searchLower = currentSearch.toLowerCase();
         orders = orders.filter(o => 
-          o.order_id.toLowerCase().includes(searchLower) ||
-          o.full_name.toLowerCase().includes(searchLower) ||
-          o.phone.includes(searchLower)
+          (o.order_id && o.order_id.toLowerCase().includes(searchLower)) ||
+          (o.full_name && o.full_name.toLowerCase().includes(searchLower)) ||
+          (o.phone && o.phone.includes(searchLower))
         );
+      }
+      
+      if (orders.length === 0) {
+        alert('No orders to export.');
+        return;
       }
       
       const headers = ['Order ID', 'Date', 'Customer Name', 'Phone', 'Email', 'Package', 'Price (ETB)', 'Guests', 'Event Date', 'Event Time', 'Delivery Type', 'Address', 'Allergies', 'Special Requests', 'Status'];
       const rows = orders.map(o => [
-        o.order_id,
-        new Date(o.order_date).toLocaleString(),
-        o.full_name,
-        o.phone,
-        o.email,
-        o.package,
-        o.package_price,
-        o.guests,
-        o.event_date,
-        o.event_time,
-        o.delivery_type,
+        o.order_id || '',
+        o.order_date ? new Date(o.order_date).toLocaleString() : '',
+        o.full_name || '',
+        o.phone || '',
+        o.email || '',
+        o.package || '',
+        o.package_price || '',
+        o.guests || '',
+        o.event_date || '',
+        o.event_time || '',
+        o.delivery_type || '',
         o.delivery_address || '',
-        o.allergies,
+        o.allergies || '',
         o.special_requests || '',
-        o.status
+        o.status || ''
       ]);
       
       const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
@@ -529,10 +679,13 @@
       });
     });
     
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      currentSearch = e.target.value;
-      filterAndDisplayOrders();
-    });
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value;
+        filterAndDisplayOrders();
+      });
+    }
     
     // Close modals when clicking outside
     window.onclick = function(event) {
