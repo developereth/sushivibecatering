@@ -30,7 +30,7 @@
       padding: 0 24px;
     }
 
-    /* ========== HEADER - Dark Theme ========== */
+    /* ========== HEADER ========== */
     .site-header {
       background: #0a0a12;
       border-bottom: 2px solid #e67e22;
@@ -58,12 +58,18 @@
       gap: 10px;
     }
 
+    .logo i {
+      color: #e67e22;
+      font-size: 1.8rem;
+    }
+
     .logo span {
       font-size: 0.8rem;
       background: #e67e22;
       color: #0a0a12;
       padding: 4px 12px;
       border-radius: 40px;
+      font-weight: 600;
     }
 
     .main-nav ul {
@@ -300,10 +306,10 @@
       color: #888;
     }
 
-    /* ========== FOOTER ========== */
+    /* ========== FOOTER - UPDATED ========== */
     .site-footer {
       background: #050508;
-      padding: 50px 0 20px;
+      padding: 60px 0 25px;
       border-top: 3px solid #e67e22;
       margin-top: 40px;
     }
@@ -311,32 +317,52 @@
     .footer-inner {
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
+      gap: 50px;
       justify-content: space-between;
     }
 
     .footer-col {
       flex: 1;
-      min-width: 200px;
+      min-width: 220px;
     }
 
     .footer-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.6rem;
+      font-weight: 800;
       color: #e67e22;
       margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-logo i {
+      font-size: 1.8rem;
     }
 
     .footer-col p {
       color: #888;
       line-height: 1.6;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .footer-col h4 {
       color: #e67e22;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-size: 1.1rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-col h4:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #e67e22;
     }
 
     .footer-col ul {
@@ -344,7 +370,7 @@
     }
 
     .footer-col li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .footer-col a {
@@ -355,17 +381,19 @@
 
     .footer-col a:hover {
       color: #e67e22;
+      padding-left: 5px;
     }
 
     .social-icons {
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .social-icons a {
       color: #888;
       font-size: 1.3rem;
-      margin-right: 15px;
+      margin-right: 18px;
       display: inline-block;
+      transition: 0.3s;
     }
 
     .social-icons a:hover {
@@ -373,10 +401,22 @@
       transform: translateY(-3px);
     }
 
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #888;
+    }
+
+    .contact-info i {
+      color: #e67e22;
+      width: 25px;
+    }
+
     .footer-bottom {
       text-align: center;
-      padding-top: 30px;
-      margin-top: 30px;
+      padding-top: 35px;
+      margin-top: 40px;
       border-top: 1px solid #1a1a2e;
       color: #666;
       font-size: 0.8rem;
@@ -416,7 +456,7 @@
       }
       .footer-inner {
         flex-direction: column;
-        gap: 30px;
+        gap: 35px;
       }
     }
   </style>
@@ -424,7 +464,13 @@
 <body>
   <header class="site-header">
     <div class="container nav-container">
-      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <div class="logo">
+        <a href="index.html">
+          <i class="fas fa-fish"></i> 
+          Sushi Vibe 
+          <span>Catering</span>
+        </a>
+      </div>
       <nav class="main-nav">
         <ul id="navMenu">
           <li><a href="index.html">Home</a></li>
@@ -639,7 +685,9 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-col">
-        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <div class="footer-logo">
+          <i class="fas fa-fish"></i> Sushi Vibe
+        </div>
         <p>Authentic Japanese catering elevating your events with premium quality, fresh ingredients, and artistic presentation.</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-instagram"></i></a>
@@ -661,7 +709,7 @@
       </div>
       <div class="footer-col">
         <h4>Contact Info</h4>
-        <ul>
+        <ul class="contact-info">
           <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
           <li><i class="fas fa-phone-alt"></i> +251 912 345 678</li>
           <li><i class="fas fa-envelope"></i> hello@sushivibe.com</li>
@@ -670,11 +718,13 @@
       </div>
       <div class="footer-col">
         <h4>Important Notes</h4>
-        <p><i class="fas fa-clock"></i> 24h pre-order required</p>
-        <p><i class="fas fa-truck"></i> Delivery charges may apply</p>
-        <p><i class="fas fa-allergies"></i> Allergies? Let us know</p>
-        <p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p>
-        <p><i class="fas fa-credit-card"></i> Prices in ETB</p>
+        <ul>
+          <li><i class="fas fa-clock"></i> 24h pre-order required</li>
+          <li><i class="fas fa-truck"></i> Delivery charges may apply</li>
+          <li><i class="fas fa-allergies"></i> Allergies? Let us know</li>
+          <li><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</li>
+          <li><i class="fas fa-credit-card"></i> Prices in ETB</li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
