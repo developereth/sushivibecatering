@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html" class="order-cta">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Sushi art gallery</h1>
+        <p>Freshly prepared masterpieces for every celebration</p>
+      </div>
+    </section>
+
+    <div class="container gallery-grid-container">
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="rolls">Signature Rolls</button>
+        <button class="filter-btn" data-filter="nigiri">Nigiri & Gunkan</button>
+        <button class="filter-btn" data-filter="catering">Catering Setup</button>
+      </div>
+
+      <div class="gallery-masonry" id="galleryGrid">
+        <!-- Gallery items - mix of real sushi images and catering display -->
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&h=400&fit=crop" alt="Dragon Roll"><div class="overlay"><span>Dragon Roll</span></div></div>
+        <div class="gallery-item" data-category="nigiri"><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&h=400&fit=crop" alt="Nigiri Selection"><div class="overlay"><span>Premium Nigiri</span></div></div>
+        <div class="gallery-item" data-category="catering"><img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500&h=400&fit=crop" alt="Catering Platter"><div class="overlay"><span>Event Catering</span></div></div>
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=500&h=400&fit=crop" alt="California Roll"><div class="overlay"><span>California Roll</span></div></div>
+        <div class="gallery-item" data-category="nigiri"><img src="https://images.unsplash.com/photo-1584589167171-541ce45f1eea?w=500&h=400&fit=crop" alt="Gunkan Maki"><div class="overlay"><span>Gunkan Maki</span></div></div>
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=500&h=400&fit=crop" alt="Rainbow Roll"><div class="overlay"><span>Rainbow Roll</span></div></div>
+        <div class="gallery-item" data-category="catering"><img src="https://images.unsplash.com/photo-1563619321086-b24c3a7992e6?w=500&h=400&fit=crop" alt="Sushi Boat"><div class="overlay"><span>Sushi Boat for Parties</span></div></div>
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1617543962913-e0b9b7fc40b4?w=500&h=400&fit=crop" alt="Spicy Tuna Roll"><div class="overlay"><span>Spicy Tuna Roll</span></div></div>
+        <div class="gallery-item" data-category="nigiri"><img src="https://images.unsplash.com/photo-1626804475290-d67e1d7f64b5?w=500&h=400&fit=crop" alt="Salmon Nigiri"><div class="overlay"><span>Salmon Nigiri</span></div></div>
+        <div class="gallery-item" data-category="catering"><img src="https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=500&h=400&fit=crop" alt="Wedding Catering"><div class="overlay"><span>Wedding Sushi Table</span></div></div>
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&h=400&fit=crop" alt="Maki Assortment"><div class="overlay"><span>Maki Variety</span></div></div>
+        <div class="gallery-item" data-category="nigiri"><img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500&h=400&fit=crop" alt="Gunkan with Tobiko"><div class="overlay"><span>Gunkan Special</span></div></div>
+      </div>
+      
+      <div class="gallery-cta">
+        <p><i class="fas fa-camera-retro"></i> Every dish is crafted fresh for your event. Book a tasting or request custom presentation.</p>
+        <a href="contact.html" class="btn-primary">Contact us for bespoke catering</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering elevating your events.</p><div class="social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt"></i> +251 912 345 678</li><li><i class="fas fa-envelope"></i> hello@sushivibe.com</li></ul></div>
+      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle"></i> Delivery charges may apply</p><p><i class="fas fa-allergies"></i> Allergies? Let us know</p><p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB</p></div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
