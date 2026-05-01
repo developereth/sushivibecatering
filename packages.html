@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Sushi Vibe | 6 Signature Catering Combos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | 6 Signature Packages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -15,347 +15,296 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fffbf5;
-      color: #2c2418;
+      background-color: #1a1a2e;
+      color: #e0e0e0;
       scroll-behavior: smooth;
     }
 
     .container {
-      max-width: 1300px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 28px;
+      padding: 0 24px;
     }
 
-    /* header with vibrant color */
+    /* Header - Dark Theme */
     .site-header {
-      background: linear-gradient(135deg, #ffffff 0%, #fff5ea 100%);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+      background: #0f0f1a;
+      border-bottom: 2px solid #e67e22;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
-      background: rgba(255, 248, 240, 0.96);
-      border-bottom: 2px solid #ffd7b5;
     }
 
     .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 24px;
+      padding: 16px 24px;
       flex-wrap: wrap;
     }
 
     .logo a {
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       font-weight: 800;
       text-decoration: none;
-      background: linear-gradient(125deg, #c23a0a, #e67e22);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-      font-family: 'Playfair Display', serif;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo i {
-      background: none;
-      color: #e05a1a;
-      font-size: 1.8rem;
-      -webkit-background-clip: unset;
-      background-clip: unset;
+      color: #e67e22;
+      letter-spacing: -0.3px;
     }
 
     .logo span {
       font-weight: 500;
       font-size: 0.8rem;
-      background: #ffefe3;
-      padding: 4px 12px;
+      background: #e67e22;
+      padding: 2px 10px;
       border-radius: 40px;
-      color: #b13e0a;
-      font-family: 'Inter', sans-serif;
+      margin-left: 8px;
+      color: #0f0f1a;
     }
 
     .main-nav ul {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
     .main-nav a {
       text-decoration: none;
       font-weight: 600;
-      color: #4a3727;
+      color: #e0e0e0;
       transition: 0.2s;
-      font-size: 1rem;
     }
 
     .main-nav a:hover, .main-nav a.active {
-      color: #c4450c;
+      color: #e67e22;
     }
 
     .order-cta {
-      background: #c4450c;
-      padding: 8px 24px;
+      background: #e67e22;
+      padding: 8px 20px;
       border-radius: 40px;
-      color: white !important;
-      box-shadow: 0 4px 10px rgba(196, 69, 12, 0.2);
+      color: #0f0f1a !important;
+    }
+
+    .order-cta:hover {
+      background: #f39c12;
+      color: #0f0f1a !important;
     }
 
     .mobile-toggle {
       display: none;
       font-size: 1.8rem;
       cursor: pointer;
-      color: #c4450c;
+      color: #e67e22;
     }
 
-    /* hero with rich japanese vibe */
+    /* Hero Section */
     .page-hero {
-      background: radial-gradient(ellipse at 70% 30%, #ffede0, #fff2e6);
-      padding: 56px 0 52px;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+      padding: 60px 0;
       text-align: center;
-      border-bottom: 1px solid #ffdcc0;
-      position: relative;
+      border-bottom: 1px solid #e67e22;
     }
 
     .page-hero h1 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #bc3f0c, #e07a2e, #f5a65b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* 6 combos grid */
-    .packages-grid-six {
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      margin: 60px 0 48px;
-    }
-
-    .package-card {
-      background: white;
-      border-radius: 48px;
-      overflow: hidden;
-      box-shadow: 0 25px 42px -16px rgba(0, 0, 0, 0.12);
-      transition: transform 0.25s ease, box-shadow 0.3s;
-      border: 1px solid #fbe2cf;
-    }
-
-    .package-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 32px 48px -18px rgba(0, 0, 0, 0.2);
-    }
-
-    .package-inner {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .package-content {
-      flex: 2;
-      padding: 34px 38px;
-      background: #ffffff;
-    }
-
-    .package-side {
-      flex: 1.2;
-      background-size: cover;
-      background-position: center 30%;
-      min-height: 300px;
-      position: relative;
-      background-blend-mode: overlay;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ffefe5;
-      color: #c4450c;
-      font-weight: 800;
-      font-size: 0.75rem;
-      padding: 6px 16px;
-      border-radius: 60px;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-      border-left: 4px solid #e67e22;
-    }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-      font-family: 'Playfair Display', serif;
-      color: #2c2418;
-    }
-
-    .serving-info {
-      font-weight: 600;
       color: #e67e22;
       margin-bottom: 16px;
-      font-size: 0.9rem;
+    }
+
+    .page-hero p {
+      font-size: 1.1rem;
+      color: #b0b0c0;
+    }
+
+    /* Package Cards Container */
+    .packages-container {
+      padding: 60px 0;
+    }
+
+    .package-card-full {
+      background: #16213e;
+      border-radius: 24px;
+      margin-bottom: 40px;
+      overflow: hidden;
+      border: 1px solid #e67e22;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .package-card-full:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(230, 126, 34, 0.2);
+    }
+
+    .featured-pkg {
+      border-left: 5px solid #e67e22;
+      background: #1a1a35;
+    }
+
+    .package-badge {
+      background: #e67e22;
+      color: #0f0f1a;
+      padding: 8px 20px;
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.8rem;
+      border-radius: 0 0 20px 0;
+    }
+
+    .package-grid {
       display: flex;
-      gap: 18px;
       flex-wrap: wrap;
     }
 
-    .desc {
-      color: #5e4b38;
-      line-height: 1.45;
-      margin-bottom: 22px;
+    .package-info {
+      flex: 2;
+      padding: 32px 36px;
     }
 
-    .menu-items {
-      background: #fff8f2;
-      padding: 20px 24px;
-      border-radius: 32px;
+    .package-info h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #e67e22;
+    }
+
+    .package-desc {
+      color: #b0b0c0;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .menu-breakdown {
+      background: #0f0f1a;
+      padding: 20px;
+      border-radius: 16px;
       margin: 20px 0;
-      border: 1px solid #ffefdf;
     }
 
-    .menu-items h4 {
-      font-size: 1.05rem;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #b14412;
+    .menu-breakdown h4 {
+      color: #e67e22;
+      margin-bottom: 12px;
     }
 
-    .menu-items ul {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 8px 20px;
+    .menu-breakdown ul {
       list-style: none;
     }
 
-    .menu-items li {
-      font-size: 0.88rem;
-      padding: 5px 0;
-      border-bottom: 1px dashed #ffe1ca;
+    .menu-breakdown li {
+      padding: 8px 0;
+      border-bottom: 1px solid #2a2a4a;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
 
-    .item-value {
-      font-weight: 700;
-      color: #c4450c;
+    .roll-note {
+      margin-top: 12px;
+      color: #f39c12;
+      font-size: 0.85rem;
     }
 
-    .price-row {
-      background: #fff3ea;
-      border-radius: 28px;
-      padding: 18px 24px;
-      margin: 24px 0 18px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 20px;
-      justify-content: space-between;
+    .price-box {
+      background: #0f0f1a;
+      padding: 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+      text-align: center;
     }
 
-    .real-value {
+    .original-price {
       text-decoration: line-through;
-      color: #9b7a64;
-      font-weight: 500;
+      color: #888;
+      display: block;
+      font-size: 0.9rem;
     }
 
     .special-price {
-      font-size: 1.9rem;
+      font-size: 2rem;
       font-weight: 800;
-      color: #c4450c;
-      letter-spacing: -0.5px;
+      color: #e67e22;
+      display: block;
+      margin: 8px 0;
     }
 
-    .save-badge {
-      background: #d9f0d0;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-weight: 800;
+    .save-tag {
+      background: #27ae60;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-block;
       font-size: 0.8rem;
-      color: #2a6b2f;
+      font-weight: 700;
     }
 
     .free-gift {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #f1f7ed;
-      padding: 8px 22px;
-      border-radius: 60px;
-      width: fit-content;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-      color: #477a32;
-    }
-
-    .btn-order {
-      background: #c4450c;
-      border: none;
-      color: white;
-      font-weight: 700;
-      padding: 14px 32px;
-      border-radius: 60px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      box-shadow: 0 6px 14px rgba(196, 69, 12, 0.25);
-    }
-
-    .btn-order:hover {
-      background: #a03406;
-      transform: scale(0.97);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-
-    /* art backgrounds for each combo (japanese patterns + sushi vibe) */
-    .bg-vibe { background: linear-gradient(105deg, rgba(255,215,185,0.55), rgba(255,220,180,0.4)), url('https://placehold.co/800x600/FFD9B5/white?text=🍣+Nigiri+Set'); background-size: cover; background-color: #ffd9b5; background-blend-mode: overlay; }
-    .bg-celebrate { background: linear-gradient(105deg, rgba(255,200,150,0.5), rgba(255,210,150,0.45)), url('https://placehold.co/800x600/F9CD9C/white?text=🎉+Rainbow+Rolls'); background-size: cover; background-color: #f9cd9c; }
-    .bg-ultimate { background: linear-gradient(105deg, rgba(230,180,120,0.5), rgba(240,185,120,0.5)), url('https://placehold.co/800x600/EEC9A0/white?text=🐟+Premium+Platter'); background-size: cover; background-color: #eec9a0; }
-    .bg-zen { background: linear-gradient(105deg, rgba(220,200,160,0.5), rgba(230,210,160,0.5)), url('https://placehold.co/800x600/F5DEB3/white?text=🌸+Sakura+Rolls'); background-size: cover; background-color: #f5deb3; }
-    .bg-deluxe { background: linear-gradient(105deg, rgba(215,180,130,0.5), rgba(225,190,135,0.5)), url('https://placehold.co/800x600/F2D2A8/white?text=👨‍🍳+Omakase'); background-size: cover; background-color: #f2d2a8; }
-    .bg-grand { background: linear-gradient(105deg, rgba(210,165,105,0.5), rgba(225,175,110,0.5)), url('https://placehold.co/800x600/FFE0B5/white?text=🏆+Imperial+Platter'); background-size: cover; background-color: #ffe0b5; }
-
-    .featured-corner {
-      border-left: 8px solid #f39c12;
-    }
-
-    .notice-board {
-      background: #2f2922;
-      color: #f7ecd9;
-      border-radius: 56px;
-      padding: 32px 36px;
-      margin: 20px 0 70px;
+      margin: 15px 0;
+      padding: 10px;
+      background: #1a1a35;
+      border-radius: 10px;
       text-align: center;
-      background-image: radial-gradient(circle at 10% 30%, #3f352b 2%, #221d17 90%);
-      box-shadow: inset 0 0 0 1px rgba(255,215,170,0.2), 0 12px 24px rgba(0,0,0,0.1);
+      color: #f39c12;
     }
 
-    /* footer rich & colorful */
+    .btn-order-now {
+      display: inline-block;
+      background: #e67e22;
+      color: #0f0f1a;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 10px;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-order-now:hover {
+      background: #f39c12;
+      transform: scale(0.98);
+    }
+
+    .package-visual {
+      flex: 1;
+      min-height: 300px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Background images for each package */
+    .vibe-bg { background: linear-gradient(135deg, #e67e22, #f39c12); }
+    .feast-bg { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+    .ultimate-bg { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+    .sakura-bg { background: linear-gradient(135deg, #e91e63, #f06292); }
+    .omakase-bg { background: linear-gradient(135deg, #2980b9, #3498db); }
+    .emperor-bg { background: linear-gradient(135deg, #d4ac0d, #f1c40f); }
+
+    /* Notice Board */
+    .notice-board {
+      background: #0f0f1a;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      margin-top: 20px;
+      border: 1px solid #e67e22;
+    }
+
+    .small-text {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    /* Footer */
     .site-footer {
-      background: #1d1a15;
-      color: #efdecb;
-      padding: 56px 0 28px;
-      border-top: 5px solid #e67e22;
+      background: #0a0a14;
+      padding: 50px 0 20px;
+      border-top: 3px solid #e67e22;
     }
 
     .footer-inner {
       display: flex;
       flex-wrap: wrap;
-      gap: 48px;
+      gap: 40px;
       justify-content: space-between;
     }
 
@@ -365,353 +314,379 @@
     }
 
     .footer-logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(135deg, #f7b26a, #e67e22);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e67e22;
+      margin-bottom: 15px;
     }
 
     .footer-col p, .footer-col li {
-      font-size: 0.85rem;
-      line-height: 1.5;
-      color: #ddcbb8;
+      color: #888;
+      line-height: 1.6;
     }
 
     .footer-col ul {
       list-style: none;
-      margin-top: 12px;
     }
 
     .footer-col a {
-      color: #f3d2b5;
+      color: #888;
       text-decoration: none;
       transition: 0.2s;
     }
 
     .footer-col a:hover {
       color: #e67e22;
-      text-decoration: underline;
     }
 
     .social-icons a {
-      font-size: 1.4rem;
-      margin-right: 18px;
-      color: #e7bc91;
+      color: #888;
+      font-size: 1.3rem;
+      margin-right: 15px;
+    }
+
+    .social-icons a:hover {
+      color: #e67e22;
     }
 
     .footer-bottom {
       text-align: center;
-      margin-top: 48px;
-      padding-top: 28px;
-      border-top: 1px solid #3a3229;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid #1a1a35;
+      color: #666;
       font-size: 0.8rem;
     }
 
-    @media (max-width: 950px) {
-      .main-nav ul { display: none; }
-      .mobile-toggle { display: block; }
-      .package-inner { flex-direction: column; }
-      .package-side { min-height: 210px; }
-      .package-content { padding: 28px 24px; }
-      .special-price { font-size: 1.5rem; }
-      .price-row { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 600px) {
-      .container { padding: 0 18px; }
-      h2 { font-size: 1.6rem; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main-nav ul {
+        display: none;
+      }
+      .mobile-toggle {
+        display: block;
+      }
+      .package-grid {
+        flex-direction: column;
+      }
+      .package-visual {
+        min-height: 150px;
+      }
+      .package-info {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="nav-container">
-    <div class="logo"><a href="#"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">Our Story</a></li>
-        <li><a href="#">Combos</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#" class="order-cta" id="navOrderBtn">Pre-order now</a></li>
-      </ul>
-    </nav>
-    <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
-  </div>
-</header>
-
-<main>
-  <section class="page-hero">
-    <div class="container">
-      <h1>6 exclusive sushi combos</h1>
-      <p style="font-size:1.2rem; margin-top:12px;">Freshly crafted • Premium ingredients • Perfect for parties, events & celebrations</p>
-      <div style="margin-top: 16px;"><i class="fas fa-clock" style="color:#c4450c;"></i> Pre-order 24h ahead | <i class="fas fa-truck"></i> Delivery available</div>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo"><a href="#"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#" class="active">Packages & Menu</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#" class="order-cta" id="navOrderBtn">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
     </div>
-  </section>
+  </header>
 
-  <div class="container">
-    <div class="packages-grid-six">
-      <!-- 1. Vibe Party Set (original) -->
-      <div class="package-card">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-music"></i> BEST FOR PARTIES — 10 PEOPLE</div>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Catering packages & menu</h1>
+        <p>Perfect for parties, birthdays, events & special occasions — freshly prepared with premium ingredients</p>
+      </div>
+    </section>
+
+    <div class="container packages-container">
+      <!-- 1. VIBE PARTY SET -->
+      <div class="package-card-full" id="vibe">
+        <div class="package-badge">🎉 BEST FOR PARTIES — 10 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Vibe Party Set</h2>
-            <div class="serving-info"><span><i class="fas fa-users"></i> Serves 10 guests</span> <span><i class="fas fa-stopwatch"></i> 24h pre-order</span></div>
-            <div class="desc">Perfect for small gatherings & birthdays — vibrant mix of nigiri, gunkan & signature rolls.</div>
-            <div class="menu-items">
-              <h4><i class="fas fa-utensils"></i> Menu breakdown</h4>
+            <div class="package-desc">Ideal for small gatherings, birthdays & intimate celebrations. A vibrant mix of nigiri, gunkan maki, and signature rolls.</div>
+            <div class="menu-breakdown">
+              <h4>🍣 What's included:</h4>
               <ul>
-                <li><span>20 pcs Nigiri (20×500)</span><span class="item-value">10,000 ETB</span></li>
-                <li><span>20 pcs Gunkan Maki (20×500)</span><span class="item-value">10,000 ETB</span></li>
-                <li><span>3x California Roll (24 pcs)</span><span class="item-value">4,800 ETB</span></li>
-                <li><span>4x Dragon Roll (32 pcs)</span><span class="item-value">8,400 ETB</span></li>
-                <li><span>3x Mango Roll (24 pcs)</span><span class="item-value">3,900 ETB</span></li>
+                <li><span>20 pcs Nigiri (20 × 500 ETB)</span><span>10,000 ETB</span></li>
+                <li><span>20 pcs Gunkan Maki (20 × 500 ETB)</span><span>10,000 ETB</span></li>
+                <li><span>3x California Roll (8 pcs each)</span><span>4,800 ETB</span></li>
+                <li><span>4x Dragon Roll (8 pcs each)</span><span>8,400 ETB</span></li>
+                <li><span>3x Mango Roll (8 pcs each)</span><span>3,900 ETB</span></li>
               </ul>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 37,100 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 37,100 ETB</span>
               <span class="special-price">32,000 ETB</span>
-              <span class="save-badge"><i class="fas fa-tag"></i> SAVE 8,200 ETB</span>
+              <span class="save-tag">🎁 YOU SAVE 8,200 ETB</span>
             </div>
-            <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi, ginger & premium soy sauce</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Vibe Party Set">Pre-order combo →</a>
+            <div class="free-gift"><i class="fas fa-gift"></i> FREE wasabi, ginger & soy sauce included</div>
+            <button class="btn-order-now" data-combo="Vibe Party Set">Pre-order this package →</button>
           </div>
-          <div class="package-side bg-vibe"></div>
+          <div class="package-visual vibe-bg"></div>
         </div>
       </div>
 
-      <!-- 2. Celebration Feast -->
-      <div class="package-card featured-corner">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-star"></i> MOST ORDERED — 20 PEOPLE</div>
+      <!-- 2. CELEBRATION FEAST -->
+      <div class="package-card-full featured-pkg" id="celebration">
+        <div class="package-badge">🌟 MOST ORDERED — 20 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Celebration Feast</h2>
-            <div class="serving-info"><span><i class="fas fa-champagne-glasses"></i> Birthdays & events favorite</span></div>
-            <div class="desc">Extraordinary feast: 40 nigiri, 40 gunkan plus rainbow, spicy tuna & dragon rolls.</div>
-            <div class="menu-items">
-              <h4><i class="fas fa-drumstick-bite"></i> Full menu</h4>
+            <div class="package-desc">Designed for birthdays, anniversaries & corporate events. An abundant spread that impresses every guest.</div>
+            <div class="menu-breakdown">
+              <h4>🍱 Menu details:</h4>
               <ul>
-                <li><span>40 pcs Nigiri (40×500)</span><span class="item-value">20,000 ETB</span></li>
-                <li><span>40 pcs Gunkan Maki</span><span class="item-value">20,000 ETB</span></li>
-                <li><span>6x Rainbow Roll (48 pcs)</span><span class="item-value">13,200 ETB</span></li>
-                <li><span>5x California Roll (40 pcs)</span><span class="item-value">8,000 ETB</span></li>
-                <li><span>5x Spicy Tuna Roll (40 pcs)</span><span class="item-value">8,500 ETB</span></li>
-                <li><span>+6x Dragon Roll (complimentary upgrade)</span><span class="item-value">included</span></li>
+                <li><span>40 pcs Nigiri (40 × 500 ETB)</span><span>20,000 ETB</span></li>
+                <li><span>40 pcs Gunkan Maki (40 × 500 ETB)</span><span>20,000 ETB</span></li>
+                <li><span>6x Rainbow Roll (8 pcs each)</span><span>13,200 ETB</span></li>
+                <li><span>5x California Roll (8 pcs each)</span><span>8,000 ETB</span></li>
+                <li><span>5x Spicy Tuna Roll (8 pcs each)</span><span>8,500 ETB</span></li>
               </ul>
+              <p class="roll-note"><i class="fas fa-fish"></i> Plus 6x Dragon Roll (additional from special offer)</p>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 82,300 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 82,300 ETB</span>
               <span class="special-price">65,000 ETB</span>
-              <span class="save-badge"><i class="fas fa-gem"></i> SAVE 17,300 ETB</span>
+              <span class="save-tag">🎁 YOU SAVE 17,300 ETB</span>
             </div>
-            <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi, ginger, soy sauce + decorative platters</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Celebration Feast">Order Celebration →</a>
+            <div class="free-gift"><i class="fas fa-gift"></i> FREE wasabi, ginger & soy sauce + premium presentation</div>
+            <button class="btn-order-now" data-combo="Celebration Feast">Order Celebration Feast →</button>
           </div>
-          <div class="package-side bg-celebrate"></div>
+          <div class="package-visual feast-bg"></div>
         </div>
       </div>
 
-      <!-- 3. Ultimate Sushi Experience -->
-      <div class="package-card">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-crown"></i> PREMIUM CATERING — 30 PEOPLE</div>
+      <!-- 3. ULTIMATE SUSHI EXPERIENCE -->
+      <div class="package-card-full" id="ultimate">
+        <div class="package-badge">✨ PREMIUM EXPERIENCE — 30 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Ultimate Sushi Experience</h2>
-            <div class="serving-info"><span><i class="fas fa-dragon"></i> Luxury selection</span></div>
-            <div class="desc">Weddings & galas — premium assortment with Alaska, Philadelphia, Rainbow & more.</div>
-            <div class="menu-items">
-              <h4><i class="fas fa-fish"></i> Deluxe contents</h4>
+            <div class="package-desc">Luxury catering for weddings, galas, and large occasions. The ultimate sushi journey with premium rolls.</div>
+            <div class="menu-breakdown">
+              <h4>🍣 Full menu (feeds 30 guests):</h4>
               <ul>
-                <li><span>60 pcs Nigiri (60×500)</span><span class="item-value">30,000 ETB</span></li>
-                <li><span>60 pcs Gunkan Maki</span><span class="item-value">30,000 ETB</span></li>
-                <li><span>10x Dragon Roll (80 pcs)</span><span class="item-value">21,000 ETB</span></li>
-                <li><span>8x Alaska Roll (64 pcs)</span><span class="item-value">15,200 ETB</span></li>
-                <li><span>6x Philadelphia Roll (48 pcs)</span><span class="item-value">10,200 ETB</span></li>
-                <li><span>6x Spicy Tuna Roll (48 pcs)</span><span class="item-value">10,200 ETB</span></li>
-                <li><span>8x Rainbow Roll (64 pcs)</span><span class="item-value">17,600 ETB</span></li>
+                <li><span>60 pcs Nigiri (60 × 500 ETB)</span><span>30,000 ETB</span></li>
+                <li><span>60 pcs Gunkan Maki (60 × 500 ETB)</span><span>30,000 ETB</span></li>
+                <li><span>10x Dragon Roll (8 pcs)</span><span>21,000 ETB</span></li>
+                <li><span>8x Alaska Roll (8 pcs)</span><span>15,200 ETB</span></li>
+                <li><span>6x Philadelphia Roll (8 pcs)</span><span>10,200 ETB</span></li>
+                <li><span>6x Spicy Tuna Roll (8 pcs)</span><span>10,200 ETB</span></li>
+                <li><span>8x Rainbow Roll (8 pcs)</span><span>17,600 ETB</span></li>
               </ul>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 134,200 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 134,200 ETB</span>
               <span class="special-price">105,000 ETB</span>
-              <span class="save-badge"><i class="fas fa-bolt"></i> SAVE 29,200 ETB</span>
+              <span class="save-tag">🎁 YOU SAVE 29,200 ETB</span>
             </div>
-            <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi, ginger, soy + elegant serving set</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Ultimate Sushi Experience">Reserve Ultimate →</a>
+            <div class="free-gift"><i class="fas fa-gift"></i> Complimentary wasabi, ginger, soy sauce + serving platters</div>
+            <button class="btn-order-now" data-combo="Ultimate Sushi Experience">Reserve Ultimate Package →</button>
           </div>
-          <div class="package-side bg-ultimate"></div>
+          <div class="package-visual ultimate-bg"></div>
         </div>
       </div>
 
-      <!-- 4. Sakura Delight Combo (fresh, 12pax) -->
-      <div class="package-card">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-leaf"></i> VEGAN FRIENDLY — 12 PEOPLE</div>
+      <!-- 4. SAKURA DELIGHT COMBO (NEW from image) -->
+      <div class="package-card-full" id="sakura">
+        <div class="package-badge">🌸 VEGAN FRIENDLY — 12 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Sakura Delight Combo</h2>
-            <div class="serving-info"><span><i class="fas fa-seedling"></i> Avocado • mango • cucumber</span></div>
-            <div class="desc">Light & refreshing, perfect for healthy gatherings or lunch celebrations.</div>
-            <div class="menu-items">
+            <div class="package-desc">Light & refreshing, perfect for healthy gatherings or lunch celebrations. Avocado, mango & cucumber rolls.</div>
+            <div class="menu-breakdown">
+              <h4>🥑 What's included:</h4>
               <ul>
-                <li><span>24 pcs Nigiri (mixed selection)</span><span class="item-value">12,000 ETB</span></li>
-                <li><span>24 pcs Gunkan Maki</span><span class="item-value">12,000 ETB</span></li>
-                <li><span>4x Mango Roll (32 pcs)</span><span class="item-value">5,200 ETB</span></li>
-                <li><span>3x California Roll (24 pcs)</span><span class="item-value">4,800 ETB</span></li>
-                <li><span>3x Spicy Tuna Roll (24 pcs)</span><span class="item-value">5,100 ETB</span></li>
+                <li><span>24 pcs Nigiri (mixed selection)</span><span>12,000 ETB</span></li>
+                <li><span>24 pcs Gunkan Maki</span><span>12,000 ETB</span></li>
+                <li><span>4x Mango Roll (32 pcs)</span><span>5,200 ETB</span></li>
+                <li><span>3x California Roll (24 pcs)</span><span>4,800 ETB</span></li>
+                <li><span>3x Spicy Tuna Roll (24 pcs)</span><span>5,100 ETB</span></li>
               </ul>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 49,600 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 49,600 ETB</span>
               <span class="special-price">41,500 ETB</span>
-              <span class="save-badge"><i class="fas fa-heart"></i> SAVE 8,100 ETB</span>
+              <span class="save-tag">🌸 YOU SAVE 8,100 ETB</span>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi, pickled ginger & soy sauce</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Sakura Delight Combo">Order Sakura →</a>
+            <button class="btn-order-now" data-combo="Sakura Delight Combo">Order Sakura →</button>
           </div>
-          <div class="package-side bg-zen"></div>
+          <div class="package-visual sakura-bg"></div>
         </div>
       </div>
 
-      <!-- 5. Omakase Reserve (chef’s signature) -->
-      <div class="package-card">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-hat-chef"></i> CHEF'S SIGNATURE — 24 PEOPLE</div>
+      <!-- 5. OMAKASE RESERVE (NEW from image) -->
+      <div class="package-card-full featured-pkg" id="omakase">
+        <div class="package-badge">👨‍🍳 CHEF'S SIGNATURE — 24 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Omakase Reserve</h2>
-            <div class="serving-info"><span><i class="fas fa-star-of-life"></i> Curated premium rolls</span></div>
-            <div class="desc">Exclusive collection: Rainbow, Dragon, Alaska, Philadelphia – a masterpiece for connoisseurs.</div>
-            <div class="menu-items">
+            <div class="package-desc">Exclusive collection: Rainbow, Dragon, Alaska, Philadelphia – a masterpiece for connoisseurs.</div>
+            <div class="menu-breakdown">
+              <h4>🍱 Curated premium menu:</h4>
               <ul>
-                <li><span>48 pcs Nigiri (assorted premium)</span><span class="item-value">24,000 ETB</span></li>
-                <li><span>48 pcs Gunkan (tuna/salmon)</span><span class="item-value">24,000 ETB</span></li>
-                <li><span>7x Dragon Roll (56 pcs)</span><span class="item-value">14,700 ETB</span></li>
-                <li><span>5x Rainbow Roll (40 pcs)</span><span class="item-value">11,000 ETB</span></li>
-                <li><span>6x Philadelphia Roll (48 pcs)</span><span class="item-value">10,200 ETB</span></li>
-                <li><span>4x Alaska Roll (32 pcs)</span><span class="item-value">7,600 ETB</span></li>
+                <li><span>48 pcs Nigiri (assorted premium)</span><span>24,000 ETB</span></li>
+                <li><span>48 pcs Gunkan (tuna/salmon)</span><span>24,000 ETB</span></li>
+                <li><span>7x Dragon Roll (56 pcs)</span><span>14,700 ETB</span></li>
+                <li><span>5x Rainbow Roll (40 pcs)</span><span>11,000 ETB</span></li>
+                <li><span>6x Philadelphia Roll (48 pcs)</span><span>10,200 ETB</span></li>
+                <li><span>4x Alaska Roll (32 pcs)</span><span>7,600 ETB</span></li>
               </ul>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 91,500 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 91,500 ETB</span>
               <span class="special-price">74,900 ETB</span>
-              <span class="save-badge"><i class="fas fa-fire"></i> SAVE 16,600 ETB</span>
+              <span class="save-tag">🍣 YOU SAVE 16,600 ETB</span>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Complimentary wasabi, ginger + edamame side</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Omakase Reserve">Pre-order Omakase →</a>
+            <button class="btn-order-now" data-combo="Omakase Reserve">Pre-order Omakase →</button>
           </div>
-          <div class="package-side bg-deluxe"></div>
+          <div class="package-visual omakase-bg"></div>
         </div>
       </div>
 
-      <!-- 6. Grand Emperor Platter (40 pax ultimate feast) -->
-      <div class="package-card">
-        <div class="package-inner">
-          <div class="package-content">
-            <div class="badge"><i class="fas fa-trophy"></i> IMPERIAL FEAST — 40 PEOPLE</div>
+      <!-- 6. GRAND EMPEROR PLATTER (NEW from image) -->
+      <div class="package-card-full" id="emperor">
+        <div class="package-badge">🏆 IMPERIAL FEAST — 40 PEOPLE</div>
+        <div class="package-grid">
+          <div class="package-info">
             <h2>Grand Emperor Platter</h2>
-            <div class="serving-info"><span><i class="fas fa-building"></i> Mega event special</span></div>
-            <div class="desc">The ultimate sushi experience – double portions, variety packed for large celebrations.</div>
-            <div class="menu-items">
+            <div class="package-desc">The ultimate sushi experience – double portions, variety packed for large celebrations.</div>
+            <div class="menu-breakdown">
+              <h4>👑 Mega event menu:</h4>
               <ul>
-                <li><span>80 pcs Nigiri (80×500)</span><span class="item-value">40,000 ETB</span></li>
-                <li><span>80 pcs Gunkan Maki</span><span class="item-value">40,000 ETB</span></li>
-                <li><span>12x Dragon Roll (96 pcs)</span><span class="item-value">25,200 ETB</span></li>
-                <li><span>10x California Roll (80 pcs)</span><span class="item-value">16,000 ETB</span></li>
-                <li><span>8x Spicy Tuna Roll (64 pcs)</span><span class="item-value">13,600 ETB</span></li>
-                <li><span>8x Rainbow Roll (64 pcs)</span><span class="item-value">17,600 ETB</span></li>
-                <li><span>6x Mango Roll (48 pcs)</span><span class="item-value">7,800 ETB</span></li>
+                <li><span>80 pcs Nigiri (80 × 500 ETB)</span><span>40,000 ETB</span></li>
+                <li><span>80 pcs Gunkan Maki</span><span>40,000 ETB</span></li>
+                <li><span>12x Dragon Roll (96 pcs)</span><span>25,200 ETB</span></li>
+                <li><span>10x California Roll (80 pcs)</span><span>16,000 ETB</span></li>
+                <li><span>8x Spicy Tuna Roll (64 pcs)</span><span>13,600 ETB</span></li>
+                <li><span>8x Rainbow Roll (64 pcs)</span><span>17,600 ETB</span></li>
+                <li><span>6x Mango Roll (48 pcs)</span><span>7,800 ETB</span></li>
               </ul>
             </div>
-            <div class="price-row">
-              <span class="real-value">Real value: 160,200 ETB</span>
+            <div class="price-box">
+              <span class="original-price">Real value: 160,200 ETB</span>
               <span class="special-price">129,000 ETB</span>
-              <span class="save-badge"><i class="fas fa-chart-line"></i> SAVE 31,200 ETB</span>
+              <span class="save-tag">🏆 YOU SAVE 31,200 ETB</span>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi/ginger/soy + serving utensils + extra dipping bowls</div>
-            <a href="#" class="btn-order order-trigger" data-combo="Grand Emperor Platter">Order Grand Feast →</a>
+            <button class="btn-order-now" data-combo="Grand Emperor Platter">Order Grand Feast →</button>
           </div>
-          <div class="package-side bg-grand"></div>
+          <div class="package-visual emperor-bg"></div>
         </div>
       </div>
-    </div>
 
-    <div class="notice-board">
-      <i class="fas fa-clock"></i> <strong>Pre-order required 24 hours in advance</strong> — Delivery available (charges may apply).<br>
-      <i class="fas fa-allergies"></i> Tell us if you have any allergies — we customize every order. Prices are in ETB | 快乐寿司 Sushi Vibe
-    </div>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-col">
-      <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
-      <p>Authentic Japanese catering, crafted with passion. Elevate your events with vibrant sushi art.</p>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-x-twitter"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
+      <!-- Notice Board -->
+      <div class="notice-board">
+        <i class="fas fa-clock"></i> <strong>Pre-order required 24 hours in advance</strong> — Delivery available (charges may apply). Tell us if you have any allergies.
+        <div class="small-text">Prices are in ETB | 快乐寿司 Sushi Vibe</div>
       </div>
     </div>
-    <div class="footer-col">
-      <h4>Quick links</h4>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About us</a></li>
-        <li><a href="#">All combos</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#" class="order-trigger-bottom">Order catering</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
-        <li><i class="fas fa-phone-alt"></i> +251 912 345 678</li>
-        <li><i class="fas fa-envelope"></i> hello@sushivibe.com</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Service notes</h4>
-      <p><i class="fas fa-truck"></i> Delivery fee may apply</p>
-      <p><i class="fas fa-allergies"></i> Allergy-friendly options</p>
-      <p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p>
-      <p><i class="fas fa-credit-card"></i> ETB pricing</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB | 6 exclusive combos for every celebration</p>
-  </div>
-</footer>
+  </main>
 
-<script>
-  const orderTriggers = document.querySelectorAll('.order-trigger, .order-trigger-bottom, #navOrderBtn');
-  orderTriggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      let comboText = '';
-      if (btn.dataset && btn.dataset.combo) comboText = btn.dataset.combo;
-      else if (btn.closest('.package-card')) {
-        const titleEl = btn.closest('.package-card')?.querySelector('h2');
-        if (titleEl) comboText = titleEl.innerText;
-      }
-      if (!comboText) comboText = 'Sushi Vibe package';
-      alert(`🍱 PRE-ORDER REQUEST\n\nYou selected: ${comboText}\n\n✅ We received your request! Our team will contact you within 2 hours.\n⚠️ Pre-order 24h in advance required.\n📞 +251 912 345 678 for instant support.`);
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <p>Authentic Japanese catering elevating your events with premium quality and artistic presentation.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Packages</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#" id="footerOrderBtn">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
+          <li><i class="fas fa-phone-alt"></i> +251 912 345 678</li>
+          <li><i class="fas fa-envelope"></i> hello@sushivibe.com</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Notes</h4>
+        <p><i class="fas fa-exclamation-circle"></i> Delivery charges may apply</p>
+        <p><i class="fas fa-allergies"></i> Allergies? Let us know</p>
+        <p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB</p>
+    </div>
+  </footer>
+
+  <script>
+    // Order button functionality
+    const orderButtons = document.querySelectorAll('.btn-order-now');
+    const navOrderBtn = document.getElementById('navOrderBtn');
+    const footerOrderBtn = document.getElementById('footerOrderBtn');
+
+    function handleOrder(comboName) {
+      alert(`🍱 PRE-ORDER REQUEST\n\nYou selected: ${comboName}\n\n✅ Thank you for choosing Sushi Vibe Catering!\n📞 Our team will contact you within 2 hours to confirm.\n⚠️ Note: 24-hour advance pre-order required.\n📍 Delivery available (charges may apply).\n\n🌸 快乐寿司 Sushi Vibe`);
+    }
+
+    orderButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const combo = btn.getAttribute('data-combo');
+        handleOrder(combo);
+      });
     });
-  });
-  const mobileBtn = document.querySelector('.mobile-toggle');
-  const navList = document.querySelector('.main-nav ul');
-  if (mobileBtn) {
-    mobileBtn.addEventListener('click', () => {
-      if (navList) navList.style.display = navList.style.display === 'flex' ? 'none' : 'flex';
-    });
-  }
-</script>
+
+    if (navOrderBtn) {
+      navOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleOrder('a Sushi Vibe package');
+      });
+    }
+
+    if (footerOrderBtn) {
+      footerOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleOrder('a Sushi Vibe package');
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navMenu = document.querySelector('.main-nav ul');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        if (navMenu.style.display === 'flex') {
+          navMenu.style.display = 'none';
+        } else {
+          navMenu.style.display = 'flex';
+          navMenu.style.flexDirection = 'column';
+          navMenu.style.position = 'absolute';
+          navMenu.style.top = '70px';
+          navMenu.style.left = '0';
+          navMenu.style.right = '0';
+          navMenu.style.background = '#0f0f1a';
+          navMenu.style.padding = '20px';
+          navMenu.style.gap = '15px';
+          navMenu.style.borderBottom = '2px solid #e67e22';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
