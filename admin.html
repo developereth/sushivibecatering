@@ -1,118 +1,178 @@
-<!-- portal.html - Order Management Admin Panel -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Portal | SUSHI VIBE Catering</title>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root { --sushi-red: #e31b23; --sushi-black: #0a0a0a; --sushi-dark: #1a1a1a; --sushi-gold: #f5c518; --white: #fff; --gray-mid: #b0b0b0; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--sushi-black); color: var(--white); }
-        #loginScreen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .login-card { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 24px; padding: 40px 30px; max-width: 420px; width: 100%; text-align: center; }
-        .login-card h1 { color: var(--sushi-red); font-family: 'Playfair Display', serif; margin-bottom: 8px; }
-        input, select, textarea { width: 100%; padding: 13px; background: #0a0a0a; border: 1px solid rgba(227,27,35,0.3); color: white; border-radius: 12px; margin-bottom: 14px; }
-        input:focus, select:focus { outline: none; border-color: var(--sushi-red); }
-        button { padding: 14px; background: var(--sushi-red); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%; }
-        button:hover { background: #b8161f; }
-        .btn-outline { background: transparent; border: 2px solid var(--sushi-red); color: var(--sushi-red); margin-top: 10px; }
-        .message { margin-top: 14px; font-size: 14px; }
-        .success { color: #4CAF50; } .error { color: #f44336; }
-        #dashboardScreen { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
-        .header { background: var(--sushi-dark); border: 2px solid var(--sushi-red); border-radius: 20px; padding: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .header h1 { color: var(--sushi-red); font-family: 'Playfair Display', serif; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .stat-card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 16px; padding: 20px; text-align: center; }
-        .stat-card h3 { color: var(--sushi-red); font-size: 32px; }
-        .card { background: var(--sushi-dark); border: 1px solid rgba(227,27,35,0.2); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
-        .card h3 { color: var(--sushi-red); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { color: var(--sushi-red); text-align: left; padding: 10px 8px; border-bottom: 2px solid var(--sushi-red); }
-        td { padding: 10px 8px; border-bottom: 1px solid #333; }
-        .action-btn { padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; margin: 2px; color: white; }
-        .approve-btn { background: #4CAF50; } .delete-btn { background: #dc3545; }
-        .badge { background: #1a3a1a; color: #4CAF50; padding: 4px 10px; border-radius: 20px; font-size: 11px; display: inline-block; }
-        .badge-pending { background: #3a2a1a; color: #FF9800; }
-        @media (max-width: 768px) { table { font-size: 11px; } th, td { padding: 6px 4px; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sushi Vibe | Premium Catering</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="loginScreen">
-        <div class="login-card">
-            <h1>🍣 SUSHI VIBE</h1>
-            <p>Order Management Portal</p>
-            <input type="email" id="adminEmail" placeholder="admin@sushivibe.com">
-            <input type="password" id="adminPassword" placeholder="Password">
-            <button onclick="adminLogin()">🔐 Login</button>
-            <div id="loginMsg" class="message"></div>
-        </div>
+
+  <!-- ================= NAVIGATION ================= -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo">
+        <a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html" class="order-cta">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
     </div>
-    
-    <div id="dashboardScreen">
-        <div class="header">
-            <h1>🍣 Order Dashboard</h1>
-            <div><button class="action-btn approve-btn" onclick="loadOrders()">🔄 Refresh</button>
-            <a href="index.html"><button class="action-btn delete-btn" style="background:#666;">🏠 Site</button></a>
-            <button class="action-btn delete-btn" onclick="adminLogout()">🚪 Logout</button></div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="hero-tag">FRESHLY PREPARED • PREMIUM QUALITY</span>
+        <h1>Sushi catering that <span class="highlight">elevates</span> every occasion</h1>
+        <p>Perfect for parties, birthdays, weddings & corporate events. Authentic Japanese sushi made with finest ingredients.</p>
+        <div class="hero-buttons">
+          <a href="packages.html" class="btn btn-primary">Explore Packages <i class="fas fa-arrow-right"></i></a>
+          <a href="order.html" class="btn btn-outline">Pre-order now</a>
         </div>
-        <div class="stats">
-            <div class="stat-card"><h3 id="totalOrders">0</h3><p>Total Orders</p></div>
-            <div class="stat-card"><h3 id="pendingOrders">0</h3><p>Pending</p></div>
-            <div class="stat-card"><h3 id="confirmedOrders">0</h3><p>Confirmed</p></div>
+        <div class="hero-features">
+          <span><i class="fas fa-check-circle"></i> 24h pre-order required</span>
+          <span><i class="fas fa-truck"></i> Delivery available</span>
+          <span><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</span>
         </div>
-        <div class="card"><h3>📋 Customer Orders</h3><div style="overflow-x:auto;"><table><thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="ordersTable"></tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- PACKAGES PREVIEW -->
+    <section class="packages-preview">
+      <div class="container">
+        <div class="section-header">
+          <h2>Signature catering packages</h2>
+          <p>Designed for gatherings from intimate to grand — real value, unforgettable taste</p>
+        </div>
+        <div class="preview-cards">
+          <div class="preview-card">
+            <div class="card-badge">BEST FOR PARTIES</div>
+            <h3>Vibe Party Set</h3>
+            <div class="people">🍣 10 people</div>
+            <div class="preview-price"><span class="old">37,100 ETB</span> <strong>32,000 ETB</strong></div>
+            <p>20 Nigiri + 20 Gunkan + California, Dragon & Mango rolls</p>
+            <a href="packages.html#vibe" class="btn-small">View details <i class="fas fa-angle-right"></i></a>
+          </div>
+          <div class="preview-card featured">
+            <div class="card-badge">MOST ORDERED</div>
+            <h3>Celebration Feast</h3>
+            <div class="people">🎉 20 people</div>
+            <div class="preview-price"><span class="old">82,300 ETB</span> <strong>65,000 ETB</strong></div>
+            <p>40 Nigiri & Gunkan + Rainbow, California & Spicy Tuna rolls</p>
+            <a href="packages.html#celebration" class="btn-small">View details <i class="fas fa-angle-right"></i></a>
+          </div>
+          <div class="preview-card">
+            <div class="card-badge">PREMIUM EXPERIENCE</div>
+            <h3>Ultimate Sushi</h3>
+            <div class="people">✨ 30 people</div>
+            <div class="preview-price"><span class="old">134,200 ETB</span> <strong>105,000 ETB</strong></div>
+            <p>60 Nigiri & Gunkan + Philly, Dragon, Alaska & Spicy Tuna</p>
+            <a href="packages.html#ultimate" class="btn-small">View details <i class="fas fa-angle-right"></i></a>
+          </div>
+        </div>
+        <div class="center-more">
+          <a href="packages.html" class="btn-secondary">View full menu & packages <i class="fas fa-utensils"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRESH INGREDIENTS BANNER -->
+    <section class="ingredients-banner">
+      <div class="container ingredients-grid">
+        <div class="ingredients-text">
+          <i class="fas fa-seedling"></i>
+          <h3>High quality, freshly prepared daily</h3>
+          <p>We source premium fish, organic vegetables and authentic sushi rice. Every roll is handcrafted by experienced chefs.</p>
+          <ul>
+            <li><i class="fas fa-check"></i> 100% fresh ingredients</li>
+            <li><i class="fas fa-check"></i> Made to order catering</li>
+            <li><i class="fas fa-check"></i> Customizable upon request</li>
+          </ul>
+        </div>
+        <div class="ingredients-img"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY TEASER -->
+    <section class="gallery-teaser">
+      <div class="container">
+        <div class="section-header">
+          <h2>Sushi art in every detail</h2>
+          <p>Browse our visual journey</p>
+        </div>
+        <div class="teaser-grid">
+          <div class="teaser-item" style="background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&h=300&fit=crop')"></div>
+          <div class="teaser-item" style="background-image: url('https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=400&h=300&fit=crop')"></div>
+          <div class="teaser-item" style="background-image: url('https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&h=300&fit=crop')"></div>
+          <div class="teaser-item" style="background-image: url('https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=400&h=300&fit=crop')"></div>
+        </div>
+        <div class="center-more">
+          <a href="gallery.html" class="btn-outline-dark">View full gallery <i class="fas fa-images"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <p>Authentic Japanese catering elevating your events with artisanal sushi, premium service and vibrant flavors.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</li>
+          <li><i class="fas fa-phone-alt"></i> +251 912 345 678</li>
+          <li><i class="fas fa-envelope"></i> hello@sushivibe.com</li>
+          <li><i class="fas fa-clock"></i> Pre-order: 24h advance required</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Important notes</h4>
+        <p><i class="fas fa-exclamation-circle"></i> Delivery charges may apply</p>
+        <p><i class="fas fa-allergies"></i> Tell us about any allergies</p>
+        <p><i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce</p>
+      </div>
     </div>
-    
-    <script>
-        const firebaseConfig = { apiKey: "AIzaSyCn5PGyIgPobaL8WE4E89dFQwcjsx9Pcqs", authDomain: "lovely-beauty-college.firebaseapp.com", projectId: "lovely-beauty-college", storageBucket: "lovely-beauty-college.firebasestorage.app", messagingSenderId: "283710330376", appId: "1:283710330376:web:d34276a5918500b020e3bd" };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        
-        auth.onAuthStateChanged(user => {
-            if (user) { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('dashboardScreen').style.display = 'block'; loadOrders(); }
-            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('dashboardScreen').style.display = 'none'; }
-        });
-        
-        async function adminLogin() {
-            const email = document.getElementById('adminEmail').value.trim();
-            const password = document.getElementById('adminPassword').value;
-            const msg = document.getElementById('loginMsg');
-            try { await auth.signInWithEmailAndPassword(email, password); }
-            catch(e) { msg.className = 'message error'; msg.textContent = 'Invalid credentials'; }
-        }
-        
-        function adminLogout() { auth.signOut(); }
-        
-        async function loadOrders() {
-            const table = document.getElementById('ordersTable');
-            table.innerHTML = '<tr><td colspan="7">⏳ Loading...</td></tr>';
-            try {
-                const snap = await db.collection('orders').orderBy('createdAt', 'desc').get();
-                let total = 0, pending = 0, confirmed = 0;
-                table.innerHTML = '';
-                snap.forEach(doc => {
-                    const o = doc.data();
-                    total++; if(o.status === 'pending') pending++; else confirmed++;
-                    const statusClass = o.status === 'confirmed' ? 'badge' : 'badge-pending';
-                    const statusText = o.status === 'confirmed' ? '✅ Confirmed' : '⏳ Pending';
-                    table.innerHTML += `<tr><td>${doc.id.slice(0,8)}</td><td>${o.name||'N/A'}</td><td>${o.phone||'N/A'}</td><td>${o.package||'N/A'}</td><td>${o.eventDate||'N/A'}</td><td><span class="${statusClass}">${statusText}</span></td>
-                    <td><button class="action-btn approve-btn" onclick="confirmOrder('${doc.id}')">✅ Confirm</button> <button class="action-btn delete-btn" onclick="deleteOrder('${doc.id}')">🗑️</button></td></tr>`;
-                });
-                if(total === 0) table.innerHTML = '<tr><td colspan="7" style="text-align:center;">No orders yet</td></tr>';
-                document.getElementById('totalOrders').textContent = total;
-                document.getElementById('pendingOrders').textContent = pending;
-                document.getElementById('confirmedOrders').textContent = confirmed;
-            } catch(e) { table.innerHTML = '<tr><td colspan="7">Error loading orders</td></tr>'; }
-        }
-        
-        async function confirmOrder(id) { await db.collection('orders').doc(id).update({ status: 'confirmed' }); loadOrders(); }
-        async function deleteOrder(id) { if(confirm('Delete order?')) { await db.collection('orders').doc(id).delete(); loadOrders(); } }
-    </script>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
