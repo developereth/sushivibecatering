@@ -774,7 +774,6 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.1rem;
 }
 
-/* Rating Summary */
 .rating-summary {
   display: flex;
   justify-content: center;
@@ -852,7 +851,6 @@ input:focus, select:focus, textarea:focus {
   color: #ccc;
 }
 
-/* Reviews Grid */
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -944,7 +942,6 @@ input:focus, select:focus, textarea:focus {
   grid-column: 1 / -1;
 }
 
-/* Review Form */
 .review-form-container {
   background: #111111;
   border-radius: 28px;
@@ -1056,12 +1053,10 @@ input:focus, select:focus, textarea:focus {
 
 /* ========== MOBILE SIDE SLIDE NAVIGATION ========== */
 @media (max-width: 900px) {
-  /* Hide desktop menu */
   .main-nav ul {
     display: none !important;
   }
   
-  /* Mobile toggle button */
   .mobile-toggle {
     display: block !important;
     cursor: pointer;
@@ -1079,7 +1074,6 @@ input:focus, select:focus, textarea:focus {
     color: #e31b23;
   }
   
-  /* Sidebar Overlay */
   .mobile-nav-overlay {
     position: fixed;
     top: 0;
@@ -1099,7 +1093,6 @@ input:focus, select:focus, textarea:focus {
     visibility: visible;
   }
   
-  /* Sidebar Drawer */
   .mobile-nav-drawer {
     position: fixed;
     top: 0;
@@ -1119,7 +1112,6 @@ input:focus, select:focus, textarea:focus {
     left: 0;
   }
   
-  /* Drawer Header */
   .drawer-header {
     display: flex;
     justify-content: space-between;
@@ -1164,7 +1156,6 @@ input:focus, select:focus, textarea:focus {
     transform: rotate(90deg);
   }
   
-  /* Drawer Navigation */
   .drawer-nav {
     padding: 0 20px;
   }
@@ -1218,7 +1209,6 @@ input:focus, select:focus, textarea:focus {
     background: #b8151c;
   }
   
-  /* Drawer Contact */
   .drawer-contact {
     margin-top: 30px;
     padding: 20px;
@@ -1240,7 +1230,6 @@ input:focus, select:focus, textarea:focus {
     width: 20px;
   }
   
-  /* Drawer Social */
   .drawer-social {
     padding: 20px;
     display: flex;
@@ -1269,7 +1258,6 @@ input:focus, select:focus, textarea:focus {
     transform: translateY(-3px);
   }
   
-  /* Responsive adjustments */
   .hero h1 {
     font-size: 2.2rem;
   }
