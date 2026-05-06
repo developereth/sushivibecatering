@@ -3,177 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login | Sushi Vibe</title>
+  <title>Sushi Vibe | Customer Reviews</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .login-container {
-      background: #111111;
-      padding: 2.5rem;
-      border-radius: 28px;
-      border: 1px solid #e31b23;
-      width: 100%;
-      max-width: 400px;
-      margin: 1rem;
-    }
-    
-    .login-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    
-    .login-header i {
-      font-size: 3rem;
-      color: #e31b23;
-      margin-bottom: 1rem;
-    }
-    
-    .login-header h1 {
-      color: white;
-      font-size: 1.8rem;
-    }
-    
-    .login-header p {
-      color: #aaaaaa;
-      margin-top: 0.5rem;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group label {
-      display: block;
-      color: #e5e5e5;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      color: white;
-      font-family: inherit;
-      font-size: 1rem;
-    }
-    
-    .form-group input:focus {
-      outline: none;
-      border-color: #e31b23;
-    }
-    
-    .btn-login {
-      width: 100%;
-      background: #e31b23;
-      color: white;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    
-    .btn-login:hover {
-      background: #b8151c;
-    }
-    
-    .error-message {
-      background: #ffe6e5;
-      color: #c93a3a;
-      padding: 0.8rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      text-align: center;
-      display: none;
-    }
-    
-    .back-link {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    
-    .back-link a {
-      color: #e31b23;
-      text-decoration: none;
-    }
+    .reviews-section { padding: 4rem 0 5rem; background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 100%); }
+    .reviews-header { text-align: center; margin-bottom: 3rem; }
+    .reviews-header h2 { font-size: 2.3rem; color: #ffffff; }
+    .reviews-header h2 i { color: #e31b23; margin-right: 10px; }
+    .rating-summary { display: flex; justify-content: center; align-items: center; gap: 3rem; margin-bottom: 3rem; flex-wrap: wrap; background: #111111; padding: 2rem; border-radius: 28px; border: 1px solid #2a2a2a; }
+    .average-rating { text-align: center; }
+    .average-rating .avg-number { font-size: 3.5rem; font-weight: 800; color: #e31b23; }
+    .average-rating .avg-stars i { color: #ffc107; font-size: 1.2rem; }
+    .average-rating .avg-count { color: #888; }
+    .rating-bars { flex: 1; max-width: 300px; }
+    .rating-bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .rating-bar-item span:first-child { width: 40px; font-size: 0.85rem; color: #ccc; }
+    .rating-bar-item .bar { flex: 1; height: 8px; background: #2a2a2a; border-radius: 10px; overflow: hidden; }
+    .rating-bar-item .bar-fill { height: 100%; background: #ffc107; border-radius: 10px; width: 0%; }
+    .rating-bar-item .count { width: 30px; font-size: 0.85rem; color: #ccc; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+    .review-card { background: #111111; border-radius: 24px; padding: 1.8rem; border: 1px solid #2a2a2a; transition: all 0.3s ease; }
+    .review-card:hover { transform: translateY(-5px); border-color: #e31b23; }
+    .review-stars { margin-bottom: 1rem; }
+    .review-stars i { color: #ffc107; font-size: 1rem; margin-right: 2px; }
+    .review-stars i.far { color: #444; }
+    .review-text { color: #e5e5e5; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; }
+    .review-author .avatar { width: 45px; height: 45px; background: linear-gradient(135deg, #e31b23, #b8151c); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; color: white; }
+    .review-author .info h4 { color: white; font-size: 1rem; }
+    .review-author .info p { color: #e31b23; font-size: 0.75rem; }
+    .review-date { font-size: 0.7rem; color: #666; margin-left: auto; }
+    .review-form-container { background: #111111; border-radius: 28px; padding: 2rem; border: 1px solid #e31b23; max-width: 700px; margin: 0 auto; }
+    .review-form-container h3 { color: white; text-align: center; margin-bottom: 1.5rem; }
+    .rating-select { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-direction: row-reverse; justify-content: center; }
+    .rating-select input { display: none; }
+    .rating-select label { font-size: 2rem; color: #444; cursor: pointer; transition: 0.2s; }
+    .rating-select label:hover, .rating-select label:hover ~ label, .rating-select input:checked ~ label { color: #ffc107; }
+    .review-form-container textarea, .review-form-container input { width: 100%; padding: 0.8rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 16px; color: white; margin-bottom: 1rem; font-family: inherit; }
+    .name-email-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit-review { background: #e31b23; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 40px; font-weight: 600; cursor: pointer; width: 100%; }
+    .review-status { margin-top: 1rem; padding: 0.8rem; border-radius: 12px; text-align: center; display: none; }
+    .no-reviews { text-align: center; padding: 3rem; background: #111111; border-radius: 24px; color: #888; grid-column: 1 / -1; }
+    .loading-spinner { text-align: center; padding: 2rem; color: #e31b23; }
+    @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } .rating-summary { flex-direction: column; text-align: center; } .name-email-row { grid-template-columns: 1fr; } .rating-select label { font-size: 1.5rem; } }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-header">
-      <i class="fas fa-user-shield"></i>
-      <h1>Admin Access</h1>
-      <p>Enter your credentials to manage orders</p>
-    </div>
-    
-    <div id="errorMsg" class="error-message"></div>
-    
-    <form id="loginForm">
-      <div class="form-group">
-        <label><i class="fas fa-envelope"></i> Email</label>
-        <input type="email" id="email" placeholder="admin@example.com" required>
-      </div>
-      <div class="form-group">
-        <label><i class="fas fa-lock"></i> Password</label>
-        <input type="password" id="password" placeholder="Enter password" required>
-      </div>
-      <button type="submit" class="btn-login">
-        <i class="fas fa-sign-in-alt"></i> Login to Dashboard
-      </button>
-    </form>
-    
-    <div class="back-link">
-      <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Website</a>
-    </div>
-  </div>
-  
+  <header class="site-header"><div class="container nav-container"><div class="logo"><a href="index.html"><img src="logo.png" alt="Logo" style="height:45px"><span>Sushi Vibe <span>Catering</span></span></a></div>
+  <nav class="main-nav"><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html" class="active">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html" class="order-cta">Order Now</a></li></ul></nav>
+  <div class="mobile-toggle"><i class="fas fa-bars"></i></div></div></header>
+
+  <main><section class="page-hero"><div class="container"><h1>Customer Reviews</h1><p>What our amazing customers say about Sushi Vibe</p></div></section>
+  <div class="reviews-section"><div class="container">
+    <div class="reviews-header"><h2><i class="fas fa-star"></i> Real Reviews, Real Experiences</h2><p>Join our happy customers who loved our sushi catering</p></div>
+    <div class="rating-summary" id="ratingSummary"><div class="average-rating"><div class="avg-number">0</div><div class="avg-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="avg-count">0 reviews</div></div>
+    <div class="rating-bars"><div class="rating-bar-item"><span>5 ★</span><div class="bar"><div class="bar-fill"></div></div><span class="count">0</span></div><div class="rating-bar-item"><span>4 ★</span><div class="bar"><div class="bar-fill"></div></div><span class="count">0</span></div><div class="rating-bar-item"><span>3 ★</span><div class="bar"><div class="bar-fill"></div></div><span class="count">0</span></div><div class="rating-bar-item"><span>2 ★</span><div class="bar"><div class="bar-fill"></div></div><span class="count">0</span></div><div class="rating-bar-item"><span>1 ★</span><div class="bar"><div class="bar-fill"></div></div><span class="count">0</span></div></div></div>
+    <div class="reviews-grid" id="reviewsGrid"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div></div>
+    <div class="review-form-container"><h3><i class="fas fa-pen-alt"></i> Write a Review</h3>
+    <form id="reviewForm"><div class="rating-select"><input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label><input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label><input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label><input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label><input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label></div>
+    <textarea rows="4" id="reviewText" placeholder="Share your experience..." required></textarea><div class="name-email-row"><input type="text" id="reviewerName" placeholder="Your name" required><input type="email" id="reviewerEmail" placeholder="Your email" required></div>
+    <button type="submit" class="btn-submit-review"><i class="fas fa-paper-plane"></i> Submit Review</button><div id="reviewStatus" class="review-status"></div></form></div></div></div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering in Addis Ababa.</p><div class="social-icons"><a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a><a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a></div></div>
+  <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+  <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt" style="color:#e31b23"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt" style="color:#e31b23"></i> +251 927 299999</li><li><i class="fas fa-envelope" style="color:#e31b23"></i> sushivibes@proton.me</li></ul></div>
+  <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color:#e31b23"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color:#e31b23"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color:#e31b23"></i> Free wasabi, ginger & soy sauce</p></div></div>
+  <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — All Rights Reserved.</p></div></footer>
+
   <script src="js/firebase-config.js"></script>
   <script>
-    const form = document.getElementById('loginForm');
-    const errorMsg = document.getElementById('errorMsg');
-    
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      try {
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        sessionStorage.setItem('adminLoggedIn', 'true');
-        sessionStorage.setItem('adminLoginTime', Date.now());
-        window.location.href = 'admin.html';
-      } catch (error) {
-        errorMsg.textContent = '❌ Invalid email or password. Please try again.';
-        errorMsg.style.display = 'block';
-        setTimeout(() => {
-          errorMsg.style.display = 'none';
-        }, 3000);
-      }
-    });
+    async function loadReviews() { const snap = await db.collection('reviews').where('status','==','approved').orderBy('date','desc').get(); const reviews=[]; snap.forEach(d=>reviews.push({id:d.id,...d.data()})); displayReviews(reviews); updateSummary(reviews); }
+    function generateStars(r){ let s=''; for(let i=1;i<=5;i++) s+=i<=r?'<i class="fas fa-star"></i>':'<i class="far fa-star"></i>'; return s; }
+    function displayReviews(reviews){ const grid=document.getElementById('reviewsGrid'); if(!reviews.length){ grid.innerHTML='<div class="no-reviews"><i class="fas fa-comment-dots" style="font-size:3rem;color:#e31b23"></i><h3>No reviews yet</h3><p>Be the first to leave a review!</p></div>'; return; }
+      grid.innerHTML=reviews.map(r=>`<div class="review-card"><div class="review-stars">${generateStars(parseInt(r.rating))}</div><p class="review-text">"${escapeHtml(r.text)}"</p><div class="review-author"><div class="avatar">${r.name.charAt(0)}</div><div class="info"><h4>${escapeHtml(r.name)}</h4><p>Verified Customer</p></div><div class="review-date">${r.date}</div></div></div>`).join(''); }
+    function updateSummary(reviews){ const total=reviews.length; if(!total){ document.querySelector('.avg-number').textContent='0'; document.querySelector('.avg-count').textContent='0 reviews'; return; } const sum=reviews.reduce((a,r)=>a+parseInt(r.rating),0); const avg=(sum/total).toFixed(1); const counts={5:0,4:0,3:0,2:0,1:0}; reviews.forEach(r=>counts[parseInt(r.rating)]++); document.querySelector('.avg-number').textContent=avg; document.querySelector('.avg-stars').innerHTML=generateStars(Math.round(avg)); document.querySelector('.avg-count').textContent=`${total} review${total!==1?'s':''}`; for(let i=5;i>=1;i--){ const percent=total>0?(counts[i]/total)*100:0; const bar=document.querySelector(`.rating-bar-item:nth-child(${6-i}) .bar-fill`); const countSpan=document.querySelector(`.rating-bar-item:nth-child(${6-i}) .count`); if(bar) bar.style.width=`${percent}%`; if(countSpan) countSpan.textContent=counts[i]; } }
+    async function submitReview(data){ await db.collection('reviews').add({name:data.name,email:data.email,rating:data.rating.toString(),text:data.text,date:new Date().toISOString().split('T')[0],status:'pending'}); await fetch('https://formsubmit.co/ajax/sushivibes@proton.me',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({_subject:`⭐ New Review from ${data.name}`,message:`New review from ${data.name}\nRating: ${data.rating}★\nText: ${data.text}\n\nApprove at: https://sushivibecatering.pages.dev/admin-login.html`})}); }
+    document.getElementById('reviewForm')?.addEventListener('submit',async(e)=>{ e.preventDefault(); const rating=document.querySelector('input[name="rating"]:checked'); const text=document.getElementById('reviewText').value.trim(); const name=document.getElementById('reviewerName').value.trim(); const email=document.getElementById('reviewerEmail').value.trim(); const statusDiv=document.getElementById('reviewStatus'); if(!rating||!text||!name||!email){ statusDiv.textContent='Please fill all fields'; statusDiv.style.display='block'; return; } const btn=e.target.querySelector('button[type="submit"]'); btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Submitting...'; await submitReview({name,email,rating:parseInt(rating.value),text}); e.target.reset(); statusDiv.innerHTML='✅ Thank you! Your review will be published after approval.'; statusDiv.style.backgroundColor='#e6f4ea'; statusDiv.style.color='#2b6e3c'; statusDiv.style.display='block'; setTimeout(()=>statusDiv.style.display='none',5000); btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Review'; });
+    function escapeHtml(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+    loadReviews();
   </script>
 </body>
 </html>
