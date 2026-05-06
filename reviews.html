@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Customer Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="logo.png" alt="Sushi Vibe Logo" style="height: 45px; width: auto; vertical-align: middle; margin-right: 10px;">
+          <span style="display: inline-block; vertical-align: middle;">Sushi Vibe <span>Catering</span></span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html" class="active">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html" class="order-cta">Order Now</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Customer Reviews</h1>
+        <p>What our amazing customers say about Sushi Vibe</p>
+      </div>
+    </section>
+
+    <div class="reviews-section">
+      <div class="container">
+        <div class="reviews-header">
+          <h2><i class="fas fa-star"></i> Real Reviews, Real Experiences</h2>
+          <p>Join 50+ happy customers who loved our sushi catering</p>
+        </div>
+
+        <!-- Rating Summary -->
+        <div class="rating-summary" id="ratingSummary">
+          <div class="average-rating">
+            <div class="avg-number">5.0</div>
+            <div class="avg-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <div class="avg-count">0 reviews</div>
+          </div>
+          <div class="rating-bars">
+            <div class="rating-bar-item"><span>5 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+            <div class="rating-bar-item"><span>4 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+            <div class="rating-bar-item"><span>3 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+            <div class="rating-bar-item"><span>2 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+            <div class="rating-bar-item"><span>1 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+          </div>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="reviews-grid" id="reviewsGrid">
+          <div class="no-reviews">
+            <i class="fas fa-comment-dots" style="font-size: 3rem; color: #e31b23; margin-bottom: 1rem; display: block;"></i>
+            <h3>No reviews yet</h3>
+            <p>Be the first to leave a review!</p>
+          </div>
+        </div>
+
+        <!-- Write a Review Form -->
+        <div class="review-form-container">
+          <h3><i class="fas fa-pen-alt"></i> Write a Review</h3>
+          <form id="reviewForm">
+            <div class="rating-select" id="ratingSelect">
+              <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label>
+              <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
+            </div>
+            <textarea rows="4" id="reviewText" placeholder="Share your experience with our sushi catering..." required></textarea>
+            <div class="name-email-row">
+              <input type="text" id="reviewerName" placeholder="Your name" required>
+              <input type="email" id="reviewerEmail" placeholder="Your email (not published)" required>
+            </div>
+            <button type="submit" class="btn-submit-review"><i class="fas fa-paper-plane"></i> Submit Review</button>
+            <div id="reviewStatus" class="review-status"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <p>Authentic Japanese catering — newly opened in Addis Ababa.</p>
+        <div class="social-icons">
+          <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
+          <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
+          <li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li>
+          <li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Notes</h4>
+        <p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p>
+        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p>
+        <p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23; text-decoration: none;">Addis Power</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/reviews.js"></script>
+</body>
+</html>
