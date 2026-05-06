@@ -160,6 +160,26 @@
       color: white;
     }
     
+    /* Approve All Button */
+    .approve-all-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .approve-all-btn:hover {
+      background: #218838;
+      transform: scale(1.02);
+    }
+    
     .search-box {
       flex: 1;
       min-width: 200px;
@@ -253,6 +273,8 @@
     .action-edit:hover { background: #ffc10720; }
     .action-delete { color: #dc3545; }
     .action-delete:hover { background: #dc354520; }
+    .action-approve { color: #28a745; }
+    .action-approve:hover { background: #28a74520; }
     
     /* Modal */
     .modal {
@@ -295,6 +317,32 @@
       text-align: center;
       padding: 3rem;
       color: #888;
+    }
+    
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #28a745;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+      display: none;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
     
     /* Footer */
@@ -362,6 +410,9 @@
       <button class="filter-btn" data-filter="confirmed">Confirmed</button>
       <button class="filter-btn" data-filter="completed">Completed</button>
       <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+      <button class="approve-all-btn" onclick="approveAllPending()">
+        <i class="fas fa-check-double"></i> Approve All Pending
+      </button>
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="🔍 Search by name, phone, or order ID...">
       </div>
@@ -390,9 +441,12 @@
   </div>
   
   <div class="admin-footer">
-    <p>&copy; 2025 Sushi Vibe Catering — All Rights Reserved.</p>
+    <p>&copy; 2026 Sushi Vibe Catering — All Rights Reserved.</p>
     <p style="margin-top: 0.25rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank">Addis Power</a></p>
   </div>
+  
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification"></div>
   
   <!-- Order Details Modal -->
   <div id="orderModal" class="modal">
@@ -418,6 +472,62 @@
     let currentFilter = 'all';
     let currentSearch = '';
     
+    // Show toast notification
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+    
+    // Approve single order
+    function approveOrder(orderId) {
+      if (typeof updateOrderStatusById !== 'undefined') {
+        updateOrderStatusById(orderId, 'confirmed');
+        showToast('✅ Order confirmed successfully!');
+        loadOrders();
+      } else {
+        const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+        const index = orders.findIndex(o => o.order_id === orderId);
+        if (index !== -1) {
+          orders[index].status = 'confirmed';
+          localStorage.setItem('sushi_vibe_orders', JSON.stringify(orders));
+          showToast('✅ Order confirmed successfully!');
+          loadOrders();
+        }
+      }
+    }
+    
+    // Approve all pending orders
+    function approveAllPending() {
+      const pendingOrders = currentOrders.filter(o => o.status === 'pending');
+      
+      if (pendingOrders.length === 0) {
+        showToast('⚠️ No pending orders to approve!', true);
+        return;
+      }
+      
+      if (confirm(`Are you sure you want to approve ${pendingOrders.length} pending order(s)?`)) {
+        pendingOrders.forEach(order => {
+          if (typeof updateOrderStatusById !== 'undefined') {
+            updateOrderStatusById(order.order_id, 'confirmed');
+          } else {
+            const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+            const index = orders.findIndex(o => o.order_id === order.order_id);
+            if (index !== -1) {
+              orders[index].status = 'confirmed';
+              localStorage.setItem('sushi_vibe_orders', JSON.stringify(orders));
+            }
+          }
+        });
+        showToast(`✅ ${pendingOrders.length} order(s) approved successfully!`);
+        loadOrders();
+      }
+    }
+    
     // Check authentication
     function checkAuth() {
       const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
@@ -428,7 +538,6 @@
         return false;
       }
       
-      // Auto logout after 24 hours
       if (loginTime && (Date.now() - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
         logout();
         return false;
@@ -447,7 +556,6 @@
       if (typeof getAllOrders !== 'undefined') {
         currentOrders = getAllOrders();
       } else {
-        // Fallback if orders-storage.js not loaded
         const stored = localStorage.getItem('sushi_vibe_orders');
         currentOrders = stored ? JSON.parse(stored) : [];
       }
@@ -464,12 +572,10 @@
     function filterAndDisplayOrders() {
       let filtered = [...currentOrders];
       
-      // Apply status filter
       if (currentFilter !== 'all') {
         filtered = filtered.filter(o => o.status === currentFilter);
       }
       
-      // Apply search
       if (currentSearch) {
         const searchLower = currentSearch.toLowerCase();
         filtered = filtered.filter(o => 
@@ -479,9 +585,7 @@
         );
       }
       
-      // Sort by date (newest first)
       filtered.sort((a, b) => new Date(b.order_date) - new Date(a.order_date));
-      
       displayOrdersTable(filtered);
     }
     
@@ -505,9 +609,10 @@
           <td>
             <button class="action-btn action-view" onclick="viewOrder('${order.order_id}')" title="View Details"><i class="fas fa-eye"></i></button>
             <button class="action-btn action-edit" onclick="editOrder('${order.order_id}')" title="Update Status"><i class="fas fa-pencil-alt"></i></button>
+            ${order.status === 'pending' ? `<button class="action-btn action-approve" onclick="approveOrder('${order.order_id}')" title="Approve Order"><i class="fas fa-check-circle"></i></button>` : ''}
             <button class="action-btn action-delete" onclick="deleteOrder('${order.order_id}')" title="Delete"><i class="fas fa-trash"></i></button>
           </td>
-        </tr>
+         </tr>
       `).join('');
     }
     
@@ -537,6 +642,7 @@
         <div style="margin-bottom: 0.75rem;"><strong>Allergies:</strong> ${order.allergies || 'None'}</div>
         <div style="margin-bottom: 0.75rem;"><strong>Special Requests:</strong> ${order.special_requests || 'None'}</div>
         <div style="margin-bottom: 0.75rem;"><strong>Status:</strong> <span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span></div>
+        ${order.status === 'pending' ? `<div style="margin-top: 1rem;"><button onclick="approveOrder('${order.order_id}'); closeModal();" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; width: 100%;"><i class="fas fa-check-circle"></i> Approve This Order</button></div>` : ''}
       `;
       
       document.getElementById('orderModal').style.display = 'flex';
@@ -579,7 +685,6 @@
       if (typeof updateOrderStatusById !== 'undefined') {
         updateOrderStatusById(orderId, newStatus);
       } else {
-        // Fallback: update localStorage directly
         const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
         const index = orders.findIndex(o => o.order_id === orderId);
         if (index !== -1) {
@@ -588,6 +693,7 @@
         }
       }
       closeEditModal();
+      showToast(`✅ Order status updated to ${newStatus}`);
       loadOrders();
     }
     
@@ -596,11 +702,11 @@
         if (typeof deleteOrderById !== 'undefined') {
           deleteOrderById(orderId);
         } else {
-          // Fallback: delete from localStorage directly
           const orders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
           const filtered = orders.filter(o => o.order_id !== orderId);
           localStorage.setItem('sushi_vibe_orders', JSON.stringify(filtered));
         }
+        showToast('🗑️ Order deleted successfully!');
         loadOrders();
       }
     }
@@ -687,7 +793,6 @@
       });
     }
     
-    // Close modals when clicking outside
     window.onclick = function(event) {
       const orderModal = document.getElementById('orderModal');
       const editModal = document.getElementById('editModal');
@@ -695,7 +800,6 @@
       if (event.target === editModal) closeEditModal();
     };
     
-    // Initialize
     if (checkAuth()) {
       loadOrders();
     }
