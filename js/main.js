@@ -1,14 +1,39 @@
 // ========== MOBILE SIDE SLIDE NAVIGATION ==========
 document.addEventListener('DOMContentLoaded', function() {
-  createMobileSidebar();
+  // ONLY create mobile sidebar if screen width is less than or equal to 900px
+  if (window.innerWidth <= 900) {
+    createMobileSidebar();
+  }
+  
   initGalleryFilters();
   initContactForm();
+  
+  // Listen for window resize to add/remove mobile sidebar dynamically
+  let mobileSidebarCreated = false;
+  
+  window.addEventListener('resize', function() {
+    if (window.innerWidth <= 900 && !mobileSidebarCreated && !document.querySelector('.mobile-nav-drawer')) {
+      createMobileSidebar();
+      mobileSidebarCreated = true;
+    } else if (window.innerWidth > 900 && document.querySelector('.mobile-nav-drawer')) {
+      // Remove mobile sidebar if it exists on desktop
+      const drawer = document.querySelector('.mobile-nav-drawer');
+      const overlay = document.querySelector('.mobile-nav-overlay');
+      if (drawer) drawer.remove();
+      if (overlay) overlay.remove();
+      mobileSidebarCreated = false;
+      // Remove body overflow style if any
+      document.body.style.overflow = '';
+    }
+  });
 });
 
 // Create mobile sidebar navigation
 function createMobileSidebar() {
   // Check if already exists
-  if (document.querySelector('.mobile-nav-drawer')) return;
+  if (document.querySelector('.mobile-nav-drawer')) {
+    return;
+  }
   
   // Get current page for active state
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -90,13 +115,6 @@ function createMobileSidebar() {
   // Close when clicking a link
   drawer.querySelectorAll('.drawer-nav a').forEach(link => {
     link.addEventListener('click', closeDrawer);
-  });
-  
-  // Close on window resize (if screen becomes desktop size)
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 900) {
-      closeDrawer();
-    }
   });
 }
 
