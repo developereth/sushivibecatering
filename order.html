@@ -6,6 +6,8 @@
   <title>Sushi Vibe | Pre-order Catering</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -18,11 +20,14 @@
           <li><a href="about.html">About</a></li>
           <li><a href="packages.html">Packages & Menu</a></li>
           <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="order.html" class="order-cta active">Order Now</a></li>
         </ul>
       </nav>
-      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
     </div>
   </header>
 
@@ -36,7 +41,6 @@
 
     <div class="container order-container">
       <div class="order-grid">
-        <!-- Order Form -->
         <div class="order-form-section">
           <form id="orderForm" class="order-form">
             <div class="form-card">
@@ -140,7 +144,6 @@
           </form>
         </div>
 
-        <!-- Order Info Sidebar -->
         <div class="order-sidebar">
           <div class="info-box">
             <i class="fas fa-clock"></i>
@@ -174,7 +177,7 @@
         <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
       </div></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul class="contact-info">
         <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
         <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
@@ -183,11 +186,14 @@
       </ul></div>
       <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
+    <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
   </footer>
-  <script src="js/main.js"></script>
+
+  <script src="js/firebase-config.js"></script>
   <script>
-    // ========== ORDER SUMMARY FUNCTIONS ==========
+    // ========== ORDER FORM WITH FIREBASE ==========
+    
+    // Package selection and summary
     const radioPackages = document.querySelectorAll('input[name="package"]');
     const summaryPackageSpan = document.getElementById('summaryPackage');
     const summaryPriceSpan = document.getElementById('summaryPrice');
@@ -227,7 +233,7 @@
     radioPackages.forEach(r => r.addEventListener('change', updateSummary));
     deliveryRadio.forEach(d => d.addEventListener('change', updateSummary));
     
-    // show/hide delivery address
+    // Show/hide delivery address
     const deliveryGroup = document.getElementById('deliveryAddressGroup');
     function toggleAddress() {
       const val = document.querySelector('input[name="deliveryType"]:checked')?.value;
@@ -237,31 +243,61 @@
     deliveryRadio.forEach(r => r.addEventListener('change', toggleAddress));
     toggleAddress();
     
-    // ========== SAVE ORDER TO LOCALSTORAGE (FOR DASHBOARD) ==========
-    function saveOrderToLocalStorage(orderData) {
+    // Show status message
+    function showOrderStatus(message, type) {
+      const orderStatus = document.getElementById('orderStatus');
+      orderStatus.innerHTML = message;
+      orderStatus.style.padding = '1rem';
+      orderStatus.style.borderRadius = '12px';
+      orderStatus.style.marginTop = '1rem';
+      orderStatus.style.display = 'block';
+      
+      switch(type) {
+        case 'error':
+          orderStatus.style.backgroundColor = '#ffe6e5';
+          orderStatus.style.color = '#c93a3a';
+          orderStatus.style.border = '1px solid #c93a3a';
+          break;
+        case 'success':
+          orderStatus.style.backgroundColor = '#e6f4ea';
+          orderStatus.style.color = '#2b6e3c';
+          orderStatus.style.border = '1px solid #2b6e3c';
+          break;
+        case 'loading':
+          orderStatus.style.backgroundColor = '#e31b23';
+          orderStatus.style.color = 'white';
+          orderStatus.style.border = 'none';
+          break;
+      }
+      
+      setTimeout(() => {
+        orderStatus.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Save order to Firebase
+    async function saveOrderToFirebase(orderData) {
       try {
-        let existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
-        const newOrder = {
-          order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        const orderId = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+        const orderToSave = {
+          order_id: orderId,
           order_date: new Date().toISOString(),
           status: 'pending',
           ...orderData
         };
-        existingOrders.unshift(newOrder);
-        localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
-        console.log('✅ Order saved to dashboard:', newOrder.order_id);
-        return newOrder.order_id;
+        
+        await db.collection('orders').add(orderToSave);
+        console.log('Order saved to Firebase:', orderId);
+        return orderId;
       } catch(e) {
-        console.log('⚠️ Could not save to localStorage:', e);
+        console.error('Firebase save error:', e);
         return null;
       }
     }
     
-    // ========== SEND EMAIL NOTIFICATION ==========
+    // Send email notification
     async function sendEmailNotification(orderData, orderId) {
       try {
-        const formSubmitUrl = 'https://formsubmit.co/ajax/sushivibes@proton.me';
-        
         const emailBody = `
 📦 NEW SUSHI ORDER #${orderId}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -288,80 +324,74 @@
    Requests: ${orderData.special_requests || 'None'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 View in Admin Dashboard: https://developereth.github.io/sushivibecatering/admin-login.html
+📊 Manage this order: https://sushivibecatering.pages.dev/admin-login.html
         `;
         
-        const response = await fetch(formSubmitUrl, {
+        await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             _subject: `🆕 NEW SUSHI ORDER #${orderId} - ${orderData.package}`,
-            _template: 'table',
-            _captcha: 'false',
-            ...orderData,
-            order_id: orderId,
             message: emailBody
           })
         });
-        
-        return response.ok;
+        return true;
       } catch(e) {
-        console.log('Email notification error:', e);
+        console.log('Email error:', e);
         return false;
       }
     }
     
-    // ========== MAIN FORM SUBMIT HANDLER ==========
+    // Form submission
     const orderForm = document.getElementById('orderForm');
-    const orderStatus = document.getElementById('orderStatus');
     
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // VALIDATION
+      // Validation
       const pkgSelected = document.querySelector('input[name="package"]:checked');
       if(!pkgSelected) { 
-        showStatus('❌ Please select a catering package.', 'error');
+        showOrderStatus('❌ Please select a catering package.', 'error');
         return; 
       }
       
       const dateVal = document.getElementById('eventDate').value;
       if(!dateVal) { 
-        showStatus('❌ Please select event date (24h advance notice).', 'error');
+        showOrderStatus('❌ Please select event date (24h advance notice).', 'error');
         return; 
       }
       
       const timeVal = document.getElementById('eventTime').value;
       if(!timeVal) { 
-        showStatus('❌ Please select event time.', 'error');
+        showOrderStatus('❌ Please select event time.', 'error');
         return; 
       }
       
       const nameVal = document.getElementById('fullName').value.trim();
       if(!nameVal) { 
-        showStatus('❌ Please enter your full name.', 'error');
+        showOrderStatus('❌ Please enter your full name.', 'error');
         return; 
       }
       
       const phoneVal = document.getElementById('phone').value.trim();
       if(!phoneVal) { 
-        showStatus('❌ Phone number required.', 'error');
+        showOrderStatus('❌ Phone number required.', 'error');
         return; 
       }
       
       const emailVal = document.getElementById('email').value.trim();
       if(!emailVal) { 
-        showStatus('❌ Email address required.', 'error');
+        showOrderStatus('❌ Email address required.', 'error');
         return; 
       }
       
       const allergyVal = document.getElementById('allergies').value.trim();
       if(!allergyVal) { 
-        showStatus('⚠️ Please tell us about any allergies (even if "none").', 'error');
+        showOrderStatus('⚠️ Please tell us about any allergies (even if "none").', 'error');
         return; 
       }
       
-      // COLLECT ORDER DATA
+      // Collect order data
       const orderData = {
         full_name: nameVal,
         phone: phoneVal,
@@ -378,94 +408,34 @@
         special_requests: document.getElementById('specialRequests').value
       };
       
-      // SHOW LOADING STATE
-      showStatus('📤 Submitting your order...', 'loading');
+      showOrderStatus('📤 Submitting your order...', 'loading');
       
-      // SAVE TO LOCALSTORAGE (DASHBOARD)
-      const orderId = saveOrderToLocalStorage(orderData);
+      // Save to Firebase
+      const orderId = await saveOrderToFirebase(orderData);
       
-      // SEND EMAIL NOTIFICATION
-      const emailSent = await sendEmailNotification(orderData, orderId || 'pending');
+      // Send email notification
+      await sendEmailNotification(orderData, orderId);
       
-      // SUCCESS MESSAGE
-      if (orderId || emailSent) {
-        showStatus(`
+      if (orderId) {
+        showOrderStatus(`
           ✅ <strong>Order received!</strong><br>
-          Order #${orderId || 'received'}<br><br>
+          Order #${orderId}<br><br>
           We will contact you within 2 hours to confirm delivery details.<br><br>
           📞 Call us: +251 927 299999 if urgent.<br>
           🍣 Thank you for choosing Sushi Vibe!
         `, 'success');
         
-        // RESET FORM
         orderForm.reset();
         updateSummary();
         toggleAddress();
-        
-        // Scroll to status
-        orderStatus.scrollIntoView({ behavior: 'smooth' });
       } else {
-        // FALLBACK: Manual email option
-        const emailBody = encodeURIComponent(`
-NEW ORDER FROM SUSHI VIBE WEBSITE
---------------------------------
-Customer: ${orderData.full_name}
-Phone: ${orderData.phone}
-Email: ${orderData.email}
-Package: ${orderData.package}
-Price: ${orderData.package_price} ETB
-Guests: ${orderData.guests}
-Event Date: ${orderData.event_date}
-Event Time: ${orderData.event_time}
-Delivery: ${orderData.delivery_type}
-Address: ${orderData.delivery_address || 'N/A'}
-Allergies: ${orderData.allergies}
-Requests: ${orderData.special_requests || 'None'}
---------------------------------
-        `);
-        
-        showStatus(`
-          ⚠️ <strong>Unable to submit automatically.</strong><br><br>
-          Please click the link below to send your order via email:<br><br>
-          <a href="mailto:sushivibes@proton.me?subject=NEW%20SUSHI%20ORDER%20-%20${orderData.full_name}&body=${emailBody}" 
-             style="background: #e31b23; color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; display: inline-block; margin-top: 10px;">
-             📧 Click here to send order via Email
-          </a>
-          <br><br>
-          Or call us directly: <strong>+251 927 299999</strong>
-        `, 'warning');
+        showOrderStatus(`
+          ⚠️ <strong>Unable to save order automatically.</strong><br><br>
+          Please call us directly: <strong>+251 927 299999</strong><br>
+          Or email: <strong>sushivibes@proton.me</strong>
+        `, 'error');
       }
     });
-    
-    function showStatus(message, type) {
-      orderStatus.innerHTML = message;
-      orderStatus.style.padding = '1rem';
-      orderStatus.style.borderRadius = '12px';
-      orderStatus.style.marginTop = '1rem';
-      
-      switch(type) {
-        case 'error':
-          orderStatus.style.color = '#c93a3a';
-          orderStatus.style.backgroundColor = '#ffe6e5';
-          orderStatus.style.border = '1px solid #c93a3a';
-          break;
-        case 'success':
-          orderStatus.style.color = '#2b6e3c';
-          orderStatus.style.backgroundColor = '#e6f4ea';
-          orderStatus.style.border = '1px solid #2b6e3c';
-          break;
-        case 'warning':
-          orderStatus.style.color = '#856404';
-          orderStatus.style.backgroundColor = '#fff3cd';
-          orderStatus.style.border = '1px solid #ffc107';
-          break;
-        case 'loading':
-          orderStatus.style.color = '#ffffff';
-          orderStatus.style.backgroundColor = '#e31b23';
-          orderStatus.style.border = 'none';
-          break;
-      }
-    }
     
     // Auto-update from URL params
     const urlParams = new URLSearchParams(window.location.search);
