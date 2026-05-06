@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Additional styles for packages page to work with mobile sidebar */
+    /* Additional styles for packages page */
     .logo-circle {
       width: 50px;
       height: 50px;
@@ -17,7 +17,406 @@
       border: 2px solid #e31b23;
     }
     
+    .hero-logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e31b23;
+      margin-bottom: 20px;
+    }
+    
+    .hero-packages {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+      padding: 60px 0;
+      text-align: center;
+      border-bottom: 1px solid #e31b23;
+    }
+    
+    .combo-deals-wrapper {
+      background: #0a0505;
+      background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
+      padding: 2rem 1rem;
+    }
+    
+    .combo-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #0c0606;
+      border-radius: 56px;
+      box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(220, 40, 40, 0.2);
+      overflow: hidden;
+    }
+    
+    .combo-hero {
+      background: linear-gradient(135deg, #0a0000 0%, #1f0808 100%);
+      padding: 2rem 2rem 1.8rem;
+      text-align: center;
+      border-bottom: 3px solid #e03a3a;
+    }
+    
+    .combo-logo {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff5a5a, #ffb347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .combo-tagline {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: #e6b0b0;
+      margin-top: 0.4rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .combo-price-badge {
+      display: inline-flex;
+      background: #1f0a0aaa;
+      backdrop-filter: blur(8px);
+      border-radius: 100px;
+      padding: 0.3rem 1.2rem;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #ffcd94;
+      font-size: 0.95rem;
+      gap: 12px;
+      border: 1px solid #ff4d4d30;
+    }
+    
+    .combo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      background: #0b0404;
+    }
+    
+    .combo-card {
+      background: #0f0707;
+      border-radius: 32px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(200, 40, 40, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      overflow: hidden;
+    }
+    
+    .combo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 40px -8px rgba(220, 20, 20, 0.25), 0 0 0 1px #e03a3a;
+    }
+    
+    .combo-card-header {
+      background: #170c0c;
+      padding: 1.2rem 1.5rem;
+      border-bottom: 2px solid #be2e2e;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    
+    .combo-card-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #ffbc6e, #ff5e5e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    
+    .combo-badge {
+      background: #ac2b2b20;
+      color: #ff7e5e;
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 40px;
+      border: 1px solid #c53a3a;
+      text-transform: uppercase;
+    }
+    
+    .combo-items-list {
+      padding: 1.2rem 1.5rem 0.8rem;
+    }
+    
+    .combo-item-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #2f1a1a;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #eeddcc;
+    }
+    
+    .combo-item-price {
+      font-weight: 700;
+      color: #ff8a5c;
+    }
+    
+    .combo-value-calculation {
+      background: #130808;
+      margin: 1rem 1.5rem 1.5rem;
+      border-radius: 24px;
+      padding: 1rem 1.2rem;
+      border: 1px solid #812a2a40;
+    }
+    
+    .combo-calc-title {
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #ff9f6e;
+      margin-bottom: 0.7rem;
+    }
+    
+    .combo-calc-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.2rem 0;
+      color: #cfa67b;
+    }
+    
+    .combo-final-price {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.9rem 1.5rem 1.5rem;
+      font-weight: 800;
+      font-size: 1.7rem;
+      border-top: 2px solid #a03333;
+      background: #0a0303;
+      color: #ffcf9a;
+    }
+    
+    .combo-price-number {
+      color: #ff6b4a;
+      font-size: 2rem;
+    }
+    
+    .extras-section {
+      background: #110707;
+      padding: 1.2rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #b33a3a;
+      border-bottom: 1px solid #a53a3a;
+      gap: 1rem;
+    }
+    
+    .extras-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: #ffae7a;
+    }
+    
+    .extra-item {
+      background: #1f0b0b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      border: 1px solid #be3f3f;
+      color: #f5c6a3;
+    }
+    
+    .combo-contact {
+      background: #040000;
+      color: #ffb375;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-top: 1px solid #cc4242;
+    }
+    
+    .combo-footer-note {
+      background: #0a0300;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.75rem;
+      color: #c47147;
+    }
+    
+    .packages-full {
+      padding: 60px 0;
+      background: #0a0a12;
+    }
+    
+    .package-card {
+      background: #12121f;
+      border-radius: 24px;
+      margin-bottom: 40px;
+      overflow: hidden;
+      border: 1px solid #e31b23;
+    }
+    
+    .package-card.featured {
+      border-left: 5px solid #e31b23;
+      background: #15152a;
+    }
+    
+    .package-badge {
+      background: #e31b23;
+      color: white;
+      padding: 8px 20px;
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.8rem;
+      border-radius: 0 0 20px 0;
+    }
+    
+    .package-grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .package-info {
+      flex: 2;
+      padding: 32px 36px;
+    }
+    
+    .package-info h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #e31b23;
+    }
+    
+    .package-desc {
+      color: #a0a0b0;
+      line-height: 1.5;
+    }
+    
+    .menu-breakdown {
+      background: #0a0a15;
+      padding: 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+    }
+    
+    .menu-breakdown h4 {
+      color: #e31b23;
+      margin-bottom: 12px;
+    }
+    
+    .menu-breakdown ul {
+      list-style: none;
+    }
+    
+    .menu-breakdown li {
+      padding: 8px 0;
+      border-bottom: 1px solid #2a2a4a;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .price-box {
+      background: #0a0a15;
+      padding: 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+      display: block;
+      font-size: 0.9rem;
+    }
+    
+    .special-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #e31b23;
+      display: block;
+      margin: 8px 0;
+    }
+    
+    .save-tag {
+      background: #27ae60;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    
+    .free-gift {
+      margin: 15px 0;
+      padding: 10px;
+      background: #1a1a35;
+      border-radius: 10px;
+      text-align: center;
+      color: #f39c12;
+    }
+    
+    .btn-order {
+      display: inline-block;
+      background: #e31b23;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    
+    .btn-order:hover {
+      background: #c0151c;
+      transform: scale(1.02);
+    }
+    
+    .package-visual {
+      flex: 1;
+      min-height: 300px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .vibe-bg { background: linear-gradient(135deg, #e31b23, #f39c12); }
+    .feast-bg { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+    .ultimate-bg { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+    
+    .notice-board {
+      background: #12121f;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 20px 24px;
+      border: 1px solid #e31b23;
+    }
+    
+    .small-text {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #888;
+    }
+    
     @media (max-width: 900px) {
+      .package-grid {
+        flex-direction: column;
+      }
+      .package-visual {
+        min-height: 150px;
+      }
+      .package-info {
+        padding: 24px;
+      }
+      .hero-packages h1 {
+        font-size: 1.8rem;
+      }
+      .combo-grid {
+        padding: 1.5rem;
+      }
       .btn-print {
         display: none !important;
       }
@@ -53,11 +452,11 @@
 </header>
 
 <main id="printArea">
-  <!-- HERO SECTION with Circular Logo -->
+  <!-- HERO SECTION -->
   <section class="hero-packages">
     <div class="container">
       <div class="hero-logo">
-        <img src="https://github.com/developereth/sushivibecatering/blob/daca3a0a8b2955e15d8e0b7c5991f7fa2b0de803/logo.png?raw=true" alt="Sushi Vibe Logo" class="hero-logo-img" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #e31b23; margin-bottom: 20px;">
+        <img src="https://github.com/developereth/sushivibecatering/blob/daca3a0a8b2955e15d8e0b7c5991f7fa2b0de803/logo.png?raw=true" alt="Sushi Vibe Logo" class="hero-logo-img">
       </div>
       <h1>Our <span class="highlight">signature</span> menu</h1>
       <p>Fresh sushi deals for every craving & premium catering for special occasions</p>
@@ -69,7 +468,7 @@
     </div>
   </section>
 
-  <!-- ================= COMBO DEALS SECTION (FIRST) ================= -->
+  <!-- ================= COMBO DEALS SECTION ================= -->
   <div class="combo-deals-wrapper">
     <div class="combo-container">
       <div class="combo-hero">
@@ -283,12 +682,11 @@
         <div class="extras-title">🔥 EXTRA ADD-ONS</div>
         <div class="extra-item">Wasabi 100 ETB</div>
         <div class="extra-item">Ginger 200 ETB</div>
-div class="extra-item">Soy sauce 100 ETB</div>
+        <div class="extra-item">Soy sauce 100 ETB</div>
         <div class="extra-item">Chopstick 25 ETB</div>
         <div class="extra-item">⚡ Spicy upgrade +80 ETB</div>
       </div>
 
-      <!-- Contact -->
       <div class="combo-contact">
         📞 +251 927 249 999 &nbsp;&nbsp;|&nbsp;&nbsp; 🖤 Sushi_vibe26
       </div>
@@ -298,7 +696,7 @@ div class="extra-item">Soy sauce 100 ETB</div>
     </div>
   </div>
 
-  <!-- ================= CATERING PACKAGES SECTION (SECOND) ================= -->
+  <!-- ================= CATERING PACKAGES SECTION ================= -->
   <section class="packages-full">
     <div class="container">
       <div style="text-align: center; margin-bottom: 40px;">
