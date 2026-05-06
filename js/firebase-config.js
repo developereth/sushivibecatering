@@ -15,3 +15,11 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 
 console.log('🔥 Firebase connected');
+
+// Enable persistence for offline support
+db.enablePersistence()
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      console.log('Multiple tabs open, persistence enabled in first tab only');
+    }
+  });
