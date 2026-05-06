@@ -1,47 +1,103 @@
-// ========== MOBILE MENU TOGGLE ==========
+// ========== MOBILE SIDE SLIDE NAVIGATION ==========
 document.addEventListener('DOMContentLoaded', function() {
-  // Mobile menu toggle functionality
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  const navMenu = document.querySelector('.main-nav ul');
-  
-  if (mobileToggle && navMenu) {
-    // Toggle menu when clicking hamburger icon
-    mobileToggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      navMenu.classList.toggle('show');
-    });
-    
-    // Close menu when clicking a navigation link
-    const navLinks = document.querySelectorAll('.main-nav a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        navMenu.classList.remove('show');
-      });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (navMenu.classList.contains('show')) {
-        if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-          navMenu.classList.remove('show');
-        }
-      }
-    });
-    
-    // Close menu on window resize (if screen becomes larger than mobile)
-    window.addEventListener('resize', function() {
-      if (window.innerWidth > 900) {
-        navMenu.classList.remove('show');
-      }
-    });
-  }
-  
-  // Gallery filter functionality
+  createMobileSidebar();
   initGalleryFilters();
-  
-  // Contact form handling
   initContactForm();
 });
+
+// Create mobile sidebar navigation
+function createMobileSidebar() {
+  // Check if already exists
+  if (document.querySelector('.mobile-nav-drawer')) return;
+  
+  // Get current page for active state
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  
+  // Get logo image source
+  const logoImg = document.querySelector('.logo img');
+  const logoSrc = logoImg ? logoImg.src : 'logo.png';
+  
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'mobile-nav-overlay';
+  document.body.appendChild(overlay);
+  
+  // Create drawer
+  const drawer = document.createElement('div');
+  drawer.className = 'mobile-nav-drawer';
+  drawer.innerHTML = `
+    <div class="drawer-header">
+      <div class="drawer-logo">
+        <img src="${logoSrc}" alt="Sushi Vibe Logo">
+        <span>Sushi Vibe</span>
+      </div>
+      <button class="close-drawer"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="drawer-nav">
+      <ul>
+        <li><a href="index.html" class="${currentPage === 'index.html' ? 'active' : ''}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html" class="${currentPage === 'about.html' ? 'active' : ''}"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="packages.html" class="${currentPage === 'packages.html' ? 'active' : ''}"><i class="fas fa-utensils"></i> Packages & Menu</a></li>
+        <li><a href="gallery.html" class="${currentPage === 'gallery.html' ? 'active' : ''}"><i class="fas fa-images"></i> Gallery</a></li>
+        <li><a href="contact.html" class="${currentPage === 'contact.html' ? 'active' : ''}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="order.html" class="order-drawer-cta ${currentPage === 'order.html' ? 'active' : ''}"><i class="fas fa-shopping-cart"></i> Order Now</a></li>
+      </ul>
+    </div>
+    <div class="drawer-contact">
+      <p><i class="fas fa-phone-alt"></i> +251 927 299999</p>
+      <p><i class="fas fa-envelope"></i> sushivibes@proton.me</p>
+      <p><i class="fab fa-telegram"></i> @sushivib</p>
+    </div>
+    <div class="drawer-social">
+      <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+    </div>
+  `;
+  document.body.appendChild(drawer);
+  
+  // Get mobile toggle button
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  if (!mobileToggle) return;
+  
+  // Open drawer
+  function openDrawer() {
+    overlay.classList.add('active');
+    drawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  // Close drawer
+  function closeDrawer() {
+    overlay.classList.remove('active');
+    drawer.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  // Event listeners
+  mobileToggle.addEventListener('click', openDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  drawer.querySelector('.close-drawer').addEventListener('click', closeDrawer);
+  
+  // Close on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('active')) {
+      closeDrawer();
+    }
+  });
+  
+  // Close when clicking a link
+  drawer.querySelectorAll('.drawer-nav a').forEach(link => {
+    link.addEventListener('click', closeDrawer);
+  });
+  
+  // Close on window resize (if screen becomes desktop size)
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 900) {
+      closeDrawer();
+    }
+  });
+}
 
 // Gallery filter functionality
 function initGalleryFilters() {
