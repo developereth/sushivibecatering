@@ -1,12 +1,12 @@
-// ========== FIREBASE CONFIGURATION ==========
+// Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA-4dJG2UYIyj9wLNbyhyZDPHe3tuNwpXs",
-  authDomain: "sushivibe-a29c2.firebaseapp.com",
-  projectId: "sushivibe-a29c2",
-  storageBucket: "sushivibe-a29c2.firebasestorage.app",
-  messagingSenderId: "714267291452",
-  appId: "1:714267291452:web:83e861b62cb2904e43b839",
-  measurementId: "G-5YJZ959BW6"
+  apiKey: "AIzaSyCAcpb7w7SK_QQPayxiZav638PQQaeDfaU",
+  authDomain: "sushiviecatering.firebaseapp.com",
+  projectId: "sushiviecatering",
+  storageBucket: "sushiviecatering.firebasestorage.app",
+  messagingSenderId: "53464789510",
+  appId: "1:53464789510:web:181e18a8e2db525c6bc987",
+  measurementId: "G-8F3WHE183Z"
 };
 
 // Initialize Firebase
@@ -14,12 +14,4 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-console.log('🔥 Firebase connected');
-
-// Enable persistence for offline support
-db.enablePersistence()
-  .catch((err) => {
-    if (err.code == 'failed-precondition') {
-      console.log('Multiple tabs open, persistence enabled in first tab only');
-    }
-  });
+console.log('🔥 Firebase connected successfully!');
