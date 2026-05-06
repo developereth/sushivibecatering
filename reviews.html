@@ -7,6 +7,327 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for reviews page */
+    .reviews-page-section {
+      padding: 4rem 0 5rem;
+      background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 100%);
+    }
+    
+    .reviews-page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .reviews-page-header h2 {
+      font-size: 2.3rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    
+    .reviews-page-header h2 i {
+      color: #e31b23;
+      margin-right: 10px;
+    }
+    
+    .reviews-page-header p {
+      color: #aaaaaa;
+      font-size: 1.1rem;
+    }
+    
+    .rating-summary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      background: #111111;
+      padding: 2rem;
+      border-radius: 28px;
+      border: 1px solid #2a2a2a;
+    }
+    
+    .average-rating {
+      text-align: center;
+    }
+    
+    .average-rating .avg-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #e31b23;
+    }
+    
+    .average-rating .avg-stars {
+      margin: 0.5rem 0;
+    }
+    
+    .average-rating .avg-stars i {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+    
+    .average-rating .avg-count {
+      color: #888;
+      font-size: 0.9rem;
+    }
+    
+    .rating-bars {
+      flex: 1;
+      max-width: 300px;
+    }
+    
+    .rating-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .rating-bar-item span:first-child {
+      width: 40px;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    
+    .rating-bar-item .bar {
+      flex: 1;
+      height: 8px;
+      background: #2a2a2a;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .rating-bar-item .bar-fill {
+      height: 100%;
+      background: #ffc107;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    
+    .rating-bar-item .count {
+      width: 30px;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    
+    .reviews-grid-page {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .review-card-page {
+      background: #111111;
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+    
+    .review-card-page:hover {
+      transform: translateY(-5px);
+      border-color: #e31b23;
+      box-shadow: 0 10px 30px rgba(227, 27, 35, 0.1);
+    }
+    
+    .review-stars-page {
+      margin-bottom: 1rem;
+    }
+    
+    .review-stars-page i {
+      color: #ffc107;
+      font-size: 1rem;
+      margin-right: 2px;
+    }
+    
+    .review-stars-page i.far {
+      color: #444;
+    }
+    
+    .review-text-page {
+      color: #e5e5e5;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+    
+    .review-author-page {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #2a2a2a;
+    }
+    
+    .review-author-page .avatar {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #e31b23, #b8151c);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: white;
+    }
+    
+    .review-author-page .info h4 {
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    
+    .review-author-page .info p {
+      color: #e31b23;
+      font-size: 0.75rem;
+    }
+    
+    .review-date-page {
+      font-size: 0.7rem;
+      color: #666;
+      margin-left: auto;
+    }
+    
+    .review-form-container-page {
+      background: #111111;
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid #e31b23;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .review-form-container-page h3 {
+      color: white;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .review-form-container-page h3 i {
+      color: #e31b23;
+      margin-right: 8px;
+    }
+    
+    .rating-select-page {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-direction: row-reverse;
+      justify-content: center;
+    }
+    
+    .rating-select-page input {
+      display: none;
+    }
+    
+    .rating-select-page label {
+      font-size: 2rem;
+      color: #444;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    
+    .rating-select-page label:hover,
+    .rating-select-page label:hover ~ label,
+    .rating-select-page input:checked ~ label {
+      color: #ffc107;
+    }
+    
+    .review-form-container-page textarea {
+      width: 100%;
+      padding: 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      color: white;
+      font-family: inherit;
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+    
+    .review-form-container-page textarea:focus {
+      outline: none;
+      border-color: #e31b23;
+    }
+    
+    .review-form-container-page input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .review-form-container-page input:focus {
+      outline: none;
+      border-color: #e31b23;
+    }
+    
+    .name-email-row-page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .btn-submit-review-page {
+      background: #e31b23;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.2s;
+    }
+    
+    .btn-submit-review-page:hover {
+      background: #b8151c;
+      transform: translateY(-2px);
+    }
+    
+    .review-status-page {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      display: none;
+    }
+    
+    .no-reviews-page {
+      text-align: center;
+      padding: 3rem;
+      background: #111111;
+      border-radius: 24px;
+      color: #888;
+      grid-column: 1 / -1;
+    }
+    
+    @media (max-width: 768px) {
+      .reviews-grid-page {
+        grid-template-columns: 1fr;
+      }
+      .rating-summary {
+        flex-direction: column;
+        text-align: center;
+      }
+      .name-email-row-page {
+        grid-template-columns: 1fr;
+      }
+      .rating-select-page label {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -42,9 +363,9 @@
       </div>
     </section>
 
-    <div class="reviews-section">
+    <div class="reviews-page-section">
       <div class="container">
-        <div class="reviews-header">
+        <div class="reviews-page-header">
           <h2><i class="fas fa-star"></i> Real Reviews, Real Experiences</h2>
           <p>Join 50+ happy customers who loved our sushi catering</p>
         </div>
@@ -52,7 +373,7 @@
         <!-- Rating Summary -->
         <div class="rating-summary" id="ratingSummary">
           <div class="average-rating">
-            <div class="avg-number">5.0</div>
+            <div class="avg-number">0</div>
             <div class="avg-stars">
               <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
@@ -67,9 +388,9 @@
           </div>
         </div>
 
-        <!-- Reviews Grid -->
-        <div class="reviews-grid" id="reviewsGrid">
-          <div class="no-reviews">
+        <!-- Reviews Grid - Shows ONLY approved reviews -->
+        <div class="reviews-grid-page" id="reviewsGrid">
+          <div class="no-reviews-page">
             <i class="fas fa-comment-dots" style="font-size: 3rem; color: #e31b23; margin-bottom: 1rem; display: block;"></i>
             <h3>No reviews yet</h3>
             <p>Be the first to leave a review!</p>
@@ -77,10 +398,10 @@
         </div>
 
         <!-- Write a Review Form -->
-        <div class="review-form-container">
+        <div class="review-form-container-page">
           <h3><i class="fas fa-pen-alt"></i> Write a Review</h3>
           <form id="reviewForm">
-            <div class="rating-select" id="ratingSelect">
+            <div class="rating-select-page" id="ratingSelect">
               <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
               <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
               <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
@@ -88,12 +409,12 @@
               <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
             </div>
             <textarea rows="4" id="reviewText" placeholder="Share your experience with our sushi catering..." required></textarea>
-            <div class="name-email-row">
+            <div class="name-email-row-page">
               <input type="text" id="reviewerName" placeholder="Your name" required>
               <input type="email" id="reviewerEmail" placeholder="Your email (not published)" required>
             </div>
-            <button type="submit" class="btn-submit-review"><i class="fas fa-paper-plane"></i> Submit Review</button>
-            <div id="reviewStatus" class="review-status"></div>
+            <button type="submit" class="btn-submit-review-page"><i class="fas fa-paper-plane"></i> Submit Review</button>
+            <div id="reviewStatus" class="review-status-page"></div>
           </form>
         </div>
       </div>
@@ -146,6 +467,248 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/reviews.js"></script>
+  <script>
+    // ========== REVIEWS SYSTEM FOR PUBLIC PAGE ==========
+    const REVIEWS_STORAGE_KEY = 'sushi_vibe_reviews';
+    
+    // Get only approved reviews
+    function getApprovedReviews() {
+      const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      if (stored) {
+        const allReviews = JSON.parse(stored);
+        // Return only approved reviews
+        return allReviews.filter(review => review.status === 'approved');
+      }
+      return [];
+    }
+    
+    // Generate star HTML
+    function generateStars(rating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+          stars += '<i class="fas fa-star"></i>';
+        } else {
+          stars += '<i class="far fa-star"></i>';
+        }
+      }
+      return stars;
+    }
+    
+    // Display reviews on page
+    function displayReviews() {
+      const reviews = getApprovedReviews();
+      const grid = document.getElementById('reviewsGrid');
+      
+      if (!grid) return;
+      
+      if (reviews.length === 0) {
+        grid.innerHTML = `
+          <div class="no-reviews-page">
+            <i class="fas fa-comment-dots" style="font-size: 3rem; color: #e31b23; margin-bottom: 1rem; display: block;"></i>
+            <h3>No reviews yet</h3>
+            <p>Be the first to leave a review!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      grid.innerHTML = reviews.map(review => `
+        <div class="review-card-page">
+          <div class="review-stars-page">
+            ${generateStars(review.rating)}
+          </div>
+          <p class="review-text-page">"${escapeHtml(review.text)}"</p>
+          <div class="review-author-page">
+            <div class="avatar">${review.name.charAt(0)}</div>
+            <div class="info">
+              <h4>${escapeHtml(review.name)}</h4>
+              <p>Verified Customer</p>
+            </div>
+            <div class="review-date-page">${review.date}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      updateRatingSummary();
+    }
+    
+    // Update rating summary
+    function updateRatingSummary() {
+      const reviews = getApprovedReviews();
+      const total = reviews.length;
+      
+      if (total === 0) return;
+      
+      const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+      const average = (sum / total).toFixed(1);
+      
+      const ratingCounts = {5:0, 4:0, 3:0, 2:0, 1:0};
+      reviews.forEach(r => {
+        ratingCounts[r.rating]++;
+      });
+      
+      // Update average display
+      const avgElement = document.querySelector('.average-rating');
+      if (avgElement) {
+        avgElement.querySelector('.avg-number').textContent = average;
+        avgElement.querySelector('.avg-stars').innerHTML = generateStars(Math.round(average));
+        avgElement.querySelector('.avg-count').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+      }
+      
+      // Update rating bars
+      for (let i = 5; i >= 1; i--) {
+        const percent = total > 0 ? (ratingCounts[i] / total) * 100 : 0;
+        const barItem = document.querySelector(`.rating-bar-item:nth-child(${6-i})`);
+        if (barItem) {
+          barItem.querySelector('.bar-fill').style.width = `${percent}%`;
+          barItem.querySelector('.count').textContent = ratingCounts[i];
+        }
+      }
+    }
+    
+    // Save new review (always pending approval)
+    function saveReview(review) {
+      const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      let allReviews = stored ? JSON.parse(stored) : [];
+      
+      const newReview = {
+        id: Date.now(),
+        name: review.name,
+        email: review.email,
+        rating: review.rating,
+        text: review.text,
+        date: new Date().toISOString().split('T')[0],
+        status: 'pending'  // Always pending until admin approves
+      };
+      
+      allReviews.unshift(newReview);
+      localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(allReviews));
+      
+      // Send notification email to admin
+      sendReviewNotification(newReview);
+      
+      return newReview;
+    }
+    
+    // Send email notification to admin
+    async function sendReviewNotification(review) {
+      try {
+        await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            _subject: `⭐ New Review from ${review.name}`,
+            _template: 'table',
+            message: `
+New Review Waiting for Approval!
+
+Reviewer: ${review.name}
+Email: ${review.email}
+Rating: ${review.rating} ★
+Date: ${review.date}
+
+Review Text:
+"${review.text}"
+
+---
+To approve this review, login to admin dashboard:
+https://sushivibecatering.pages.dev/admin-login.html
+            `
+          })
+        });
+      } catch(e) {
+        console.log('Email notification error:', e);
+      }
+    }
+    
+    // Submit review form
+    function initReviewForm() {
+      const form = document.getElementById('reviewForm');
+      if (!form) return;
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const rating = document.querySelector('input[name="rating"]:checked');
+        const text = document.getElementById('reviewText').value.trim();
+        const name = document.getElementById('reviewerName').value.trim();
+        const email = document.getElementById('reviewerEmail').value.trim();
+        const status = document.getElementById('reviewStatus');
+        
+        if (!rating) {
+          showStatus('Please select a rating', 'error');
+          return;
+        }
+        
+        if (!text) {
+          showStatus('Please write your review', 'error');
+          return;
+        }
+        
+        if (!name) {
+          showStatus('Please enter your name', 'error');
+          return;
+        }
+        
+        if (!email) {
+          showStatus('Please enter your email', 'error');
+          return;
+        }
+        
+        const review = {
+          name: name,
+          email: email,
+          rating: parseInt(rating.value),
+          text: text
+        };
+        
+        saveReview(review);
+        
+        // Reset form
+        form.reset();
+        showStatus('✅ Thank you for your review! It will be published after admin approval.', 'success');
+        
+        setTimeout(() => {
+          status.style.display = 'none';
+        }, 5000);
+      });
+    }
+    
+    function showStatus(message, type) {
+      const status = document.getElementById('reviewStatus');
+      status.textContent = message;
+      status.style.display = 'block';
+      status.style.backgroundColor = type === 'error' ? '#ffe6e5' : '#e6f4ea';
+      status.style.color = type === 'error' ? '#c93a3a' : '#2b6e3c';
+      status.style.border = `1px solid ${type === 'error' ? '#c93a3a' : '#2b6e3c'}`;
+      status.style.padding = '12px';
+      status.style.borderRadius = '12px';
+      status.style.marginTop = '1rem';
+      
+      setTimeout(() => {
+        status.style.display = 'none';
+      }, 5000);
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      displayReviews();
+      initReviewForm();
+    });
+    
+    // Listen for storage changes (if admin approves review while page is open)
+    window.addEventListener('storage', function(e) {
+      if (e.key === REVIEWS_STORAGE_KEY) {
+        displayReviews();
+      }
+    });
+  </script>
 </body>
 </html>
