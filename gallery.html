@@ -45,11 +45,30 @@
         <button class="filter-btn" data-filter="rolls">Signature Rolls</button>
         <button class="filter-btn" data-filter="nigiri">Nigiri & Gunkan</button>
         <button class="filter-btn" data-filter="catering">Catering Setup</button>
+        <button class="filter-btn" data-filter="popular">Popular Rolls</button>
       </div>
 
       <div class="gallery-masonry" id="galleryGrid">
-        <!-- Gallery items - mix of real sushi images and catering display -->
-        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&h=400&fit=crop" alt="Dragon Roll"><div class="overlay"><span>Dragon Roll</span></div></div>
+        <!-- NEW: Shrimp Nigiri with your GitHub image -->
+        <div class="gallery-item" data-category="nigiri popular">
+          <img src="https://github.com/developereth/sushivibecatering/blob/c71c8706976b2b972b082a2533be4c8d87b130fb/shrimp-nigiri.jpg?raw=true" alt="Shrimp Nigiri">
+          <div class="overlay"><span>Shrimp Nigiri</span></div>
+        </div>
+        
+        <!-- NEW: California Maki with your GitHub image -->
+        <div class="gallery-item" data-category="rolls popular">
+          <img src="https://github.com/developereth/sushivibecatering/blob/c71c8706976b2b972b082a2533be4c8d87b130fb/california-maki.jpg?raw=true" alt="California Maki">
+          <div class="overlay"><span>California Maki</span></div>
+        </div>
+        
+        <!-- NEW: Dragon Roll with your GitHub image -->
+        <div class="gallery-item" data-category="rolls popular">
+          <img src="https://github.com/developereth/sushivibecatering/blob/c71c8706976b2b972b082a2533be4c8d87b130fb/dragon-roll.jpg?raw=true" alt="Dragon Roll">
+          <div class="overlay"><span>Dragon Roll</span></div>
+        </div>
+        
+        <!-- Rest of gallery continues unchanged -->
+        <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&h=400&fit=crop" alt="Dragon Roll"><div class="overlay"><span>Dragon Roll Classic</span></div></div>
         <div class="gallery-item" data-category="nigiri"><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=500&h=400&fit=crop" alt="Nigiri Selection"><div class="overlay"><span>Premium Nigiri</span></div></div>
         <div class="gallery-item" data-category="catering"><img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500&h=400&fit=crop" alt="Catering Platter"><div class="overlay"><span>Event Catering</span></div></div>
         <div class="gallery-item" data-category="rolls"><img src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=500&h=400&fit=crop" alt="California Roll"><div class="overlay"><span>California Roll</span></div></div>
