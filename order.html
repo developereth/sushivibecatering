@@ -7,6 +7,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for order page */
+    .google-form-card {
+      text-align: center;
+      padding: 3rem;
+      background: linear-gradient(135deg, #111111, #0a0a0a);
+      border: 1px solid #e31b23;
+      border-radius: 24px;
+      margin-bottom: 2rem;
+    }
+    .google-icon-large {
+      font-size: 4rem;
+      color: #e31b23;
+      margin-bottom: 1rem;
+      display: inline-block;
+      background: #1a1a1a;
+      padding: 1rem;
+      border-radius: 50%;
+    }
+    .order-btn-google {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: 0.3s;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(227, 27, 35, 0.3);
+    }
+    .order-btn-google:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #c0151c, #a01016);
+      box-shadow: 0 6px 20px rgba(227, 27, 35, 0.4);
+    }
+    .package-list-card {
+      background: #111111;
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid #2a2a2a;
+      margin-bottom: 1.5rem;
+    }
+    .package-list-card h3 {
+      color: #e31b23;
+      margin-bottom: 1rem;
+    }
+    .package-item {
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed #2a2a2a;
+      display: flex;
+      justify-content: space-between;
+    }
+    .package-item:last-child {
+      border-bottom: none;
+    }
+    .package-name {
+      font-weight: 600;
+    }
+    .package-price {
+      color: #e31b23;
+      font-weight: 700;
+    }
+    @media (max-width: 900px) {
+      .main-nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: #0a0a0a;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        border-bottom: 2px solid #e31b23;
+        z-index: 100;
+      }
+      .main-nav ul.show {
+        display: flex;
+      }
+      .mobile-toggle {
+        display: block !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -18,7 +106,6 @@
           <li><a href="about.html">About</a></li>
           <li><a href="packages.html">Packages & Menu</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="order.html" class="order-cta active">Order Now</a></li>
         </ul>
@@ -39,45 +126,48 @@
 
     <div class="container order-container">
       <div class="order-grid">
-        <!-- Order Form Section - Now redirects to Google Form -->
+        <!-- Order Form Section - Google Form Card -->
         <div class="order-form-section">
-          <div class="form-card" style="text-align: center; padding: 3rem;">
-            <i class="fas fa-google" style="font-size: 4rem; color: #e31b23; margin-bottom: 1rem;"></i>
-            <h2>Order via Google Form</h2>
-            <p style="color: #cccccc; margin-bottom: 2rem;">Click the button below to place your order securely through Google Forms. All orders will be saved directly to our spreadsheet.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRby3IHkQLZDCso-4udmeEgrgCKNzxA6lLxnTCzSk1EwTDSw/viewform?usp=preview" target="_blank" class="btn-primary btn-large" style="display: inline-flex; align-items: center; gap: 10px;">
+          <div class="google-form-card">
+            <div class="google-icon-large">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h2 style="color: white; margin-bottom: 1rem;">Ready to order?</h2>
+            <p style="color: #cccccc; margin-bottom: 1.5rem;">Click the button below to fill out our secure order form. It takes less than 2 minutes!</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRby3IHkQLZDCso-4udmeEgrgCKNzxA6lLxnTCzSk1EwTDSw/viewform?usp=preview" target="_blank" class="order-btn-google">
               <i class="fab fa-google"></i> Open Order Form
+              <i class="fas fa-arrow-right"></i>
             </a>
             <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #888;">
-              <i class="fas fa-lock"></i> Secure form · No account needed
+              <i class="fas fa-lock"></i> Secure · No account needed · Orders sent directly to us
             </p>
           </div>
 
           <!-- Package Summary Card -->
-          <div class="form-card">
-            <h2><i class="fas fa-info-circle"></i> Our Packages</h2>
-            <div class="package-selector">
-              <div class="pkg-option">
-                <div class="pkg-details">
-                  <strong>🎉 Vibe Party Set</strong>
-                  <span class="pkg-price">32,000 ETB</span>
-                  <small>10 people · Nigiri, Gunkan, California, Dragon & Mango rolls</small>
-                </div>
-              </div>
-              <div class="pkg-option">
-                <div class="pkg-details">
-                  <strong>🌟 Celebration Feast</strong>
-                  <span class="pkg-price">65,000 ETB</span>
-                  <small>20 people · 40 Nigiri & Gunkan + Rainbow, California, Spicy Tuna</small>
-                </div>
-              </div>
-              <div class="pkg-option">
-                <div class="pkg-details">
-                  <strong>✨ Ultimate Sushi Experience</strong>
-                  <span class="pkg-price">105,000 ETB</span>
-                  <small>30 people · Premium selection: Dragon, Alaska, Philly, Rainbow, Spicy Tuna</small>
-                </div>
-              </div>
+          <div class="package-list-card">
+            <h3><i class="fas fa-info-circle"></i> Our Catering Packages</h3>
+            <div class="package-item">
+              <span class="package-name">🎉 Vibe Party Set</span>
+              <span class="package-price">32,000 ETB</span>
+            </div>
+            <div class="package-item">
+              <span class="package-name">🌟 Celebration Feast</span>
+              <span class="package-price">58,000 ETB</span>
+            </div>
+            <div class="package-item">
+              <span class="package-name">✨ Ultimate Sushi Experience</span>
+              <span class="package-price">95,000 ETB</span>
+            </div>
+            <div class="package-item">
+              <span class="package-name">👨‍🍳 Omakase Reserve</span>
+              <span class="package-price">82,000 ETB</span>
+            </div>
+            <div class="package-item">
+              <span class="package-name">🏆 Grand Emperor Platter</span>
+              <span class="package-price">139,999 ETB</span>
+            </div>
+            <div class="free-gift" style="margin-top: 1rem; padding: 0.8rem; background: #1a1a1a; border-radius: 12px; text-align: center;">
+              <i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce with every order!
             </div>
           </div>
         </div>
@@ -116,7 +206,7 @@
         <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
       </div></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul class="contact-info">
         <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
         <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
@@ -127,5 +217,36 @@
     </div>
     <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
   </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Mobile menu toggle for order page
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navMenu = document.querySelector('.main-nav ul');
+    
+    if (mobileToggle && navMenu) {
+      mobileToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+      });
+      
+      // Close menu when clicking a link
+      const navLinks = document.querySelectorAll('.main-nav a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('show');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (navMenu.classList.contains('show')) {
+          if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+            navMenu.classList.remove('show');
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
