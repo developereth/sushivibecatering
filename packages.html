@@ -119,6 +119,77 @@
       padding: 8px;
     }
 
+    /* ========== MOBILE RESPONSIVE NAVIGATION ========== */
+    @media (max-width: 992px) {
+      .mobile-toggle {
+        display: block;
+        z-index: 1001;
+      }
+      
+      .main-nav ul {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0a0505;
+        flex-direction: column;
+        padding: 80px 24px 24px 24px;
+        gap: 20px;
+        border-bottom: 2px solid #e31b23;
+        z-index: 1000;
+        height: auto;
+        max-height: 100vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      }
+      
+      .main-nav ul.show {
+        display: flex;
+      }
+      
+      .main-nav li {
+        text-align: center;
+      }
+      
+      .main-nav a {
+        display: block;
+        padding: 12px;
+        font-size: 1.1rem;
+      }
+      
+      .main-nav .order-cta {
+        display: inline-block;
+        width: auto;
+        margin-top: 5px;
+      }
+    }
+
+    /* Tablet styles */
+    @media (min-width: 769px) and (max-width: 992px) {
+      .logo-text {
+        font-size: 1.3rem;
+      }
+      .logo-img {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .logo-text {
+        font-size: 1.1rem;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+      }
+      .hero-packages h1 {
+        font-size: 1.5rem;
+      }
+    }
+
     /* ========== HERO SECTION ========== */
     .hero-packages {
       background: linear-gradient(135deg, #0a0000 0%, #1a0505 100%);
@@ -599,53 +670,70 @@
       font-size: 0.8rem;
     }
 
-    /* ========== MOBILE RESPONSIVE ========== */
-    @media (max-width: 900px) {
-      .main-nav ul {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: #0a0505;
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        border-bottom: 2px solid #e31b23;
-        z-index: 1000;
+    /* Additional responsive fixes */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
       }
-      .main-nav ul.show {
-        display: flex;
-      }
-      .mobile-toggle {
-        display: block;
-      }
-      .package-grid {
-        flex-direction: column;
-      }
-      .package-visual {
-        min-height: 150px;
-        border-radius: 0 0 24px 24px;
-      }
-      .package-info {
-        padding: 24px;
+      .hero-packages {
+        padding: 40px 0;
       }
       .hero-packages h1 {
         font-size: 1.8rem;
       }
-      .footer-inner {
-        flex-direction: column;
-        gap: 30px;
-      }
       .combo-grid {
-        padding: 1.5rem;
+        padding: 1rem;
+        gap: 1rem;
       }
-      .logo-text {
+      .combo-card-title {
         font-size: 1.2rem;
       }
-      .logo-img {
-        width: 40px;
-        height: 40px;
+      .package-info {
+        padding: 20px;
+      }
+      .package-info h2 {
+        font-size: 1.4rem;
+      }
+      .special-price {
+        font-size: 1.5rem;
+      }
+      .extras-section {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      .combo-contact {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 0.9rem;
+      }
+      .logo-text span {
+        font-size: 0.6rem;
+      }
+      .hero-features {
+        gap: 12px;
+      }
+      .hero-features span {
+        font-size: 0.7rem;
+      }
+      .combo-card-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+        text-align: center;
+      }
+      .combo-final-price {
+        font-size: 1.2rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+      .combo-price-number {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -1137,33 +1225,71 @@
 </footer>
 
 <script>
-  // Mobile menu toggle
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navMenu = document.getElementById('navMenu');
-  
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navMenu.classList.toggle('show');
-    });
+  // Mobile menu toggle - FIXED for tablet & mobile
+  (function() {
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
     
-    // Close menu when clicking a link
-    const navLinks = document.querySelectorAll('.main-nav a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('show');
-      });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (event) => {
-      if (navMenu.classList.contains('show')) {
-        if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-          navMenu.classList.remove('show');
+    if (mobileToggle && navMenu) {
+      // Toggle menu on button click
+      mobileToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+        
+        // Change icon when menu is open
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          if (navMenu.classList.contains('show')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
         }
-      }
-    });
-  }
+      });
+      
+      // Close menu when clicking a link
+      const navLinks = navMenu.querySelectorAll('a');
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('show');
+          const icon = mobileToggle.querySelector('i');
+          if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (navMenu.classList.contains('show')) {
+          if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+            navMenu.classList.remove('show');
+            const icon = mobileToggle.querySelector('i');
+            if (icon) {
+              icon.classList.remove('fa-times');
+              icon.classList.add('fa-bars');
+            }
+          }
+        }
+      });
+      
+      // Close menu on window resize if screen becomes larger than tablet
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 992 && navMenu.classList.contains('show')) {
+          navMenu.classList.remove('show');
+          const icon = mobileToggle.querySelector('i');
+          if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      });
+    }
+  })();
 </script>
 </body>
 </html>
