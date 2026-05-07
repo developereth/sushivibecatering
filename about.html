@@ -7,14 +7,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for circular logo and consistent theme */
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e31b23;
+      transition: transform 0.3s;
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e31b23;
+    }
+    .logo-text span {
+      font-size: 0.7rem;
+      background: #e31b23;
+      color: #0a0505;
+      padding: 2px 8px;
+      border-radius: 40px;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+    @media (max-width: 900px) {
+      .logo-img {
+        width: 40px;
+        height: 40px;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .values {
+        grid-template-columns: 1fr !important;
+      }
+      .stats-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-container">
       <div class="logo">
         <a href="index.html">
-          <img src="logo.png" alt="Sushi Vibe Logo" style="height: 45px; width: auto; vertical-align: middle; margin-right: 10px;">
-          <span style="display: inline-block; vertical-align: middle;">Sushi Vibe <span>Catering</span></span>
+          <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="logo-img">
+          <span class="logo-text">Sushi Vibe <span>Catering</span></span>
         </a>
       </div>
       <nav class="main-nav">
@@ -108,7 +163,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
+      <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
       <p style="margin-top: 0.5rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23; text-decoration: none;">Addis Power</a></p>
     </div>
   </footer>
