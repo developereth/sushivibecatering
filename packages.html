@@ -47,23 +47,37 @@
       flex-wrap: wrap;
     }
 
+    /* Circular Logo */
     .logo a {
-      font-size: 1.8rem;
-      font-weight: 800;
-      text-decoration: none;
-      color: #e31b23;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      text-decoration: none;
     }
-
-    .logo span {
-      font-size: 0.8rem;
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e31b23;
+      transition: transform 0.3s;
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e31b23;
+    }
+    .logo-text span {
+      font-size: 0.7rem;
       background: #e31b23;
       color: #0a0505;
-      padding: 4px 12px;
+      padding: 2px 8px;
       border-radius: 40px;
       font-weight: 600;
+      margin-left: 5px;
     }
 
     .main-nav ul {
@@ -100,6 +114,9 @@
       font-size: 1.8rem;
       color: #e31b23;
       cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
     }
 
     /* ========== HERO SECTION ========== */
@@ -582,6 +599,7 @@
       font-size: 0.8rem;
     }
 
+    /* ========== MOBILE RESPONSIVE ========== */
     @media (max-width: 900px) {
       .main-nav ul {
         display: none;
@@ -594,6 +612,7 @@
         padding: 20px;
         gap: 15px;
         border-bottom: 2px solid #e31b23;
+        z-index: 1000;
       }
       .main-nav ul.show {
         display: flex;
@@ -621,6 +640,13 @@
       .combo-grid {
         padding: 1.5rem;
       }
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
 </head>
@@ -631,8 +657,8 @@
   <div class="container nav-container">
     <div class="logo">
       <a href="index.html">
-        <img src="logo.png" alt="Sushi Vibe Logo" style="height: 45px; width: auto; vertical-align: middle; margin-right: 10px;">
-        <span style="display: inline-block; vertical-align: middle;">Sushi Vibe <span>Catering</span></span>
+        <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="logo-img">
+        <span class="logo-text">Sushi Vibe <span>Catering</span></span>
       </a>
     </div>
     <nav class="main-nav">
@@ -645,9 +671,9 @@
         <li><a href="order.html" class="order-cta">Order Now</a></li>
       </ul>
     </nav>
-    <div class="mobile-toggle" id="mobileToggle">
+    <button class="mobile-toggle" id="mobileToggle">
       <i class="fas fa-bars"></i>
-    </div>
+    </button>
   </div>
 </header>
 
@@ -678,7 +704,7 @@
       </div>
 
       <div class="combo-grid">
-        <!-- Salmon & Tempura Set (with California Roll instead of Tempura style) -->
+        <!-- Salmon & California Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍣 Salmon & California Set</span>
@@ -724,7 +750,7 @@
           <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,800 ETB</span></div>
         </div>
 
-        <!-- Starter Combo (with 2 Shrimp Nigiri added) -->
+        <!-- Starter Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍥 Starter Combo</span>
@@ -744,7 +770,7 @@
           <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">2,200 ETB</span></div>
         </div>
 
-        <!-- Salmon Lover Set (4 Gunkan Maki) -->
+        <!-- Salmon Lover Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🐟 Salmon Lover Set</span>
@@ -786,7 +812,7 @@
           <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,700 ETB</span></div>
         </div>
 
-        <!-- Gunkan Lover Set (removed #8) -->
+        <!-- Gunkan Lover Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍙 Gunkan Lover Set</span>
@@ -830,7 +856,7 @@
           <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">3,500 ETB</span></div>
         </div>
 
-        <!-- Party Combo (removed #8) -->
+        <!-- Party Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🎉 Party Combo</span>
@@ -934,7 +960,7 @@
         </div>
       </div>
 
-      <!-- 2. CELEBRATION FEAST (3 Rainbow Roll + 3 Dragon Roll) -->
+      <!-- 2. CELEBRATION FEAST -->
       <div class="package-card featured" id="celebration">
         <div class="package-badge">🌟 MOST ORDERED — 20 PEOPLE</div>
         <div class="package-grid">
@@ -964,7 +990,7 @@
         </div>
       </div>
 
-      <!-- 3. ULTIMATE SUSHI EXPERIENCE (updated quantities) -->
+      <!-- 3. ULTIMATE SUSHI EXPERIENCE -->
       <div class="package-card" id="ultimate">
         <div class="package-badge">✨ PREMIUM EXPERIENCE — 30 PEOPLE</div>
         <div class="package-grid">
@@ -995,7 +1021,7 @@
         </div>
       </div>
 
-      <!-- 4. OMAKASE RESERVE (Price updated to 82,000 ETB) - REMOVED SAKURA -->
+      <!-- 4. OMAKASE RESERVE -->
       <div class="package-card featured" id="omakase">
         <div class="package-badge">👨‍🍳 CHEF'S SIGNATURE — 24 PEOPLE</div>
         <div class="package-grid">
@@ -1025,7 +1051,7 @@
         </div>
       </div>
 
-      <!-- 5. GRAND EMPEROR PLATTER (Price updated to 139,999 ETB) -->
+      <!-- 5. GRAND EMPEROR PLATTER -->
       <div class="package-card" id="emperor">
         <div class="package-badge">🏆 IMPERIAL FEAST — 40 PEOPLE</div>
         <div class="package-grid">
@@ -1114,21 +1140,27 @@
   // Mobile menu toggle
   const mobileToggle = document.getElementById('mobileToggle');
   const navMenu = document.getElementById('navMenu');
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', () => {
+  
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       navMenu.classList.toggle('show');
+    });
+    
+    // Close menu when clicking a link
+    const navLinks = document.querySelectorAll('.main-nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+      });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
       if (navMenu.classList.contains('show')) {
-        navMenu.style.display = 'flex';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '70px';
-        navMenu.style.left = '0';
-        navMenu.style.right = '0';
-        navMenu.style.background = '#0a0505';
-        navMenu.style.padding = '20px';
-        navMenu.style.borderBottom = '2px solid #e31b23';
-      } else {
-        navMenu.style.display = '';
+        if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+          navMenu.classList.remove('show');
+        }
       }
     });
   }
