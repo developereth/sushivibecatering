@@ -6,45 +6,41 @@
   <title>Sushi Vibe | Complete Menu & Catering Packages</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Additional styles for packages page */
     body {
-      font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       background: #0a0505;
-      color: #e0e0e0;
     }
-
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #1a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #e31b23; border-radius: 10px; }
-
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 24px;
+    
+    .hero-packages {
+      background: linear-gradient(135deg, #0a0000 0%, #1a0505 100%);
+      padding: 60px 0;
+      text-align: center;
+      border-bottom: 1px solid #e31b23;
     }
-
-    /* ========== HEADER ========== */
-    .site-header {
-      background: #0a0505;
-      border-bottom: 2px solid #e31b23;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    .hero-packages h1 {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      color: white;
     }
-
-    .nav-container {
+    .highlight {
+      color: #e31b23;
+    }
+    .hero-features {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
       flex-wrap: wrap;
+    }
+    .hero-features span {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    .hero-features i {
+      color: #e31b23;
+      margin-right: 8px;
     }
 
     /* Circular Logo */
@@ -80,148 +76,7 @@
       margin-left: 5px;
     }
 
-    .main-nav ul {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .main-nav a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #e0e0e0;
-      transition: 0.3s;
-    }
-
-    .main-nav a:hover, .main-nav a.active {
-      color: #e31b23;
-    }
-
-    .order-cta {
-      background: #e31b23;
-      color: #0a0505 !important;
-      padding: 8px 24px;
-      border-radius: 40px;
-    }
-
-    .order-cta:hover {
-      background: #f03941;
-      transform: scale(1.05);
-    }
-
-    .mobile-toggle {
-      display: none;
-      font-size: 1.8rem;
-      color: #e31b23;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 8px;
-    }
-
-    /* ========== MOBILE RESPONSIVE NAVIGATION ========== */
-    @media (max-width: 992px) {
-      .mobile-toggle {
-        display: block;
-        z-index: 1001;
-      }
-      
-      .main-nav ul {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #0a0505;
-        flex-direction: column;
-        padding: 80px 24px 24px 24px;
-        gap: 20px;
-        border-bottom: 2px solid #e31b23;
-        z-index: 1000;
-        height: auto;
-        max-height: 100vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      }
-      
-      .main-nav ul.show {
-        display: flex;
-      }
-      
-      .main-nav li {
-        text-align: center;
-      }
-      
-      .main-nav a {
-        display: block;
-        padding: 12px;
-        font-size: 1.1rem;
-      }
-      
-      .main-nav .order-cta {
-        display: inline-block;
-        width: auto;
-        margin-top: 5px;
-      }
-    }
-
-    /* Tablet styles */
-    @media (min-width: 769px) and (max-width: 992px) {
-      .logo-text {
-        font-size: 1.3rem;
-      }
-      .logo-img {
-        width: 45px;
-        height: 45px;
-      }
-    }
-
-    /* Mobile styles */
-    @media (max-width: 768px) {
-      .logo-text {
-        font-size: 1.1rem;
-      }
-      .logo-img {
-        width: 40px;
-        height: 40px;
-      }
-      .hero-packages h1 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* ========== HERO SECTION ========== */
-    .hero-packages {
-      background: linear-gradient(135deg, #0a0000 0%, #1a0505 100%);
-      padding: 60px 0;
-      text-align: center;
-      border-bottom: 1px solid #e31b23;
-    }
-    .hero-packages h1 {
-      font-size: 2.8rem;
-      margin-bottom: 16px;
-      color: white;
-    }
-    .highlight {
-      color: #e31b23;
-    }
-    .hero-features {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-    }
-    .hero-features span {
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-    .hero-features i {
-      color: #e31b23;
-      margin-right: 8px;
-    }
-
-    /* ========== COMBO DEALS SECTION ========== */
+    /* Combo Deals Styles */
     .combo-deals-wrapper {
       background: #0a0505;
       background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
@@ -282,7 +137,7 @@
     }
     .combo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
       padding: 2rem;
       background: #0b0404;
@@ -293,6 +148,7 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(200, 40, 40, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s;
       overflow: hidden;
+      text-align: center;
     }
     .combo-card:hover {
       transform: translateY(-5px);
@@ -302,10 +158,6 @@
       background: #170c0c;
       padding: 1.2rem 1.5rem;
       border-bottom: 2px solid #be2e2e;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
     }
     .combo-card-title {
       font-size: 1.4rem;
@@ -314,6 +166,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
+      display: block;
     }
     .combo-badge {
       background: #ac2b2b20;
@@ -324,21 +177,24 @@
       border-radius: 40px;
       border: 1px solid #c53a3a;
       text-transform: uppercase;
+      display: inline-block;
+      margin-top: 8px;
     }
     .combo-items-list {
       padding: 1rem 1.5rem;
-    }
-    .combo-item-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed #2f1a1a;
-      font-size: 0.9rem;
-      font-weight: 500;
+      list-style: none;
       color: #eeddcc;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      text-align: center;
     }
-    .combo-item-price {
-      font-weight: 700;
+    .combo-items-list li {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    .combo-items-list li:not(:last-child):after {
+      content: "•";
+      margin-left: 8px;
       color: #ff8a5c;
     }
     .combo-price-display {
@@ -400,13 +256,12 @@
       color: #c47147;
     }
 
-    /* ========== CATERING PACKAGES ========== */
+    /* Catering Packages Styles */
     .packages-full {
       background: #0a0505;
       background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
       padding: 60px 0;
     }
-    
     .section-title {
       text-align: center;
       margin-bottom: 3rem;
@@ -423,7 +278,6 @@
       color: #e6b0b0;
       margin-top: 0.5rem;
     }
-    
     .package-card {
       background: #0c0606;
       border-radius: 32px;
@@ -494,6 +348,10 @@
       color: #eeddcc;
       font-size: 0.9rem;
     }
+    .menu-breakdown li span:last-child {
+      color: #ff8a5c;
+      font-weight: 600;
+    }
     .package-price-box {
       background: linear-gradient(135deg, #e31b23, #c0151c);
       padding: 16px;
@@ -551,7 +409,6 @@
     .omakase-bg { background: linear-gradient(135deg, #2980b9, #3498db); }
     .emperor-bg { background: linear-gradient(135deg, #d4ac0d, #f1c40f); }
 
-    /* ========== NOTICE BOARD ========== */
     .notice-board {
       background: #0c0606;
       padding: 24px;
@@ -566,83 +423,7 @@
       color: #c47147;
     }
 
-    /* ========== FOOTER ========== */
-    .site-footer {
-      background: #040000;
-      padding: 50px 0 20px;
-      border-top: 3px solid #e31b23;
-    }
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: space-between;
-    }
-    .footer-col {
-      flex: 1;
-      min-width: 180px;
-    }
-    .footer-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #e31b23;
-      margin-bottom: 15px;
-    }
-    .footer-col p, .footer-col li {
-      color: #b37575;
-      line-height: 1.6;
-    }
-    .footer-col h4 {
-      color: #e31b23;
-      margin-bottom: 15px;
-      font-size: 1rem;
-    }
-    .footer-col ul {
-      list-style: none;
-    }
-    .footer-col a {
-      color: #b37575;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    .footer-col a:hover {
-      color: #e31b23;
-    }
-    .social-icons a {
-      color: #b37575;
-      font-size: 1.3rem;
-      margin-right: 15px;
-      display: inline-block;
-    }
-    .social-icons a:hover {
-      color: #e31b23;
-      transform: translateY(-3px);
-    }
-    .contact-info li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .contact-info i {
-      width: 25px;
-    }
-    .footer-bottom {
-      text-align: center;
-      padding-top: 30px;
-      margin-top: 30px;
-      border-top: 1px solid #1f0a0a;
-      color: #666;
-      font-size: 0.8rem;
-    }
-
     @media (max-width: 768px) {
-      .container {
-        padding: 0 16px;
-      }
-      .hero-packages {
-        padding: 40px 0;
-      }
       .hero-packages h1 {
         font-size: 1.8rem;
       }
@@ -688,11 +469,9 @@
       .hero-features span {
         font-size: 0.7rem;
       }
-      .combo-card-header {
-        flex-direction: column;
-        gap: 8px;
-        align-items: center;
-        text-align: center;
+      .logo-img {
+        width: 40px;
+        height: 40px;
       }
     }
   </style>
@@ -709,7 +488,7 @@
       </a>
     </div>
     <nav class="main-nav">
-      <ul id="navMenu">
+      <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="packages.html" class="active">Packages & Menu</a></li>
@@ -718,13 +497,14 @@
         <li><a href="order.html" class="order-cta">Order Now</a></li>
       </ul>
     </nav>
-    <button class="mobile-toggle" id="mobileToggle">
+    <div class="mobile-toggle">
       <i class="fas fa-bars"></i>
-    </button>
+    </div>
   </div>
 </header>
 
 <main>
+  <!-- HERO SECTION -->
   <section class="hero-packages">
     <div class="container">
       <h1>Our <span class="highlight">signature</span> menu</h1>
@@ -754,13 +534,13 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍣 Salmon & Tempura Set</span>
-            <span class="combo-badge">🔥 SELLER BEST</span>
+            <div class="combo-badge">🔥 SELLER BEST</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>3 Salmon Nigiri</span><span class="combo-item-price">1,500 ETB</span></div>
-            <div class="combo-item-row"><span>3 Shrimp Nigiri</span><span class="combo-item-price">1,500 ETB</span></div>
-            <div class="combo-item-row"><span>1 Gunkan Maki</span><span class="combo-item-price">500 ETB</span></div>
-            <div class="combo-item-row"><span>+ Tempura style</span><span class="combo-item-price">included</span></div>
+            <li>3 Salmon Nigiri</li>
+            <li>3 Shrimp Nigiri</li>
+            <li>1 Gunkan Maki</li>
+            <li>Tempura Style</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -772,14 +552,14 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍱 Sushi Platter</span>
-            <span class="combo-badge">⭐ GREAT VALUE</span>
+            <div class="combo-badge">⭐ GREAT VALUE</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-item-row"><span>3 Shrimp Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-item-row"><span>3 Tuna Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
-            <div class="combo-item-row"><span>5pcs Seafood Futomaki</span><span>1,700 ETB</span></div>
+            <li>3 Salmon Nigiri</li>
+            <li>3 Shrimp Nigiri</li>
+            <li>3 Tuna Nigiri</li>
+            <li>1 Gunkan Maki</li>
+            <li>5pcs Seafood Futomaki</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -791,12 +571,12 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍥 Starter Combo</span>
-            <span class="combo-badge">🥢 FOR 1</span>
+            <div class="combo-badge">🥢 FOR 1</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>2 Shrimp Nigiri</span><span>1,000 ETB</span></div>
-            <div class="combo-item-row"><span>4pcs Hosomaki</span><span>400 ETB</span></div>
-            <div class="combo-item-row"><span>4pcs California Roll</span><span>800 ETB</span></div>
+            <li>2 Shrimp Nigiri</li>
+            <li>4pcs Hosomaki</li>
+            <li>4pcs California Roll</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -808,12 +588,12 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🐟 Salmon Lover Set</span>
-            <span class="combo-badge">❤️ LOVER</span>
+            <div class="combo-badge">❤️ LOVER</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>2 Shrimp Nigiri</span><span>1,000 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Salmon Roll</span><span>1,600 ETB</span></div>
-            <div class="combo-item-row"><span>4 Gunkan Maki</span><span>2,000 ETB</span></div>
+            <li>2 Shrimp Nigiri</li>
+            <li>8pcs Salmon Roll</li>
+            <li>4 Gunkan Maki</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -825,13 +605,13 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🌊 Mixed Roll Platter</span>
-            <span class="combo-badge">🏆 MOST POPULAR</span>
+            <div class="combo-badge">🏆 MOST POPULAR</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Spicy Tuna Roll</span><span>1,700 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Mango Roll</span><span>1,300 ETB</span></div>
-            <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
+            <li>8pcs Dragon Roll</li>
+            <li>8pcs Spicy Tuna Roll</li>
+            <li>8pcs Mango Roll</li>
+            <li>1 Gunkan Maki</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -843,12 +623,12 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍙 Gunkan Lover Set</span>
-            <span class="combo-badge">🍣 GUNKAN</span>
+            <div class="combo-badge">🍣 GUNKAN</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>4 Salmon Gunkan</span><span>2,000 ETB</span></div>
-            <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
-            <div class="combo-item-row"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
+            <li>4 Salmon Gunkan</li>
+            <li>1 Gunkan Maki</li>
+            <li>3 Salmon Nigiri</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -860,14 +640,14 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🥑 Vegan Combo</span>
-            <span class="combo-badge">🌱 VEGAN</span>
+            <div class="combo-badge">🌱 VEGAN</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>8pcs Avocado Roll</span><span>1,200 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Cucumber Roll</span><span>600 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Vegetable Roll</span><span>900 ETB</span></div>
-            <div class="combo-item-row"><span>1 Inari Nigiri</span><span>300 ETB</span></div>
-            <div class="combo-item-row"><span>1 Gunkan Maki (Veggie)</span><span>500 ETB</span></div>
+            <li>8pcs Avocado Roll</li>
+            <li>8pcs Cucumber Roll</li>
+            <li>8pcs Vegetable Roll</li>
+            <li>1 Inari Nigiri</li>
+            <li>1 Veggie Gunkan</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -879,13 +659,13 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🎉 Party Combo</span>
-            <span class="combo-badge">👥 SHARE</span>
+            <div class="combo-badge">👥 SHARE</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Rainbow Roll</span><span>2,200 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Philadelphia Roll</span><span>1,900 ETB</span></div>
-            <div class="combo-item-row"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
+            <li>8pcs Dragon Roll</li>
+            <li>8pcs Rainbow Roll</li>
+            <li>8pcs Philadelphia Roll</li>
+            <li>6pcs Mixed Nigiri</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -897,14 +677,14 @@
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">✨ Premium Deluxe Platter</span>
-            <span class="combo-badge">🏅 ULTIMATE</span>
+            <div class="combo-badge">🏅 ULTIMATE</div>
           </div>
           <div class="combo-items-list">
-            <div class="combo-item-row"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs Rainbow Roll</span><span>2,200 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs California Roll</span><span>1,600 ETB</span></div>
-            <div class="combo-item-row"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
-            <div class="combo-item-row"><span>2 Gunkan Maki</span><span>1,000 ETB</span></div>
+            <li>8pcs Dragon Roll</li>
+            <li>8pcs Rainbow Roll</li>
+            <li>8pcs California Roll</li>
+            <li>6pcs Mixed Nigiri</li>
+            <li>2 Gunkan Maki</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -1139,66 +919,6 @@
   </div>
 </footer>
 
-<script>
-  (function() {
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (mobileToggle && navMenu) {
-      mobileToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        navMenu.classList.toggle('show');
-        
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-          if (navMenu.classList.contains('show')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-          } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-          }
-        }
-      });
-      
-      const navLinks = navMenu.querySelectorAll('a');
-      navLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-          navMenu.classList.remove('show');
-          const icon = mobileToggle.querySelector('i');
-          if (icon) {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-          }
-        });
-      });
-      
-      document.addEventListener('click', function(event) {
-        if (navMenu.classList.contains('show')) {
-          if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-            navMenu.classList.remove('show');
-            const icon = mobileToggle.querySelector('i');
-            if (icon) {
-              icon.classList.remove('fa-times');
-              icon.classList.add('fa-bars');
-            }
-          }
-        }
-      });
-      
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 992 && navMenu.classList.contains('show')) {
-          navMenu.classList.remove('show');
-          const icon = mobileToggle.querySelector('i');
-          if (icon) {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-          }
-        }
-      });
-    }
-  })();
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
