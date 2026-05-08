@@ -282,7 +282,7 @@
     }
     .combo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
       padding: 2rem;
       background: #0b0404;
@@ -308,7 +308,7 @@
       flex-wrap: wrap;
     }
     .combo-card-title {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 800;
       background: linear-gradient(120deg, #ffbc6e, #ff5e5e);
       background-clip: text;
@@ -326,14 +326,14 @@
       text-transform: uppercase;
     }
     .combo-items-list {
-      padding: 1.2rem 1.5rem 0.8rem;
+      padding: 1rem 1.5rem;
     }
     .combo-item-row {
       display: flex;
       justify-content: space-between;
       padding: 0.5rem 0;
       border-bottom: 1px dashed #2f1a1a;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: #eeddcc;
     }
@@ -341,40 +341,22 @@
       font-weight: 700;
       color: #ff8a5c;
     }
-    .combo-value-calculation {
-      background: #130808;
+    .combo-price-display {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
       margin: 1rem 1.5rem 1.5rem;
-      border-radius: 24px;
-      padding: 1rem 1.2rem;
-      border: 1px solid #812a2a40;
+      border-radius: 40px;
+      padding: 0.8rem;
+      text-align: center;
     }
-    .combo-calc-title {
+    .combo-price-display .price {
+      font-size: 1.8rem;
       font-weight: 800;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: #ff9f6e;
-      margin-bottom: 0.7rem;
+      color: white;
     }
-    .combo-calc-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      padding: 0.2rem 0;
-      color: #cfa67b;
-    }
-    .combo-final-price {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.9rem 1.5rem 1.5rem;
-      font-weight: 800;
-      font-size: 1.7rem;
-      border-top: 2px solid #a03333;
-      background: #0a0303;
-      color: #ffcf9a;
-    }
-    .combo-price-number {
-      color: #ff6b4a;
-      font-size: 2rem;
+    .combo-price-display .price-label {
+      font-size: 0.8rem;
+      color: #ffcd94;
+      letter-spacing: 1px;
     }
     .extras-section {
       background: #110707;
@@ -418,7 +400,7 @@
       color: #c47147;
     }
 
-    /* ========== 5 CATERING PACKAGES ========== */
+    /* ========== CATERING PACKAGES ========== */
     .packages-full {
       background: #0a0505;
       background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
@@ -480,8 +462,8 @@
       font-size: 1.8rem;
       margin-bottom: 12px;
       background: linear-gradient(120deg, #ffbc6e, #ff5e5e);
-      -webkit-background-clip: text;
       background-clip: text;
+      -webkit-background-clip: text;
       color: transparent;
       display: inline-block;
     }
@@ -510,40 +492,24 @@
       justify-content: space-between;
       flex-wrap: wrap;
       color: #eeddcc;
-    }
-    .roll-note {
-      margin-top: 12px;
-      color: #ffae7a;
-      font-size: 0.85rem;
-    }
-    .price-box {
-      background: #130808;
-      padding: 20px;
-      border-radius: 24px;
-      margin: 20px 0;
-      text-align: center;
-      border: 1px solid #812a2a40;
-    }
-    .original-price {
-      text-decoration: line-through;
-      color: #888;
-      display: block;
       font-size: 0.9rem;
     }
-    .special-price {
+    .package-price-box {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      padding: 16px;
+      border-radius: 40px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .package-price-box .price {
       font-size: 2rem;
       font-weight: 800;
-      color: #ff6b4a;
-      display: block;
-      margin: 8px 0;
+      color: white;
     }
-    .save-tag {
-      background: #27ae60;
-      padding: 5px 12px;
-      border-radius: 20px;
-      display: inline-block;
+    .package-price-box .price-label {
       font-size: 0.8rem;
-      font-weight: 700;
+      color: #ffcd94;
+      letter-spacing: 1px;
     }
     .free-gift {
       margin: 15px 0;
@@ -670,7 +636,6 @@
       font-size: 0.8rem;
     }
 
-    /* Additional responsive fixes */
     @media (max-width: 768px) {
       .container {
         padding: 0 16px;
@@ -694,8 +659,11 @@
       .package-info h2 {
         font-size: 1.4rem;
       }
-      .special-price {
+      .package-price-box .price {
         font-size: 1.5rem;
+      }
+      .combo-price-display .price {
+        font-size: 1.4rem;
       }
       .extras-section {
         flex-direction: column;
@@ -725,15 +693,6 @@
         gap: 8px;
         align-items: center;
         text-align: center;
-      }
-      .combo-final-price {
-        font-size: 1.2rem;
-        flex-direction: column;
-        text-align: center;
-        gap: 8px;
-      }
-      .combo-price-number {
-        font-size: 1.5rem;
       }
     }
   </style>
@@ -766,11 +725,10 @@
 </header>
 
 <main>
-  <!-- HERO SECTION -->
   <section class="hero-packages">
     <div class="container">
-      <h1>Our <span class="highlight">5 signature</span> catering packages</h1>
-      <p>Perfect for parties, birthdays, weddings & corporate events. Authentic Japanese sushi made with finest ingredients.</p>
+      <h1>Our <span class="highlight">signature</span> menu</h1>
+      <p>Fresh sushi deals for every craving & premium catering for special occasions</p>
       <div class="hero-features">
         <span><i class="fas fa-check-circle"></i> 24h pre-order required</span>
         <span><i class="fas fa-truck"></i> Delivery available</span>
@@ -779,7 +737,7 @@
     </div>
   </section>
 
-  <!-- ================= COMBO DEALS SECTION (FIRST) ================= -->
+  <!-- ================= COMBO DEALS SECTION ================= -->
   <div class="combo-deals-wrapper">
     <div class="combo-container">
       <div class="combo-hero">
@@ -792,29 +750,25 @@
       </div>
 
       <div class="combo-grid">
-        <!-- Salmon & California Set -->
+        <!-- 1. Salmon & Tempura -->
         <div class="combo-card">
           <div class="combo-card-header">
-            <span class="combo-card-title">🍣 Salmon & California Set</span>
+            <span class="combo-card-title">🍣 Salmon & Tempura Set</span>
             <span class="combo-badge">🔥 SELLER BEST</span>
           </div>
           <div class="combo-items-list">
             <div class="combo-item-row"><span>3 Salmon Nigiri</span><span class="combo-item-price">1,500 ETB</span></div>
             <div class="combo-item-row"><span>3 Shrimp Nigiri</span><span class="combo-item-price">1,500 ETB</span></div>
             <div class="combo-item-row"><span>1 Gunkan Maki</span><span class="combo-item-price">500 ETB</span></div>
-            <div class="combo-item-row"><span>8pcs California Roll</span><span class="combo-item-price">1,600 ETB</span></div>
+            <div class="combo-item-row"><span>+ Tempura style</span><span class="combo-item-price">included</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-calc-item"><span>3 Shrimp Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs California Roll</span><span>1,600 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">4,499 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,500 ETB</span></div>
         </div>
 
-        <!-- Sushi Platter -->
+        <!-- 2. Sushi Platter -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍱 Sushi Platter</span>
@@ -827,18 +781,13 @@
             <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
             <div class="combo-item-row"><span>5pcs Seafood Futomaki</span><span>1,700 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-calc-item"><span>3 Shrimp Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-calc-item"><span>3 Tuna Nigiri</span><span>1,500 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
-            <div class="combo-calc-item"><span>5pcs Seafood Futomaki</span><span>1,700 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">4,799 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,800 ETB</span></div>
         </div>
 
-        <!-- Starter Combo -->
+        <!-- 3. Starter Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍥 Starter Combo</span>
@@ -849,16 +798,13 @@
             <div class="combo-item-row"><span>4pcs Hosomaki</span><span>400 ETB</span></div>
             <div class="combo-item-row"><span>4pcs California Roll</span><span>800 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>2 Shrimp Nigiri</span><span>1,000 ETB</span></div>
-            <div class="combo-calc-item"><span>4pcs Hosomaki</span><span>400 ETB</span></div>
-            <div class="combo-calc-item"><span>4pcs California Roll</span><span>800 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">2,299 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">2,200 ETB</span></div>
         </div>
 
-        <!-- Salmon Lover Set -->
+        <!-- 4. Salmon Lover Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🐟 Salmon Lover Set</span>
@@ -869,19 +815,16 @@
             <div class="combo-item-row"><span>8pcs Salmon Roll</span><span>1,600 ETB</span></div>
             <div class="combo-item-row"><span>4 Gunkan Maki</span><span>2,000 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>2 Shrimp Nigiri</span><span>1,000 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Salmon Roll</span><span>1,600 ETB</span></div>
-            <div class="combo-calc-item"><span>4 Gunkan Maki</span><span>2,000 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">4,699 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,600 ETB</span></div>
         </div>
 
-        <!-- Mixed Rolls Combo -->
+        <!-- 5. Mixed Roll Platter -->
         <div class="combo-card">
           <div class="combo-card-header">
-            <span class="combo-card-title">🌊 Mixed Rolls Combo</span>
+            <span class="combo-card-title">🌊 Mixed Roll Platter</span>
             <span class="combo-badge">🏆 MOST POPULAR</span>
           </div>
           <div class="combo-items-list">
@@ -890,17 +833,13 @@
             <div class="combo-item-row"><span>8pcs Mango Roll</span><span>1,300 ETB</span></div>
             <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Spicy Tuna Roll</span><span>1,700 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Mango Roll</span><span>1,300 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">4,999 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">4,700 ETB</span></div>
         </div>
 
-        <!-- Gunkan Lover Set -->
+        <!-- 6. Gunkan Lover Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍙 Gunkan Lover Set</span>
@@ -911,16 +850,13 @@
             <div class="combo-item-row"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
             <div class="combo-item-row"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>4 Salmon Gunkan</span><span>2,000 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
-            <div class="combo-calc-item"><span>3 Salmon Nigiri</span><span>1,500 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">3,799 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">3,800 ETB</span></div>
         </div>
 
-        <!-- Vegan Combo -->
+        <!-- 7. Vegan Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🥑 Vegan Combo</span>
@@ -933,18 +869,13 @@
             <div class="combo-item-row"><span>1 Inari Nigiri</span><span>300 ETB</span></div>
             <div class="combo-item-row"><span>1 Gunkan Maki (Veggie)</span><span>500 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>8pcs Avocado Roll</span><span>1,200 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Cucumber Roll</span><span>600 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Vegetable Roll</span><span>900 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Inari Nigiri</span><span>300 ETB</span></div>
-            <div class="combo-calc-item"><span>1 Gunkan Maki</span><span>500 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">3,499 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">3,500 ETB</span></div>
         </div>
 
-        <!-- Party Combo -->
+        <!-- 8. Party Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🎉 Party Combo</span>
@@ -956,17 +887,13 @@
             <div class="combo-item-row"><span>8pcs Philadelphia Roll</span><span>1,900 ETB</span></div>
             <div class="combo-item-row"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Rainbow Roll</span><span>2,200 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Philadelphia Roll</span><span>1,900 ETB</span></div>
-            <div class="combo-calc-item"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">8,699 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">7,900 ETB</span></div>
         </div>
 
-        <!-- Premium Deluxe Platter -->
+        <!-- 9. Premium Deluxe Platter -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">✨ Premium Deluxe Platter</span>
@@ -979,15 +906,10 @@
             <div class="combo-item-row"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
             <div class="combo-item-row"><span>2 Gunkan Maki</span><span>1,000 ETB</span></div>
           </div>
-          <div class="combo-value-calculation">
-            <div class="combo-calc-title">📊 VALUE CALCULATION</div>
-            <div class="combo-calc-item"><span>8pcs Dragon Roll</span><span>2,100 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs Rainbow Roll</span><span>2,200 ETB</span></div>
-            <div class="combo-calc-item"><span>8pcs California Roll</span><span>1,600 ETB</span></div>
-            <div class="combo-calc-item"><span>6pcs Mixed Nigiri</span><span>3,000 ETB</span></div>
-            <div class="combo-calc-item"><span>2 Gunkan Maki</span><span>1,000 ETB</span></div>
+          <div class="combo-price-display">
+            <div class="price-label">COMBO PRICE</div>
+            <div class="price">10,999 ETB</div>
           </div>
-          <div class="combo-final-price"><span>COMBO PRICE</span><span class="combo-price-number">9,900 ETB</span></div>
         </div>
       </div>
 
@@ -1001,7 +923,6 @@
         <div class="extra-item">⚡ Spicy upgrade +80 ETB</div>
       </div>
 
-      <!-- Contact -->
       <div class="combo-contact">
         📞 +251 927 249 999 &nbsp;&nbsp;|&nbsp;&nbsp; 🖤 Sushi_vibe26
       </div>
@@ -1019,7 +940,7 @@
         <p>Perfect for parties, weddings, birthdays & corporate events</p>
       </div>
 
-      <!-- 1. VIBE PARTY SET -->
+      <!-- 10. VIBE PARTY SET -->
       <div class="package-card" id="vibe">
         <div class="package-badge">🎉 BEST FOR PARTIES — 10 PEOPLE</div>
         <div class="package-grid">
@@ -1029,17 +950,16 @@
             <div class="menu-breakdown">
               <h4>🍣 What's included:</h4>
               <ul>
-                <li><span>20 pcs Nigiri (20 × 500 ETB)</span><span>10,000 ETB</span></li>
-                <li><span>20 pcs Gunkan Maki (20 × 500 ETB)</span><span>10,000 ETB</span></li>
-                <li><span>3x California Roll (24 pcs)</span><span>4,800 ETB</span></li>
-                <li><span>4x Dragon Roll (32 pcs)</span><span>8,400 ETB</span></li>
-                <li><span>3x Mango Roll (24 pcs)</span><span>3,900 ETB</span></li>
+                <li><span>20 pcs Nigiri</span><span></span></li>
+                <li><span>20 pcs Gunkan Maki</span><span></span></li>
+                <li><span>3x California Roll</span><span></span></li>
+                <li><span>4x Dragon Roll</span><span></span></li>
+                <li><span>3x Mango Roll</span><span></span></li>
               </ul>
             </div>
-            <div class="price-box">
-              <span class="original-price">Real value: 37,100 ETB</span>
-              <span class="special-price">32,000 ETB</span>
-              <span class="save-tag">🎁 YOU SAVE 8,200 ETB</span>
+            <div class="package-price-box">
+              <div class="price-label">PACKAGE PRICE</div>
+              <div class="price">34,999 ETB</div>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> FREE wasabi, ginger & soy sauce included</div>
             <a href="order.html?package=vibe" class="btn-order">Pre-order this package →</a>
@@ -1048,7 +968,7 @@
         </div>
       </div>
 
-      <!-- 2. CELEBRATION FEAST -->
+      <!-- 11. CELEBRATION FEAST -->
       <div class="package-card featured" id="celebration">
         <div class="package-badge">🌟 MOST ORDERED — 20 PEOPLE</div>
         <div class="package-grid">
@@ -1058,18 +978,17 @@
             <div class="menu-breakdown">
               <h4>🍱 Menu details:</h4>
               <ul>
-                <li><span>40 pcs Nigiri (40 × 500 ETB)</span><span>20,000 ETB</span></li>
-                <li><span>40 pcs Gunkan Maki (40 × 500 ETB)</span><span>20,000 ETB</span></li>
-                <li><span>3x Rainbow Roll (24 pcs)</span><span>6,600 ETB</span></li>
-                <li><span>5x California Roll (40 pcs)</span><span>8,000 ETB</span></li>
-                <li><span>5x Spicy Tuna Roll (40 pcs)</span><span>8,500 ETB</span></li>
-                <li><span>3x Dragon Roll (24 pcs)</span><span>6,300 ETB</span></li>
+                <li><span>40 pcs Nigiri</span><span></span></li>
+                <li><span>40 pcs Gunkan Maki</span><span></span></li>
+                <li><span>3x Rainbow Roll</span><span></span></li>
+                <li><span>5x California Roll</span><span></span></li>
+                <li><span>5x Spicy Tuna Roll</span><span></span></li>
+                <li><span>3x Dragon Roll</span><span></span></li>
               </ul>
             </div>
-            <div class="price-box">
-              <span class="original-price">Real value: 69,400 ETB</span>
-              <span class="special-price">58,000 ETB</span>
-              <span class="save-tag">🎁 YOU SAVE 11,400 ETB</span>
+            <div class="package-price-box">
+              <div class="price-label">PACKAGE PRICE</div>
+              <div class="price">61,999 ETB</div>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> FREE wasabi, ginger & soy sauce + premium presentation</div>
             <a href="order.html?package=celebration" class="btn-order">Order Celebration Feast →</a>
@@ -1078,7 +997,7 @@
         </div>
       </div>
 
-      <!-- 3. ULTIMATE SUSHI EXPERIENCE -->
+      <!-- 12. ULTIMATE SUSHI EXPERIENCE -->
       <div class="package-card" id="ultimate">
         <div class="package-badge">✨ PREMIUM EXPERIENCE — 30 PEOPLE</div>
         <div class="package-grid">
@@ -1088,19 +1007,18 @@
             <div class="menu-breakdown">
               <h4>🍣 Full menu (feeds 30 guests):</h4>
               <ul>
-                <li><span>60 pcs Nigiri (60 × 500 ETB)</span><span>30,000 ETB</span></li>
-                <li><span>60 pcs Gunkan Maki (60 × 500 ETB)</span><span>30,000 ETB</span></li>
-                <li><span>8x Dragon Roll (64 pcs)</span><span>16,800 ETB</span></li>
-                <li><span>6x Alaska Roll (48 pcs)</span><span>11,400 ETB</span></li>
-                <li><span>6x Philadelphia Roll (48 pcs)</span><span>10,200 ETB</span></li>
-                <li><span>6x Spicy Tuna Roll (48 pcs)</span><span>10,200 ETB</span></li>
-                <li><span>6x Rainbow Roll (48 pcs)</span><span>13,200 ETB</span></li>
+                <li><span>60 pcs Nigiri</span><span></span></li>
+                <li><span>60 pcs Gunkan Maki</span><span></span></li>
+                <li><span>8x Dragon Roll</span><span></span></li>
+                <li><span>6x Alaska Roll</span><span></span></li>
+                <li><span>6x Philadelphia Roll</span><span></span></li>
+                <li><span>6x Spicy Tuna Roll</span><span></span></li>
+                <li><span>6x Rainbow Roll</span><span></span></li>
               </ul>
             </div>
-            <div class="price-box">
-              <span class="original-price">Real value: 121,800 ETB</span>
-              <span class="special-price">95,000 ETB</span>
-              <span class="save-tag">🎁 YOU SAVE 26,800 ETB</span>
+            <div class="package-price-box">
+              <div class="price-label">PACKAGE PRICE</div>
+              <div class="price">109,999 ETB</div>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Complimentary wasabi, ginger, soy sauce + serving platters</div>
             <a href="order.html?package=ultimate" class="btn-order">Reserve Ultimate Package →</a>
@@ -1109,7 +1027,7 @@
         </div>
       </div>
 
-      <!-- 4. OMAKASE RESERVE -->
+      <!-- 13. OMAKASE RESERVE -->
       <div class="package-card featured" id="omakase">
         <div class="package-badge">👨‍🍳 CHEF'S SIGNATURE — 24 PEOPLE</div>
         <div class="package-grid">
@@ -1119,18 +1037,17 @@
             <div class="menu-breakdown">
               <h4>🍱 Curated premium menu:</h4>
               <ul>
-                <li><span>48 pcs Nigiri (assorted premium)</span><span>24,000 ETB</span></li>
-                <li><span>48 pcs Gunkan (tuna/salmon)</span><span>24,000 ETB</span></li>
-                <li><span>7x Dragon Roll (56 pcs)</span><span>14,700 ETB</span></li>
-                <li><span>5x Rainbow Roll (40 pcs)</span><span>11,000 ETB</span></li>
-                <li><span>6x Philadelphia Roll (48 pcs)</span><span>10,200 ETB</span></li>
-                <li><span>4x Alaska Roll (32 pcs)</span><span>7,600 ETB</span></li>
+                <li><span>48 pcs Nigiri (assorted premium)</span><span></span></li>
+                <li><span>48 pcs Gunkan (tuna/salmon)</span><span></span></li>
+                <li><span>7x Dragon Roll</span><span></span></li>
+                <li><span>5x Rainbow Roll</span><span></span></li>
+                <li><span>6x Philadelphia Roll</span><span></span></li>
+                <li><span>4x Alaska Roll</span><span></span></li>
               </ul>
             </div>
-            <div class="price-box">
-              <span class="original-price">Real value: 91,500 ETB</span>
-              <span class="special-price">82,000 ETB</span>
-              <span class="save-tag">🍣 YOU SAVE 9,500 ETB</span>
+            <div class="package-price-box">
+              <div class="price-label">PACKAGE PRICE</div>
+              <div class="price">81,999 ETB</div>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Complimentary wasabi, ginger + edamame side</div>
             <a href="order.html?package=omakase" class="btn-order">Pre-order Omakase →</a>
@@ -1139,7 +1056,7 @@
         </div>
       </div>
 
-      <!-- 5. GRAND EMPEROR PLATTER -->
+      <!-- 14. GRAND EMPEROR PLATTER -->
       <div class="package-card" id="emperor">
         <div class="package-badge">🏆 IMPERIAL FEAST — 40 PEOPLE</div>
         <div class="package-grid">
@@ -1149,19 +1066,18 @@
             <div class="menu-breakdown">
               <h4>👑 Mega event menu:</h4>
               <ul>
-                <li><span>80 pcs Nigiri (80 × 500 ETB)</span><span>40,000 ETB</span></li>
-                <li><span>80 pcs Gunkan Maki</span><span>40,000 ETB</span></li>
-                <li><span>12x Dragon Roll (96 pcs)</span><span>25,200 ETB</span></li>
-                <li><span>10x California Roll (80 pcs)</span><span>16,000 ETB</span></li>
-                <li><span>8x Spicy Tuna Roll (64 pcs)</span><span>13,600 ETB</span></li>
-                <li><span>8x Rainbow Roll (64 pcs)</span><span>17,600 ETB</span></li>
-                <li><span>6x Mango Roll (48 pcs)</span><span>7,800 ETB</span></li>
+                <li><span>80 pcs Nigiri</span><span></span></li>
+                <li><span>80 pcs Gunkan Maki</span><span></span></li>
+                <li><span>12x Dragon Roll</span><span></span></li>
+                <li><span>10x California Roll</span><span></span></li>
+                <li><span>8x Spicy Tuna Roll</span><span></span></li>
+                <li><span>8x Rainbow Roll</span><span></span></li>
+                <li><span>6x Mango Roll</span><span></span></li>
               </ul>
             </div>
-            <div class="price-box">
-              <span class="original-price">Real value: 160,200 ETB</span>
-              <span class="special-price">139,999 ETB</span>
-              <span class="save-tag">🏆 YOU SAVE 20,201 ETB</span>
+            <div class="package-price-box">
+              <div class="price-label">PACKAGE PRICE</div>
+              <div class="price">139,999 ETB</div>
             </div>
             <div class="free-gift"><i class="fas fa-gift"></i> Free wasabi/ginger/soy + serving utensils + extra dipping bowls</div>
             <a href="order.html?package=emperor" class="btn-order">Order Grand Feast →</a>
@@ -1170,7 +1086,6 @@
         </div>
       </div>
 
-      <!-- NOTICE BOARD -->
       <div class="notice-board">
         <i class="fas fa-clock"></i> <strong>Pre-order required 24 hours in advance</strong> — Delivery available (charges may apply).
         <div class="small-text">Tell us if you have any allergies — Prices are in ETB | 快乐寿司 Sushi Vibe</div>
@@ -1225,19 +1140,16 @@
 </footer>
 
 <script>
-  // Mobile menu toggle - FIXED for tablet & mobile
   (function() {
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
     
     if (mobileToggle && navMenu) {
-      // Toggle menu on button click
       mobileToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         navMenu.classList.toggle('show');
         
-        // Change icon when menu is open
         const icon = mobileToggle.querySelector('i');
         if (icon) {
           if (navMenu.classList.contains('show')) {
@@ -1250,7 +1162,6 @@
         }
       });
       
-      // Close menu when clicking a link
       const navLinks = navMenu.querySelectorAll('a');
       navLinks.forEach(function(link) {
         link.addEventListener('click', function() {
@@ -1263,7 +1174,6 @@
         });
       });
       
-      // Close menu when clicking outside
       document.addEventListener('click', function(event) {
         if (navMenu.classList.contains('show')) {
           if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
@@ -1277,7 +1187,6 @@
         }
       });
       
-      // Close menu on window resize if screen becomes larger than tablet
       window.addEventListener('resize', function() {
         if (window.innerWidth > 992 && navMenu.classList.contains('show')) {
           navMenu.classList.remove('show');
