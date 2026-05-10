@@ -174,7 +174,6 @@
     orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Validation
       if (!selectedPackageInput.value) {
         showToast('Please select a package', true);
         return;
@@ -196,7 +195,6 @@
       if (!guests) { showToast('Please enter number of guests', true); return; }
       if (!allergies) { showToast('Please tell us about any allergies', true); return; }
       
-      // Generate order ID
       const orderId = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
       
       const orderData = {
@@ -220,16 +218,11 @@
       submitBtn.innerHTML = '<span class="loading-spinner"></span> Saving order...';
       
       try {
-        const { data, error } = await supabase
-          .from('orders')
-          .insert([orderData])
-          .select();
+        const { error } = await supabase.from('orders').insert([orderData]);
         
         if (error) throw error;
         
         showToast(`✅ Order #${orderId} placed! We'll contact you within 2 hours.`);
-        
-        // Reset form
         orderForm.reset();
         packages.forEach(p => p.classList.remove('selected'));
         selectedPackageInput.value = '';
@@ -237,7 +230,7 @@
         addressGroup.style.display = 'none';
         
       } catch (error) {
-        console.error('Supabase error:', error);
+        console.error('Error:', error);
         showToast('❌ Failed to save order. Please call us directly.', true);
       } finally {
         submitBtn.disabled = false;
@@ -245,7 +238,6 @@
       }
     });
     
-    // Set minimum date for event date picker
     const eventDateInput = document.getElementById('eventDate');
     if (eventDateInput) {
       const tomorrow = new Date();
