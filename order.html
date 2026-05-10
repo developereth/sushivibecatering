@@ -19,7 +19,6 @@
     .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
     .package-option { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 16px; padding: 1rem; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s; }
     .package-option.selected { border-color: #e31b23; background: #252525; }
-    .package-option:hover { border-color: #e31b23; }
     .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
     .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -67,8 +66,8 @@
               <div class="package-option" data-package="Omakase Reserve" data-price="81999" data-people="24">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</div>
               <div class="package-option" data-package="Grand Emperor Platter" data-price="139999" data-people="40">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</div>
             </div>
-            <input type="hidden" id="selectedPackage" required>
-            <input type="hidden" id="selectedPrice" required>
+            <input type="hidden" id="selectedPackage">
+            <input type="hidden" id="selectedPrice">
           </div>
 
           <div class="form-row">
@@ -76,42 +75,21 @@
             <div class="form-group"><label>Event Time *</label><input type="time" id="eventTime" required></div>
           </div>
 
-          <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" placeholder="How many people?" required></div>
-
-          <div class="form-group"><label>Special Occasion (optional)</label>
-            <select id="occasion">
-              <option value="">Select occasion</option>
-              <option>Birthday Party</option>
-              <option>Corporate Event</option>
-              <option>Wedding / Engagement</option>
-              <option>Anniversary</option>
-              <option>Private Gathering</option>
-              <option>Other</option>
-            </select>
-          </div>
+          <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" required></div>
+          <div class="form-group"><label>Special Occasion</label><select id="occasion"><option value="">Select occasion</option><option>Birthday Party</option><option>Corporate Event</option><option>Wedding</option><option>Anniversary</option><option>Private Gathering</option><option>Other</option></select></div>
 
           <div class="form-row">
             <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" required></div>
-            <div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" placeholder="+251 9X XXX XXXX" required></div>
+            <div class="form-group"><label>Phone *</label><input type="tel" id="phone" required></div>
           </div>
 
-          <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="your@email.com" required></div>
+          <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
 
-          <div class="form-group">
-            <label>Delivery or Pickup?</label>
-            <select id="deliveryType">
-              <option value="Delivery">Delivery (charges apply)</option>
-              <option value="Pickup">Pickup (free)</option>
-            </select>
-          </div>
+          <div class="form-group"><label>Delivery or Pickup?</label><select id="deliveryType"><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option></select></div>
+          <div class="form-group" id="addressGroup"><label>Delivery Address</label><textarea rows="2" id="deliveryAddress"></textarea></div>
 
-          <div class="form-group" id="addressGroup" style="display:none;">
-            <label>Delivery Address</label>
-            <textarea rows="2" id="deliveryAddress" placeholder="Street, landmark, city"></textarea>
-          </div>
-
-          <div class="form-group"><label>Allergies or Dietary Notes *</label><textarea rows="2" id="allergies" placeholder="List any allergies (or write 'None')" required></textarea></div>
-          <div class="form-group"><label>Special Requests</label><textarea rows="2" id="specialRequests" placeholder="Extra wasabi, chopsticks, serving trays, etc."></textarea></div>
+          <div class="form-group"><label>Allergies *</label><textarea rows="2" id="allergies" required></textarea></div>
+          <div class="form-group"><label>Special Requests</label><textarea rows="2" id="specialRequests"></textarea></div>
 
           <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Order</button>
         </form>
@@ -121,152 +99,94 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p><div class="social-icons">
-        <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
-        <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
-      </div></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li><li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li></ul></div>
-      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering in Addis Ababa.</p></div>
+      <div class="footer-col"><h4>Contact</h4><p>+251 927 299999<br>sushivibes@proton.me</p></div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p></div>
   </footer>
 
   <div id="toast" class="toast"></div>
 
   <script>
-    // Supabase Configuration
     const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    console.log('Supabase initialized');
+    const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Package selection
     const packages = document.querySelectorAll('.package-option');
-    const selectedPackageInput = document.getElementById('selectedPackage');
-    const selectedPriceInput = document.getElementById('selectedPrice');
-    const guestsInput = document.getElementById('guests');
+    const selectedPackage = document.getElementById('selectedPackage');
+    const selectedPrice = document.getElementById('selectedPrice');
     
     packages.forEach(pkg => {
       pkg.addEventListener('click', () => {
         packages.forEach(p => p.classList.remove('selected'));
         pkg.classList.add('selected');
-        selectedPackageInput.value = pkg.dataset.package;
-        selectedPriceInput.value = pkg.dataset.price;
-        if (pkg.dataset.people && guestsInput) {
-          guestsInput.value = pkg.dataset.people;
-        }
+        selectedPackage.value = pkg.dataset.package;
+        selectedPrice.value = pkg.dataset.price;
+        document.getElementById('guests').value = pkg.dataset.people;
       });
     });
 
-    // Delivery address toggle
+    // Show/hide address
     const deliveryType = document.getElementById('deliveryType');
-    const addressGroup = document.getElementById('addressGroup');
     deliveryType.addEventListener('change', () => {
-      addressGroup.style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
+      document.getElementById('addressGroup').style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
     });
 
-    function showToast(message, isError = false) {
+    function showToast(msg, isError) {
       const toast = document.getElementById('toast');
-      toast.textContent = message;
+      toast.textContent = msg;
       toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
       toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 5000);
+      setTimeout(() => toast.style.display = 'none', 4000);
     }
 
-    // Form submission
-    const orderForm = document.getElementById('orderForm');
-    const submitBtn = document.getElementById('submitBtn');
-
-    orderForm.addEventListener('submit', async (e) => {
+    // Submit form
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Validation
-      if (!selectedPackageInput.value) {
+      if (!selectedPackage.value) {
         showToast('Please select a package', true);
         return;
       }
       
-      const eventDate = document.getElementById('eventDate').value;
-      const eventTime = document.getElementById('eventTime').value;
-      const fullName = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const guests = document.getElementById('guests').value;
-      const allergies = document.getElementById('allergies').value.trim();
+      const orderId = 'ORD-' + Date.now();
       
-      if (!eventDate) { showToast('Please select event date', true); return; }
-      if (!eventTime) { showToast('Please select event time', true); return; }
-      if (!fullName) { showToast('Please enter your full name', true); return; }
-      if (!phone) { showToast('Please enter your phone number', true); return; }
-      if (!email) { showToast('Please enter your email address', true); return; }
-      if (!guests) { showToast('Please enter number of guests', true); return; }
-      if (!allergies) { showToast('Please tell us about any allergies', true); return; }
-      
-      // Generate order ID
-      const orderId = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-      
-      const orderData = {
+      const order = {
         order_id: orderId,
-        full_name: fullName,
-        phone: phone,
-        email: email,
-        package: selectedPackageInput.value,
-        price: parseInt(selectedPriceInput.value),
-        guests: parseInt(guests),
-        event_date: eventDate,
-        event_time: eventTime,
+        full_name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        package: selectedPackage.value,
+        price: parseInt(selectedPrice.value),
+        guests: parseInt(document.getElementById('guests').value),
+        event_date: document.getElementById('eventDate').value,
+        event_time: document.getElementById('eventTime').value,
         occasion: document.getElementById('occasion').value || null,
         delivery_type: deliveryType.value,
         delivery_address: document.getElementById('deliveryAddress').value || null,
-        allergies: allergies,
+        allergies: document.getElementById('allergies').value,
         special_requests: document.getElementById('specialRequests').value || null
       };
       
-      console.log('Submitting order:', orderData);
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading-spinner"></span> Sending...';
       
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="loading-spinner"></span> Saving order...';
+      const { error } = await supabase.from('orders').insert([order]);
       
-      try {
-        const { data, error } = await supabase
-          .from('orders')
-          .insert([orderData])
-          .select();
-        
-        if (error) {
-          console.error('Supabase error:', error);
-          throw error;
-        }
-        
-        console.log('Order saved:', data);
-        showToast(`✅ Order #${orderId} placed! We'll contact you within 2 hours.`);
-        
-        // Reset form
-        orderForm.reset();
+      if (error) {
+        console.error(error);
+        showToast('Error: ' + error.message, true);
+      } else {
+        showToast('✅ Order placed! We will contact you soon.', false);
+        document.getElementById('orderForm').reset();
         packages.forEach(p => p.classList.remove('selected'));
-        selectedPackageInput.value = '';
-        selectedPriceInput.value = '';
-        addressGroup.style.display = 'none';
-        
-      } catch (error) {
-        console.error('Error details:', error);
-        showToast('❌ Failed to save order. Please call us directly: +251 927 299999', true);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
+        selectedPackage.value = '';
       }
+      
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
     });
-    
-    // Set minimum date for event date picker
-    const eventDateInput = document.getElementById('eventDate');
-    if (eventDateInput) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      eventDateInput.min = tomorrow.toISOString().split('T')[0];
-    }
   </script>
 </body>
 </html>
