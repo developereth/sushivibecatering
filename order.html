@@ -373,14 +373,14 @@
 
   <!-- EmailJS Configuration -->
   <script>
-    // EmailJS Configuration - FIXED with correct Public Key
+    // EmailJS Configuration - ALL CORRECT
     (function() {
-      emailjs.init("zrH2ulHzefbjyOhT0");
+      emailjs.init("zrH2uIHzefbjyOhT0");
       console.log("✅ EmailJS initialized");
     })();
 
-    const EMAILJS_SERVICE_ID = "service_414w7gq";
-    const EMAILJS_TEMPLATE_ID = "template_0e33ddv";
+    const EMAILJS_SERVICE_ID = "service_xgfrptpz";
+    const EMAILJS_TEMPLATE_ID = "template_t1bqagn";
 
     // Helper Functions
     function showToast(message, isError = false) {
@@ -455,6 +455,17 @@
     
     deliveryRadios.forEach(radio => radio.addEventListener('change', toggleDeliveryAddress));
     toggleDeliveryAddress();
+
+    // Set minimum date for event date picker (24 hours notice)
+    const eventDateInput = document.getElementById('eventDate');
+    if (eventDateInput) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const year = tomorrow.getFullYear();
+      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const day = String(tomorrow.getDate()).padStart(2, '0');
+      eventDateInput.min = `${year}-${month}-${day}`;
+    }
 
     // Form submission
     const orderForm = document.getElementById('orderForm');
@@ -538,6 +549,7 @@
       
       const orderData = {
         order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        order_time: new Date().toLocaleString(),
         full_name: fullName,
         phone: phone,
         email: email,
@@ -561,6 +573,7 @@
         // Send email via EmailJS
         const emailResult = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           order_id: orderData.order_id,
+          order_time: orderData.order_time,
           full_name: orderData.full_name,
           phone: orderData.phone,
           email: orderData.email,
@@ -613,17 +626,6 @@
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
       }
     });
-    
-    // Set minimum date for event date picker (24 hours notice)
-    const eventDateInput = document.getElementById('eventDate');
-    if (eventDateInput) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const year = tomorrow.getFullYear();
-      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
-      const day = String(tomorrow.getDate()).padStart(2, '0');
-      eventDateInput.min = `${year}-${month}-${day}`;
-    }
     
     // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
