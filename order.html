@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     .order-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
@@ -78,7 +77,18 @@
           </div>
 
           <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" placeholder="How many people?" required></div>
-          <div class="form-group"><label>Special Occasion (optional)</label><select id="occasion"><option value="">Select occasion</option><option>Birthday Party</option><option>Corporate Event</option><option>Wedding / Engagement</option><option>Anniversary</option><option>Private Gathering</option><option>Other</option></select></div>
+
+          <div class="form-group"><label>Special Occasion (optional)</label>
+            <select id="occasion">
+              <option value="">Select occasion</option>
+              <option>Birthday Party</option>
+              <option>Corporate Event</option>
+              <option>Wedding / Engagement</option>
+              <option>Anniversary</option>
+              <option>Private Gathering</option>
+              <option>Other</option>
+            </select>
+          </div>
 
           <div class="form-row">
             <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" required></div>
@@ -87,8 +97,18 @@
 
           <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="your@email.com" required></div>
 
-          <div class="form-group"><label>Delivery or Pickup?</label><select id="deliveryType"><option value="Delivery">Delivery (charges apply)</option><option value="Pickup">Pickup (free)</option></select></div>
-          <div class="form-group" id="addressGroup" style="display:none;"><label>Delivery Address</label><textarea rows="2" id="deliveryAddress" placeholder="Street, landmark, city"></textarea></div>
+          <div class="form-group">
+            <label>Delivery or Pickup?</label>
+            <select id="deliveryType">
+              <option value="Delivery">Delivery (charges apply)</option>
+              <option value="Pickup">Pickup (free)</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="addressGroup" style="display:none;">
+            <label>Delivery Address</label>
+            <textarea rows="2" id="deliveryAddress" placeholder="Street, landmark, city"></textarea>
+          </div>
 
           <div class="form-group"><label>Allergies or Dietary Notes *</label><textarea rows="2" id="allergies" placeholder="List any allergies (or write 'None')" required></textarea></div>
           <div class="form-group"><label>Special Requests</label><textarea rows="2" id="specialRequests" placeholder="Extra wasabi, chopsticks, serving trays, etc."></textarea></div>
@@ -101,10 +121,16 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="order.html">Order</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><p>+251 927 299999<br>sushivibes@proton.me</p></div>
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p><div class="social-icons">
+        <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+      </div></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li><li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li></ul></div>
+      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
     </div>
+    <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p></div>
   </footer>
 
   <div id="toast" class="toast"></div>
@@ -129,7 +155,9 @@
         pkg.classList.add('selected');
         selectedPackageInput.value = pkg.dataset.package;
         selectedPriceInput.value = pkg.dataset.price;
-        if (pkg.dataset.people) guestsInput.value = pkg.dataset.people;
+        if (pkg.dataset.people && guestsInput) {
+          guestsInput.value = pkg.dataset.people;
+        }
       });
     });
 
@@ -140,87 +168,105 @@
       addressGroup.style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
     });
 
-    function showToast(msg, isError) {
+    function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
-      toast.textContent = msg;
+      toast.textContent = message;
       toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
       toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 4000);
+      setTimeout(() => toast.style.display = 'none', 5000);
     }
 
-    // Form submit
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    // Form submission
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    orderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      if (!selectedPackageInput.value) { showToast('Please select a package', true); return; }
+      // Validation
+      if (!selectedPackageInput.value) {
+        showToast('Please select a package', true);
+        return;
+      }
       
-      const order_id = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-      const full_name = document.getElementById('fullName').value.trim();
+      const eventDate = document.getElementById('eventDate').value;
+      const eventTime = document.getElementById('eventTime').value;
+      const fullName = document.getElementById('fullName').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const email = document.getElementById('email').value.trim();
-      const package_sel = selectedPackageInput.value;
-      const price = parseInt(selectedPriceInput.value);
-      const guests = parseInt(document.getElementById('guests').value);
-      const event_date = document.getElementById('eventDate').value;
-      const event_time = document.getElementById('eventTime').value;
-      const occasion = document.getElementById('occasion').value || null;
-      const delivery_type = deliveryType.value;
-      const delivery_address = document.getElementById('deliveryAddress').value || null;
+      const guests = document.getElementById('guests').value;
       const allergies = document.getElementById('allergies').value.trim();
-      const special_requests = document.getElementById('specialRequests').value || null;
       
-      if (!full_name) { showToast('Please enter your name', true); return; }
-      if (!phone) { showToast('Please enter your phone', true); return; }
-      if (!email) { showToast('Please enter your email', true); return; }
-      if (!event_date) { showToast('Please select event date', true); return; }
-      if (!event_time) { showToast('Please select event time', true); return; }
+      if (!eventDate) { showToast('Please select event date', true); return; }
+      if (!eventTime) { showToast('Please select event time', true); return; }
+      if (!fullName) { showToast('Please enter your full name', true); return; }
+      if (!phone) { showToast('Please enter your phone number', true); return; }
+      if (!email) { showToast('Please enter your email address', true); return; }
       if (!guests) { showToast('Please enter number of guests', true); return; }
-      if (!allergies) { showToast('Please tell us about allergies', true); return; }
+      if (!allergies) { showToast('Please tell us about any allergies', true); return; }
       
-      const submitBtn = document.getElementById('submitBtn');
+      // Generate order ID
+      const orderId = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+      
+      const orderData = {
+        order_id: orderId,
+        full_name: fullName,
+        phone: phone,
+        email: email,
+        package: selectedPackageInput.value,
+        price: parseInt(selectedPriceInput.value),
+        guests: parseInt(guests),
+        event_date: eventDate,
+        event_time: eventTime,
+        occasion: document.getElementById('occasion').value || null,
+        delivery_type: deliveryType.value,
+        delivery_address: document.getElementById('deliveryAddress').value || null,
+        allergies: allergies,
+        special_requests: document.getElementById('specialRequests').value || null
+      };
+      
+      console.log('Submitting order:', orderData);
+      
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span class="loading-spinner"></span> Saving order...';
       
       try {
         const { data, error } = await supabase
           .from('orders')
-          .insert([{
-            order_id: order_id,
-            full_name: full_name,
-            phone: phone,
-            email: email,
-            package: package_sel,
-            price: price,
-            guests: guests,
-            event_date: event_date,
-            event_time: event_time,
-            occasion: occasion,
-            delivery_type: delivery_type,
-            delivery_address: delivery_address,
-            allergies: allergies,
-            special_requests: special_requests
-          }]);
+          .insert([orderData])
+          .select();
         
-        if (error) throw error;
+        if (error) {
+          console.error('Supabase error:', error);
+          throw error;
+        }
         
-        showToast(`✅ Order #${order_id} placed! We will contact you soon.`, false);
-        document.getElementById('orderForm').reset();
+        console.log('Order saved:', data);
+        showToast(`✅ Order #${orderId} placed! We'll contact you within 2 hours.`);
+        
+        // Reset form
+        orderForm.reset();
         packages.forEach(p => p.classList.remove('selected'));
+        selectedPackageInput.value = '';
+        selectedPriceInput.value = '';
         addressGroup.style.display = 'none';
         
       } catch (error) {
-        console.error('Error:', error);
-        showToast('❌ Failed to save order. Please call us directly.', true);
+        console.error('Error details:', error);
+        showToast('❌ Failed to save order. Please call us directly: +251 927 299999', true);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
       }
     });
     
-    // Set minimum date
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    document.getElementById('eventDate').min = tomorrow.toISOString().split('T')[0];
+    // Set minimum date for event date picker
+    const eventDateInput = document.getElementById('eventDate');
+    if (eventDateInput) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      eventDateInput.min = tomorrow.toISOString().split('T')[0];
+    }
   </script>
 </body>
 </html>
