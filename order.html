@@ -59,6 +59,11 @@
       transform: scale(1.02);
       background: linear-gradient(135deg, #c0151c, #a01016);
     }
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
     .package-options {
       display: flex;
       flex-direction: column;
@@ -96,6 +101,7 @@
     .radio-group {
       display: flex;
       gap: 1.5rem;
+      flex-wrap: wrap;
     }
     .radio-group label {
       display: flex;
@@ -141,12 +147,28 @@
       display: flex;
       justify-content: space-between;
     }
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid white;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
     @media (max-width: 768px) {
       .form-row {
         grid-template-columns: 1fr;
       }
       .order-grid {
         grid-template-columns: 1fr !important;
+      }
+      .radio-group {
+        gap: 1rem;
       }
     }
   </style>
@@ -230,7 +252,7 @@
 
             <div class="form-group">
               <label>Number of Guests *</label>
-              <input type="number" id="guests" id="guestCount" placeholder="How many people?" required>
+              <input type="number" id="guests" placeholder="How many people?" required>
             </div>
 
             <div class="form-group">
@@ -254,13 +276,13 @@
               </div>
               <div class="form-group">
                 <label>Phone Number *</label>
-                <input type="tel" id="phone" required>
+                <input type="tel" id="phone" placeholder="+251 9X XXX XXXX" required>
               </div>
             </div>
 
             <div class="form-group">
               <label>Email Address *</label>
-              <input type="email" id="email" required>
+              <input type="email" id="email" placeholder="your@email.com" required>
             </div>
 
             <!-- Delivery -->
@@ -279,7 +301,7 @@
 
             <div class="form-group">
               <label>Allergies or Dietary Notes *</label>
-              <textarea rows="2" id="allergies" placeholder="Please list any allergies or dietary restrictions"></textarea>
+              <textarea rows="2" id="allergies" placeholder="Please list any allergies or dietary restrictions (or write 'None')"></textarea>
             </div>
 
             <div class="form-group">
@@ -351,7 +373,7 @@
 
   <!-- EmailJS Configuration -->
   <script>
-    // EmailJS Configuration - YOUR CREDENTIALS
+    // EmailJS Configuration
     (function() {
       emailjs.init("x5ZdHFKFk-Dy1GDP-dz26");
       console.log("✅ EmailJS initialized");
@@ -360,12 +382,32 @@
     const EMAILJS_SERVICE_ID = "service_414w7gq";
     const EMAILJS_TEMPLATE_ID = "template_0e33ddv";
 
+    // Helper Functions
     function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
       toast.style.display = 'block';
       setTimeout(() => toast.style.display = 'none', 5000);
+    }
+
+    function validateEmail(email) {
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return pattern.test(email);
+    }
+
+    function validatePhone(phone) {
+      const pattern = /^[0-9+\-\s]{8,20}$/;
+      return pattern.test(phone);
+    }
+
+    function validateDate(dateString) {
+      const selectedDate = new Date(dateString);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const minDate = new Date();
+      minDate.setDate(today.getDate() + 1);
+      return selectedDate >= minDate;
     }
 
     // Package selection
@@ -384,6 +426,7 @@
         
         const packageName = option.dataset.package;
         const packagePrice = option.dataset.price;
+        const peopleCount = option.dataset.people;
         
         selectedPackageInput.value = packageName;
         selectedPriceInput.value = packagePrice;
@@ -391,8 +434,6 @@
         summaryPriceSpan.innerText = parseInt(packagePrice).toLocaleString() + ' ETB';
         totalPriceSpan.innerText = parseInt(packagePrice).toLocaleString() + ' ETB';
         
-        // Auto-fill guests from package data
-        const peopleCount = option.dataset.people;
         if (peopleCount && guestsInput) {
           guestsInput.value = peopleCount;
         }
@@ -428,34 +469,64 @@
         return;
       }
       
-      // Validate required fields
+      // Get form values
       const eventDate = document.getElementById('eventDate').value;
       const eventTime = document.getElementById('eventTime').value;
       const fullName = document.getElementById('fullName').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const email = document.getElementById('email').value.trim();
       const allergies = document.getElementById('allergies').value.trim();
+      const guests = document.getElementById('guests').value;
       
+      // Validate event date
       if (!eventDate) {
         showToast('❌ Please select event date', true);
         return;
       }
+      if (!validateDate(eventDate)) {
+        showToast('❌ Please select a date at least 24 hours in advance', true);
+        return;
+      }
+      
+      // Validate event time
       if (!eventTime) {
         showToast('❌ Please select event time', true);
         return;
       }
+      
+      // Validate name
       if (!fullName) {
         showToast('❌ Please enter your full name', true);
         return;
       }
+      
+      // Validate phone
       if (!phone) {
         showToast('❌ Please enter your phone number', true);
         return;
       }
+      if (!validatePhone(phone)) {
+        showToast('❌ Please enter a valid phone number', true);
+        return;
+      }
+      
+      // Validate email
       if (!email) {
         showToast('❌ Please enter your email address', true);
         return;
       }
+      if (!validateEmail(email)) {
+        showToast('❌ Please enter a valid email address', true);
+        return;
+      }
+      
+      // Validate guests
+      if (!guests || guests < 1) {
+        showToast('❌ Please enter number of guests', true);
+        return;
+      }
+      
+      // Validate allergies
       if (!allergies) {
         showToast('⚠️ Please tell us about any allergies (even if "none")', true);
         return;
@@ -472,7 +543,7 @@
         email: email,
         package: selectedPackageInput.value,
         price: parseInt(selectedPriceInput.value).toLocaleString(),
-        guests: document.getElementById('guests').value,
+        guests: guests,
         event_date: eventDate,
         event_time: eventTime,
         occasion: document.getElementById('occasion').value || 'Not specified',
@@ -484,7 +555,7 @@
       
       // Show loading state
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
       
       try {
         // Send email via EmailJS
@@ -507,7 +578,7 @@
         
         console.log('Email sent successfully:', emailResult);
         
-        // Also save to localStorage as backup
+        // Save to localStorage as backup
         const existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
         existingOrders.unshift(orderData);
         localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
@@ -542,6 +613,17 @@
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
       }
     });
+    
+    // Set minimum date for event date picker (24 hours notice)
+    const eventDateInput = document.getElementById('eventDate');
+    if (eventDateInput) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const year = tomorrow.getFullYear();
+      const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+      const day = String(tomorrow.getDate()).padStart(2, '0');
+      eventDateInput.min = `${year}-${month}-${day}`;
+    }
     
     // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
