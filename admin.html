@@ -6,418 +6,141 @@
   <title>Admin | Sushi Vibe Orders</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0a;
-      color: #e5e5e5;
-    }
-    
-    .admin-header {
-      background: #000000;
-      border-bottom: 2px solid #e31b23;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .logo i {
-      color: #e31b23;
-    }
-    
-    .stats {
-      display: flex;
-      gap: 2rem;
-    }
-    
-    .stat-card {
-      background: #111111;
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid #2a2a2a;
-    }
-    
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #e31b23;
-    }
-    
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
-    .welcome-banner {
-      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-      border: 1px solid #e31b23;
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    .refresh-btn {
-      background: #1a1a1a;
-      border: 1px solid #e31b23;
-      color: #e31b23;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    
-    .refresh-btn:hover {
-      background: #e31b23;
-      color: white;
-    }
-    
-    .orders-table-container {
-      overflow-x: auto;
-      border-radius: 16px;
-      border: 1px solid #2a2a2a;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #111111;
-    }
-    
-    th, td {
-      padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid #2a2a2a;
-    }
-    
-    th {
-      background: #1a1a1a;
-      color: #e31b23;
-      font-weight: 600;
-    }
-    
-    tr:hover {
-      background: #1a1a1a;
-    }
-    
-    .status-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .status-pending {
-      background: #856404;
-      color: #fff3cd;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: #888;
-    }
-    
-    .loading-spinner {
-      text-align: center;
-      padding: 2rem;
-      color: #e31b23;
-    }
-    
-    .admin-footer {
-      background: #000000;
-      border-top: 1px solid #2a2a2a;
-      padding: 1.5rem;
-      text-align: center;
-      margin-top: 2rem;
-    }
-    
-    /* Simple login overlay */
-    .login-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #0a0a0a;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .login-box {
-      background: #111111;
-      padding: 2rem;
-      border-radius: 28px;
-      border: 1px solid #e31b23;
-      width: 100%;
-      max-width: 400px;
-    }
-    
-    .login-box h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: white;
-    }
-    
-    .login-box input {
-      width: 100%;
-      padding: 0.8rem;
-      margin-bottom: 1rem;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      color: white;
-    }
-    
-    .login-box button {
-      width: 100%;
-      background: #e31b23;
-      color: white;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    
-    .login-error {
-      color: #dc3545;
-      text-align: center;
-      margin-top: 1rem;
-      display: none;
-    }
-    
-    @media (max-width: 768px) {
-      th, td {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-      }
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
+    .admin-header { background: #000000; border-bottom: 2px solid #e31b23; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+    .logo i { color: #e31b23; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .orders-table { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: #111111; border-radius: 16px; }
+    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #2a2a2a; }
+    th { background: #1a1a1a; color: #e31b23; }
+    tr:hover { background: #1a1a1a; }
+    .status { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 40px; font-size: 0.75rem; }
+    .status-pending { background: #856404; color: #fff3cd; }
+    .status-confirmed { background: #0c5460; color: #d1ecf1; }
+    .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 2000; }
+    .login-box { background: #111111; padding: 2rem; border-radius: 28px; border: 1px solid #e31b23; width: 100%; max-width: 400px; }
+    .login-box input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; }
+    .login-box button { width: 100%; background: #e31b23; color: white; border: none; padding: 0.8rem; border-radius: 12px; cursor: pointer; }
+    .refresh-btn { background: #1a1a1a; border: 1px solid #e31b23; color: #e31b23; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
   </style>
 </head>
 <body>
 
-<!-- Simple Login -->
 <div id="loginOverlay" class="login-overlay">
   <div class="login-box">
-    <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+    <h2 style="text-align:center; margin-bottom:1.5rem;"><i class="fas fa-user-shield"></i> Admin Login</h2>
     <input type="password" id="adminPassword" placeholder="Enter Password">
     <button onclick="login()">Login</button>
-    <div id="loginError" class="login-error"></div>
+    <div id="loginError" style="color:#dc3545; text-align:center; margin-top:1rem; display:none;"></div>
   </div>
 </div>
 
-<!-- Admin Content -->
-<div id="adminContent" style="display: none;">
+<div id="adminContent" style="display:none;">
   <div class="admin-header">
-    <div class="logo">
-      <i class="fas fa-fish"></i>
-      <span>Sushi Vibe | Order Admin</span>
-    </div>
-    <div class="stats">
-      <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Total Orders</div></div>
-    </div>
+    <div class="logo"><i class="fas fa-fish"></i> Sushi Vibe | Orders</div>
     <button class="refresh-btn" onclick="loadOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
   </div>
-  
   <div class="container">
-    <div class="welcome-banner">
-      <div class="welcome-text">
-        <h2><i class="fas fa-chart-line" style="color: #e31b23;"></i> Order Management</h2>
-        <p>View all customer orders from Google Sheets</p>
-      </div>
-      <a href="index.html" class="refresh-btn" style="text-decoration: none;"><i class="fas fa-home"></i> Back to Site</a>
-    </div>
-    
-    <div class="orders-table-container">
+    <h2 style="margin-bottom:1rem;">📋 All Orders</h2>
+    <div class="orders-table">
       <table id="ordersTable">
         <thead>
-          <tr>
-            <th>Timestamp</th>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Package</th>
-            <th>Price</th>
-            <th>Guests</th>
-            <th>Event Date</th>
-            <th>Delivery</th>
-            <th>Address</th>
-            <th>Allergies</th>
-          </tr>
+          <tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Price</th><th>Event Date</th><th>Status</th><th>Actions</th></tr>
         </thead>
-        <tbody id="ordersTableBody">
-          <tr><td colspan="12" class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>
-        </tbody>
-      梳
+        <tbody id="ordersBody"><tr><td colspan="9" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr></tbody>
+      </table>
     </div>
-  </div>
-  
-  <div class="admin-footer">
-    <p>&copy; 2026 Sushi Vibe Catering — All Rights Reserved.</p>
   </div>
 </div>
 
 <script>
-  // Admin password - CHANGE THIS
+  const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const ADMIN_PASSWORD = "SushiVibe2025";
-  
-  // REPLACE THIS WITH YOUR GOOGLE SHEETS CSV LINK
-  // Get it from: File → Share → Publish to web → CSV format
-  const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1gOyZBCRDlQSDG3vdPT51H5OL_mWqpW-OB4jbjrIx3kA/export?format=csv";
-  
+
   function login() {
-    const password = document.getElementById('adminPassword').value;
-    const errorDiv = document.getElementById('loginError');
-    
-    if (password === ADMIN_PASSWORD) {
+    const pwd = document.getElementById('adminPassword').value;
+    if (pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem('adminLoggedIn', 'true');
       document.getElementById('loginOverlay').style.display = 'none';
       document.getElementById('adminContent').style.display = 'block';
       loadOrders();
     } else {
-      errorDiv.textContent = '❌ Incorrect password';
-      errorDiv.style.display = 'block';
-      setTimeout(() => errorDiv.style.display = 'none', 3000);
+      const err = document.getElementById('loginError');
+      err.textContent = '❌ Incorrect password';
+      err.style.display = 'block';
+      setTimeout(() => err.style.display = 'none', 3000);
     }
   }
-  
-  function checkAuth() {
-    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-      document.getElementById('loginOverlay').style.display = 'none';
-      document.getElementById('adminContent').style.display = 'block';
-      loadOrders();
-    }
+
+  if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('adminContent').style.display = 'block';
+    loadOrders();
   }
-  
+
   async function loadOrders() {
-    const tbody = document.getElementById('ordersTableBody');
-    tbody.innerHTML = '<tr><td colspan="12" class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>';
+    const tbody = document.getElementById('ordersBody');
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>';
     
     try {
-      const response = await fetch(GOOGLE_SHEETS_CSV_URL);
-      const csvText = await response.text();
-      const orders = parseCSV(csvText);
-      displayOrders(orders);
-      document.getElementById('totalOrders').textContent = orders.length;
-    } catch (error) {
-      console.error('Error loading orders:', error);
-      tbody.innerHTML = '<tr><td colspan="12" class="empty-state">⚠️ Unable to load orders. Please check that your Google Sheet is published.</td></tr>';
-    }
-  }
-  
-  function parseCSV(csv) {
-    const lines = csv.trim().split('\n');
-    if (lines.length < 2) return [];
-    
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-    const orders = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      const values = parseCSVLine(lines[i]);
-      const order = {};
-      headers.forEach((header, index) => {
-        order[header] = values[index] ? values[index].replace(/^"|"$/g, '').trim() : '';
-      });
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
       
-      orders.push({
-        timestamp: order.Timestamp || '',
-        order_id: order['Order ID'] || 'N/A',
-        full_name: order['Full Name'] || order['full_name'] || '',
-        phone: order['Phone Number'] || order['phone'] || '',
-        email: order['Email'] || '',
-        package: order['Select Package'] || order['package'] || '',
-        price: order['Price'] || order['package_price'] || '',
-        guests: order['Number of Guests'] || order['guests'] || '',
-        event_date: order['Event Date'] || '',
-        delivery_type: order['Delivery or Pickup'] || '',
-        address: order['Delivery Address'] || '',
-        allergies: order['Allergies/Dietary Notes'] || ''
-      });
-    }
-    return orders;
-  }
-  
-  function parseCSVLine(line) {
-    const result = [];
-    let current = '';
-    let inQuotes = false;
-    
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        result.push(current);
-        current = '';
-      } else {
-        current += char;
+      if (error) throw error;
+      
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;">📭 No orders yet</td></tr>';
+        return;
       }
+      
+      tbody.innerHTML = data.map(order => `
+        <tr>
+          <td><strong>${order.order_id}</strong></td>
+          <td>${new Date(order.created_at).toLocaleDateString()}</td>
+          <td>${escapeHtml(order.full_name)}</td>
+          <td>${order.phone}</td>
+          <td>${order.package}</td>
+          <td>${order.price.toLocaleString()} ETB</td>
+          <td>${order.event_date}</td>
+          <td><span class="status status-${order.status}">${order.status.toUpperCase()}</span></td>
+          <td><button onclick="updateStatus('${order.id}', 'confirmed')" style="background:#28a745; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">✅ Confirm</button></td>
+        </tr>
+      `).join('');
+    } catch(error) {
+      console.error(error);
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;">❌ Error loading orders</td></tr>';
     }
-    result.push(current);
-    return result;
   }
-  
-  function displayOrders(orders) {
-    const tbody = document.getElementById('ordersTableBody');
-    
-    if (orders.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="12" class="empty-state">📭 No orders found</td></tr>';
-      return;
+
+  async function updateStatus(orderId, newStatus) {
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+      
+      if (error) throw error;
+      loadOrders();
+    } catch(error) {
+      alert('Error updating status');
     }
-    
-    tbody.innerHTML = orders.map(order => `
-      <tr>
-        <td>${escapeHtml(order.timestamp.substring(0, 16) || 'N/A')}</td>
-        <td><strong>${escapeHtml(order.order_id)}</strong></td>
-        <td>${escapeHtml(order.full_name)}</td>
-        <td>${escapeHtml(order.phone)}</td>
-        <td>${escapeHtml(order.email)}</td>
-        <td>${escapeHtml(order.package ? order.package.substring(0, 25) : 'N/A')}</td>
-        <td>${escapeHtml(order.price)} ETB</td>
-        <td>${escapeHtml(order.guests)}</td>
-        <td>${escapeHtml(order.event_date)}</td>
-        <td><span class="status-badge status-pending">${escapeHtml(order.delivery_type)}</span></td>
-        <td>${escapeHtml(order.address ? order.address.substring(0, 25) : 'N/A')}</td>
-        <td>${escapeHtml(order.allergies ? order.allergies.substring(0, 20) : 'None')}</td>
-      </tr>
-    `).join('');
   }
-  
+
   function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
-  
-  checkAuth();
 </script>
 </body>
 </html>
