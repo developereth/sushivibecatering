@@ -7,91 +7,146 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
-    /* Additional styles for order page */
-    .google-form-card {
-      text-align: center;
-      padding: 3rem;
-      background: linear-gradient(135deg, #111111, #0a0a0a);
+    .order-form-container {
+      background: #111111;
+      border-radius: 28px;
+      padding: 2rem;
       border: 1px solid #e31b23;
-      border-radius: 24px;
-      margin-bottom: 2rem;
     }
-    .google-icon-large {
-      font-size: 4rem;
-      color: #e31b23;
-      margin-bottom: 1rem;
-      display: inline-block;
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #e5e5e5;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
       background: #1a1a1a;
-      padding: 1rem;
-      border-radius: 50%;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
     }
-    .order-btn-google {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #e31b23;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .btn-submit {
       background: linear-gradient(135deg, #e31b23, #c0151c);
       color: white;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
       font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
       transition: 0.3s;
-      margin-top: 1rem;
-      box-shadow: 0 4px 15px rgba(227, 27, 35, 0.3);
     }
-    .order-btn-google:hover {
-      transform: scale(1.05);
+    .btn-submit:hover {
+      transform: scale(1.02);
       background: linear-gradient(135deg, #c0151c, #a01016);
-      box-shadow: 0 6px 20px rgba(227, 27, 35, 0.4);
     }
-    .package-list-card {
-      background: #111111;
-      border-radius: 24px;
-      padding: 1.8rem;
-      border: 1px solid #2a2a2a;
+    .package-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
       margin-bottom: 1.5rem;
     }
-    .package-list-card h3 {
-      color: #e31b23;
-      margin-bottom: 1rem;
+    .package-option {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
     }
-    .package-item {
-      padding: 0.8rem 0;
-      border-bottom: 1px dashed #2a2a2a;
-      display: flex;
-      justify-content: space-between;
+    .package-option.selected {
+      border-color: #e31b23;
+      background: #252525;
     }
-    .package-item:last-child {
-      border-bottom: none;
+    .package-option:hover {
+      border-color: #e31b23;
     }
     .package-name {
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 1.1rem;
     }
     .package-price {
       color: #e31b23;
       font-weight: 700;
     }
-    @media (max-width: 900px) {
-      .main-nav ul {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: #0a0a0a;
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        border-bottom: 2px solid #e31b23;
-        z-index: 100;
+    .package-desc {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 0.3rem;
+    }
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #28a745;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+      display: none;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .order-summary {
+      background: #0a0a0a;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      border: 1px solid #2a2a2a;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #2a2a2a;
+    }
+    .summary-total {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-top: 1rem;
+      color: #e31b23;
+      display: flex;
+      justify-content: space-between;
+    }
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
       }
-      .main-nav ul.show {
-        display: flex;
-      }
-      .mobile-toggle {
-        display: block !important;
+      .order-grid {
+        grid-template-columns: 1fr !important;
       }
     }
   </style>
@@ -124,55 +179,129 @@
       </div>
     </section>
 
-    <div class="container order-container">
-      <div class="order-grid">
-        <!-- Order Form Section - Google Form Card -->
-        <div class="order-form-section">
-          <div class="google-form-card">
-            <div class="google-icon-large">
-              <i class="fas fa-clipboard-list"></i>
+    <div class="container">
+      <div class="order-grid" style="display: grid; grid-template-columns: 1.8fr 1fr; gap: 2rem;">
+        
+        <!-- Order Form -->
+        <div class="order-form-container">
+          <h2 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-shopping-cart"></i> Place Your Order</h2>
+          
+          <form id="orderForm">
+            <!-- Package Selection -->
+            <div class="form-group">
+              <label>Select Package *</label>
+              <div class="package-options" id="packageOptions">
+                <div class="package-option" data-package="Vibe Party Set" data-price="34999" data-people="10">
+                  <div class="package-name">🎉 Vibe Party Set <span class="package-price">34,999 ETB</span></div>
+                  <div class="package-desc">10 people · Nigiri, Gunkan, California, Dragon & Mango rolls</div>
+                </div>
+                <div class="package-option" data-package="Celebration Feast" data-price="61999" data-people="20">
+                  <div class="package-name">🌟 Celebration Feast <span class="package-price">61,999 ETB</span></div>
+                  <div class="package-desc">20 people · 40 Nigiri & Gunkan + Rainbow, California, Spicy Tuna</div>
+                </div>
+                <div class="package-option" data-package="Ultimate Sushi Experience" data-price="109999" data-people="30">
+                  <div class="package-name">✨ Ultimate Sushi Experience <span class="package-price">109,999 ETB</span></div>
+                  <div class="package-desc">30 people · Premium selection: Dragon, Alaska, Philly, Rainbow, Spicy Tuna</div>
+                </div>
+                <div class="package-option" data-package="Omakase Reserve" data-price="81999" data-people="24">
+                  <div class="package-name">👨‍🍳 Omakase Reserve <span class="package-price">81,999 ETB</span></div>
+                  <div class="package-desc">24 people · Chef's signature selection</div>
+                </div>
+                <div class="package-option" data-package="Grand Emperor Platter" data-price="139999" data-people="40">
+                  <div class="package-name">🏆 Grand Emperor Platter <span class="package-price">139,999 ETB</span></div>
+                  <div class="package-desc">40 people · Ultimate feast experience</div>
+                </div>
+              </div>
+              <input type="hidden" id="selectedPackage" required>
+              <input type="hidden" id="selectedPrice" required>
             </div>
-            <h2 style="color: white; margin-bottom: 1rem;">Ready to order?</h2>
-            <p style="color: #cccccc; margin-bottom: 1.5rem;">Click the button below to fill out our secure order form. It takes less than 2 minutes!</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRby3IHkQLZDCso-4udmeEgrgCKNzxA6lLxnTCzSk1EwTDSw/viewform?usp=preview" target="_blank" class="order-btn-google">
-              <i class="fab fa-google"></i> Open Order Form
-              <i class="fas fa-arrow-right"></i>
-            </a>
-            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #888;">
-              <i class="fas fa-lock"></i> Secure · No account needed · Orders sent directly to us
-            </p>
-          </div>
 
-          <!-- Package Summary Card -->
-          <div class="package-list-card">
-            <h3><i class="fas fa-info-circle"></i> Our Catering Packages</h3>
-            <div class="package-item">
-              <span class="package-name">🎉 Vibe Party Set</span>
-              <span class="package-price">32,000 ETB</span>
+            <!-- Event Details -->
+            <div class="form-row">
+              <div class="form-group">
+                <label>Event Date *</label>
+                <input type="date" id="eventDate" required>
+              </div>
+              <div class="form-group">
+                <label>Event Time *</label>
+                <input type="time" id="eventTime" required>
+              </div>
             </div>
-            <div class="package-item">
-              <span class="package-name">🌟 Celebration Feast</span>
-              <span class="package-price">58,000 ETB</span>
+
+            <div class="form-group">
+              <label>Number of Guests *</label>
+              <input type="number" id="guests" id="guestCount" placeholder="How many people?" required>
             </div>
-            <div class="package-item">
-              <span class="package-name">✨ Ultimate Sushi Experience</span>
-              <span class="package-price">95,000 ETB</span>
+
+            <div class="form-group">
+              <label>Special Occasion (optional)</label>
+              <select id="occasion">
+                <option value="">Select occasion</option>
+                <option>Birthday Party</option>
+                <option>Corporate Event</option>
+                <option>Wedding / Engagement</option>
+                <option>Anniversary</option>
+                <option>Private Gathering</option>
+                <option>Other</option>
+              </select>
             </div>
-            <div class="package-item">
-              <span class="package-name">👨‍🍳 Omakase Reserve</span>
-              <span class="package-price">82,000 ETB</span>
+
+            <!-- Contact Details -->
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="fullName" required>
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label>
+                <input type="tel" id="phone" required>
+              </div>
             </div>
-            <div class="package-item">
-              <span class="package-name">🏆 Grand Emperor Platter</span>
-              <span class="package-price">139,999 ETB</span>
+
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" id="email" required>
             </div>
-            <div class="free-gift" style="margin-top: 1rem; padding: 0.8rem; background: #1a1a1a; border-radius: 12px; text-align: center;">
-              <i class="fas fa-gift"></i> Free wasabi, ginger & soy sauce with every order!
+
+            <!-- Delivery -->
+            <div class="form-group">
+              <label>Delivery or Pickup?</label>
+              <div class="radio-group">
+                <label><input type="radio" name="deliveryType" value="Delivery" checked> Delivery (charges apply)</label>
+                <label><input type="radio" name="deliveryType" value="Pickup"> Pickup (free)</label>
+              </div>
             </div>
-          </div>
+
+            <div class="form-group" id="deliveryAddressGroup">
+              <label>Delivery Address</label>
+              <textarea rows="2" id="deliveryAddress" placeholder="Street, landmark, city"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Allergies or Dietary Notes *</label>
+              <textarea rows="2" id="allergies" placeholder="Please list any allergies or dietary restrictions"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Special Requests</label>
+              <textarea rows="2" id="specialRequests" placeholder="Extra wasabi, chopsticks, serving trays, etc."></textarea>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+              <div class="summary-line"><span>Selected Package:</span> <strong id="summaryPackage">—</strong></div>
+              <div class="summary-line"><span>Package Price:</span> <strong id="summaryPrice">0 ETB</strong></div>
+              <div class="summary-total"><span>Total:</span> <strong id="totalPrice">0 ETB</strong></div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <i class="fas fa-paper-plane"></i> Submit Order
+            </button>
+            <div id="formStatus" style="margin-top: 1rem; text-align: center;"></div>
+          </form>
         </div>
 
-        <!-- Sidebar Info -->
+        <!-- Sidebar -->
         <div class="order-sidebar">
           <div class="info-box">
             <i class="fas fa-clock"></i>
@@ -218,32 +347,216 @@
     <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <div id="toast" class="toast-notification"></div>
+
+  <!-- EmailJS Configuration -->
   <script>
-    // Mobile menu toggle for order page
+    // EmailJS Configuration - YOUR CREDENTIALS
+    (function() {
+      emailjs.init("x5ZdHFKFk-Dy1GDP-dz26");
+      console.log("✅ EmailJS initialized");
+    })();
+
+    const EMAILJS_SERVICE_ID = "service_414w7gq";
+    const EMAILJS_TEMPLATE_ID = "template_0e33ddv";
+
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 5000);
+    }
+
+    // Package selection
+    const packageOptions = document.querySelectorAll('.package-option');
+    const selectedPackageInput = document.getElementById('selectedPackage');
+    const selectedPriceInput = document.getElementById('selectedPrice');
+    const summaryPackageSpan = document.getElementById('summaryPackage');
+    const summaryPriceSpan = document.getElementById('summaryPrice');
+    const totalPriceSpan = document.getElementById('totalPrice');
+    const guestsInput = document.getElementById('guests');
+
+    packageOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        packageOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        
+        const packageName = option.dataset.package;
+        const packagePrice = option.dataset.price;
+        
+        selectedPackageInput.value = packageName;
+        selectedPriceInput.value = packagePrice;
+        summaryPackageSpan.innerText = packageName;
+        summaryPriceSpan.innerText = parseInt(packagePrice).toLocaleString() + ' ETB';
+        totalPriceSpan.innerText = parseInt(packagePrice).toLocaleString() + ' ETB';
+        
+        // Auto-fill guests from package data
+        const peopleCount = option.dataset.people;
+        if (peopleCount && guestsInput) {
+          guestsInput.value = peopleCount;
+        }
+      });
+    });
+
+    // Delivery address toggle
+    const deliveryRadios = document.querySelectorAll('input[name="deliveryType"]');
+    const deliveryAddressGroup = document.getElementById('deliveryAddressGroup');
+    
+    function toggleDeliveryAddress() {
+      const selected = document.querySelector('input[name="deliveryType"]:checked');
+      if (selected && selected.value === 'Delivery') {
+        deliveryAddressGroup.style.display = 'block';
+      } else {
+        deliveryAddressGroup.style.display = 'none';
+      }
+    }
+    
+    deliveryRadios.forEach(radio => radio.addEventListener('change', toggleDeliveryAddress));
+    toggleDeliveryAddress();
+
+    // Form submission
+    const orderForm = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Validate package selection
+      if (!selectedPackageInput.value) {
+        showToast('❌ Please select a catering package', true);
+        return;
+      }
+      
+      // Validate required fields
+      const eventDate = document.getElementById('eventDate').value;
+      const eventTime = document.getElementById('eventTime').value;
+      const fullName = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const allergies = document.getElementById('allergies').value.trim();
+      
+      if (!eventDate) {
+        showToast('❌ Please select event date', true);
+        return;
+      }
+      if (!eventTime) {
+        showToast('❌ Please select event time', true);
+        return;
+      }
+      if (!fullName) {
+        showToast('❌ Please enter your full name', true);
+        return;
+      }
+      if (!phone) {
+        showToast('❌ Please enter your phone number', true);
+        return;
+      }
+      if (!email) {
+        showToast('❌ Please enter your email address', true);
+        return;
+      }
+      if (!allergies) {
+        showToast('⚠️ Please tell us about any allergies (even if "none")', true);
+        return;
+      }
+      
+      // Collect order data
+      const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+      const deliveryAddress = document.getElementById('deliveryAddress').value;
+      
+      const orderData = {
+        order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+        full_name: fullName,
+        phone: phone,
+        email: email,
+        package: selectedPackageInput.value,
+        price: parseInt(selectedPriceInput.value).toLocaleString(),
+        guests: document.getElementById('guests').value,
+        event_date: eventDate,
+        event_time: eventTime,
+        occasion: document.getElementById('occasion').value || 'Not specified',
+        delivery_type: deliveryType,
+        delivery_address: deliveryType === 'Delivery' ? deliveryAddress : 'Pickup',
+        allergies: allergies || 'None',
+        special_requests: document.getElementById('specialRequests').value || 'None'
+      };
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      
+      try {
+        // Send email via EmailJS
+        const emailResult = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          order_id: orderData.order_id,
+          full_name: orderData.full_name,
+          phone: orderData.phone,
+          email: orderData.email,
+          package: orderData.package,
+          price: orderData.price,
+          guests: orderData.guests,
+          event_date: orderData.event_date,
+          event_time: orderData.event_time,
+          occasion: orderData.occasion,
+          delivery_type: orderData.delivery_type,
+          delivery_address: orderData.delivery_address,
+          allergies: orderData.allergies,
+          special_requests: orderData.special_requests
+        });
+        
+        console.log('Email sent successfully:', emailResult);
+        
+        // Also save to localStorage as backup
+        const existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+        existingOrders.unshift(orderData);
+        localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
+        
+        // Success message
+        showToast(`✅ Order #${orderData.order_id} placed! We'll contact you within 2 hours.`);
+        
+        // Reset form
+        orderForm.reset();
+        packageOptions.forEach(opt => opt.classList.remove('selected'));
+        selectedPackageInput.value = '';
+        selectedPriceInput.value = '';
+        summaryPackageSpan.innerText = '—';
+        summaryPriceSpan.innerText = '0 ETB';
+        totalPriceSpan.innerText = '0 ETB';
+        guestsInput.value = '';
+        toggleDeliveryAddress();
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+      } catch(error) {
+        console.error('Email sending failed:', error);
+        showToast('❌ Order received but notification failed. We will contact you shortly.', true);
+        
+        // Still save to localStorage
+        const existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
+        existingOrders.unshift(orderData);
+        localStorage.setItem('sushi_vibe_orders', JSON.stringify(existingOrders));
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
+      }
+    });
+    
+    // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navMenu = document.querySelector('.main-nav ul');
-    
     if (mobileToggle && navMenu) {
-      mobileToggle.addEventListener('click', function(e) {
+      mobileToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         navMenu.classList.toggle('show');
       });
-      
-      // Close menu when clicking a link
-      const navLinks = document.querySelectorAll('.main-nav a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          navMenu.classList.remove('show');
-        });
+      document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => navMenu.classList.remove('show'));
       });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (navMenu.classList.contains('show')) {
-          if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-            navMenu.classList.remove('show');
-          }
+      document.addEventListener('click', (event) => {
+        if (navMenu.classList.contains('show') && !navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+          navMenu.classList.remove('show');
         }
       });
     }
