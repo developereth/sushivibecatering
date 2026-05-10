@@ -280,14 +280,11 @@
       pkg.addEventListener('click', () => {
         packages.forEach(p => p.classList.remove('selected'));
         pkg.classList.add('selected');
-        const packageName = pkg.dataset.package;
-        const packagePrice = pkg.dataset.price;
-        const peopleCount = pkg.dataset.people;
-        selectedPackageInput.value = packageName;
-        selectedPriceInput.value = packagePrice;
+        selectedPackageInput.value = pkg.dataset.package;
+        selectedPriceInput.value = pkg.dataset.price;
         
-        if (peopleCount && guestsInput) {
-          guestsInput.value = peopleCount;
+        if (pkg.dataset.people && guestsInput) {
+          guestsInput.value = pkg.dataset.people;
         }
       });
     });
