@@ -2,638 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Sushi Vibe | Pre-order Catering | Authentic Japanese Experience</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Order</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a;
-      color: #f0f0f0;
-      line-height: 1.5;
-    }
-
-    .site-header {
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #2a2a2a;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1rem 0;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo a {
-      font-size: 1.7rem;
-      font-weight: 800;
-      text-decoration: none;
-      color: white;
-      letter-spacing: -0.5px;
-    }
-
-    .logo i {
-      color: #e31b23;
-      margin-right: 8px;
-    }
-
-    .logo span {
-      color: #e31b23;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .main-nav ul {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
-    .main-nav a {
-      text-decoration: none;
-      color: #ddd;
-      font-weight: 500;
-      transition: 0.2s;
-      font-size: 0.95rem;
-    }
-
-    .main-nav a:hover, .main-nav a.active {
-      color: #e31b23;
-    }
-
-    .order-cta {
-      background: #e31b23;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      color: white !important;
-    }
-
-    .order-cta.active {
-      background: #b0151c;
-      box-shadow: 0 0 8px rgba(227,27,35,0.5);
-    }
-
-    .mobile-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .page-hero {
-      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-      padding: 3rem 0 2rem;
-      text-align: center;
-      border-bottom: 1px solid #2c2c2c;
-    }
-
-    .page-hero h1 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #e31b23);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-hero p {
-      color: #aaa;
-      font-weight: 400;
-    }
-
-    .order-container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1.5rem 3rem;
-    }
-
-    .form-card {
-      background: #111111;
-      border-radius: 32px;
-      padding: 2rem 2rem 2.5rem;
-      border: 1px solid #2a2a2a;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-    }
-
-    .form-card h2 {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      border-left: 4px solid #e31b23;
-      padding-left: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.4rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #e0e0e0;
-      font-size: 0.9rem;
-    }
-
-    .form-group input, 
-    .form-group select, 
-    .form-group textarea {
-      width: 100%;
-      padding: 0.9rem 1rem;
-      background: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 16px;
-      color: white;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: 0.2s;
-    }
-
-    .form-group input:focus, 
-    .form-group select:focus, 
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #e31b23;
-      box-shadow: 0 0 0 2px rgba(227,27,35,0.2);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-    }
-
-    .package-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 6px;
-    }
-
-    .package-option {
-      background: #181818;
-      border: 1.5px solid #2c2c2c;
-      border-radius: 20px;
-      padding: 1rem 1.2rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .package-option:hover {
-      background: #212121;
-      transform: translateX(5px);
-    }
-
-    .package-option.selected {
-      border-color: #e31b23;
-      background: #231b1b;
-      box-shadow: 0 4px 12px rgba(227,27,35,0.2);
-    }
-
-    .package-name {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .package-details {
-      font-size: 0.8rem;
-      color: #bbb;
-      margin-top: 4px;
-    }
-
-    .package-price {
-      font-weight: 800;
-      color: #e31b23;
-      background: #2a1517;
-      padding: 0.2rem 0.8rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-    }
-
-    .required-star::after {
-      content: "*";
-      color: #e31b23;
-      margin-left: 4px;
-    }
-
-    .btn-submit {
-      background: linear-gradient(95deg, #e31b23, #b0151c);
-      color: white;
-      border: none;
-      padding: 1rem;
-      border-radius: 60px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-submit:hover:not(:disabled) {
-      background: linear-gradient(95deg, #c51b22, #9e1219);
-      transform: scale(0.99);
-    }
-
-    .btn-submit:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #1e2a1e;
-      color: white;
-      padding: 14px 28px;
-      border-radius: 60px;
-      display: none;
-      z-index: 9999;
-      font-weight: 500;
-      border-left: 5px solid #28a745;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: white;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    footer {
-      background: #050505;
-      border-top: 1px solid #222;
-      padding: 2rem 0;
-      margin-top: 2rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-
-    .footer-logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .footer-col p {
-      color: #aaa;
-    }
-
-    @media (max-width: 768px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-      .package-option {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-      }
-      .page-hero h1 {
-        font-size: 1.8rem;
-      }
-    }
+    body { font-family: Arial; background: #0a0a0a; color: white; padding: 20px; }
+    .form-card { background: #111; padding: 20px; border-radius: 12px; max-width: 500px; margin: 0 auto; }
+    input, select, textarea { width: 100%; padding: 8px; margin: 5px 0 15px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 8px; }
+    button { background: #e31b23; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: green; color: white; padding: 10px 20px; border-radius: 8px; display: none; }
   </style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="container nav-container">
-    <div class="logo"><a href="#"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Packages</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Reviews</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#" class="order-cta active">Order Now</a></li>
-      </ul>
-    </nav>
-    <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
-  </div>
-</header>
-
-<main>
-  <section class="page-hero">
-    <div class="container">
-      <h1>Reserve your sushi experience</h1>
-      <p>24h advance notice · Premium ingredients · Delivered to your door in Addis</p>
-    </div>
-  </section>
-
-  <div class="order-container">
-    <div class="form-card">
-      <h2><i class="fas fa-clipboard-list"></i> Catering Order Form</h2>
+  <div class="form-card">
+    <h2>Place Your Order</h2>
+    <form id="orderForm">
+      <input type="text" id="fullName" placeholder="Full Name" required>
+      <input type="tel" id="phone" placeholder="Phone" required>
+      <input type="email" id="email" placeholder="Email" required>
       
-      <form id="orderForm">
-        <div class="form-group">
-          <label class="required-star">Choose your Sushi Package</label>
-          <div id="packageContainer" class="package-grid"></div>
-          <input type="hidden" id="selectedPackageName" />
-          <input type="hidden" id="selectedPackagePrice" />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group"><label class="required-star">Event Date</label><input type="date" id="eventDate" required></div>
-          <div class="form-group"><label class="required-star">Event Time</label><input type="time" id="eventTime" required></div>
-        </div>
-
-        <div class="form-group"><label class="required-star">Number of Guests</label><input type="number" id="guests" placeholder="e.g., 10" required min="1"></div>
-        
-        <div class="form-group"><label>Special Occasion (optional)</label>
-          <select id="occasion">
-            <option value="">Select occasion</option>
-            <option>Birthday Party</option><option>Corporate Event</option><option>Wedding</option>
-            <option>Anniversary</option><option>Private Gathering</option><option>Engagement</option><option>Other</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group"><label class="required-star">Full Name</label><input type="text" id="fullName" required autocomplete="name"></div>
-          <div class="form-group"><label class="required-star">Phone</label><input type="tel" id="phone" required placeholder="+251 9XX XXX XXX"></div>
-        </div>
-
-        <div class="form-group"><label class="required-star">Email Address</label><input type="email" id="email" required autocomplete="email"></div>
-
-        <div class="form-row">
-          <div class="form-group"><label>Delivery or Pickup</label>
-            <select id="deliveryType">
-              <option value="Delivery">🚚 Delivery (Addis Ababa)</option>
-              <option value="Pickup">🏠 Pickup from Kitchen</option>
-            </select>
-          </div>
-          <div class="form-group" id="addressGroup">
-            <label>Delivery Address</label>
-            <textarea rows="2" id="deliveryAddress" placeholder="Street, building, landmark..."></textarea>
-          </div>
-        </div>
-
-        <div class="form-group"><label class="required-star">Allergies / Dietary restrictions</label>
-          <textarea rows="2" id="allergies" placeholder="e.g., nut allergy, gluten-free, shellfish... (write 'none' if none)" required></textarea>
-        </div>
-        
-        <div class="form-group"><label>Special requests or notes</label>
-          <textarea rows="2" id="specialRequests" placeholder="Additional decoration, serving preferences..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Confirm Pre-order</button>
-      </form>
-      <p style="font-size: 0.75rem; text-align: center; margin-top: 1.5rem; color: #6a6a6a;"><i class="fas fa-shield-alt"></i> Secure SSL · We'll contact within 2h to confirm details</p>
-    </div>
+      <select id="package" required>
+        <option value="">Select Package</option>
+        <option value="Vibe Party Set">Vibe Party Set - 34,999 ETB</option>
+        <option value="Celebration Feast">Celebration Feast - 61,999 ETB</option>
+        <option value="Ultimate Sushi Experience">Ultimate Sushi Experience - 109,999 ETB</option>
+      </select>
+      
+      <input type="date" id="eventDate" required>
+      <input type="time" id="eventTime" required>
+      <input type="number" id="guests" placeholder="Number of Guests" required>
+      
+      <select id="deliveryType">
+        <option value="Delivery">Delivery</option>
+        <option value="Pickup">Pickup</option>
+      </select>
+      
+      <textarea id="allergies" placeholder="Allergies (or write 'None')" required></textarea>
+      
+      <button type="submit">Submit Order</button>
+    </form>
   </div>
-</main>
+  <div id="toast" class="toast"></div>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese fusion catering in Addis Ababa.</p></div>
-    <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-phone-alt"></i> +251 927 299999<br><i class="fas fa-envelope"></i> sushivibes@proton.me</p></div>
-    <div class="footer-col"><h4>Hours</h4><p>Mon-Sat: 9am - 9pm<br>Sun: 10am - 6pm</p></div>
-  </div>
-</footer>
+  <script>
+    const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
+    const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-<div id="toastMessage" class="toast"></div>
-
-<script>
-  // CORRECT SUPABASE INITIALIZATION - FIXED
-  const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  const PACKAGES = [
-    { name: "Vibe Party Set", price: 34999, guestsSuggestion: 10, description: "Sushi rolls, maki, edamame" },
-    { name: "Celebration Feast", price: 61999, guestsSuggestion: 20, description: "Premium sushi boat + desserts" },
-    { name: "Ultimate Sushi Experience", price: 109999, guestsSuggestion: 30, description: "Chef's special selection" },
-    { name: "Omakase Reserve", price: 81999, guestsSuggestion: 24, description: "24 pcs + sashimi platter" },
-    { name: "Grand Emperor Platter", price: 139999, guestsSuggestion: 40, description: "Ultimate luxury sushi tower" }
-  ];
-
-  const packageContainer = document.getElementById('packageContainer');
-  const selectedPackageNameInput = document.getElementById('selectedPackageName');
-  const selectedPackagePriceInput = document.getElementById('selectedPackagePrice');
-  const guestsInput = document.getElementById('guests');
-  const eventDateInput = document.getElementById('eventDate');
-  const eventTimeInput = document.getElementById('eventTime');
-  const fullNameInput = document.getElementById('fullName');
-  const phoneInput = document.getElementById('phone');
-  const emailInput = document.getElementById('email');
-  const deliveryTypeSelect = document.getElementById('deliveryType');
-  const addressGroup = document.getElementById('addressGroup');
-  const deliveryAddressText = document.getElementById('deliveryAddress');
-  const allergiesInput = document.getElementById('allergies');
-  const specialRequestsInput = document.getElementById('specialRequests');
-  const occasionSelect = document.getElementById('occasion');
-  const submitBtn = document.getElementById('submitBtn');
-  const toastDiv = document.getElementById('toastMessage');
-
-  function showToast(message, isError = false) {
-    toastDiv.textContent = message;
-    toastDiv.style.backgroundColor = isError ? '#992025' : '#1f5c2e';
-    toastDiv.style.borderLeftColor = isError ? '#ff6b6b' : '#6fcf97';
-    toastDiv.style.display = 'block';
-    setTimeout(() => {
-      toastDiv.style.display = 'none';
-    }, 4500);
-  }
-
-  function renderPackages() {
-    packageContainer.innerHTML = '';
-    PACKAGES.forEach((pkg) => {
-      const div = document.createElement('div');
-      div.className = 'package-option';
-      div.setAttribute('data-name', pkg.name);
-      div.setAttribute('data-price', pkg.price);
-      div.setAttribute('data-guests', pkg.guestsSuggestion);
-      div.innerHTML = `
-        <div>
-          <div class="package-name">🍣 ${pkg.name}</div>
-          <div class="package-details">${pkg.description} · serves up to ${pkg.guestsSuggestion} guests</div>
-        </div>
-        <div class="package-price">${pkg.price.toLocaleString()} ETB</div>
-      `;
-      div.addEventListener('click', () => {
-        document.querySelectorAll('.package-option').forEach(opt => opt.classList.remove('selected'));
-        div.classList.add('selected');
-        selectedPackageNameInput.value = pkg.name;
-        selectedPackagePriceInput.value = pkg.price;
-        guestsInput.value = pkg.guestsSuggestion;
-      });
-      packageContainer.appendChild(div);
-    });
-  }
-
-  function toggleAddressField() {
-    if (deliveryTypeSelect.value === 'Delivery') {
-      addressGroup.style.display = 'block';
-    } else {
-      addressGroup.style.display = 'none';
-      deliveryAddressText.value = '';
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 4000);
     }
-  }
 
-  function setMinDate() {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const yyyy = tomorrow.getFullYear();
-    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-    const dd = String(tomorrow.getDate()).padStart(2, '0');
-    eventDateInput.min = `${yyyy}-${mm}-${dd}`;
-  }
-
-  function validateForm() {
-    if (!selectedPackageNameInput.value) {
-      showToast('❌ Please select a sushi package', true);
-      return false;
-    }
-    if (!eventDateInput.value) {
-      showToast('📅 Please select event date', true);
-      return false;
-    }
-    if (!eventTimeInput.value) {
-      showToast('⏰ Please provide event time', true);
-      return false;
-    }
-    const guestVal = parseInt(guestsInput.value);
-    if (isNaN(guestVal) || guestVal < 1) {
-      showToast('👥 Please enter a valid number of guests', true);
-      return false;
-    }
-    if (!fullNameInput.value.trim()) {
-      showToast('Full name is required', true);
-      return false;
-    }
-    if (!phoneInput.value.trim()) {
-      showToast('Phone number is required', true);
-      return false;
-    }
-    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-      showToast('Please enter a valid email address', true);
-      return false;
-    }
-    if (!allergiesInput.value.trim()) {
-      showToast('Please inform about allergies (or write "none")', true);
-      return false;
-    }
-    if (deliveryTypeSelect.value === 'Delivery' && !deliveryAddressText.value.trim()) {
-      showToast('Please provide delivery address', true);
-      return false;
-    }
-    return true;
-  }
-
-  function generateOrderId() {
-    return `ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-  }
-
-  document.getElementById('orderForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) return;
-
-    const orderId = generateOrderId();
-
-    const orderData = {
-      order_id: orderId,
-      full_name: fullNameInput.value.trim(),
-      phone: phoneInput.value.trim(),
-      email: emailInput.value.trim(),
-      package: selectedPackageNameInput.value,
-      price: parseInt(selectedPackagePriceInput.value),
-      guests: parseInt(guestsInput.value),
-      event_date: eventDateInput.value,
-      event_time: eventTimeInput.value,
-      occasion: occasionSelect.value || null,
-      delivery_type: deliveryTypeSelect.value,
-      delivery_address: deliveryTypeSelect.value === 'Delivery' ? deliveryAddressText.value.trim() : null,
-      allergies: allergiesInput.value.trim(),
-      special_requests: specialRequestsInput.value.trim() || null,
-      status: 'pending',
-      created_at: new Date().toISOString()
-    };
-
-    console.log('Submitting order:', orderData);
-
-    const originalBtnHtml = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner"></span> Placing order...';
-
-    try {
-      const { data, error } = await supabase
-        .from('orders')
-        .insert([orderData])
-        .select();
-
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const orderData = {
+        order_id: 'ORD-' + Date.now(),
+        full_name: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        package: document.getElementById('package').value,
+        price: document.getElementById('package').value === 'Vibe Party Set' ? 34999 : 
+               document.getElementById('package').value === 'Celebration Feast' ? 61999 : 109999,
+        guests: parseInt(document.getElementById('guests').value),
+        event_date: document.getElementById('eventDate').value,
+        event_time: document.getElementById('eventTime').value,
+        occasion: null,
+        delivery_type: document.getElementById('deliveryType').value,
+        delivery_address: null,
+        allergies: document.getElementById('allergies').value,
+        special_requests: null
+      };
+      
+      const btn = document.querySelector('button');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      
+      const { error } = await supabase.from('orders').insert([orderData]);
+      
       if (error) {
-        console.error('Supabase error:', error);
-        showToast(`❌ Error: ${error.message}`, true);
+        console.error('Error:', error);
+        showToast('Error: ' + error.message, true);
       } else {
-        console.log('Success! Data inserted:', data);
-        showToast(`✅ Order confirmed! ID: ${orderId}. We'll contact you within 2 hours.`, false);
+        showToast('✅ Order placed!', false);
         document.getElementById('orderForm').reset();
-        selectedPackageNameInput.value = '';
-        selectedPackagePriceInput.value = '';
-        document.querySelectorAll('.package-option').forEach(opt => opt.classList.remove('selected'));
-        deliveryAddressText.value = '';
-        toggleAddressField();
-        setMinDate();
       }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      showToast('Network error, please try again', true);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnHtml;
-    }
-  });
-
-  renderPackages();
-  toggleAddressField();
-  setMinDate();
-  
-  console.log('Form ready! Supabase connected:', !!supabase);
-</script>
+      
+      btn.disabled = false;
+      btn.textContent = 'Submit Order';
+    });
+  </script>
 </body>
 </html>
