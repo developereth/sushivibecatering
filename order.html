@@ -13,12 +13,10 @@
     .form-card { background: #111111; border-radius: 24px; padding: 2rem; border: 1px solid #e31b23; }
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e5e5e5; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; font-family: inherit; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .btn-submit { background: linear-gradient(135deg, #e31b23, #c0151c); color: white; border: none; padding: 1rem; border-radius: 40px; font-size: 1.1rem; font-weight: 700; cursor: pointer; width: 100%; }
     .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-    .package-option { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 16px; padding: 1rem; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s; }
-    .package-option.selected { border-color: #e31b23; background: #252525; }
     .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
     .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -57,23 +55,36 @@
         <h2 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-shopping-cart"></i> Place Your Order</h2>
         
         <form id="orderForm">
+          <!-- Package Selection - Using SELECT dropdown (works 100%) -->
           <div class="form-group">
             <label>Select Package *</label>
-            <div id="packageOptions">
-              <div class="package-option" data-package="Vibe Party Set" data-price="34999" data-guests="10">🎉 Vibe Party Set - 34,999 ETB (10 people)</div>
-              <div class="package-option" data-package="Celebration Feast" data-price="61999" data-guests="20">🌟 Celebration Feast - 61,999 ETB (20 people)</div>
-              <div class="package-option" data-package="Ultimate Sushi Experience" data-price="109999" data-guests="30">✨ Ultimate Sushi Experience - 109,999 ETB (30 people)</div>
-              <div class="package-option" data-package="Omakase Reserve" data-price="81999" data-guests="24">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</div>
-              <div class="package-option" data-package="Grand Emperor Platter" data-price="139999" data-guests="40">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</div>
-            </div>
-            <input type="hidden" id="selectedPackage" required>
-            <input type="hidden" id="selectedPrice" required>
-            <input type="hidden" id="selectedGuests" required>
+            <select id="packageSelect" required>
+              <option value="">-- Select a package --</option>
+              <option value="Vibe Party Set" data-price="34999" data-guests="10">🎉 Vibe Party Set - 34,999 ETB (10 people)</option>
+              <option value="Celebration Feast" data-price="61999" data-guests="20">🌟 Celebration Feast - 61,999 ETB (20 people)</option>
+              <option value="Ultimate Sushi Experience" data-price="109999" data-guests="30">✨ Ultimate Sushi Experience - 109,999 ETB (30 people)</option>
+              <option value="Omakase Reserve" data-price="81999" data-guests="24">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</option>
+              <option value="Grand Emperor Platter" data-price="139999" data-guests="40">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</option>
+            </select>
           </div>
 
           <div class="form-row">
             <div class="form-group"><label>Event Date *</label><input type="date" id="eventDate" required></div>
             <div class="form-group"><label>Event Time *</label><input type="time" id="eventTime" required></div>
+          </div>
+
+          <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" placeholder="How many people?" required></div>
+
+          <div class="form-group"><label>Special Occasion (optional)</label>
+            <select id="occasion">
+              <option value="">Select occasion</option>
+              <option>Birthday Party</option>
+              <option>Corporate Event</option>
+              <option>Wedding / Engagement</option>
+              <option>Anniversary</option>
+              <option>Private Gathering</option>
+              <option>Other</option>
+            </select>
           </div>
 
           <div class="form-row">
@@ -115,24 +126,21 @@
   <div id="toast" class="toast"></div>
 
   <script>
+    // Supabase Configuration
     const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
     const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Package selection
-    const packages = document.querySelectorAll('.package-option');
-    const selectedPackage = document.getElementById('selectedPackage');
-    const selectedPrice = document.getElementById('selectedPrice');
-    const selectedGuests = document.getElementById('selectedGuests');
+    // Auto-fill guests when package is selected
+    const packageSelect = document.getElementById('packageSelect');
+    const guestsInput = document.getElementById('guests');
     
-    packages.forEach(pkg => {
-      pkg.addEventListener('click', () => {
-        packages.forEach(p => p.classList.remove('selected'));
-        pkg.classList.add('selected');
-        selectedPackage.value = pkg.dataset.package;
-        selectedPrice.value = pkg.dataset.price;
-        selectedGuests.value = pkg.dataset.guests;
-      });
+    packageSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const guestsCount = selectedOption.dataset.guests;
+      if (guestsCount) {
+        guestsInput.value = guestsCount;
+      }
     });
 
     // Toggle delivery address
@@ -154,22 +162,28 @@
     document.getElementById('orderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      if (!selectedPackage.value) {
+      const packageSelect = document.getElementById('packageSelect');
+      const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+      
+      if (!packageSelect.value) {
         showToast('Please select a package', true);
         return;
       }
       
+      const packagePrice = selectedOption.dataset.price;
+      const packageGuests = selectedOption.dataset.guests;
+      
       const orderData = {
-        order_id: 'ORD-' + Date.now(),
+        order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
         full_name: document.getElementById('fullName').value,
         phone: document.getElementById('phone').value,
         email: document.getElementById('email').value,
-        package: selectedPackage.value,
-        price: parseInt(selectedPrice.value),
-        guests: parseInt(selectedGuests.value),
+        package: packageSelect.value,
+        price: parseInt(packagePrice),
+        guests: parseInt(document.getElementById('guests').value),
         event_date: document.getElementById('eventDate').value,
         event_time: document.getElementById('eventTime').value,
-        occasion: null,
+        occasion: document.getElementById('occasion').value || null,
         delivery_type: deliveryType.value,
         delivery_address: document.getElementById('deliveryAddress').value || null,
         allergies: document.getElementById('allergies').value,
@@ -181,27 +195,28 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="loading-spinner"></span> Saving order...';
       
-      const { error } = await supabase.from('orders').insert([orderData]);
-      
-      if (error) {
-        console.error('Error:', error);
-        showToast('Error: ' + error.message, true);
-      } else {
-        showToast('✅ Order placed! We will contact you soon.', false);
+      try {
+        const { data, error } = await supabase.from('orders').insert([orderData]).select();
+        
+        if (error) throw error;
+        
+        showToast(`✅ Order #${orderData.order_id} placed! We will contact you soon.`);
         document.getElementById('orderForm').reset();
-        packages.forEach(p => p.classList.remove('selected'));
-        selectedPackage.value = '';
         addressGroup.style.display = 'none';
+        
+      } catch (error) {
+        console.error('Supabase error:', error);
+        showToast('❌ Failed to save order. Please call us directly: +251 927 299999', true);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
       }
-      
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
     });
     
-    // Set minimum date
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    document.getElementById('eventDate').min = today.toISOString().split('T')[0];
+    // Set minimum date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('eventDate').min = tomorrow.toISOString().split('T')[0];
   </script>
 </body>
 </html>
