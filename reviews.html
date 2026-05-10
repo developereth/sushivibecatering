@@ -8,350 +8,52 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Additional styles for reviews page */
-    .reviews-page-section {
-      padding: 4rem 0 5rem;
-      background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 100%);
-    }
-    
-    .reviews-page-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    
-    .reviews-page-header h2 {
-      font-size: 2.3rem;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-    }
-    
-    .reviews-page-header h2 i {
-      color: #e31b23;
-      margin-right: 10px;
-    }
-    
-    .reviews-page-header p {
-      color: #aaaaaa;
-      font-size: 1.1rem;
-    }
-    
-    .rating-summary {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3rem;
-      margin-bottom: 3rem;
-      flex-wrap: wrap;
-      background: #111111;
-      padding: 2rem;
-      border-radius: 28px;
-      border: 1px solid #2a2a2a;
-    }
-    
-    .average-rating {
-      text-align: center;
-    }
-    
-    .average-rating .avg-number {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: #e31b23;
-    }
-    
-    .average-rating .avg-stars {
-      margin: 0.5rem 0;
-    }
-    
-    .average-rating .avg-stars i {
-      color: #ffc107;
-      font-size: 1.2rem;
-    }
-    
-    .average-rating .avg-count {
-      color: #888;
-      font-size: 0.9rem;
-    }
-    
-    .rating-bars {
-      flex: 1;
-      max-width: 300px;
-    }
-    
-    .rating-bar-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-    
-    .rating-bar-item span:first-child {
-      width: 40px;
-      font-size: 0.85rem;
-      color: #ccc;
-    }
-    
-    .rating-bar-item .bar {
-      flex: 1;
-      height: 8px;
-      background: #2a2a2a;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    
-    .rating-bar-item .bar-fill {
-      height: 100%;
-      background: #ffc107;
-      border-radius: 10px;
-      width: 0%;
-      transition: width 0.3s;
-    }
-    
-    .rating-bar-item .count {
-      width: 30px;
-      font-size: 0.85rem;
-      color: #ccc;
-    }
-    
-    .reviews-grid-page {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .review-card-page {
-      background: #111111;
-      border-radius: 24px;
-      padding: 1.8rem;
-      border: 1px solid #2a2a2a;
-      transition: all 0.3s ease;
-    }
-    
-    .review-card-page:hover {
-      transform: translateY(-5px);
-      border-color: #e31b23;
-      box-shadow: 0 10px 30px rgba(227, 27, 35, 0.1);
-    }
-    
-    .review-stars-page {
-      margin-bottom: 1rem;
-    }
-    
-    .review-stars-page i {
-      color: #ffc107;
-      font-size: 1rem;
-      margin-right: 2px;
-    }
-    
-    .review-stars-page i.far {
-      color: #444;
-    }
-    
-    .review-text-page {
-      color: #e5e5e5;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.2rem;
-      font-style: italic;
-    }
-    
-    .review-author-page {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #2a2a2a;
-    }
-    
-    .review-author-page .avatar {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, #e31b23, #b8151c);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: white;
-    }
-    
-    .review-author-page .info h4 {
-      color: white;
-      font-size: 1rem;
-      margin-bottom: 0.2rem;
-    }
-    
-    .review-author-page .info p {
-      color: #e31b23;
-      font-size: 0.75rem;
-    }
-    
-    .review-date-page {
-      font-size: 0.7rem;
-      color: #666;
-      margin-left: auto;
-    }
-    
-    .review-form-container-page {
-      background: #111111;
-      border-radius: 28px;
-      padding: 2rem;
-      border: 1px solid #e31b23;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    .review-form-container-page h3 {
-      color: white;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-    
-    .review-form-container-page h3 i {
-      color: #e31b23;
-      margin-right: 8px;
-    }
-    
-    .rating-select-page {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-      flex-direction: row-reverse;
-      justify-content: center;
-    }
-    
-    .rating-select-page input {
-      display: none;
-    }
-    
-    .rating-select-page label {
-      font-size: 2rem;
-      color: #444;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    
-    .rating-select-page label:hover,
-    .rating-select-page label:hover ~ label,
-    .rating-select-page input:checked ~ label {
-      color: #ffc107;
-    }
-    
-    .review-form-container-page textarea {
-      width: 100%;
-      padding: 1rem;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 16px;
-      color: white;
-      font-family: inherit;
-      resize: vertical;
-      margin-bottom: 1rem;
-    }
-    
-    .review-form-container-page textarea:focus {
-      outline: none;
-      border-color: #e31b23;
-    }
-    
-    .review-form-container-page input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 16px;
-      color: white;
-      margin-bottom: 1rem;
-    }
-    
-    .review-form-container-page input:focus {
-      outline: none;
-      border-color: #e31b23;
-    }
-    
-    .name-email-row-page {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    
-    .btn-submit-review-page {
-      background: #e31b23;
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.2s;
-    }
-    
-    .btn-submit-review-page:hover {
-      background: #b8151c;
-      transform: translateY(-2px);
-    }
-    
-    .review-status-page {
-      margin-top: 1rem;
-      padding: 0.8rem;
-      border-radius: 12px;
-      text-align: center;
-      display: none;
-    }
-    
-    .no-reviews-page {
-      text-align: center;
-      padding: 3rem;
-      background: #111111;
-      border-radius: 24px;
-      color: #888;
-      grid-column: 1 / -1;
-    }
-    
-    @media (max-width: 768px) {
-      .reviews-grid-page {
-        grid-template-columns: 1fr;
-      }
-      .rating-summary {
-        flex-direction: column;
-        text-align: center;
-      }
-      .name-email-row-page {
-        grid-template-columns: 1fr;
-      }
-      .rating-select-page label {
-        font-size: 1.5rem;
-      }
-    }
+    .reviews-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .form-card { background: #111111; border-radius: 24px; padding: 2rem; border: 1px solid #e31b23; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e5e5e5; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; font-family: inherit; }
+    .rating-select { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-direction: row-reverse; justify-content: flex-start; }
+    .rating-select input { display: none; }
+    .rating-select label { font-size: 2rem; color: #444; cursor: pointer; transition: 0.2s; }
+    .rating-select label:hover, .rating-select label:hover ~ label, .rating-select input:checked ~ label { color: #ffc107; }
+    .btn-submit { background: linear-gradient(135deg, #e31b23, #c0151c); color: white; border: none; padding: 1rem; border-radius: 40px; font-size: 1.1rem; font-weight: 700; cursor: pointer; width: 100%; }
+    .btn-submit:disabled { opacity: 0.7; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .review-card { background: #111111; border-radius: 24px; padding: 1.5rem; border: 1px solid #2a2a2a; transition: all 0.3s ease; }
+    .review-card:hover { transform: translateY(-5px); border-color: #e31b23; }
+    .review-stars { margin-bottom: 0.8rem; }
+    .review-stars i { color: #ffc107; font-size: 0.9rem; }
+    .review-stars i.far { color: #444; }
+    .review-text { color: #e5e5e5; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; }
+    .review-author .avatar { width: 40px; height: 40px; background: linear-gradient(135deg, #e31b23, #b8151c); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1rem; color: white; }
+    .review-author .info h4 { color: white; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .review-author .info p { color: #e31b23; font-size: 0.7rem; }
+    .review-date { font-size: 0.7rem; color: #666; margin-left: auto; }
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
+    .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .no-reviews { text-align: center; padding: 2rem; color: #888; grid-column: 1 / -1; }
+    @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } .rating-select label { font-size: 1.5rem; } }
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-container">
-      <div class="logo">
-        <a href="index.html">
-          <img src="logo.png" alt="Sushi Vibe Logo" style="height: 45px; width: auto; vertical-align: middle; margin-right: 10px;">
-          <span style="display: inline-block; vertical-align: middle;">Sushi Vibe <span>Catering</span></span>
-        </a>
-      </div>
+      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="packages.html">Packages & Menu</a></li>
+          <li><a href="packages.html">Packages</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="reviews.html" class="active">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="order.html" class="order-cta">Order Now</a></li>
         </ul>
       </nav>
-      <div class="mobile-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
+      <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
     </div>
   </header>
 
@@ -363,369 +65,190 @@
       </div>
     </section>
 
-    <div class="reviews-page-section">
-      <div class="container">
-        <div class="reviews-page-header">
-          <h2><i class="fas fa-star"></i> Real Reviews, Real Experiences</h2>
-          <p>Join 50+ happy customers who loved our sushi catering</p>
-        </div>
-
-        <!-- Rating Summary -->
-        <div class="rating-summary" id="ratingSummary">
-          <div class="average-rating">
-            <div class="avg-number">4.8</div>
-            <div class="avg-stars">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-            </div>
-            <div class="avg-count">12 reviews</div>
+    <div class="reviews-container">
+      <!-- Review Form -->
+      <div class="form-card">
+        <h2 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-star"></i> Write a Review</h2>
+        
+        <form id="reviewForm">
+          <div class="rating-select" id="ratingSelect">
+            <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
           </div>
-          <div class="rating-bars">
-            <div class="rating-bar-item"><span>5 ★</span><div class="bar"><div class="bar-fill" style="width: 75%"></div></div><span class="count">9</span></div>
-            <div class="rating-bar-item"><span>4 ★</span><div class="bar"><div class="bar-fill" style="width: 17%"></div></div><span class="count">2</span></div>
-            <div class="rating-bar-item"><span>3 ★</span><div class="bar"><div class="bar-fill" style="width: 8%"></div></div><span class="count">1</span></div>
-            <div class="rating-bar-item"><span>2 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
-            <div class="rating-bar-item"><span>1 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
-          </div>
-        </div>
-
-        <!-- Reviews Grid -->
-        <div class="reviews-grid-page" id="reviewsGrid">
-          <!-- Sample Review 1 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="review-text-page">"Absolutely amazing sushi! We ordered the Celebration Feast for our daughter's birthday. Every guest was impressed. The presentation was beautiful and the fish was incredibly fresh. Will definitely order again!"</p>
-            <div class="review-author-page">
-              <div class="avatar">S</div>
-              <div class="info">
-                <h4>Selam Tesfaye</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-05-10</div>
-            </div>
-          </div>
-
-          <!-- Sample Review 2 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="review-text-page">"Best sushi catering in Addis! The Ultimate Sushi Experience was perfect for our corporate event. Professional delivery, everything on time, and the quality was outstanding. Highly recommended!"</p>
-            <div class="review-author-page">
-              <div class="avatar">M</div>
-              <div class="info">
-                <h4>Mekdes Ayalew</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-05-08</div>
-            </div>
-          </div>
-
-          <!-- Sample Review 3 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="review-text-page">"Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious and the free wasabi/ginger was a nice touch. The delivery was prompt and professional."</p>
-            <div class="review-author-page">
-              <div class="avatar">D</div>
-              <div class="info">
-                <h4>Dawit Hailu</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-05-05</div>
-            </div>
-          </div>
-
-          <!-- Sample Review 4 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="review-text-page">"We had Sushi Vibe cater our wedding and it was a huge hit! The sushi boat presentation was stunning and the guests couldn't stop talking about the fresh salmon. Thank you!"</p>
-            <div class="review-author-page">
-              <div class="avatar">H</div>
-              <div class="info">
-                <h4>Hiwot Bekele</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-05-03</div>
-            </div>
-          </div>
-
-          <!-- Sample Review 5 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="review-text-page">"The Omakase Reserve is next level! Every piece was perfectly crafted. The dragon roll and rainbow roll were our favorites. Will definitely order for our next event."</p>
-            <div class="review-author-page">
-              <div class="avatar">Y</div>
-              <div class="info">
-                <h4>Yonas Solomon</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-04-30</div>
-            </div>
-          </div>
-
-          <!-- Sample Review 6 -->
-          <div class="review-card-page">
-            <div class="review-stars-page">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-            </div>
-            <p class="review-text-page">"Very good quality sushi. The California and Dragon rolls were excellent. Only reason not 5 stars is because delivery was a bit late, but the food quality made up for it."</p>
-            <div class="review-author-page">
-              <div class="avatar">E</div>
-              <div class="info">
-                <h4>Eden Girma</h4>
-                <p>Verified Customer</p>
-              </div>
-              <div class="review-date-page">2026-04-28</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Write a Review Form -->
-        <div class="review-form-container-page">
-          <h3><i class="fas fa-pen-alt"></i> Write a Review</h3>
-          <form id="reviewForm">
-            <div class="rating-select-page" id="ratingSelect">
-              <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
-              <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
-              <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
-              <input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label>
-              <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
-            </div>
+          
+          <div class="form-group">
             <textarea rows="4" id="reviewText" placeholder="Share your experience with our sushi catering..." required></textarea>
-            <div class="name-email-row-page">
-              <input type="text" id="reviewerName" placeholder="ስምዎ (Your name) - e.g., Selam, Dawit, Hiwot" required>
-              <input type="email" id="reviewerEmail" placeholder="ኢሜይልዎ (Your email) - not published" required>
-            </div>
-            <button type="submit" class="btn-submit-review-page"><i class="fas fa-paper-plane"></i> አስተያየት ይስጡ / Submit Review</button>
-            <div id="reviewStatus" class="review-status-page"></div>
-          </form>
-        </div>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" id="reviewerName" placeholder="Your name" required>
+          </div>
+          
+          <div class="form-group">
+            <input type="email" id="reviewerEmail" placeholder="Your email (not published)" required>
+          </div>
+          
+          <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+        </form>
+      </div>
+
+      <!-- Reviews Display -->
+      <h3 style="color: white; margin-bottom: 1rem;"><i class="fas fa-comments"></i> What Our Customers Say</h3>
+      <div id="reviewsGrid" class="reviews-grid">
+        <div class="no-reviews">⭐ Loading reviews...</div>
       </div>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col">
-        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
-        <p>Authentic Japanese catering — newly opened in Addis Ababa.</p>
-        <div class="social-icons">
-          <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
-          <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Quick links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="packages.html">Packages</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="reviews.html">Reviews</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="order.html">Order</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul class="contact-info">
-          <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
-          <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
-          <li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li>
-          <li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Notes</h4>
-        <p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p>
-        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p>
-        <p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23; text-decoration: none;">Addis Power</a></p>
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering in Addis Ababa.</p></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><p>+251 927 299999<br>sushivibes@proton.me</p></div>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <div id="toast" class="toast"></div>
+
   <script>
-    // ========== REVIEWS SYSTEM FOR PUBLIC PAGE ==========
-    const REVIEWS_STORAGE_KEY = 'sushi_vibe_reviews';
+    // Review storage
+    const REVIEWS_KEY = 'sushi_vibe_reviews';
     
-    // Default Ethiopian sample reviews
-    const defaultEthiopianReviews = [
+    // Sample reviews to start with
+    const sampleReviews = [
       {
         id: 1,
         name: "Selam Tesfaye",
         rating: 5,
-        text: "Absolutely amazing sushi! We ordered the Celebration Feast for our daughter's birthday. Every guest was impressed. The presentation was beautiful and the fish was incredibly fresh. Will definitely order again!",
+        text: "Absolutely amazing sushi! The Celebration Feast was perfect for our daughter's birthday. Every guest was impressed. Will definitely order again!",
         date: "2026-05-10",
-        status: "approved"
+        approved: true
       },
       {
         id: 2,
-        name: "Mekdes Ayalew",
+        name: "Dawit Hailu",
         rating: 5,
-        text: "Best sushi catering in Addis! The Ultimate Sushi Experience was perfect for our corporate event. Professional delivery, everything on time, and the quality was outstanding. Highly recommended!",
-        date: "2026-05-08",
-        status: "approved"
+        text: "Best sushi catering in Addis! Professional delivery, everything on time, outstanding quality. Highly recommended!",
+        date: "2026-05-09",
+        approved: true
       },
       {
         id: 3,
-        name: "Dawit Hailu",
+        name: "Mekdes Ayalew",
         rating: 5,
-        text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious and the free wasabi/ginger was a nice touch. The delivery was prompt and professional.",
-        date: "2026-05-05",
-        status: "approved"
-      },
-      {
-        id: 4,
-        name: "Hiwot Bekele",
-        rating: 5,
-        text: "We had Sushi Vibe cater our wedding and it was a huge hit! The sushi boat presentation was stunning and the guests couldn't stop talking about the fresh salmon. Thank you!",
-        date: "2026-05-03",
-        status: "approved"
-      },
-      {
-        id: 5,
-        name: "Yonas Solomon",
-        rating: 5,
-        text: "The Omakase Reserve is next level! Every piece was perfectly crafted. The dragon roll and rainbow roll were our favorites. Will definitely order for our next event.",
-        date: "2026-04-30",
-        status: "approved"
-      },
-      {
-        id: 6,
-        name: "Eden Girma",
-        rating: 4,
-        text: "Very good quality sushi. The California and Dragon rolls were excellent. Only reason not 5 stars is because delivery was a bit late, but the food quality made up for it.",
-        date: "2026-04-28",
-        status: "approved"
+        text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious!",
+        date: "2026-05-08",
+        approved: true
       }
     ];
     
-    // Initialize default reviews if empty
+    // Initialize reviews
     function initReviews() {
-      const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      const stored = localStorage.getItem(REVIEWS_KEY);
       if (!stored) {
-        localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(defaultEthiopianReviews));
+        localStorage.setItem(REVIEWS_KEY, JSON.stringify(sampleReviews));
       }
     }
     
-    // Get only approved reviews
+    // Get approved reviews
     function getApprovedReviews() {
-      initReviews();
-      const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      const stored = localStorage.getItem(REVIEWS_KEY);
       if (stored) {
         const allReviews = JSON.parse(stored);
-        return allReviews.filter(review => review.status === 'approved');
+        return allReviews.filter(r => r.approved === true);
       }
       return [];
     }
     
-    // Generate star HTML
-    function generateStars(rating) {
-      let stars = '';
-      const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 !== 0;
-      
-      for (let i = 1; i <= fullStars; i++) {
-        stars += '<i class="fas fa-star"></i>';
-      }
-      if (hasHalfStar) {
-        stars += '<i class="fas fa-star-half-alt"></i>';
-      }
-      for (let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) {
-        stars += '<i class="far fa-star"></i>';
-      }
-      return stars;
-    }
-    
-    // Display reviews on page
+    // Display reviews
     function displayReviews() {
       const reviews = getApprovedReviews();
       const grid = document.getElementById('reviewsGrid');
       
-      if (!grid) return;
-      
       if (reviews.length === 0) {
-        grid.innerHTML = `
-          <div class="no-reviews-page">
-            <i class="fas fa-comment-dots" style="font-size: 3rem; color: #e31b23; margin-bottom: 1rem; display: block;"></i>
-            <h3>No reviews yet</h3>
-            <p>Be the first to leave a review!</p>
-          </div>
-        `;
+        grid.innerHTML = '<div class="no-reviews">⭐ No reviews yet. Be the first!</div>';
         return;
       }
       
       grid.innerHTML = reviews.map(review => `
-        <div class="review-card-page">
-          <div class="review-stars-page">
-            ${generateStars(review.rating)}
-          </div>
-          <p class="review-text-page">"${escapeHtml(review.text)}"</p>
-          <div class="review-author-page">
+        <div class="review-card">
+          <div class="review-stars">${generateStars(review.rating)}</div>
+          <p class="review-text">"${escapeHtml(review.text)}"</p>
+          <div class="review-author">
             <div class="avatar">${review.name.charAt(0)}</div>
             <div class="info">
               <h4>${escapeHtml(review.name)}</h4>
-              <p>ደንበኛ / Verified Customer</p>
+              <p>Verified Customer</p>
             </div>
-            <div class="review-date-page">${review.date}</div>
+            <div class="review-date">${review.date}</div>
           </div>
         </div>
       `).join('');
-      
-      updateRatingSummary(reviews);
     }
     
-    // Update rating summary
-    function updateRatingSummary(reviews) {
-      const total = reviews.length;
-      
-      if (total === 0) return;
-      
-      const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
-      const average = (sum / total).toFixed(1);
-      
-      const ratingCounts = {5:0, 4:0, 3:0, 2:0, 1:0};
-      reviews.forEach(r => {
-        const rating = Math.floor(r.rating);
-        ratingCounts[rating]++;
-      });
-      
-      // Update average display
-      const avgElement = document.querySelector('.average-rating');
-      if (avgElement) {
-        avgElement.querySelector('.avg-number').textContent = average;
-        avgElement.querySelector('.avg-stars').innerHTML = generateStars(parseFloat(average));
-        avgElement.querySelector('.avg-count').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+    function generateStars(rating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
       }
+      return stars;
+    }
+    
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 4000);
+    }
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Send email notification for new review
+    async function sendReviewNotification(review) {
+      const emailBody = `
+⭐ NEW REVIEW RECEIVED
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 REVIEWER:
+   Name: ${review.name}
+   Email: ${review.email}
+
+⭐ RATING:
+   ${review.rating} out of 5 stars
+
+📝 REVIEW:
+   "${review.text}"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+      `;
       
-      // Update rating bars
-      for (let i = 5; i >= 1; i--) {
-        const percent = total > 0 ? (ratingCounts[i] / total) * 100 : 0;
-        const barItem = document.querySelector(`.rating-bar-item:nth-child(${6-i})`);
-        if (barItem) {
-          barItem.querySelector('.bar-fill').style.width = `${percent}%`;
-          barItem.querySelector('.count').textContent = ratingCounts[i];
-        }
+      try {
+        await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            _subject: `⭐ New ${review.rating}⭐ Review from ${review.name}`,
+            message: emailBody
+          })
+        });
+      } catch(e) {
+        console.log('Email error:', e);
       }
     }
     
-    // Save new review (always pending approval)
+    // Save review
     function saveReview(review) {
-      const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
-      let allReviews = stored ? JSON.parse(stored) : [];
+      const stored = localStorage.getItem(REVIEWS_KEY);
+      const allReviews = stored ? JSON.parse(stored) : [];
       
       const newReview = {
         id: Date.now(),
@@ -734,134 +257,71 @@
         rating: review.rating,
         text: review.text,
         date: new Date().toISOString().split('T')[0],
-        status: 'pending'
+        approved: true  // Auto-approve for now (you can change to false for moderation)
       };
       
       allReviews.unshift(newReview);
-      localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(allReviews));
-      
-      sendReviewNotification(newReview);
-      
+      localStorage.setItem(REVIEWS_KEY, JSON.stringify(allReviews));
       return newReview;
     }
     
-    // Send email notification to admin
-    async function sendReviewNotification(review) {
-      try {
-        await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `⭐ New Review from ${review.name}`,
-            _template: 'table',
-            message: `
-New Review Waiting for Approval!
-
-Reviewer: ${review.name}
-Email: ${review.email}
-Rating: ${review.rating} ★
-Date: ${review.date}
-
-Review Text:
-"${review.text}"
-
----
-To approve this review, login to admin dashboard.
-            `
-          })
-        });
-      } catch(e) {
-        console.log('Email notification error:', e);
+    // Form submission
+    document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const rating = document.querySelector('input[name="rating"]:checked');
+      const text = document.getElementById('reviewText').value.trim();
+      const name = document.getElementById('reviewerName').value.trim();
+      const email = document.getElementById('reviewerEmail').value.trim();
+      
+      if (!rating) {
+        showToast('Please select a rating', true);
+        return;
       }
-    }
-    
-    // Submit review form
-    function initReviewForm() {
-      const form = document.getElementById('reviewForm');
-      if (!form) return;
+      if (!text) {
+        showToast('Please write your review', true);
+        return;
+      }
+      if (!name) {
+        showToast('Please enter your name', true);
+        return;
+      }
+      if (!email) {
+        showToast('Please enter your email', true);
+        return;
+      }
       
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const rating = document.querySelector('input[name="rating"]:checked');
-        const text = document.getElementById('reviewText').value.trim();
-        const name = document.getElementById('reviewerName').value.trim();
-        const email = document.getElementById('reviewerEmail').value.trim();
-        const status = document.getElementById('reviewStatus');
-        
-        if (!rating) {
-          showStatus('እባክዎ ደረጃ ይምረጡ / Please select a rating', 'error');
-          return;
-        }
-        
-        if (!text) {
-          showStatus('እባክዎ አስተያየትዎን ይጻፉ / Please write your review', 'error');
-          return;
-        }
-        
-        if (!name) {
-          showStatus('እባክዎ ስምዎን ያስገቡ / Please enter your name', 'error');
-          return;
-        }
-        
-        if (!email) {
-          showStatus('እባክዎ ኢሜይልዎን ያስገቡ / Please enter your email', 'error');
-          return;
-        }
-        
-        const review = {
-          name: name,
-          email: email,
-          rating: parseInt(rating.value),
-          text: text
-        };
-        
-        saveReview(review);
-        
-        form.reset();
-        showStatus('✅ አመሰግናለሁ! አስተያየትዎ ከተጣራ በኋላ ይታተማል / Thank you! Your review will be published after approval.', 'success');
-        
-        setTimeout(() => {
-          status.style.display = 'none';
-        }, 5000);
-      });
-    }
-    
-    function showStatus(message, type) {
-      const status = document.getElementById('reviewStatus');
-      status.textContent = message;
-      status.style.display = 'block';
-      status.style.backgroundColor = type === 'error' ? '#ffe6e5' : '#e6f4ea';
-      status.style.color = type === 'error' ? '#c93a3a' : '#2b6e3c';
-      status.style.border = `1px solid ${type === 'error' ? '#c93a3a' : '#2b6e3c'}`;
-      status.style.padding = '12px';
-      status.style.borderRadius = '12px';
-      status.style.marginTop = '1rem';
+      const reviewData = {
+        name: name,
+        email: email,
+        rating: parseInt(rating.value),
+        text: text
+      };
       
-      setTimeout(() => {
-        status.style.display = 'none';
-      }, 5000);
-    }
-    
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+      
+      // Save review
+      saveReview(reviewData);
+      
+      // Send email notification
+      await sendReviewNotification(reviewData);
+      
+      showToast('✅ Thank you for your review!', false);
+      document.getElementById('reviewForm').reset();
+      document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+      
+      // Refresh display
+      displayReviews();
+      
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+    });
     
     // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      initReviews();
-      displayReviews();
-      initReviewForm();
-    });
-    
-    // Listen for storage changes
-    window.addEventListener('storage', function(e) {
-      if (e.key === REVIEWS_STORAGE_KEY) {
-        displayReviews();
-      }
-    });
+    initReviews();
+    displayReviews();
   </script>
 </body>
 </html>
