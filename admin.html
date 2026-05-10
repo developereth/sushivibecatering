@@ -3,616 +3,421 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Sushi Vibe</title>
+  <title>Admin | Sushi Vibe Orders</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
-    .admin-header { background: #000000; border-bottom: 2px solid #e31b23; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-    .logo i { color: #e31b23; }
-    .stats { display: flex; gap: 2rem; }
-    .stat-card { background: #111111; padding: 0.5rem 1rem; border-radius: 12px; text-align: center; border: 1px solid #2a2a2a; }
-    .stat-number { font-size: 1.5rem; font-weight: bold; color: #e31b23; }
-    .logout-btn { background: #e31b23; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
-    .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #2a2a2a; padding-bottom: 0.5rem; }
-    .tab-btn { background: none; border: none; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 600; color: #aaaaaa; cursor: pointer; border-radius: 8px; }
-    .tab-btn:hover { color: #e31b23; }
-    .tab-btn.active { background: #e31b23; color: white; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-    .welcome-banner { background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); border: 1px solid #e31b23; border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .welcome-text h2 { color: white; margin-bottom: 0.25rem; }
-    .refresh-btn { background: #1a1a1a; border: 1px solid #e31b23; color: #e31b23; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
-    .filters { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: center; }
-    .filter-btn { background: #1a1a1a; border: 1px solid #2a2a2a; padding: 0.5rem 1.2rem; border-radius: 40px; cursor: pointer; color: #e5e5e5; }
-    .filter-btn.active { background: #e31b23; border-color: #e31b23; color: white; }
-    .approve-all-btn { background: #28a745; color: white; border: none; padding: 0.5rem 1.2rem; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-    .search-box { flex: 1; min-width: 200px; }
-    .search-box input { width: 100%; padding: 0.5rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 40px; color: white; }
-    .export-btn { background: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
-    .orders-table-container { overflow-x: auto; border-radius: 16px; border: 1px solid #2a2a2a; }
-    table { width: 100%; border-collapse: collapse; background: #111111; }
-    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #2a2a2a; }
-    th { background: #1a1a1a; color: #e31b23; }
-    tr:hover { background: #1a1a1a; }
-    .status-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 40px; font-size: 0.75rem; font-weight: 600; }
-    .status-pending { background: #856404; color: #fff3cd; }
-    .status-confirmed { background: #0c5460; color: #d1ecf1; }
-    .status-completed { background: #155724; color: #d4edda; }
-    .status-cancelled { background: #721c24; color: #f8d7da; }
-    .action-btn { background: none; border: none; cursor: pointer; margin: 0 0.25rem; font-size: 1rem; padding: 0.25rem 0.5rem; border-radius: 6px; }
-    .action-view { color: #17a2b8; }
-    .action-edit { color: #ffc107; }
-    .action-delete { color: #dc3545; }
-    .action-approve { color: #28a745; }
-    .reviews-grid-admin { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-    .review-card-admin { background: #111111; border-radius: 20px; padding: 1.5rem; border: 1px solid #2a2a2a; }
-    .review-card-admin:hover { border-color: #e31b23; }
-    .review-header-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .review-stars-admin i { color: #ffc107; }
-    .review-status-badge { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 20px; }
-    .status-approved { background: #28a745; color: white; }
-    .status-pending-review { background: #856404; color: #fff3cd; }
-    .review-text-admin { color: #cccccc; line-height: 1.6; margin: 1rem 0; font-style: italic; }
-    .reviewer-info-admin { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; }
-    .reviewer-name { font-weight: 600; color: #e31b23; }
-    .review-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
-    .review-action-btn { flex: 1; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; text-align: center; }
-    .review-action-approve { background: #28a745; color: white; border: none; }
-    .review-action-delete { background: #dc3545; color: white; border: none; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: #111111; border: 1px solid #e31b23; border-radius: 24px; padding: 2rem; max-width: 550px; width: 90%; max-height: 80vh; overflow-y: auto; }
-    .close-modal { float: right; font-size: 1.5rem; cursor: pointer; color: #e31b23; }
-    .empty-state { text-align: center; padding: 3rem; color: #888; }
-    .toast-notification { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; z-index: 2000; display: none; }
-    .admin-footer { background: #000000; border-top: 1px solid #2a2a2a; padding: 1.5rem; text-align: center; margin-top: 2rem; }
-    @media (max-width: 768px) { .reviews-grid-admin { grid-template-columns: 1fr; } }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+    }
+    
+    .admin-header {
+      background: #000000;
+      border-bottom: 2px solid #e31b23;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      color: #e31b23;
+    }
+    
+    .stats {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .stat-card {
+      background: #111111;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #2a2a2a;
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e31b23;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .welcome-banner {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      border: 1px solid #e31b23;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .refresh-btn {
+      background: #1a1a1a;
+      border: 1px solid #e31b23;
+      color: #e31b23;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .refresh-btn:hover {
+      background: #e31b23;
+      color: white;
+    }
+    
+    .orders-table-container {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #111111;
+    }
+    
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    
+    th {
+      background: #1a1a1a;
+      color: #e31b23;
+      font-weight: 600;
+    }
+    
+    tr:hover {
+      background: #1a1a1a;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .status-pending {
+      background: #856404;
+      color: #fff3cd;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+    }
+    
+    .loading-spinner {
+      text-align: center;
+      padding: 2rem;
+      color: #e31b23;
+    }
+    
+    .admin-footer {
+      background: #000000;
+      border-top: 1px solid #2a2a2a;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    /* Simple login overlay */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .login-box {
+      background: #111111;
+      padding: 2rem;
+      border-radius: 28px;
+      border: 1px solid #e31b23;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .login-box input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      color: white;
+    }
+    
+    .login-box button {
+      width: 100%;
+      background: #e31b23;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .login-error {
+      color: #dc3545;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      th, td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="loginOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;z-index:2000;display:flex;align-items:center;justify-content:center;">
-    <div style="background:#111111;padding:2rem;border-radius:28px;border:1px solid #e31b23;max-width:400px;width:90%">
-      <h2 style="text-align:center;margin-bottom:1.5rem;color:white"><i class="fas fa-user-shield"></i> Admin Login</h2>
-      <input type="email" id="adminEmail" placeholder="admin@example.com" style="width:100%;padding:0.8rem;margin-bottom:1rem;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:white">
-      <input type="password" id="adminPassword" placeholder="Password" style="width:100%;padding:0.8rem;margin-bottom:1rem;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:white">
-      <button onclick="login()" style="width:100%;background:#e31b23;color:white;border:none;padding:0.8rem;border-radius:12px;cursor:pointer;font-weight:600"><i class="fas fa-sign-in-alt"></i> Login</button>
-      <div id="loginError" style="color:#dc3545;text-align:center;margin-top:1rem;display:none"></div>
-    </div>
-  </div>
 
-  <div id="adminContent" style="display:none">
-    <div class="admin-header">
-      <div class="logo"><i class="fas fa-fish"></i><span>Sushi Vibe | Admin Dashboard</span></div>
-      <div class="stats">
-        <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Orders</div></div>
-        <div class="stat-card"><div class="stat-number" id="pendingOrders">0</div><div>Pending</div></div>
-        <div class="stat-card"><div class="stat-number" id="pendingReviews">0</div><div>Reviews</div></div>
-      </div>
-      <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+<!-- Simple Login -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-box">
+    <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+    <input type="password" id="adminPassword" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+<!-- Admin Content -->
+<div id="adminContent" style="display: none;">
+  <div class="admin-header">
+    <div class="logo">
+      <i class="fas fa-fish"></i>
+      <span>Sushi Vibe | Order Admin</span>
     </div>
-    
-    <div class="container">
-      <div class="welcome-banner">
-        <div class="welcome-text"><h2><i class="fas fa-chart-line" style="color:#e31b23"></i> Welcome, Admin</h2><p>Manage orders & approve reviews in real-time</p></div>
-        <button class="refresh-btn" onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Refresh</button>
-      </div>
-      
-      <div class="admin-tabs">
-        <button class="tab-btn active" onclick="switchTab('orders')"><i class="fas fa-shopping-cart"></i> Orders</button>
-        <button class="tab-btn" onclick="switchTab('reviews')"><i class="fas fa-star"></i> Reviews</button>
-      </div>
-      
-      <div id="ordersTab" class="tab-content active">
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all" onclick="filterOrders('all', this)">All</button>
-          <button class="filter-btn" data-filter="pending" onclick="filterOrders('pending', this)">Pending</button>
-          <button class="filter-btn" data-filter="confirmed" onclick="filterOrders('confirmed', this)">Confirmed</button>
-          <button class="filter-btn" data-filter="completed" onclick="filterOrders('completed', this)">Completed</button>
-          <button class="filter-btn" data-filter="cancelled" onclick="filterOrders('cancelled', this)">Cancelled</button>
-          <button class="approve-all-btn" onclick="approveAllPending()"><i class="fas fa-check-double"></i> Approve All Pending</button>
-          <div class="search-box"><input type="text" id="searchInput" placeholder="🔍 Search by name or phone..."></div>
-          <button class="export-btn" onclick="exportOrdersCSV()"><i class="fas fa-download"></i> Export CSV</button>
-        </div>
-        <div class="orders-table-container">
-          <table>
-            <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Event Date</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="ordersTableBody"><tr><td colspan="8" style="text-align:center;padding:2rem"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-      
-      <div id="reviewsTab" class="tab-content">
-        <div class="filters">
-          <button class="filter-btn active" data-review-filter="all" onclick="filterReviews('all', this)">All</button>
-          <button class="filter-btn" data-review-filter="pending" onclick="filterReviews('pending', this)">Pending</button>
-          <button class="filter-btn" data-review-filter="approved" onclick="filterReviews('approved', this)">Approved</button>
-          <div class="search-box"><input type="text" id="reviewSearch" placeholder="🔍 Search by name..."></div>
-          <button class="export-btn" onclick="exportReviewsCSV()"><i class="fas fa-download"></i> Export CSV</button>
-        </div>
-        <div id="reviewsContainer" class="reviews-grid-admin"><div style="text-align:center;padding:2rem"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div></div>
-      </div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Total Orders</div></div>
     </div>
-    
-    <div class="admin-footer"><p>&copy; 2026 Sushi Vibe Catering — All Rights Reserved.</p></div>
+    <button class="refresh-btn" onclick="loadOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
   </div>
   
-  <div id="toast" class="toast-notification"></div>
-  <div id="orderModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal" onclick="closeModal()">&times;</span>
-      <h3><i class="fas fa-receipt"></i> Order Details</h3>
-      <div id="modalContent"></div>
+  <div class="container">
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2><i class="fas fa-chart-line" style="color: #e31b23;"></i> Order Management</h2>
+        <p>View all customer orders from Google Sheets</p>
+      </div>
+      <a href="index.html" class="refresh-btn" style="text-decoration: none;"><i class="fas fa-home"></i> Back to Site</a>
+    </div>
+    
+    <div class="orders-table-container">
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Package</th>
+            <th>Price</th>
+            <th>Guests</th>
+            <th>Event Date</th>
+            <th>Delivery</th>
+            <th>Address</th>
+            <th>Allergies</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+          <tr><td colspan="12" class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>
+        </tbody>
+      梳
     </div>
   </div>
+  
+  <div class="admin-footer">
+    <p>&copy; 2026 Sushi Vibe Catering — All Rights Reserved.</p>
+  </div>
+</div>
 
-  <script src="js/firebase-config.js"></script>
-  <script>
-    let currentOrders = [];
-    let currentReviews = [];
-    let currentOrderFilter = 'all';
-    let currentReviewFilter = 'all';
-    let currentSearch = '';
-    let currentReviewSearch = '';
+<script>
+  // Admin password - CHANGE THIS
+  const ADMIN_PASSWORD = "SushiVibe2025";
+  
+  // REPLACE THIS WITH YOUR GOOGLE SHEETS CSV LINK
+  // Get it from: File → Share → Publish to web → CSV format
+  const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/1gOyZBCRDlQSDG3vdPT51H5OL_mWqpW-OB4jbjrIx3kA/export?format=csv";
+  
+  function login() {
+    const password = document.getElementById('adminPassword').value;
+    const errorDiv = document.getElementById('loginError');
     
-    // Toast notification
-    function showToast(message, isError = false) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
-      toast.style.display = 'block';
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3000);
-    }
-    
-    // Login function
-    async function login() {
-      const email = document.getElementById('adminEmail').value;
-      const password = document.getElementById('adminPassword').value;
-      const errorDiv = document.getElementById('loginError');
-      
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('adminContent').style.display = 'block';
-        refreshAll();
-        showToast('✅ Login successful!');
-      } catch(error) {
-        errorDiv.textContent = '❌ ' + error.message;
-        errorDiv.style.display = 'block';
-        setTimeout(() => errorDiv.style.display = 'none', 3000);
-      }
-    }
-    
-    // Logout function
-    async function logout() {
-      await auth.signOut();
-      location.reload();
-    }
-    
-    // Check auth state
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('adminContent').style.display = 'block';
-        refreshAll();
-      }
-    });
-    
-    // Refresh all data
-    function refreshAll() {
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('adminLoggedIn', 'true');
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('adminContent').style.display = 'block';
       loadOrders();
-      loadReviews();
-      showToast('🔄 Data refreshed!');
+    } else {
+      errorDiv.textContent = '❌ Incorrect password';
+      errorDiv.style.display = 'block';
+      setTimeout(() => errorDiv.style.display = 'none', 3000);
     }
-    
-    // Load orders from Firebase
-    async function loadOrders() {
-      try {
-        const snapshot = await db.collection('orders').orderBy('order_date', 'desc').get();
-        currentOrders = [];
-        snapshot.forEach(doc => {
-          currentOrders.push({ id: doc.id, ...doc.data() });
-        });
-        updateStats();
-        filterOrdersDisplay();
-      } catch(error) {
-        console.error('Error loading orders:', error);
-        showToast('Error loading orders', true);
-      }
+  }
+  
+  function checkAuth() {
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('adminContent').style.display = 'block';
+      loadOrders();
     }
+  }
+  
+  async function loadOrders() {
+    const tbody = document.getElementById('ordersTableBody');
+    tbody.innerHTML = '<tr><td colspan="12" class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>';
     
-    // Load reviews from Firebase
-    async function loadReviews() {
-      try {
-        const snapshot = await db.collection('reviews').orderBy('date', 'desc').get();
-        currentReviews = [];
-        snapshot.forEach(doc => {
-          currentReviews.push({ id: doc.id, ...doc.data() });
-        });
-        updateStats();
-        filterReviewsDisplay();
-      } catch(error) {
-        console.error('Error loading reviews:', error);
-        showToast('Error loading reviews', true);
-      }
+    try {
+      const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+      const csvText = await response.text();
+      const orders = parseCSV(csvText);
+      displayOrders(orders);
+      document.getElementById('totalOrders').textContent = orders.length;
+    } catch (error) {
+      console.error('Error loading orders:', error);
+      tbody.innerHTML = '<tr><td colspan="12" class="empty-state">⚠️ Unable to load orders. Please check that your Google Sheet is published.</td></tr>';
     }
+  }
+  
+  function parseCSV(csv) {
+    const lines = csv.trim().split('\n');
+    if (lines.length < 2) return [];
     
-    // Update statistics
-    function updateStats() {
-      document.getElementById('totalOrders').textContent = currentOrders.length;
-      document.getElementById('pendingOrders').textContent = currentOrders.filter(o => o.status === 'pending').length;
-      document.getElementById('pendingReviews').textContent = currentReviews.filter(r => r.status === 'pending').length;
-    }
+    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+    const orders = [];
     
-    // Switch between tabs
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    for (let i = 1; i < lines.length; i++) {
+      const values = parseCSVLine(lines[i]);
+      const order = {};
+      headers.forEach((header, index) => {
+        order[header] = values[index] ? values[index].replace(/^"|"$/g, '').trim() : '';
+      });
       
-      if (tab === 'orders') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        document.getElementById('ordersTab').classList.add('active');
-        filterOrdersDisplay();
+      orders.push({
+        timestamp: order.Timestamp || '',
+        order_id: order['Order ID'] || 'N/A',
+        full_name: order['Full Name'] || order['full_name'] || '',
+        phone: order['Phone Number'] || order['phone'] || '',
+        email: order['Email'] || '',
+        package: order['Select Package'] || order['package'] || '',
+        price: order['Price'] || order['package_price'] || '',
+        guests: order['Number of Guests'] || order['guests'] || '',
+        event_date: order['Event Date'] || '',
+        delivery_type: order['Delivery or Pickup'] || '',
+        address: order['Delivery Address'] || '',
+        allergies: order['Allergies/Dietary Notes'] || ''
+      });
+    }
+    return orders;
+  }
+  
+  function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        result.push(current);
+        current = '';
       } else {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        document.getElementById('reviewsTab').classList.add('active');
-        filterReviewsDisplay();
+        current += char;
       }
     }
+    result.push(current);
+    return result;
+  }
+  
+  function displayOrders(orders) {
+    const tbody = document.getElementById('ordersTableBody');
     
-    // Filter orders
-    function filterOrders(filter, btnElement) {
-      currentOrderFilter = filter;
-      document.querySelectorAll('#ordersTab .filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      if (btnElement) btnElement.classList.add('active');
-      filterOrdersDisplay();
+    if (orders.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="12" class="empty-state">📭 No orders found</td></tr>';
+      return;
     }
     
-    function filterOrdersDisplay() {
-      let filtered = [...currentOrders];
-      
-      if (currentOrderFilter !== 'all') {
-        filtered = filtered.filter(o => o.status === currentOrderFilter);
-      }
-      
-      if (currentSearch) {
-        const searchLower = currentSearch.toLowerCase();
-        filtered = filtered.filter(o => 
-          (o.full_name && o.full_name.toLowerCase().includes(searchLower)) ||
-          (o.phone && o.phone.includes(searchLower)) ||
-          (o.order_id && o.order_id.toLowerCase().includes(searchLower))
-        );
-      }
-      
-      displayOrdersTable(filtered);
-    }
-    
-    // Display orders in table
-    function displayOrdersTable(orders) {
-      const tbody = document.getElementById('ordersTableBody');
-      
-      if (orders.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">📭 No orders found</td></tr>';
-        return;
-      }
-      
-      tbody.innerHTML = orders.map(order => `
-        <tr>
-          <td><strong>${escapeHtml(order.order_id || 'N/A')}</strong></td>
-          <td>${order.order_date ? new Date(order.order_date).toLocaleDateString() : 'N/A'}</td>
-          <td>${escapeHtml(order.full_name || 'N/A')}</td>
-          <td>${order.phone || 'N/A'}</td>
-          <td>${order.package ? (order.package.substring(0, 25) + (order.package.length > 25 ? '...' : '')) : 'N/A'}</td>
-          <td>${order.event_date || 'N/A'}</td>
-          <td><span class="status-badge status-${order.status || 'pending'}">${(order.status || 'pending').toUpperCase()}</span></td>
-          <td>
-            <button class="action-btn action-view" onclick="viewOrder('${order.id}')" title="View Details"><i class="fas fa-eye"></i></button>
-            <button class="action-btn action-edit" onclick="editOrder('${order.id}')" title="Edit Status"><i class="fas fa-pencil-alt"></i></button>
-            ${order.status === 'pending' ? `<button class="action-btn action-approve" onclick="approveOrder('${order.id}')" title="Approve"><i class="fas fa-check-circle"></i></button>` : ''}
-            <button class="action-btn action-delete" onclick="deleteOrder('${order.id}')" title="Delete"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>
-      `).join('');
-    }
-    
-    // View order details
-    function viewOrder(orderId) {
-      const order = currentOrders.find(o => o.id === orderId);
-      if (!order) return;
-      
-      const modalContent = document.getElementById('modalContent');
-      modalContent.innerHTML = `
-        <div style="margin-bottom:0.75rem"><strong>Order ID:</strong> ${order.order_id}</div>
-        <div style="margin-bottom:0.75rem"><strong>Order Date:</strong> ${order.order_date ? new Date(order.order_date).toLocaleString() : 'N/A'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Customer:</strong> ${escapeHtml(order.full_name)}</div>
-        <div style="margin-bottom:0.75rem"><strong>Phone:</strong> ${order.phone}</div>
-        <div style="margin-bottom:0.75rem"><strong>Email:</strong> ${order.email || 'N/A'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Package:</strong> ${order.package}</div>
-        <div style="margin-bottom:0.75rem"><strong>Price:</strong> ${parseInt(order.package_price).toLocaleString()} ETB</div>
-        <div style="margin-bottom:0.75rem"><strong>Guests:</strong> ${order.guests}</div>
-        <div style="margin-bottom:0.75rem"><strong>Event Date:</strong> ${order.event_date} ${order.event_time ? 'at ' + order.event_time : ''}</div>
-        <div style="margin-bottom:0.75rem"><strong>Delivery Type:</strong> ${order.delivery_type || 'N/A'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Delivery Address:</strong> ${order.delivery_address || 'N/A'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Allergies:</strong> ${order.allergies || 'None'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Special Requests:</strong> ${order.special_requests || 'None'}</div>
-        <div style="margin-bottom:0.75rem"><strong>Status:</strong> <span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span></div>
-      `;
-      
-      document.getElementById('orderModal').style.display = 'flex';
-    }
-    
-    // Approve single order
-    async function approveOrder(orderId) {
-      try {
-        await db.collection('orders').doc(orderId).update({ status: 'confirmed' });
-        showToast('✅ Order confirmed!');
-        loadOrders();
-      } catch(error) {
-        showToast('Error: ' + error.message, true);
-      }
-    }
-    
-    // Approve all pending orders
-    async function approveAllPending() {
-      const pendingOrders = currentOrders.filter(o => o.status === 'pending');
-      
-      if (pendingOrders.length === 0) {
-        showToast('⚠️ No pending orders to approve', true);
-        return;
-      }
-      
-      if (confirm(`Approve ${pendingOrders.length} pending order(s)?`)) {
-        try {
-          for (const order of pendingOrders) {
-            await db.collection('orders').doc(order.id).update({ status: 'confirmed' });
-          }
-          showToast(`✅ ${pendingOrders.length} order(s) approved!`);
-          loadOrders();
-        } catch(error) {
-          showToast('Error: ' + error.message, true);
-        }
-      }
-    }
-    
-    // Edit order status
-    function editOrder(orderId) {
-      const order = currentOrders.find(o => o.id === orderId);
-      if (!order) return;
-      
-      const newStatus = prompt('Set status (pending, confirmed, completed, cancelled):', order.status);
-      if (newStatus && ['pending', 'confirmed', 'completed', 'cancelled'].includes(newStatus.toLowerCase())) {
-        updateOrderStatus(orderId, newStatus.toLowerCase());
-      } else if (newStatus) {
-        showToast('Invalid status. Use: pending, confirmed, completed, cancelled', true);
-      }
-    }
-    
-    // Update order status
-    async function updateOrderStatus(orderId, newStatus) {
-      try {
-        await db.collection('orders').doc(orderId).update({ status: newStatus });
-        showToast(`✅ Status updated to ${newStatus}`);
-        loadOrders();
-        closeModal();
-      } catch(error) {
-        showToast('Error: ' + error.message, true);
-      }
-    }
-    
-    // Delete order
-    async function deleteOrder(orderId) {
-      if (!confirm('Are you sure you want to delete this order?')) return;
-      
-      try {
-        await db.collection('orders').doc(orderId).delete();
-        showToast('🗑️ Order deleted');
-        loadOrders();
-      } catch(error) {
-        showToast('Error: ' + error.message, true);
-      }
-    }
-    
-    // Filter reviews
-    function filterReviews(filter, btnElement) {
-      currentReviewFilter = filter;
-      document.querySelectorAll('#reviewsTab .filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      if (btnElement) btnElement.classList.add('active');
-      filterReviewsDisplay();
-    }
-    
-    function filterReviewsDisplay() {
-      let filtered = [...currentReviews];
-      
-      if (currentReviewFilter !== 'all') {
-        filtered = filtered.filter(r => r.status === currentReviewFilter);
-      }
-      
-      if (currentReviewSearch) {
-        const searchLower = currentReviewSearch.toLowerCase();
-        filtered = filtered.filter(r => r.name && r.name.toLowerCase().includes(searchLower));
-      }
-      
-      displayReviews(filtered);
-    }
-    
-    // Generate star rating
-    function generateStars(rating) {
-      let stars = '';
-      const numRating = parseInt(rating);
-      for (let i = 1; i <= 5; i++) {
-        stars += i <= numRating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-      }
-      return stars;
-    }
-    
-    // Display reviews
-    function displayReviews(reviews) {
-      const container = document.getElementById('reviewsContainer');
-      
-      if (reviews.length === 0) {
-        container.innerHTML = '<div class="empty-state">📭 No reviews found</div>';
-        return;
-      }
-      
-      container.innerHTML = reviews.map(review => `
-        <div class="review-card-admin">
-          <div class="review-header-admin">
-            <div class="review-stars-admin">${generateStars(review.rating)}</div>
-            <span class="review-status-badge ${review.status === 'approved' ? 'status-approved' : 'status-pending-review'}">
-              ${review.status === 'approved' ? '✓ Approved' : '⏳ Pending'}
-            </span>
-          </div>
-          <p class="review-text-admin">"${escapeHtml(review.text)}"</p>
-          <div class="reviewer-info-admin">
-            <span class="reviewer-name">${escapeHtml(review.name)}</span>
-            <span class="review-date">${review.date || 'Unknown date'}</span>
-          </div>
-          <div class="review-actions">
-            ${review.status === 'pending' ? 
-              `<button class="review-action-btn review-action-approve" onclick="approveReview('${review.id}')"><i class="fas fa-check-circle"></i> Approve</button>` : 
-              `<button class="review-action-btn review-action-approve" style="background:#28a745;opacity:0.6" disabled><i class="fas fa-check-circle"></i> Approved</button>`
-            }
-            <button class="review-action-btn review-action-delete" onclick="deleteReview('${review.id}')"><i class="fas fa-trash"></i> Delete</button>
-          </div>
-        </div>
-      `).join('');
-    }
-    
-    // Approve review
-    async function approveReview(reviewId) {
-      try {
-        await db.collection('reviews').doc(reviewId).update({ status: 'approved' });
-        showToast('✅ Review approved and published!');
-        loadReviews();
-      } catch(error) {
-        showToast('Error: ' + error.message, true);
-      }
-    }
-    
-    // Delete review
-    async function deleteReview(reviewId) {
-      if (!confirm('Are you sure you want to delete this review?')) return;
-      
-      try {
-        await db.collection('reviews').doc(reviewId).delete();
-        showToast('🗑️ Review deleted');
-        loadReviews();
-      } catch(error) {
-        showToast('Error: ' + error.message, true);
-      }
-    }
-    
-    // Export orders to CSV
-    function exportOrdersCSV() {
-      let data = [...currentOrders];
-      
-      if (currentOrderFilter !== 'all') {
-        data = data.filter(o => o.status === currentOrderFilter);
-      }
-      
-      if (currentSearch) {
-        const searchLower = currentSearch.toLowerCase();
-        data = data.filter(o => 
-          (o.full_name && o.full_name.toLowerCase().includes(searchLower)) ||
-          (o.phone && o.phone.includes(searchLower))
-        );
-      }
-      
-      if (data.length === 0) {
-        alert('No orders to export');
-        return;
-      }
-      
-      const headers = ['Order ID', 'Date', 'Customer', 'Phone', 'Email', 'Package', 'Price', 'Guests', 'Event Date', 'Status'];
-      const rows = data.map(o => [
-        o.order_id || '',
-        o.order_date ? new Date(o.order_date).toLocaleString() : '',
-        o.full_name || '',
-        o.phone || '',
-        o.email || '',
-        o.package || '',
-        o.package_price || '',
-        o.guests || '',
-        o.event_date || '',
-        o.status || ''
-      ]);
-      
-      const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-      downloadCSV(csvContent, `orders-${new Date().toISOString().split('T')[0]}.csv`);
-    }
-    
-    // Export reviews to CSV
-    function exportReviewsCSV() {
-      let data = [...currentReviews];
-      
-      if (currentReviewFilter !== 'all') {
-        data = data.filter(r => r.status === currentReviewFilter);
-      }
-      
-      if (data.length === 0) {
-        alert('No reviews to export');
-        return;
-      }
-      
-      const headers = ['Name', 'Email', 'Rating', 'Review', 'Date', 'Status'];
-      const rows = data.map(r => [
-        r.name || '',
-        r.email || '',
-        r.rating || '',
-        r.text || '',
-        r.date || '',
-        r.status || ''
-      ]);
-      
-      const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-      downloadCSV(csvContent, `reviews-${new Date().toISOString().split('T')[0]}.csv`);
-    }
-    
-    // Download CSV helper
-    function downloadCSV(csv, filename) {
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-    
-    // Close modal
-    function closeModal() {
-      document.getElementById('orderModal').style.display = 'none';
-    }
-    
-    // Escape HTML
-    function escapeHtml(text) {
-      if (!text) return '';
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-    
-    // Search functionality
-    document.getElementById('searchInput')?.addEventListener('input', (e) => {
-      currentSearch = e.target.value;
-      filterOrdersDisplay();
-    });
-    
-    document.getElementById('reviewSearch')?.addEventListener('input', (e) => {
-      currentReviewSearch = e.target.value;
-      filterReviewsDisplay();
-    });
-  </script>
+    tbody.innerHTML = orders.map(order => `
+      <tr>
+        <td>${escapeHtml(order.timestamp.substring(0, 16) || 'N/A')}</td>
+        <td><strong>${escapeHtml(order.order_id)}</strong></td>
+        <td>${escapeHtml(order.full_name)}</td>
+        <td>${escapeHtml(order.phone)}</td>
+        <td>${escapeHtml(order.email)}</td>
+        <td>${escapeHtml(order.package ? order.package.substring(0, 25) : 'N/A')}</td>
+        <td>${escapeHtml(order.price)} ETB</td>
+        <td>${escapeHtml(order.guests)}</td>
+        <td>${escapeHtml(order.event_date)}</td>
+        <td><span class="status-badge status-pending">${escapeHtml(order.delivery_type)}</span></td>
+        <td>${escapeHtml(order.address ? order.address.substring(0, 25) : 'N/A')}</td>
+        <td>${escapeHtml(order.allergies ? order.allergies.substring(0, 20) : 'None')}</td>
+      </tr>
+    `).join('');
+  }
+  
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  checkAuth();
+</script>
 </body>
 </html>
