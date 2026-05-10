@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Sushi Vibe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
+    .admin-header { background: #000000; border-bottom: 2px solid #e31b23; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+    .logo i { color: #e31b23; }
+    .stats { display: flex; gap: 2rem; }
+    .stat-card { background: #111111; padding: 0.5rem 1rem; border-radius: 12px; text-align: center; border: 1px solid #2a2a2a; }
+    .stat-number { font-size: 1.5rem; font-weight: bold; color: #e31b23; }
+    .logout-btn { background: #e31b23; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .search-box { margin-bottom: 1rem; }
+    .search-box input { width: 100%; max-width: 300px; padding: 0.5rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 40px; color: white; }
+    .orders-table { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: #111111; border-radius: 16px; }
+    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #2a2a2a; }
+    th { background: #1a1a1a; color: #e31b23; }
+    tr:hover { background: #1a1a1a; }
+    .status { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 40px; font-size: 0.75rem; }
+    .status-pending { background: #856404; color: #fff3cd; }
+    .status-confirmed { background: #0c5460; color: #d1ecf1; }
+    .status-completed { background: #155724; color: #d4edda; }
+    .status-cancelled { background: #721c24; color: #f8d7da; }
+    .refresh-btn { background: #1a1a1a; border: 1px solid #e31b23; color: #e31b23; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    @media (max-width: 768px) { th, td { padding: 0.5rem; font-size: 0.8rem; } .stats { gap: 1rem; } }
+  </style>
+</head>
+<body>
+
+<div id="adminContent">
+  <div class="admin-header">
+    <div class="logo"><i class="fas fa-fish"></i> Sushi Vibe | Orders</div>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Total Orders</div></div>
+      <div class="stat-card"><div class="stat-number" id="pendingOrders">0</div><div>Pending</div></div>
+    </div>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 Search by name, phone, or order ID...">
+    </div>
+    <div class="orders-table">
+      <table id="ordersTable">
+        <thead>
+          <tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Price</th><th>Event Date</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="ordersBody"><tr><td colspan="9" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
+  const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+  let allOrders = [];
+  let currentSearch = '';
+
+  function checkAuth() {
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+      window.location.href = 'admin-login.html';
+      return false;
+    }
+    return true;
+  }
+
+  function logout() {
+    sessionStorage.removeItem('adminLoggedIn');
+    sessionStorage.removeItem('adminLoginTime');
+    window.location.href = 'admin-login.html';
+  }
+
+  async function loadOrders() {
+    const tbody = document.getElementById('ordersBody');
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...</td></tr>';
+    
+    try {
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      
+      allOrders = data || [];
+      updateStats();
+      displayOrders();
+      
+    } catch(error) {
+      console.error(error);
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;">❌ Error loading orders</td></tr>';
+    }
+  }
+
+  function updateStats() {
+    document.getElementById('totalOrders').textContent = allOrders.length;
+    const pending = allOrders.filter(o => o.status === 'pending').length;
+    document.getElementById('pendingOrders').textContent = pending;
+  }
+
+  function displayOrders() {
+    const tbody = document.getElementById('ordersBody');
+    let filtered = allOrders;
+    
+    if (currentSearch) {
+      const search = currentSearch.toLowerCase();
+      filtered = allOrders.filter(o => 
+        (o.full_name && o.full_name.toLowerCase().includes(search)) ||
+        (o.phone && o.phone.includes(search)) ||
+        (o.order_id && o.order_id.toLowerCase().includes(search))
+      );
+    }
+    
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:2rem;">📭 No orders found</td></tr>';
+      return;
+    }
+    
+    tbody.innerHTML = filtered.map(order => `
+      <tr>
+        <td><strong>${escapeHtml(order.order_id)}</strong></td>
+        <td>${new Date(order.created_at).toLocaleDateString()}</td>
+        <td>${escapeHtml(order.full_name)}</td>
+        <td>${order.phone}</td>
+        <td>${order.package}</td>
+        <td>${order.price.toLocaleString()} ETB</td>
+        <td>${order.event_date}</td>
+        <td><span class="status status-${order.status}">${order.status.toUpperCase()}</span></td>
+        <td>
+          <button onclick="updateStatus('${order.id}', 'confirmed')" style="background:#28a745; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; margin-right:5px;">✅ Confirm</button>
+          <button onclick="updateStatus('${order.id}', 'cancelled')" style="background:#dc3545; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">❌ Cancel</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  async function updateStatus(orderId, newStatus) {
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+      
+      if (error) throw error;
+      loadOrders();
+    } catch(error) {
+      alert('Error updating status');
+    }
+  }
+
+  document.getElementById('searchInput')?.addEventListener('input', (e) => {
+    currentSearch = e.target.value;
+    displayOrders();
+  });
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  if (checkAuth()) {
+    loadOrders();
+  }
+</script>
+</body>
+</html>
