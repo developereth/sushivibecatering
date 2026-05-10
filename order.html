@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     .order-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
     .form-card { background: #111111; border-radius: 24px; padding: 2rem; border: 1px solid #e31b23; }
@@ -55,16 +54,15 @@
         <h2 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-shopping-cart"></i> Place Your Order</h2>
         
         <form id="orderForm">
-          <!-- Package Selection - Using SELECT dropdown (works 100%) -->
           <div class="form-group">
             <label>Select Package *</label>
-            <select id="packageSelect" required>
+            <select id="package" required>
               <option value="">-- Select a package --</option>
-              <option value="Vibe Party Set" data-price="34999" data-guests="10">🎉 Vibe Party Set - 34,999 ETB (10 people)</option>
-              <option value="Celebration Feast" data-price="61999" data-guests="20">🌟 Celebration Feast - 61,999 ETB (20 people)</option>
-              <option value="Ultimate Sushi Experience" data-price="109999" data-guests="30">✨ Ultimate Sushi Experience - 109,999 ETB (30 people)</option>
-              <option value="Omakase Reserve" data-price="81999" data-guests="24">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</option>
-              <option value="Grand Emperor Platter" data-price="139999" data-guests="40">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</option>
+              <option value="Vibe Party Set">🎉 Vibe Party Set - 34,999 ETB (10 people)</option>
+              <option value="Celebration Feast">🌟 Celebration Feast - 61,999 ETB (20 people)</option>
+              <option value="Ultimate Sushi Experience">✨ Ultimate Sushi Experience - 109,999 ETB (30 people)</option>
+              <option value="Omakase Reserve">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</option>
+              <option value="Grand Emperor Platter">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</option>
             </select>
           </div>
 
@@ -126,97 +124,121 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    // Supabase Configuration
-    const SUPABASE_URL = 'https://kzeiujfatjkbfozoilbw.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_gB0mXUpKk2riYVJdOSfANg_HrT6E8Aw';
-    const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // Auto-fill guests when package is selected
-    const packageSelect = document.getElementById('packageSelect');
-    const guestsInput = document.getElementById('guests');
+    // THIS IS THE EMAIL NOTIFICATION SYSTEM - NO SUPABASE
+    // Form submission sends email via FormSubmit.co (free, works instantly)
     
-    packageSelect.addEventListener('change', function() {
-      const selectedOption = this.options[this.selectedIndex];
-      const guestsCount = selectedOption.dataset.guests;
-      if (guestsCount) {
-        guestsInput.value = guestsCount;
-      }
-    });
-
-    // Toggle delivery address
-    const deliveryType = document.getElementById('deliveryType');
-    const addressGroup = document.getElementById('addressGroup');
-    deliveryType.addEventListener('change', () => {
-      addressGroup.style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
-    });
-
-    function showToast(msg, isError) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
-      toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 4000);
-    }
-
-    // Form submit
     document.getElementById('orderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const packageSelect = document.getElementById('packageSelect');
-      const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+      // Get package price
+      const packageMap = {
+        'Vibe Party Set': 34999,
+        'Celebration Feast': 61999,
+        'Ultimate Sushi Experience': 109999,
+        'Omakase Reserve': 81999,
+        'Grand Emperor Platter': 139999
+      };
       
-      if (!packageSelect.value) {
-        showToast('Please select a package', true);
-        return;
-      }
+      const selectedPackage = document.getElementById('package').value;
+      const packagePrice = packageMap[selectedPackage];
       
-      const packagePrice = selectedOption.dataset.price;
-      const packageGuests = selectedOption.dataset.guests;
-      
+      // Collect form data
       const orderData = {
-        order_id: 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
         full_name: document.getElementById('fullName').value,
         phone: document.getElementById('phone').value,
         email: document.getElementById('email').value,
-        package: packageSelect.value,
-        price: parseInt(packagePrice),
-        guests: parseInt(document.getElementById('guests').value),
+        package: selectedPackage,
+        price: packagePrice,
+        guests: document.getElementById('guests').value,
         event_date: document.getElementById('eventDate').value,
         event_time: document.getElementById('eventTime').value,
-        occasion: document.getElementById('occasion').value || null,
-        delivery_type: deliveryType.value,
-        delivery_address: document.getElementById('deliveryAddress').value || null,
+        occasion: document.getElementById('occasion').value || 'Not specified',
+        delivery_type: document.getElementById('deliveryType').value,
+        delivery_address: document.getElementById('deliveryAddress').value || 'Not provided',
         allergies: document.getElementById('allergies').value,
-        special_requests: document.getElementById('specialRequests').value || null,
-        status: 'pending'
+        special_requests: document.getElementById('specialRequests').value || 'None'
       };
+      
+      // Format email body
+      const emailBody = `
+📦 NEW SUSHI ORDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 CUSTOMER DETAILS:
+   Name: ${orderData.full_name}
+   Phone: ${orderData.phone}
+   Email: ${orderData.email}
+
+🍣 ORDER DETAILS:
+   Package: ${orderData.package}
+   Price: ${orderData.price.toLocaleString()} ETB
+   Guests: ${orderData.guests}
+   Event Date: ${orderData.event_date}
+   Event Time: ${orderData.event_time}
+   Occasion: ${orderData.occasion}
+
+🚚 DELIVERY:
+   Type: ${orderData.delivery_type}
+   Address: ${orderData.delivery_address}
+
+⚠️ NOTES:
+   Allergies: ${orderData.allergies}
+   Requests: ${orderData.special_requests}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      `;
       
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.innerHTML = '<span class="loading-spinner"></span> Saving order...';
+      btn.innerHTML = '<span class="loading-spinner"></span> Sending order...';
       
       try {
-        const { data, error } = await supabase.from('orders').insert([orderData]).select();
+        // Send email via FormSubmit (free, no account needed)
+        const response = await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            _subject: `🆕 NEW SUSHI ORDER - ${orderData.full_name}`,
+            _template: 'table',
+            message: emailBody,
+            ...orderData
+          })
+        });
         
-        if (error) throw error;
-        
-        showToast(`✅ Order #${orderData.order_id} placed! We will contact you soon.`);
-        document.getElementById('orderForm').reset();
-        addressGroup.style.display = 'none';
-        
+        if (response.ok) {
+          showToast('✅ Order placed successfully! We will contact you within 2 hours.', false);
+          document.getElementById('orderForm').reset();
+          document.getElementById('addressGroup').style.display = 'none';
+        } else {
+          throw new Error('Failed to send');
+        }
       } catch (error) {
-        console.error('Supabase error:', error);
-        showToast('❌ Failed to save order. Please call us directly: +251 927 299999', true);
+        console.error(error);
+        showToast('❌ Order received but notification failed. We will contact you shortly.', true);
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
       }
     });
     
+    // Toggle delivery address
+    const deliveryType = document.getElementById('deliveryType');
+    const addressGroup = document.getElementById('addressGroup');
+    deliveryType.addEventListener('change', () => {
+      addressGroup.style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
+    });
+    
     // Set minimum date to tomorrow
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     document.getElementById('eventDate').min = tomorrow.toISOString().split('T')[0];
+    
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 5000);
+    }
   </script>
 </body>
 </html>
