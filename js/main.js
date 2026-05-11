@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (drawer) drawer.remove();
       if (overlay) overlay.remove();
       mobileSidebarCreated = false;
-      // Remove body overflow style if any
       document.body.style.overflow = '';
     }
   });
@@ -184,10 +183,7 @@ function initContactForm() {
     try {
       const response = await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           _subject: `Sushi Vibe Contact: ${formData.inquiryType} - ${formData.name}`,
           _template: 'table',
