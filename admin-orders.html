@@ -64,7 +64,7 @@
         <tbody id="ordersBody">
           <tr><td colspan="8" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...<\/td><\/tr>
         </tbody>
-      </table>
+      \d+
     </div>
   </div>
 </div>
@@ -98,6 +98,17 @@
     loadOrders();
   }
 
+  // Helper to get value from answers regardless of field name
+  function getAnswerValue(answers, possibleNames) {
+    if (!answers) return 'N/A';
+    for (const name of possibleNames) {
+      if (answers[name] && answers[name].value) {
+        return answers[name].value;
+      }
+    }
+    return 'N/A';
+  }
+
   async function loadOrders() {
     const tbody = document.getElementById('ordersBody');
     tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...<\/td><\/tr>';
@@ -111,19 +122,24 @@
       
       const data = await response.json();
       allOrders = data.submissions || [];
+      
+      // Debug: Log first order to see field names
+      if (allOrders.length > 0) {
+        console.log('First order answers:', allOrders[0].answers);
+      }
+      
       updateStats();
       displayOrders();
       
     } catch(error) {
       console.error('Error:', error);
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;">❌ Error loading orders. Please check API key.<\/td><\/tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;">❌ Error loading orders. Check console.<\/td><\/tr>';
     }
   }
 
   function updateStats() {
     document.getElementById('totalOrders').textContent = allOrders.length;
-    const pending = allOrders.length;
-    document.getElementById('pendingOrders').textContent = pending;
+    document.getElementById('pendingOrders').textContent = allOrders.length;
   }
 
   function displayOrders() {
@@ -134,8 +150,9 @@
       const search = currentSearch.toLowerCase();
       filtered = allOrders.filter(o => {
         const answers = o.answers || {};
-        return (answers.full_name?.value?.toLowerCase().includes(search)) ||
-               (answers.phone?.value?.includes(search));
+        const name = getAnswerValue(answers, ['full_name', 'name', 'Full Name', 'fullName']);
+        const phone = getAnswerValue(answers, ['phone', 'Phone', 'Phone Number']);
+        return name.toLowerCase().includes(search) || phone.includes(search);
       });
     }
     
@@ -146,17 +163,25 @@
     
     tbody.innerHTML = filtered.map(order => {
       const answers = order.answers || {};
+      
+      // Try to find values with multiple possible field names
+      const customerName = getAnswerValue(answers, ['full_name', 'name', 'Full Name', 'fullName']);
+      const phone = getAnswerValue(answers, ['phone', 'Phone', 'Phone Number']);
+      const packageName = getAnswerValue(answers, ['package', 'Package', 'select_package', 'Select Package']);
+      const price = getAnswerValue(answers, ['price', 'Price', 'package_price']);
+      const eventDate = getAnswerValue(answers, ['event_date', 'eventDate', 'Event Date']);
+      
       return `
         <tr>
-          <td><strong>${escapeHtml(order.submissionId || 'N/A')}</strong><\/td>
-          <td>${new Date(order.createdAt).toLocaleDateString()}<\/td>
-          <td>${escapeHtml(answers.full_name?.value || 'N/A')}<\/td>
-          <td>${answers.phone?.value || 'N/A'}<\/td>
-          <td>${answers.package?.value || 'N/A'}<\/td>
-          <td>${answers.price?.value || 'N/A'} ETB<\/td>
-          <td>${answers.event_date?.value || 'N/A'}<\/td>
-          <td><span class="status">PENDING</span><\/td>
-        <\/tr>
+          <td><strong>${order.submissionId || order.id || 'N/A'}</strong></td>
+          <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+          <td>${escapeHtml(customerName)}</td>
+          <td>${escapeHtml(phone)}</td>
+          <td>${escapeHtml(packageName)}</td>
+          <td>${price !== 'N/A' ? price + ' ETB' : 'N/A'}</td>
+          <td>${eventDate}</td>
+          <td><span class="status">PENDING</span></td>
+        </tr>
       `;
     }).join('');
   }
@@ -167,7 +192,7 @@
   });
 
   function escapeHtml(text) {
-    if (!text) return '';
+    if (!text) return 'N/A';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
