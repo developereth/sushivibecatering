@@ -42,18 +42,30 @@
       color: #aaaaaa;
     }
     
-    /* Circular Logo Below Button */
+    /* Circular Logo Below Button - BOLD & LARGER */
     .business-card-logo {
       text-align: center;
       margin-top: 2rem;
+      padding: 1rem;
+      background: #1a1a1a;
+      border-radius: 50%;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      width: fit-content;
     }
     .business-card-logo-img {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #e31b23;
-      box-shadow: 0 0 10px rgba(227, 27, 35, 0.3);
+      border: 4px solid #e31b23;
+      box-shadow: 0 0 20px rgba(227, 27, 35, 0.5);
+      transition: transform 0.3s;
+    }
+    .business-card-logo-img:hover {
+      transform: scale(1.05);
     }
     
     @media print {
@@ -225,7 +237,7 @@
               <i class="fas fa-download"></i> Download / Print Business Card
             </button>
             
-            <!-- Circular Logo Below Button -->
+            <!-- Circular Logo Below Button - BOLD & PROMINENT -->
             <div class="business-card-logo">
               <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="business-card-logo-img">
             </div>
@@ -237,7 +249,7 @@
         </div>
       </div>
 
-      <!-- Hidden Business Card (Only ONE - appears when printing) -->
+      <!-- Hidden Business Card (Only appears when printing) -->
       <div class="business-card-container" id="businessCard">
         <div class="business-card">
           <div class="card-header">
@@ -290,7 +302,7 @@
         </div>
       </div>
 
-      <!-- Social Media Links (UNCHANGED) -->
+      <!-- Social Media Links -->
       <div class="social-connect" style="background: #111111; border-radius: 28px; padding: 2rem; margin: 2rem 0; border: 1px solid #e31b23;">
         <h3 style="text-align: center; margin-bottom: 1.5rem; color: white;"><i class="fas fa-hashtag" style="color: #e31b23;"></i> Connect With Us</h3>
         <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
