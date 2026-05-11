@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sushi Vibe | Printable Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: white;
+      color: #333;
+      padding: 40px;
+    }
+    
+    .menu-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .menu-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid #e31b23;
+    }
+    
+    .menu-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e31b23;
+      margin-bottom: 15px;
+    }
+    
+    .menu-header h1 {
+      color: #e31b23;
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+    
+    .menu-header p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .menu-section {
+      margin-bottom: 30px;
+      page-break-inside: avoid;
+    }
+    
+    .menu-section h2 {
+      background: #e31b23;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 18px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .menu-table tr {
+      border-bottom: 1px solid #eee;
+    }
+    
+    .menu-table td {
+      padding: 10px 5px;
+    }
+    
+    .menu-table td:first-child {
+      font-weight: 600;
+    }
+    
+    .menu-table td:last-child {
+      text-align: right;
+      color: #e31b23;
+      font-weight: 700;
+    }
+    
+    .menu-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #e31b23;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .menu-footer p {
+      margin: 5px 0;
+    }
+    
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #e31b23;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .print-btn:hover {
+      background: #c0151c;
+    }
+    
+    @media print {
+      .print-btn {
+        display: none;
+      }
+      body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">
+  <i class="fas fa-print"></i> Save as PDF / Print
+</button>
+
+<div class="menu-container">
+  <div class="menu-header">
+    <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="menu-logo">
+    <h1>SUSHI VIBE</h1>
+    <p>Authentic Japanese Catering</p>
+    <p>📞 +251 927 299999 | ✉️ sushivibes@proton.me</p>
+    <p>📍 Addis Ababa, Ethiopia</p>
+  </div>
+
+  <!-- COMBO DEALS -->
+  <div class="menu-section">
+    <h2>🍱 COMBO DEALS</h2>
+    <table class="menu-table">
+      <tr><td>🍣 Salmon & Tempura Set</td><td>4,499 ETB</td></tr>
+      <tr><td>🍱 Sushi Platter</td><td>4,799 ETB</td></tr>
+      <tr><td>🍥 Starter Combo</td><td>2,299 ETB</td></tr>
+      <tr><td>🐟 Salmon Lover Set</td><td>4,699 ETB</td></tr>
+      <tr><td>🌊 Mixed Roll Platter</td><td>4,999 ETB</td></tr>
+      <tr><td>🍙 Gunkan Lover Set</td><td>3,799 ETB</td></tr>
+      <tr><td>🥑 Vegan Combo</td><td>3,499 ETB</td></tr>
+      <tr><td>🎉 Party Combo</td><td>8,699 ETB</td></tr>
+      <tr><td>✨ Premium Deluxe Platter</td><td>10,999 ETB</td></tr>
+    </table>
+  </div>
+
+  <!-- CATERING PACKAGES -->
+  <div class="menu-section">
+    <h2>🎯 PREMIUM CATERING PACKAGES</h2>
+    <table class="menu-table">
+      <tr><td>🎉 Vibe Party Set (10 people)</td><td>34,999 ETB</td></tr>
+      <tr><td>🌟 Celebration Feast (20 people)</td><td>61,999 ETB</td></tr>
+      <tr><td>✨ Ultimate Sushi Experience (30 people)</td><td>109,999 ETB</td></tr>
+      <tr><td>👨‍🍳 Omakase Reserve (24 people)</td><td>81,999 ETB</td></tr>
+      <tr><td>🏆 Grand Emperor Platter (40 people)</td><td>139,999 ETB</td></tr>
+    </table>
+  </div>
+
+  <!-- EXTRA ADD-ONS -->
+  <div class="menu-section">
+    <h2>➕ EXTRA ADD-ONS</h2>
+    <table class="menu-table">
+      <tr><td>🌿 Wasabi</td><td>100 ETB</td></tr>
+      <tr><td>🫚 Ginger</td><td>200 ETB</td></tr>
+      <tr><td>🍶 Soy sauce</td><td>100 ETB</td></tr>
+      <tr><td>🥢 Chopstick</td><td>25 ETB</td></tr>
+      <tr><td>⚡ Spicy upgrade</td><td>80 ETB</td></tr>
+    </table>
+  </div>
+
+  <div class="menu-footer">
+    <p>📞 +251 927 299999 | ✉️ sushivibes@proton.me | 📧 abdulchater@gmail.com</p>
+    <p>📱 Telegram: @sushivib | TikTok: @sushivibe.caterin | Instagram: @Sushi_vibe26</p>
+    <p>🍣 24h advance notice required | Free wasabi, ginger & soy sauce with every order</p>
+  </div>
+</div>
+
+</body>
+</html>
