@@ -42,29 +42,29 @@
       color: #aaaaaa;
     }
     
-    /* BIG CIRCULAR LOGO - Visible on website */
-    .big-logo-section {
+    /* Circular Logo Below Button - BOLD & LARGER */
+    .business-card-logo {
       text-align: center;
       margin-top: 2rem;
-      padding: 1.5rem;
-      background: linear-gradient(135deg, #111111, #0a0a0a);
+      padding: 1rem;
+      background: #1a1a1a;
       border-radius: 50%;
-      width: fit-content;
+      display: inline-block;
+      width: auto;
       margin-left: auto;
       margin-right: auto;
-      border: 2px solid #e31b23;
-      box-shadow: 0 0 30px rgba(227, 27, 35, 0.2);
+      width: fit-content;
     }
-    .big-logo-img {
-      width: 180px;
-      height: 180px;
+    .business-card-logo-img {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid #e31b23;
+      box-shadow: 0 0 20px rgba(227, 27, 35, 0.5);
       transition: transform 0.3s;
-      display: block;
     }
-    .big-logo-img:hover {
+    .business-card-logo-img:hover {
       transform: scale(1.05);
     }
     
@@ -167,9 +167,6 @@
         font-size: 0.7rem;
         color: #888;
       }
-      .big-logo-section {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -240,16 +237,16 @@
               <i class="fas fa-download"></i> Download / Print Business Card
             </button>
             
+            <!-- Circular Logo Below Button - BOLD & PROMINENT -->
+            <div class="business-card-logo">
+              <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="business-card-logo-img">
+            </div>
+            
             <div class="business-card-description">
               <i class="fas fa-print"></i> Click to print or save as PDF
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- BIG CIRCULAR LOGO - Added in empty space below -->
-      <div class="big-logo-section">
-        <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="big-logo-img">
       </div>
 
       <!-- Hidden Business Card (Only appears when printing) -->
