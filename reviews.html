@@ -84,7 +84,7 @@
           </div>
           
           <div class="form-group">
-            <input type="text" id="reviewerName" placeholder="Your name" required>
+            <input type="text" id="reviewerName" placeholder="Your name (e.g., Selam, Dawit, Mekdes)" required>
           </div>
           
           <div class="form-group">
@@ -117,13 +117,13 @@
     // Review storage
     const REVIEWS_KEY = 'sushi_vibe_reviews';
     
-    // Sample reviews to start with
+    // Ethiopian sample reviews (all content in English)
     const sampleReviews = [
       {
         id: 1,
         name: "Selam Tesfaye",
         rating: 5,
-        text: "Absolutely amazing sushi! The Celebration Feast was perfect for our daughter's birthday. Every guest was impressed. Will definitely order again!",
+        text: "Absolutely amazing sushi! The Celebration Feast was perfect for our daughter's birthday. Every guest was impressed. The presentation was beautiful and the fish was incredibly fresh. Will definitely order again!",
         date: "2026-05-10",
         approved: true
       },
@@ -131,7 +131,7 @@
         id: 2,
         name: "Dawit Hailu",
         rating: 5,
-        text: "Best sushi catering in Addis! Professional delivery, everything on time, outstanding quality. Highly recommended!",
+        text: "Best sushi catering in Addis! The Ultimate Sushi Experience was perfect for our corporate event. Professional delivery, everything on time, and the quality was outstanding. Highly recommended!",
         date: "2026-05-09",
         approved: true
       },
@@ -139,8 +139,32 @@
         id: 3,
         name: "Mekdes Ayalew",
         rating: 5,
-        text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious!",
+        text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious and the free wasabi/ginger was a nice touch. The delivery was prompt and professional.",
         date: "2026-05-08",
+        approved: true
+      },
+      {
+        id: 4,
+        name: "Henok Gebre",
+        rating: 5,
+        text: "We had Sushi Vibe cater our wedding and it was a huge hit! The sushi boat presentation was stunning and the guests couldn't stop talking about the fresh salmon. Thank you for making our day special!",
+        date: "2026-05-07",
+        approved: true
+      },
+      {
+        id: 5,
+        name: "Bethelhem Assefa",
+        rating: 4,
+        text: "Very good quality sushi. The California and Dragon rolls were excellent. Only reason not 5 stars is because delivery was a bit late due to traffic, but the food quality made up for it.",
+        date: "2026-05-06",
+        approved: true
+      },
+      {
+        id: 6,
+        name: "Yonas Solomon",
+        rating: 5,
+        text: "The Omakase Reserve is next level! Every piece was perfectly crafted. The dragon roll and rainbow roll were our favorites. Will definitely order for our next event.",
+        date: "2026-05-05",
         approved: true
       }
     ];
@@ -257,7 +281,7 @@
         rating: review.rating,
         text: review.text,
         date: new Date().toISOString().split('T')[0],
-        approved: true  // Auto-approve for now (you can change to false for moderation)
+        approved: true
       };
       
       allReviews.unshift(newReview);
@@ -302,22 +326,21 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
       
-      // Save review
       saveReview(reviewData);
-      
-      // Send email notification
       await sendReviewNotification(reviewData);
       
       showToast('✅ Thank you for your review!', false);
       document.getElementById('reviewForm').reset();
       document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
       
-      // Refresh display
       displayReviews();
       
       btn.disabled = false;
       btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
     });
+    
+    // Mobile menu toggle - using global js/main.js
+    // The main.js file will handle the slide-out navigation automatically
     
     // Initialize
     initReviews();
