@@ -3,177 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sushi Vibe | Contact Us</title>
+  <title>Sushi Vibe | Customer Reviews</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .business-card-container {
-      display: none;
-    }
+    .reviews-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .reviews-hero { text-align: center; margin-bottom: 3rem; }
+    .reviews-hero h1 { font-size: 2.5rem; color: white; margin-bottom: 0.5rem; }
+    .reviews-hero p { color: #aaaaaa; font-size: 1.1rem; }
     
-    .print-business-card-btn {
+    .rating-summary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      background: #111111;
+      padding: 2rem;
+      border-radius: 28px;
+      border: 1px solid #e31b23;
+    }
+    .average-rating { text-align: center; }
+    .average-rating .avg-number { font-size: 3.5rem; font-weight: 800; color: #e31b23; }
+    .average-rating .avg-stars i { color: #ffc107; font-size: 1.2rem; }
+    .average-rating .avg-count { color: #888; font-size: 0.9rem; }
+    
+    .rating-bars { flex: 1; max-width: 300px; }
+    .rating-bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .rating-bar-item span:first-child { width: 40px; font-size: 0.85rem; color: #ccc; }
+    .rating-bar-item .bar { flex: 1; height: 8px; background: #2a2a2a; border-radius: 10px; overflow: hidden; }
+    .rating-bar-item .bar-fill { height: 100%; background: #ffc107; border-radius: 10px; width: 0%; }
+    .rating-bar-item .count { width: 30px; font-size: 0.85rem; color: #ccc; }
+    
+    .review-form-card {
+      background: #111111;
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid #e31b23;
+      margin-bottom: 3rem;
+    }
+    .review-form-card h2 { color: white; margin-bottom: 1.5rem; font-size: 1.5rem; }
+    .review-form-card h2 i { color: #e31b23; margin-right: 10px; }
+    
+    .rating-select {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+    }
+    .rating-select input { display: none; }
+    .rating-select label { font-size: 2rem; color: #444; cursor: pointer; transition: 0.2s; }
+    .rating-select label:hover, .rating-select label:hover ~ label, .rating-select input:checked ~ label { color: #ffc107; }
+    
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e5e5e5; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
+    }
+    .name-email-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    
+    .btn-submit {
       background: linear-gradient(135deg, #e31b23, #c0151c);
       color: white;
       border: none;
-      padding: 14px 28px;
-      border-radius: 50px;
+      padding: 1rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: 0.3s;
       width: 100%;
-      justify-content: center;
-      font-size: 1rem;
-      margin-top: 0.5rem;
+      transition: 0.3s;
     }
-    .print-business-card-btn:hover {
-      background: linear-gradient(135deg, #c0151c, #a01016);
-      transform: scale(1.02);
-    }
+    .btn-submit:hover { transform: scale(1.02); background: linear-gradient(135deg, #c0151c, #a01016); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
     
-    .business-card-description {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: #aaaaaa;
-    }
-    
-    /* 3 Column Layout */
-    .contact-three-column {
+    .reviews-grid {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 2rem;
-      align-items: start;
-      margin: 2rem 0;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
+    .review-card {
+      background: #111111;
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-5px); border-color: #e31b23; }
+    .review-stars { margin-bottom: 0.8rem; }
+    .review-stars i { color: #ffc107; font-size: 0.9rem; }
+    .review-stars i.far { color: #444; }
+    .review-text { color: #e5e5e5; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; }
+    .review-author .avatar { width: 45px; height: 45px; background: linear-gradient(135deg, #e31b23, #b8151c); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; color: white; }
+    .review-author .info h4 { color: white; font-size: 1rem; margin-bottom: 0.2rem; }
+    .review-author .info p { color: #e31b23; font-size: 0.7rem; }
+    .review-date { font-size: 0.7rem; color: #666; margin-left: auto; }
     
-    /* Big Logo */
-    .big-logo-center {
-      text-align: center;
-      padding: 1rem;
-    }
-    .big-logo-img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #e31b23;
-      box-shadow: 0 0 20px rgba(227, 27, 35, 0.3);
-    }
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
+    .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .no-reviews { text-align: center; padding: 2rem; color: #888; grid-column: 1 / -1; }
     
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      .business-card-container, .business-card-container * {
-        visibility: visible;
-      }
-      .business-card-container {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-      .business-card {
-        width: 350px;
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        border: 1px solid #ddd;
-      }
-      .card-header {
-        background: linear-gradient(135deg, #e31b23, #c0151c);
-        padding: 20px;
-        text-align: center;
-      }
-      .card-logo {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        border: 3px solid white;
-        margin-bottom: 10px;
-      }
-      .card-header h2 {
-        color: white;
-        margin: 0;
-        font-size: 1.5rem;
-      }
-      .card-header p {
-        color: #ffcd94;
-        margin: 5px 0 0;
-        font-size: 0.8rem;
-      }
-      .card-body {
-        padding: 20px;
-      }
-      .info-row {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 12px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #eee;
-      }
-      .info-row i {
-        width: 25px;
-        color: #e31b23;
-        font-size: 1rem;
-      }
-      .info-row .label {
-        font-weight: 600;
-        color: #333;
-        width: 70px;
-        font-size: 0.85rem;
-      }
-      .info-row .value {
-        color: #555;
-        flex: 1;
-        font-size: 0.85rem;
-      }
-      .social-row {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-top: 15px;
-        padding-top: 10px;
-        border-top: 1px solid #eee;
-        flex-wrap: wrap;
-      }
-      .social-row a {
-        color: #e31b23;
-        text-decoration: none;
-        font-size: 0.75rem;
-      }
-      .card-footer {
-        background: #f5f5f5;
-        padding: 10px;
-        text-align: center;
-        font-size: 0.7rem;
-        color: #888;
-      }
-      .contact-three-column {
-        display: none;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .contact-three-column {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .big-logo-center {
-        order: -1;
-      }
+    @media (max-width: 768px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .rating-select label { font-size: 1.5rem; }
+      .name-email-row { grid-template-columns: 1fr; }
+      .rating-summary { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -187,7 +133,8 @@
           <li><a href="about.html">About</a></li>
           <li><a href="packages.html">Packages & Menu</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="reviews.html" class="active">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a href="order.html" class="order-cta">Order Now</a></li>
         </ul>
       </nav>
@@ -198,135 +145,189 @@
   <main>
     <section class="page-hero">
       <div class="container">
-        <h1>Get in touch</h1>
-        <p>Follow us, message us, or call — we're here to help plan your perfect sushi event</p>
+        <h1>Customer Reviews</h1>
+        <p>What our amazing customers say about Sushi Vibe</p>
       </div>
     </section>
 
-    <div class="container contact-wrapper">
-      
-      <!-- 3 Column Layout: Contact Cards | Big Logo | Business Card -->
-      <div class="contact-three-column">
-        
-        <!-- LEFT: Contact Info Cards -->
-        <div class="contact-info-side">
-          <div class="info-card">
-            <i class="fas fa-map-pin"></i>
-            <h3>Location</h3>
-            <p>Addis Ababa, Ethiopia<br>Delivery across the city</p>
-          </div>
-          <div class="info-card">
-            <i class="fas fa-phone-alt"></i>
-            <h3>Call / WhatsApp</h3>
-            <p><strong>+251 927 299999</strong><br>Mon - Sat: 10AM - 9PM</p>
-          </div>
-          <div class="info-card">
-            <i class="fas fa-envelope"></i>
-            <h3>Email us</h3>
-            <p>sushivibes@proton.me<br>abdulchater@gmail.com</p>
-          </div>
-          <div class="info-card">
-            <i class="fas fa-clock"></i>
-            <h3>Catering hours</h3>
-            <p>Mon - Sat: 10:00 AM – 9:00 PM<br>Sun: 12:00 PM – 7:00 PM<br>Pre-order 24h in advance</p>
-          </div>
-          <div class="info-card highlight">
-            <i class="fas fa-utensils"></i>
-            <h3>Allergy & special requests</h3>
-            <p>Tell us about any dietary restrictions — we accommodate gluten-free, vegetarian, and custom rolls.</p>
-          </div>
+    <div class="reviews-container">
+      <!-- Rating Summary -->
+      <div class="rating-summary" id="ratingSummary">
+        <div class="average-rating">
+          <div class="avg-number">4.8</div>
+          <div class="avg-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <div class="avg-count">12 reviews</div>
         </div>
-
-        <!-- CENTER: Big Circular Logo -->
-        <div class="big-logo-center">
-          <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="big-logo-img">
-        </div>
-
-        <!-- RIGHT: Business Card Section -->
-        <div class="contact-form-side">
-          <div class="modern-form" style="text-align: center;">
-            <h2><i class="fas fa-id-card"></i> Business Card</h2>
-            <p style="color: #cccccc; margin-bottom: 1rem;">Download or print our business card</p>
-            
-            <button class="print-business-card-btn" onclick="printBusinessCard()">
-              <i class="fas fa-download"></i> Download / Print Business Card
-            </button>
-            
-            <div class="business-card-description">
-              <i class="fas fa-print"></i> Click to print or save as PDF
-            </div>
-          </div>
+        <div class="rating-bars">
+          <div class="rating-bar-item"><span>5 ★</span><div class="bar"><div class="bar-fill" style="width: 75%"></div></div><span class="count">9</span></div>
+          <div class="rating-bar-item"><span>4 ★</span><div class="bar"><div class="bar-fill" style="width: 17%"></div></div><span class="count">2</span></div>
+          <div class="rating-bar-item"><span>3 ★</span><div class="bar"><div class="bar-fill" style="width: 8%"></div></div><span class="count">1</span></div>
+          <div class="rating-bar-item"><span>2 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+          <div class="rating-bar-item"><span>1 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
         </div>
       </div>
 
-      <!-- Hidden Business Card for Printing -->
-      <div class="business-card-container" id="businessCard">
-        <div class="business-card">
-          <div class="card-header">
-            <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="card-logo">
-            <h2>SUSHI VIBE</h2>
-            <p>Authentic Japanese Catering</p>
+      <!-- Review Form -->
+      <div class="review-form-card">
+        <h2><i class="fas fa-pen-alt"></i> Share Your Experience</h2>
+        <form id="reviewForm">
+          <div class="rating-select">
+            <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
           </div>
-          <div class="card-body">
-            <div class="info-row"><i class="fas fa-phone-alt"></i><span class="label">Phone:</span><span class="value">+251 927 299999</span></div>
-            <div class="info-row"><i class="fas fa-envelope"></i><span class="label">Email:</span><span class="value">sushivibes@proton.me</span></div>
-            <div class="info-row"><i class="fas fa-envelope"></i><span class="label">Alt Email:</span><span class="value">abdulchater@gmail.com</span></div>
-            <div class="info-row"><i class="fab fa-telegram"></i><span class="label">Telegram:</span><span class="value">@sushivib</span></div>
-            <div class="info-row"><i class="fab fa-tiktok"></i><span class="label">TikTok:</span><span class="value">@sushivibe.caterin</span></div>
-            <div class="info-row"><i class="fab fa-instagram"></i><span class="label">Instagram:</span><span class="value">@Sushi_vibe26</span></div>
-            <div class="social-row">
-              <a href="https://t.me/sushivib">Telegram</a>
-              <a href="https://tiktok.com/@sushivibe.caterin">TikTok</a>
-              <a href="https://instagram.com/Sushi_vibe26">Instagram</a>
-              <a href="https://wa.me/251927299999">WhatsApp</a>
-            </div>
+          <div class="form-group">
+            <textarea rows="4" id="reviewText" placeholder="Share your experience with our sushi catering..." required></textarea>
           </div>
-          <div class="card-footer">
-            <p>Addis Ababa, Ethiopia | Delivery Available</p>
-            <p>24h advance notice required</p>
+          <div class="name-email-row">
+            <div class="form-group"><input type="text" id="reviewerName" placeholder="ስምዎ (Your name) - e.g., Selam, Dawit, Mekdes" required></div>
+            <div class="form-group"><input type="email" id="reviewerEmail" placeholder="ኢሜይልዎ (Your email) - not published" required></div>
           </div>
-        </div>
+          <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+        </form>
       </div>
 
-      <!-- Social Media Links -->
-      <div class="social-connect" style="background: #111111; border-radius: 28px; padding: 2rem; margin: 2rem 0; border: 1px solid #e31b23;">
-        <h3 style="text-align: center; margin-bottom: 1.5rem; color: white;"><i class="fas fa-hashtag" style="color: #e31b23;"></i> Connect With Us</h3>
-        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-          <a href="https://instagram.com/Sushi_vibe26" target="_blank" style="background: #1a1a1a; padding: 1rem 1.8rem; border-radius: 50px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 10px; border: 1px solid #e31b23;"><i class="fab fa-instagram" style="font-size: 1.5rem; color: #e31b23;"></i> @Sushi_vibe26</a>
-          <a href="https://t.me/sushivib" target="_blank" style="background: #1a1a1a; padding: 1rem 1.8rem; border-radius: 50px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 10px; border: 1px solid #e31b23;"><i class="fab fa-telegram" style="font-size: 1.5rem; color: #e31b23;"></i> @sushivib</a>
-          <a href="https://tiktok.com/@sushivibe.caterin" target="_blank" style="background: #1a1a1a; padding: 1rem 1.8rem; border-radius: 50px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 10px; border: 1px solid #e31b23;"><i class="fab fa-tiktok" style="font-size: 1.5rem; color: #e31b23;"></i> @sushivibe.caterin</a>
-          <a href="https://wa.me/251927299999" target="_blank" style="background: #1a1a1a; padding: 1rem 1.8rem; border-radius: 50px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 10px; border: 1px solid #e31b23;"><i class="fab fa-whatsapp" style="font-size: 1.5rem; color: #e31b23;"></i> WhatsApp</a>
-        </div>
-      </div>
-
-      <!-- Map -->
-      <div class="map-area">
-        <div class="map-card" style="background: #111111; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #e31b23;">
-          <i class="fas fa-location-dot" style="color: #e31b23; font-size: 1.5rem;"></i>
-          <p style="margin-top: 0.5rem;"><strong>Delivery radius:</strong> Addis Ababa & surrounding areas (charges may apply)</p>
-          <p style="color: #e31b23; margin-top: 0.5rem;">📍 Pickup available upon request</p>
-        </div>
+      <!-- Reviews Display -->
+      <h3 style="color: white; margin-bottom: 1rem;"><i class="fas fa-star" style="color: #e31b23;"></i> What Our Customers Say</h3>
+      <div id="reviewsGrid" class="reviews-grid">
+        <div class="no-reviews"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div>
       </div>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p><div class="social-icons"><a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a><a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a></div></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
+      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering in Addis Ababa.</p><div class="social-icons"><a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a><a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a></div></div>
+      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li><li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li><li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li></ul></div>
-      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
+      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2025 Sushi Vibe Catering — 快乐寿司 — All prices in ETB — <span style="color: #e31b23;">Follow us: @Sushi_vibe26</span></p></div>
+    <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p></div>
   </footer>
+
+  <div id="toast" class="toast"></div>
+
   <script src="js/main.js"></script>
   <script>
-    function printBusinessCard() {
-      var originalTitle = document.title;
-      document.title = "Sushi Vibe - Business Card";
-      window.print();
-      document.title = originalTitle;
+    // Review storage
+    const REVIEWS_KEY = 'sushi_vibe_reviews';
+    
+    // Ethiopian sample reviews
+    const sampleReviews = [
+      { id: 1, name: "Selam Tesfaye", rating: 5, text: "Absolutely amazing sushi! The Celebration Feast was perfect for our daughter's birthday. Every guest was impressed!", date: "2026-05-10", approved: true },
+      { id: 2, name: "Dawit Hailu", rating: 5, text: "Best sushi catering in Addis! Professional delivery, everything on time, outstanding quality. Highly recommended!", date: "2026-05-09", approved: true },
+      { id: 3, name: "Mekdes Ayalew", rating: 5, text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious!", date: "2026-05-08", approved: true },
+      { id: 4, name: "Henok Gebre", rating: 5, text: "We had Sushi Vibe cater our wedding and it was a huge hit! The sushi boat presentation was stunning!", date: "2026-05-07", approved: true },
+      { id: 5, name: "Bethelhem Assefa", rating: 4, text: "Very good quality sushi. The California and Dragon rolls were excellent.", date: "2026-05-06", approved: true },
+      { id: 6, name: "Yonas Solomon", rating: 5, text: "The Omakase Reserve is next level! Every piece was perfectly crafted.", date: "2026-05-05", approved: true }
+    ];
+    
+    function initReviews() {
+      if (!localStorage.getItem(REVIEWS_KEY)) {
+        localStorage.setItem(REVIEWS_KEY, JSON.stringify(sampleReviews));
+      }
     }
+    
+    function getApprovedReviews() {
+      const stored = localStorage.getItem(REVIEWS_KEY);
+      return stored ? JSON.parse(stored).filter(r => r.approved === true) : [];
+    }
+    
+    function displayReviews() {
+      const reviews = getApprovedReviews();
+      const grid = document.getElementById('reviewsGrid');
+      if (!grid) return;
+      if (reviews.length === 0) { grid.innerHTML = '<div class="no-reviews">⭐ No reviews yet. Be the first!</div>'; return; }
+      grid.innerHTML = reviews.map(review => `
+        <div class="review-card">
+          <div class="review-stars">${generateStars(review.rating)}</div>
+          <p class="review-text">"${escapeHtml(review.text)}"</p>
+          <div class="review-author">
+            <div class="avatar">${review.name.charAt(0)}</div>
+            <div class="info"><h4>${escapeHtml(review.name)}</h4><p>Verified Customer</p></div>
+            <div class="review-date">${review.date}</div>
+          </div>
+        </div>
+      `).join('');
+      updateRatingSummary(reviews);
+    }
+    
+    function generateStars(rating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+      return stars;
+    }
+    
+    function updateRatingSummary(reviews) {
+      const total = reviews.length;
+      if (total === 0) return;
+      const sum = reviews.reduce((a, r) => a + r.rating, 0);
+      const avg = (sum / total).toFixed(1);
+      const counts = {5:0,4:0,3:0,2:0,1:0};
+      reviews.forEach(r => counts[Math.floor(r.rating)]++);
+      document.querySelector('.avg-number').textContent = avg;
+      document.querySelector('.avg-stars').innerHTML = generateStars(Math.round(avg));
+      document.querySelector('.avg-count').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+      for (let i = 5; i >= 1; i--) {
+        const percent = total > 0 ? (counts[i] / total) * 100 : 0;
+        const bar = document.querySelector(`.rating-bar-item:nth-child(${6-i}) .bar-fill`);
+        const countSpan = document.querySelector(`.rating-bar-item:nth-child(${6-i}) .count`);
+        if (bar) bar.style.width = `${percent}%`;
+        if (countSpan) countSpan.textContent = counts[i];
+      }
+    }
+    
+    async function sendReviewNotification(review) {
+      try {
+        await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ _subject: `⭐ New ${review.rating}⭐ Review from ${review.name}`, message: `Name: ${review.name}\nEmail: ${review.email}\nRating: ${review.rating}★\nReview: "${review.text}"` })
+        });
+      } catch(e) { console.log('Email error:', e); }
+    }
+    
+    function saveReview(review) {
+      const allReviews = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
+      const newReview = { id: Date.now(), name: review.name, email: review.email, rating: review.rating, text: review.text, date: new Date().toISOString().split('T')[0], approved: true };
+      allReviews.unshift(newReview);
+      localStorage.setItem(REVIEWS_KEY, JSON.stringify(allReviews));
+      return newReview;
+    }
+    
+    document.getElementById('reviewForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rating = document.querySelector('input[name="rating"]:checked');
+      const text = document.getElementById('reviewText').value.trim();
+      const name = document.getElementById('reviewerName').value.trim();
+      const email = document.getElementById('reviewerEmail').value.trim();
+      if (!rating || !text || !name || !email) { showToast('Please fill all fields', true); return; }
+      const reviewData = { name, email, rating: parseInt(rating.value), text };
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+      saveReview(reviewData);
+      await sendReviewNotification(reviewData);
+      showToast('✅ Thank you for your review!', false);
+      document.getElementById('reviewForm').reset();
+      document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+      displayReviews();
+      btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+    });
+    
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 4000);
+    }
+    
+    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    
+    initReviews();
+    displayReviews();
   </script>
 </body>
 </html>
