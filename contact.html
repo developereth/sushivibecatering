@@ -42,6 +42,20 @@
       color: #aaaaaa;
     }
     
+    /* Circular Logo Below Button */
+    .business-card-logo {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .business-card-logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e31b23;
+      box-shadow: 0 0 10px rgba(227, 27, 35, 0.3);
+    }
+    
     @media print {
       body * {
         visibility: hidden;
@@ -172,7 +186,7 @@
 
     <div class="container contact-wrapper">
       <div class="contact-grid">
-        <!-- Contact Info Cards (LEFT SIDE - UNCHANGED) -->
+        <!-- Contact Info Cards (LEFT SIDE) -->
         <div class="contact-info-side">
           <div class="info-card">
             <i class="fas fa-map-pin"></i>
@@ -201,7 +215,7 @@
           </div>
         </div>
 
-        <!-- REPLACED: Contact Form with Business Card Button -->
+        <!-- Business Card Section -->
         <div class="contact-form-side">
           <div class="modern-form" style="text-align: center;">
             <h2><i class="fas fa-id-card"></i> Business Card</h2>
@@ -210,6 +224,12 @@
             <button class="print-business-card-btn" onclick="printBusinessCard()">
               <i class="fas fa-download"></i> Download / Print Business Card
             </button>
+            
+            <!-- Circular Logo Below Button -->
+            <div class="business-card-logo">
+              <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="business-card-logo-img">
+            </div>
+            
             <div class="business-card-description">
               <i class="fas fa-print"></i> Click to print or save as PDF
             </div>
@@ -217,7 +237,7 @@
         </div>
       </div>
 
-      <!-- Hidden Business Card (Only appears when printing) -->
+      <!-- Hidden Business Card (Only ONE - appears when printing) -->
       <div class="business-card-container" id="businessCard">
         <div class="business-card">
           <div class="card-header">
@@ -289,7 +309,7 @@
         </div>
       </div>
 
-      <!-- Map placeholder / location highlight (UNCHANGED) -->
+      <!-- Map placeholder / location highlight -->
       <div class="map-area">
         <div class="map-card" style="background: #111111; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #e31b23;">
           <i class="fas fa-location-dot" style="color: #e31b23; font-size: 1.5rem;"></i>
@@ -345,14 +365,9 @@
   <script src="js/main.js"></script>
   <script>
     function printBusinessCard() {
-      // Store original title
       var originalTitle = document.title;
       document.title = "Sushi Vibe - Business Card";
-      
-      // Print the business card
       window.print();
-      
-      // Restore title
       document.title = originalTitle;
     }
   </script>
