@@ -8,18 +8,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .order-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-    .form-card { background: #111111; border-radius: 24px; padding: 2rem; border: 1px solid #e31b23; }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e5e5e5; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; font-family: inherit; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .btn-submit { background: linear-gradient(135deg, #e31b23, #c0151c); color: white; border: none; padding: 1rem; border-radius: 40px; font-size: 1.1rem; font-weight: 700; cursor: pointer; width: 100%; }
-    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-    .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
-    .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+    .order-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .tally-wrapper { 
+      background: #111111; 
+      border-radius: 24px; 
+      padding: 2rem; 
+      border: 1px solid #e31b23;
+    }
+    .tally-wrapper h2 {
+      color: white;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    iframe { 
+      border-radius: 16px; 
+      min-height: 1454px;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .order-container { padding: 1rem; }
+      .tally-wrapper { padding: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -50,65 +61,14 @@
     </section>
 
     <div class="order-container">
-      <div class="form-card">
-        <h2 style="color: white; margin-bottom: 1.5rem;"><i class="fas fa-shopping-cart"></i> Place Your Order</h2>
+      <div class="tally-wrapper">
+        <h2><i class="fas fa-clipboard-list"></i> Order Form</h2>
         
-        <form id="orderForm">
-          <div class="form-group">
-            <label>Select Package *</label>
-            <select id="package" required>
-              <option value="">-- Select a package --</option>
-              <option value="Vibe Party Set">🎉 Vibe Party Set - 34,999 ETB (10 people)</option>
-              <option value="Celebration Feast">🌟 Celebration Feast - 61,999 ETB (20 people)</option>
-              <option value="Ultimate Sushi Experience">✨ Ultimate Sushi Experience - 109,999 ETB (30 people)</option>
-              <option value="Omakase Reserve">👨‍🍳 Omakase Reserve - 81,999 ETB (24 people)</option>
-              <option value="Grand Emperor Platter">🏆 Grand Emperor Platter - 139,999 ETB (40 people)</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group"><label>Event Date *</label><input type="date" id="eventDate" required></div>
-            <div class="form-group"><label>Event Time *</label><input type="time" id="eventTime" required></div>
-          </div>
-
-          <div class="form-group"><label>Number of Guests *</label><input type="number" id="guests" placeholder="How many people?" required></div>
-
-          <div class="form-group"><label>Special Occasion (optional)</label>
-            <select id="occasion">
-              <option value="">Select occasion</option>
-              <option>Birthday Party</option>
-              <option>Corporate Event</option>
-              <option>Wedding / Engagement</option>
-              <option>Anniversary</option>
-              <option>Private Gathering</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" required></div>
-            <div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" required></div>
-          </div>
-
-          <div class="form-group"><label>Email Address *</label><input type="email" id="email" required></div>
-
-          <div class="form-group"><label>Delivery or Pickup?</label>
-            <select id="deliveryType">
-              <option value="Delivery">Delivery (charges apply)</option>
-              <option value="Pickup">Pickup (free)</option>
-            </select>
-          </div>
-
-          <div class="form-group" id="addressGroup" style="display:none;">
-            <label>Delivery Address</label>
-            <textarea rows="2" id="deliveryAddress" placeholder="Street, landmark, city"></textarea>
-          </div>
-
-          <div class="form-group"><label>Allergies or Dietary Notes *</label><textarea rows="2" id="allergies" placeholder="List any allergies (or write 'None')" required></textarea></div>
-          <div class="form-group"><label>Special Requests</label><textarea rows="2" id="specialRequests" placeholder="Extra wasabi, chopsticks, serving trays, etc."></textarea></div>
-
-          <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Order</button>
-        </form>
+        <!-- Your Tally Embed Code -->
+        <iframe data-tally-src="https://tally.so/embed/81Ajp5?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1454" frameborder="0" marginheight="0" marginwidth="0" title="sushivibe order"></iframe>
+        <script>
+          var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+        </script>
       </div>
     </div>
   </main>
@@ -120,125 +80,5 @@
       <div class="footer-col"><h4>Contact</h4><p>+251 927 299999<br>sushivibes@proton.me</p></div>
     </div>
   </footer>
-
-  <div id="toast" class="toast"></div>
-
-  <script>
-    // THIS IS THE EMAIL NOTIFICATION SYSTEM - NO SUPABASE
-    // Form submission sends email via FormSubmit.co (free, works instantly)
-    
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Get package price
-      const packageMap = {
-        'Vibe Party Set': 34999,
-        'Celebration Feast': 61999,
-        'Ultimate Sushi Experience': 109999,
-        'Omakase Reserve': 81999,
-        'Grand Emperor Platter': 139999
-      };
-      
-      const selectedPackage = document.getElementById('package').value;
-      const packagePrice = packageMap[selectedPackage];
-      
-      // Collect form data
-      const orderData = {
-        full_name: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        package: selectedPackage,
-        price: packagePrice,
-        guests: document.getElementById('guests').value,
-        event_date: document.getElementById('eventDate').value,
-        event_time: document.getElementById('eventTime').value,
-        occasion: document.getElementById('occasion').value || 'Not specified',
-        delivery_type: document.getElementById('deliveryType').value,
-        delivery_address: document.getElementById('deliveryAddress').value || 'Not provided',
-        allergies: document.getElementById('allergies').value,
-        special_requests: document.getElementById('specialRequests').value || 'None'
-      };
-      
-      // Format email body
-      const emailBody = `
-📦 NEW SUSHI ORDER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-👤 CUSTOMER DETAILS:
-   Name: ${orderData.full_name}
-   Phone: ${orderData.phone}
-   Email: ${orderData.email}
-
-🍣 ORDER DETAILS:
-   Package: ${orderData.package}
-   Price: ${orderData.price.toLocaleString()} ETB
-   Guests: ${orderData.guests}
-   Event Date: ${orderData.event_date}
-   Event Time: ${orderData.event_time}
-   Occasion: ${orderData.occasion}
-
-🚚 DELIVERY:
-   Type: ${orderData.delivery_type}
-   Address: ${orderData.delivery_address}
-
-⚠️ NOTES:
-   Allergies: ${orderData.allergies}
-   Requests: ${orderData.special_requests}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-      `;
-      
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="loading-spinner"></span> Sending order...';
-      
-      try {
-        // Send email via FormSubmit (free, no account needed)
-        const response = await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: `🆕 NEW SUSHI ORDER - ${orderData.full_name}`,
-            _template: 'table',
-            message: emailBody,
-            ...orderData
-          })
-        });
-        
-        if (response.ok) {
-          showToast('✅ Order placed successfully! We will contact you within 2 hours.', false);
-          document.getElementById('orderForm').reset();
-          document.getElementById('addressGroup').style.display = 'none';
-        } else {
-          throw new Error('Failed to send');
-        }
-      } catch (error) {
-        console.error(error);
-        showToast('❌ Order received but notification failed. We will contact you shortly.', true);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Order';
-      }
-    });
-    
-    // Toggle delivery address
-    const deliveryType = document.getElementById('deliveryType');
-    const addressGroup = document.getElementById('addressGroup');
-    deliveryType.addEventListener('change', () => {
-      addressGroup.style.display = deliveryType.value === 'Delivery' ? 'block' : 'none';
-    });
-    
-    // Set minimum date to tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    document.getElementById('eventDate').min = tomorrow.toISOString().split('T')[0];
-    
-    function showToast(msg, isError) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
-      toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 5000);
-    }
-  </script>
 </body>
 </html>
