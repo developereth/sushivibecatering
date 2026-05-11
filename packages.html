@@ -13,6 +13,78 @@
       background: #0a0505;
     }
     
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .site-header, .mobile-toggle, .btn-print, .site-footer, .combo-contact, .combo-footer-note, .extras-section, .notice-board, .hero-features {
+        display: none !important;
+      }
+      .combo-deals-wrapper, .packages-full, .combo-container, .package-card, .combo-card {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+      }
+      .combo-hero, .hero-packages {
+        background: white !important;
+        color: black !important;
+        border-bottom: 2px solid #e31b23 !important;
+      }
+      .combo-logo, .combo-card-title, .package-info h2 {
+        color: #e31b23 !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+      }
+      .combo-item-row, .combo-calc-item, .menu-breakdown li {
+        color: #333 !important;
+        border-bottom-color: #eee !important;
+      }
+      .price-number, .special-price, .combo-price-display .price, .package-price-box .price {
+        color: #e31b23 !important;
+      }
+      .original-price {
+        color: #888 !important;
+      }
+      .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+      .combo-grid, .packages-full .container {
+        padding: 20px !important;
+      }
+      .combo-card, .package-card {
+        break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      .logo-img, .logo-text {
+        display: inline-block !important;
+      }
+      .print-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e31b23;
+      }
+      .print-header img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+      .print-header h2 {
+        color: #e31b23;
+        margin-top: 10px;
+      }
+    }
+    
     .hero-packages {
       background: linear-gradient(135deg, #0a0000 0%, #1a0505 100%);
       padding: 60px 0;
@@ -41,6 +113,27 @@
     .hero-features i {
       color: #e31b23;
       margin-right: 8px;
+    }
+
+    /* Print Button */
+    .btn-print {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.3s;
+      margin-left: 20px;
+      font-size: 0.9rem;
+    }
+    .btn-print:hover {
+      background: linear-gradient(135deg, #c0151c, #a01016);
+      transform: scale(1.02);
     }
 
     /* Circular Logo */
@@ -74,6 +167,33 @@
       border-radius: 40px;
       font-weight: 600;
       margin-left: 5px;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .main-nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #e0e0e0;
+      transition: 0.3s;
+    }
+    .main-nav a:hover, .main-nav a.active {
+      color: #e31b23;
+    }
+    .order-cta {
+      background: #e31b23;
+      color: #0a0505 !important;
+      padding: 8px 24px;
+      border-radius: 40px;
+    }
+    .mobile-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: #e31b23;
+      cursor: pointer;
     }
 
     /* Combo Deals Styles */
@@ -423,51 +543,48 @@
       color: #c47147;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      .main-nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: #0a0505;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        border-bottom: 2px solid #e31b23;
+        z-index: 1000;
+      }
+      .main-nav ul.show {
+        display: flex;
+      }
+      .mobile-toggle {
+        display: block;
+      }
+      .btn-print {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+      .package-grid {
+        flex-direction: column;
+      }
+      .package-visual {
+        min-height: 150px;
+        border-radius: 0 0 24px 24px;
+      }
+      .package-info {
+        padding: 24px;
+      }
       .hero-packages h1 {
         font-size: 1.8rem;
       }
       .combo-grid {
-        padding: 1rem;
-        gap: 1rem;
+        padding: 1.5rem;
       }
-      .combo-card-title {
-        font-size: 1.2rem;
-      }
-      .package-info {
-        padding: 20px;
-      }
-      .package-info h2 {
-        font-size: 1.4rem;
-      }
-      .package-price-box .price {
-        font-size: 1.5rem;
-      }
-      .combo-price-display .price {
-        font-size: 1.4rem;
-      }
-      .extras-section {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      .combo-contact {
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 480px) {
       .logo-text {
-        font-size: 0.9rem;
-      }
-      .logo-text span {
-        font-size: 0.6rem;
-      }
-      .hero-features {
-        gap: 12px;
-      }
-      .hero-features span {
-        font-size: 0.7rem;
+        font-size: 1.2rem;
       }
       .logo-img {
         width: 40px;
@@ -488,7 +605,7 @@
       </a>
     </div>
     <nav class="main-nav">
-      <ul>
+      <ul id="navMenu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="packages.html" class="active">Packages & Menu</a></li>
@@ -497,9 +614,12 @@
         <li><a href="order.html" class="order-cta">Order Now</a></li>
       </ul>
     </nav>
-    <div class="mobile-toggle">
+    <div class="mobile-toggle" id="mobileToggle">
       <i class="fas fa-bars"></i>
     </div>
+    <button class="btn-print no-print" id="printButton">
+      <i class="fas fa-print"></i> Print / Save as PDF
+    </button>
   </div>
 </header>
 
@@ -915,10 +1035,54 @@
   </div>
   <div class="footer-bottom">
     <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Designed by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23; text-decoration: none;">Addis Power</a></p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+      Designed by <a href="http://addispower.pages.dev/" target="_blank" style="color: #e31b23; text-decoration: none;">Addis Power</a> | 
+      Telegram: <a href="https://t.me/addis_power" target="_blank" style="color: #e31b23; text-decoration: none;">@addis_power</a>
+    </p>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('navMenu');
+  
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle('show');
+      if (navMenu.classList.contains('show')) {
+        navMenu.style.display = 'flex';
+        navMenu.style.flexDirection = 'column';
+        navMenu.style.position = 'absolute';
+        navMenu.style.top = '70px';
+        navMenu.style.left = '0';
+        navMenu.style.right = '0';
+        navMenu.style.background = '#0a0505';
+        navMenu.style.padding = '20px';
+        navMenu.style.borderBottom = '2px solid #e31b23';
+      } else {
+        navMenu.style.display = '';
+      }
+    });
+    
+    // Close menu when clicking a link
+    const navLinks = document.querySelectorAll('.main-nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+        navMenu.style.display = '';
+      });
+    });
+  }
+  
+  // Print functionality
+  const printButton = document.getElementById('printButton');
+  if (printButton) {
+    printButton.addEventListener('click', () => {
+      window.print();
+    });
+  }
+</script>
 </body>
 </html>
