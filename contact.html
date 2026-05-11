@@ -7,6 +7,142 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Business Card Styles */
+    .business-card-container {
+      display: none;
+    }
+    
+    .print-business-card-btn {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+      width: 100%;
+      justify-content: center;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .print-business-card-btn:hover {
+      background: linear-gradient(135deg, #c0151c, #a01016);
+      transform: scale(1.02);
+    }
+    
+    .business-card-description {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #aaaaaa;
+    }
+    
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .business-card-container, .business-card-container * {
+        visibility: visible;
+      }
+      .business-card-container {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .business-card {
+        width: 350px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        page-break-inside: avoid;
+        border: 1px solid #ddd;
+      }
+      .card-header {
+        background: linear-gradient(135deg, #e31b23, #c0151c);
+        padding: 20px;
+        text-align: center;
+      }
+      .card-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid white;
+        margin-bottom: 10px;
+      }
+      .card-header h2 {
+        color: white;
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      .card-header p {
+        color: #ffcd94;
+        margin: 5px 0 0;
+        font-size: 0.8rem;
+      }
+      .card-body {
+        padding: 20px;
+      }
+      .info-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+      }
+      .info-row i {
+        width: 25px;
+        color: #e31b23;
+        font-size: 1rem;
+      }
+      .info-row .label {
+        font-weight: 600;
+        color: #333;
+        width: 70px;
+        font-size: 0.85rem;
+      }
+      .info-row .value {
+        color: #555;
+        flex: 1;
+        font-size: 0.85rem;
+      }
+      .social-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        flex-wrap: wrap;
+      }
+      .social-row a {
+        color: #e31b23;
+        text-decoration: none;
+        font-size: 0.75rem;
+      }
+      .card-footer {
+        background: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #888;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -36,7 +172,7 @@
 
     <div class="container contact-wrapper">
       <div class="contact-grid">
-        <!-- Contact Info Cards -->
+        <!-- Contact Info Cards (LEFT SIDE - UNCHANGED) -->
         <div class="contact-info-side">
           <div class="info-card">
             <i class="fas fa-map-pin"></i>
@@ -65,51 +201,76 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
+        <!-- REPLACED: Contact Form with Business Card Button -->
         <div class="contact-form-side">
-          <form id="contactForm" class="modern-form">
-            <h2>Send us a message</h2>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Full name *</label>
-                <input type="text" id="name" required>
-              </div>
-              <div class="form-group">
-                <label>Email address *</label>
-                <input type="email" id="email" required>
-              </div>
+          <div class="modern-form" style="text-align: center;">
+            <h2><i class="fas fa-id-card"></i> Business Card</h2>
+            <p style="color: #cccccc; margin-bottom: 1rem;">Download or print our business card to keep our contact information handy.</p>
+            
+            <button class="print-business-card-btn" onclick="printBusinessCard()">
+              <i class="fas fa-download"></i> Download / Print Business Card
+            </button>
+            <div class="business-card-description">
+              <i class="fas fa-print"></i> Click to print or save as PDF
             </div>
-            <div class="form-group">
-              <label>Phone number</label>
-              <input type="tel" id="phone" placeholder="Optional">
-            </div>
-            <div class="form-group">
-              <label>Event date (optional)</label>
-              <input type="date" id="eventDate">
-            </div>
-            <div class="form-group">
-              <label>How can we help? *</label>
-              <select id="inquiryType">
-                <option value="catering">Catering inquiry / package</option>
-                <option value="order">Pre-order question</option>
-                <option value="allergy">Allergy or custom request</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Message *</label>
-              <textarea rows="5" id="message" placeholder="Tell us about your event, guest count, preferred package or any special requests..."></textarea>
-            </div>
-            <div class="form-group checkbox">
-              <input type="checkbox" id="newsletter"> <label for="newsletter">Subscribe to sushi offers & catering news</label>
-            </div>
-            <button type="submit" class="btn-primary btn-large">Send message <i class="fas fa-paper-plane"></i></button>
-            <div id="formStatus" class="form-status"></div>
-          </form>
+          </div>
         </div>
       </div>
 
-      <!-- Social Media Links -->
+      <!-- Hidden Business Card (Only appears when printing) -->
+      <div class="business-card-container" id="businessCard">
+        <div class="business-card">
+          <div class="card-header">
+            <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="card-logo">
+            <h2>SUSHI VIBE</h2>
+            <p>Authentic Japanese Catering</p>
+          </div>
+          <div class="card-body">
+            <div class="info-row">
+              <i class="fas fa-phone-alt"></i>
+              <span class="label">Phone:</span>
+              <span class="value">+251 927 299999</span>
+            </div>
+            <div class="info-row">
+              <i class="fas fa-envelope"></i>
+              <span class="label">Email:</span>
+              <span class="value">sushivibes@proton.me</span>
+            </div>
+            <div class="info-row">
+              <i class="fas fa-envelope"></i>
+              <span class="label">Alt Email:</span>
+              <span class="value">abdulchater@gmail.com</span>
+            </div>
+            <div class="info-row">
+              <i class="fab fa-telegram"></i>
+              <span class="label">Telegram:</span>
+              <span class="value">@sushivib</span>
+            </div>
+            <div class="info-row">
+              <i class="fab fa-tiktok"></i>
+              <span class="label">TikTok:</span>
+              <span class="value">@sushivibe.caterin</span>
+            </div>
+            <div class="info-row">
+              <i class="fab fa-instagram"></i>
+              <span class="label">Instagram:</span>
+              <span class="value">@Sushi_vibe26</span>
+            </div>
+            <div class="social-row">
+              <a href="https://t.me/sushivib">Telegram</a>
+              <a href="https://tiktok.com/@sushivibe.caterin">TikTok</a>
+              <a href="https://instagram.com/Sushi_vibe26">Instagram</a>
+              <a href="https://wa.me/251927299999">WhatsApp</a>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p>Addis Ababa, Ethiopia | Delivery Available</p>
+            <p>24h advance notice required</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media Links (UNCHANGED) -->
       <div class="social-connect" style="background: #111111; border-radius: 28px; padding: 2rem; margin: 2rem 0; border: 1px solid #e31b23;">
         <h3 style="text-align: center; margin-bottom: 1.5rem; color: white;"><i class="fas fa-hashtag" style="color: #e31b23;"></i> Connect With Us</h3>
         <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
@@ -128,7 +289,7 @@
         </div>
       </div>
 
-      <!-- Map placeholder / location highlight -->
+      <!-- Map placeholder / location highlight (UNCHANGED) -->
       <div class="map-area">
         <div class="map-card" style="background: #111111; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #e31b23;">
           <i class="fas fa-location-dot" style="color: #e31b23; font-size: 1.5rem;"></i>
@@ -182,5 +343,18 @@
     </div>
   </footer>
   <script src="js/main.js"></script>
+  <script>
+    function printBusinessCard() {
+      // Store original title
+      var originalTitle = document.title;
+      document.title = "Sushi Vibe - Business Card";
+      
+      // Print the business card
+      window.print();
+      
+      // Restore title
+      document.title = originalTitle;
+    }
+  </script>
 </body>
 </html>
