@@ -12,190 +12,64 @@
     .admin-header { background: #000000; border-bottom: 2px solid #e31b23; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
     .logo i { color: #e31b23; }
-    .stats { display: flex; gap: 2rem; }
-    .stat-card { background: #111111; padding: 0.5rem 1rem; border-radius: 12px; text-align: center; border: 1px solid #2a2a2a; }
-    .stat-number { font-size: 1.5rem; font-weight: bold; color: #e31b23; }
-    .logout-btn, .refresh-btn { background: #e31b23; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .logout-btn { background: #e31b23; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
     .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-    .search-box { margin-bottom: 1rem; }
-    .search-box input { padding: 0.5rem 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 40px; color: white; width: 300px; }
-    .orders-table { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; background: #111111; border-radius: 16px; }
-    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #2a2a2a; }
-    th { background: #1a1a1a; color: #e31b23; }
-    tr:hover { background: #1a1a1a; }
-    .status { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 40px; font-size: 0.75rem; background: #856404; color: #fff3cd; }
+    .iframe-container { background: #111111; border-radius: 24px; padding: 1rem; border: 1px solid #e31b23; margin-top: 1rem; }
+    iframe { width: 100%; height: 85vh; border-radius: 16px; background: white; }
+    h2 { color: #e31b23; margin-bottom: 0.5rem; }
     .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 2000; }
-    .login-box { background: #111111; padding: 2rem; border-radius: 28px; border: 1px solid #e31b23; width: 100%; max-width: 400px; }
+    .login-box { background: #111111; padding: 2rem; border-radius: 28px; border: 1px solid #e31b23; width: 100%; max-width: 400px; text-align: center; }
     .login-box input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; color: white; }
     .login-box button { width: 100%; background: #e31b23; color: white; border: none; padding: 0.8rem; border-radius: 12px; cursor: pointer; }
-    @media (max-width: 768px) { th, td { padding: 0.5rem; font-size: 0.8rem; } }
+    .error { color: #dc3545; margin-top: 1rem; display: none; }
   </style>
 </head>
 <body>
 
 <div id="loginOverlay" class="login-overlay">
   <div class="login-box">
-    <h2 style="text-align:center; margin-bottom:1.5rem;"><i class="fas fa-user-shield"></i> Admin Login</h2>
+    <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
     <input type="password" id="adminPassword" placeholder="Enter Password">
     <button onclick="login()">Login</button>
-    <div id="loginError" style="color:#dc3545; text-align:center; margin-top:1rem; display:none;"></div>
+    <div id="loginError" class="error"></div>
   </div>
 </div>
 
 <div id="adminContent" style="display:none;">
   <div class="admin-header">
     <div class="logo"><i class="fas fa-fish"></i> Sushi Vibe | Orders</div>
-    <div class="stats">
-      <div class="stat-card"><div class="stat-number" id="totalOrders">0</div><div>Total Orders</div></div>
-      <div class="stat-card"><div class="stat-number" id="pendingOrders">0</div><div>Pending</div></div>
-    </div>
-    <button class="refresh-btn" onclick="loadOrders()"><i class="fas fa-sync-alt"></i> Refresh</button>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
   <div class="container">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="🔍 Search by name or phone...">
-    </div>
-    <div class="orders-table">
-      <table id="ordersTable">
-        <thead>
-          <tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Package</th><th>Price</th><th>Event Date</th><th>Status</th></tr>
-        </thead>
-        <tbody id="ordersBody">
-          <tr><td colspan="8" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...<\/td><\/tr>
-        </tbody>
-      \d+
+    <h2><i class="fas fa-clipboard-list"></i> Order Management</h2>
+    <p>View and manage all customer orders below</p>
+    <div class="iframe-container">
+      <iframe src="https://tally.so/r/81Ajp5?view=responses" title="Order Dashboard"></iframe>
     </div>
   </div>
 </div>
 
 <script>
-  const ADMIN_PASSWORD = "SushiVibe2025";
-  const TALLY_API_KEY = "tly-iAqJjdndiUEloygJ2j5ayB62Ajc8gIfk";
-  const TALLY_FORM_ID = "81Ajp5";
-  
-  let allOrders = [];
-  let currentSearch = '';
-
   function login() {
     const pwd = document.getElementById('adminPassword').value;
-    if (pwd === ADMIN_PASSWORD) {
+    if (pwd === 'SushiVibe2025') {
       sessionStorage.setItem('adminLoggedIn', 'true');
       document.getElementById('loginOverlay').style.display = 'none';
       document.getElementById('adminContent').style.display = 'block';
-      loadOrders();
     } else {
-      const err = document.getElementById('loginError');
-      err.textContent = '❌ Incorrect password';
-      err.style.display = 'block';
-      setTimeout(() => err.style.display = 'none', 3000);
+      document.getElementById('loginError').textContent = '❌ Incorrect password';
+      document.getElementById('loginError').style.display = 'block';
     }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('adminLoggedIn');
+    window.location.reload();
   }
 
   if (sessionStorage.getItem('adminLoggedIn') === 'true') {
     document.getElementById('loginOverlay').style.display = 'none';
     document.getElementById('adminContent').style.display = 'block';
-    loadOrders();
-  }
-
-  // Helper to get value from answers regardless of field name
-  function getAnswerValue(answers, possibleNames) {
-    if (!answers) return 'N/A';
-    for (const name of possibleNames) {
-      if (answers[name] && answers[name].value) {
-        return answers[name].value;
-      }
-    }
-    return 'N/A';
-  }
-
-  async function loadOrders() {
-    const tbody = document.getElementById('ordersBody');
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading orders...<\/td><\/tr>';
-    
-    try {
-      const response = await fetch(`https://api.tally.so/forms/${TALLY_FORM_ID}/submissions`, {
-        headers: { 'Authorization': `Bearer ${TALLY_API_KEY}` }
-      });
-      
-      if (!response.ok) throw new Error('API error');
-      
-      const data = await response.json();
-      allOrders = data.submissions || [];
-      
-      // Debug: Log first order to see field names
-      if (allOrders.length > 0) {
-        console.log('First order answers:', allOrders[0].answers);
-      }
-      
-      updateStats();
-      displayOrders();
-      
-    } catch(error) {
-      console.error('Error:', error);
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;">❌ Error loading orders. Check console.<\/td><\/tr>';
-    }
-  }
-
-  function updateStats() {
-    document.getElementById('totalOrders').textContent = allOrders.length;
-    document.getElementById('pendingOrders').textContent = allOrders.length;
-  }
-
-  function displayOrders() {
-    const tbody = document.getElementById('ordersBody');
-    let filtered = allOrders;
-    
-    if (currentSearch) {
-      const search = currentSearch.toLowerCase();
-      filtered = allOrders.filter(o => {
-        const answers = o.answers || {};
-        const name = getAnswerValue(answers, ['full_name', 'name', 'Full Name', 'fullName']);
-        const phone = getAnswerValue(answers, ['phone', 'Phone', 'Phone Number']);
-        return name.toLowerCase().includes(search) || phone.includes(search);
-      });
-    }
-    
-    if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem;">📭 No orders found<\/td><\/tr>';
-      return;
-    }
-    
-    tbody.innerHTML = filtered.map(order => {
-      const answers = order.answers || {};
-      
-      // Try to find values with multiple possible field names
-      const customerName = getAnswerValue(answers, ['full_name', 'name', 'Full Name', 'fullName']);
-      const phone = getAnswerValue(answers, ['phone', 'Phone', 'Phone Number']);
-      const packageName = getAnswerValue(answers, ['package', 'Package', 'select_package', 'Select Package']);
-      const price = getAnswerValue(answers, ['price', 'Price', 'package_price']);
-      const eventDate = getAnswerValue(answers, ['event_date', 'eventDate', 'Event Date']);
-      
-      return `
-        <tr>
-          <td><strong>${order.submissionId || order.id || 'N/A'}</strong></td>
-          <td>${new Date(order.createdAt).toLocaleDateString()}</td>
-          <td>${escapeHtml(customerName)}</td>
-          <td>${escapeHtml(phone)}</td>
-          <td>${escapeHtml(packageName)}</td>
-          <td>${price !== 'N/A' ? price + ' ETB' : 'N/A'}</td>
-          <td>${eventDate}</td>
-          <td><span class="status">PENDING</span></td>
-        </tr>
-      `;
-    }).join('');
-  }
-
-  document.getElementById('searchInput')?.addEventListener('input', (e) => {
-    currentSearch = e.target.value;
-    displayOrders();
-  });
-
-  function escapeHtml(text) {
-    if (!text) return 'N/A';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
   }
 </script>
 </body>
