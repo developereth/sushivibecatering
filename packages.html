@@ -8,11 +8,196 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Additional styles for packages page */
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       background: #0a0505;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      color: #e0e0e0;
     }
-    
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Navigation (Protected & Robust) */
+    .site-header {
+      background: #0a0505;
+      border-bottom: 1px solid #2a1010;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      background: rgba(10, 5, 5, 0.92);
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e31b23;
+      transition: transform 0.3s;
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e31b23;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-text span {
+      font-size: 0.7rem;
+      background: #e31b23;
+      color: #0a0505;
+      padding: 2px 10px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+    }
+    .main-nav ul {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+    .main-nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #e0e0e0;
+      transition: 0.3s;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: #e31b23;
+    }
+    .order-cta {
+      background: #e31b23;
+      color: #0a0505 !important;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+    }
+    .order-cta:hover {
+      background: #c0151c;
+      color: white !important;
+    }
+    .mobile-toggle {
+      display: none;
+      font-size: 2rem;
+      color: #e31b23;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      padding: 8px;
+      transition: 0.2s;
+    }
+    .mobile-toggle:hover {
+      color: #ff5a5a;
+    }
+    .btn-download-pdf {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.3s;
+      font-size: 0.9rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-download-pdf:hover {
+      background: linear-gradient(135deg, #c0151c, #a01016);
+      transform: scale(1.02);
+      color: white;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Mobile navigation protected styles */
+    @media (max-width: 1024px) {
+      .mobile-toggle {
+        display: block;
+      }
+      .main-nav {
+        width: 100%;
+        order: 3;
+      }
+      .main-nav ul {
+        display: none;
+        flex-direction: column;
+        background: #0f0707;
+        padding: 24px;
+        border-radius: 24px;
+        margin-top: 16px;
+        border: 1px solid #e31b23;
+        box-shadow: 0 20px 30px rgba(0,0,0,0.7);
+        gap: 18px;
+        width: 100%;
+      }
+      .main-nav ul.show {
+        display: flex;
+      }
+      .header-actions {
+        margin-left: auto;
+      }
+      .btn-download-pdf {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .logo-img {
+        width: 42px;
+        height: 42px;
+      }
+      .btn-download-pdf {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Hero */
     .hero-packages {
       background: linear-gradient(135deg, #0a0000 0%, #1a0505 100%);
       padding: 60px 0;
@@ -43,90 +228,7 @@
       margin-right: 8px;
     }
 
-    /* Download PDF Button */
-    .btn-download-pdf {
-      background: linear-gradient(135deg, #e31b23, #c0151c);
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.3s;
-      margin-left: 20px;
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
-    .btn-download-pdf:hover {
-      background: linear-gradient(135deg, #c0151c, #a01016);
-      transform: scale(1.02);
-      color: white;
-    }
-
-    /* Circular Logo */
-    .logo a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #e31b23;
-      transition: transform 0.3s;
-    }
-    .logo-img:hover {
-      transform: scale(1.05);
-    }
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #e31b23;
-    }
-    .logo-text span {
-      font-size: 0.7rem;
-      background: #e31b23;
-      color: #0a0505;
-      padding: 2px 8px;
-      border-radius: 40px;
-      font-weight: 600;
-      margin-left: 5px;
-    }
-
-    .main-nav ul {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-    .main-nav a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #e0e0e0;
-      transition: 0.3s;
-    }
-    .main-nav a:hover, .main-nav a.active {
-      color: #e31b23;
-    }
-    .order-cta {
-      background: #e31b23;
-      color: #0a0505 !important;
-      padding: 8px 24px;
-      border-radius: 40px;
-    }
-    .mobile-toggle {
-      display: none;
-      font-size: 1.8rem;
-      color: #e31b23;
-      cursor: pointer;
-    }
-
-    /* Combo Deals Styles */
+    /* Combo Section */
     .combo-deals-wrapper {
       background: #0a0505;
       background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
@@ -306,7 +408,7 @@
       color: #c47147;
     }
 
-    /* Catering Packages Styles */
+    /* Packages */
     .packages-full {
       background: #0a0505;
       background-image: radial-gradient(circle at 15% 30%, #1f0f0f 0%, #030101 100%);
@@ -473,17 +575,56 @@
       color: #c47147;
     }
 
+    /* Footer */
+    .site-footer {
+      background: #030101;
+      padding: 40px 0 20px;
+      border-top: 1px solid #e31b23;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+    .footer-col {
+      flex: 1 1 180px;
+    }
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #e31b23;
+    }
+    .social-icons a {
+      color: #e0e0e0;
+      margin-right: 12px;
+      font-size: 1.3rem;
+    }
+    .footer-col h4 {
+      color: #e31b23;
+      margin-bottom: 12px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 8px;
+    }
+    .footer-col a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    .contact-info i {
+      width: 20px;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #2a1010;
+    }
+
     @media (max-width: 900px) {
-      .main-nav ul {
-        display: none !important;
-      }
-      .mobile-toggle {
-        display: block !important;
-      }
-      .btn-download-pdf {
-        margin-left: 0;
-        margin-top: 10px;
-      }
       .package-grid {
         flex-direction: column;
       }
@@ -497,22 +638,12 @@
       .hero-packages h1 {
         font-size: 1.8rem;
       }
-      .combo-grid {
-        padding: 1.5rem;
-      }
-      .logo-text {
-        font-size: 1.2rem;
-      }
-      .logo-img {
-        width: 40px;
-        height: 40px;
-      }
     }
   </style>
 </head>
 <body>
 
-<!-- ================= NAVIGATION ================= -->
+<!-- ================= NAVIGATION (PROTECTED) ================= -->
 <header class="site-header">
   <div class="container nav-container">
     <div class="logo">
@@ -521,7 +652,12 @@
         <span class="logo-text">Sushi Vibe <span>Catering</span></span>
       </a>
     </div>
-    <nav class="main-nav">
+    
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
       <ul id="navMenu">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -531,12 +667,12 @@
         <li><a href="order.html" class="order-cta">Order Now</a></li>
       </ul>
     </nav>
-    <div class="mobile-toggle" id="mobileToggle">
-      <i class="fas fa-bars"></i>
+
+    <div class="header-actions">
+      <a href="menu-print.html" target="_blank" class="btn-download-pdf no-print">
+        <i class="fas fa-file-pdf"></i> PDF Menu
+      </a>
     </div>
-    <a href="menu-print.html" target="_blank" class="btn-download-pdf no-print">
-      <i class="fas fa-file-pdf"></i> Download / Print Menu PDF
-    </a>
   </div>
 </header>
 
@@ -656,16 +792,16 @@
           </div>
         </div>
 
-        <!-- 6. Gunkan Lover Set -->
+        <!-- 6. Gunkan Lover Set (UPDATED) -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍙 Gunkan Lover Set</span>
             <div class="combo-badge">🍣 GUNKAN</div>
           </div>
           <div class="combo-items-list">
-            <li>4 Salmon Gunkan</li>
-            <li>1 Gunkan Maki</li>
-            <li>3 Salmon Nigiri</li>
+            <li>4 Gunkan Maki</li>
+            <li>8pcs California Roll</li>
+            <li>3 Nigiri</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -692,7 +828,7 @@
           </div>
         </div>
 
-        <!-- 8. Party Combo -->
+        <!-- 8. Party Combo (UPDATED: rainbow roll replaced) -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🎉 Party Combo</span>
@@ -700,7 +836,7 @@
           </div>
           <div class="combo-items-list">
             <li>8pcs Dragon Roll</li>
-            <li>8pcs Rainbow Roll</li>
+            <li>8pcs Avocado & Cucumber Roll</li>
             <li>8pcs Philadelphia Roll</li>
             <li>6pcs Mixed Nigiri</li>
           </div>
@@ -710,7 +846,7 @@
           </div>
         </div>
 
-        <!-- 9. Premium Deluxe Platter -->
+        <!-- 9. Premium Deluxe Platter (UPDATED: 6 gunkan maki) -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">✨ Premium Deluxe Platter</span>
@@ -721,7 +857,7 @@
             <li>8pcs Rainbow Roll</li>
             <li>8pcs California Roll</li>
             <li>6pcs Mixed Nigiri</li>
-            <li>2 Gunkan Maki</li>
+            <li>6 Gunkan Maki</li>
           </div>
           <div class="combo-price-display">
             <div class="price-label">COMBO PRICE</div>
@@ -741,10 +877,10 @@
       </div>
 
       <div class="combo-contact">
-        📞 +251 927 249 999 &nbsp;&nbsp;|&nbsp;&nbsp; 🖤 Sushi_vibe26
+        📞 +251 927 249 999 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fab fa-instagram"></i> @Sushi_vibe26
       </div>
       <div class="combo-footer-note">
-        🖤🔥 THANK YOU FOR CHOOSING SUSHI VIBE — FRESH, AUTHENTIC & MADE WITH INTENSE FLAVOR 🔥🖤
+        🔥 THANK YOU FOR CHOOSING SUSHI VIBE — FRESH, AUTHENTIC & MADE WITH INTENSE FLAVOR 🔥
       </div>
     </div>
   </div>
@@ -844,7 +980,7 @@
         </div>
       </div>
 
-      <!-- 13. OMAKASE RESERVE -->
+      <!-- 13. OMAKASE RESERVE (UPDATED: removed assorted premium / tuna salmon) -->
       <div class="package-card featured" id="omakase">
         <div class="package-badge">👨‍🍳 CHEF'S SIGNATURE — 24 PEOPLE</div>
         <div class="package-grid">
@@ -854,8 +990,8 @@
             <div class="menu-breakdown">
               <h4>🍱 Curated premium menu:</h4>
               <ul>
-                <li><span>48 pcs Nigiri (assorted premium)</span><span></span></li>
-                <li><span>48 pcs Gunkan (tuna/salmon)</span><span></span></li>
+                <li><span>48 pcs Nigiri</span><span></span></li>
+                <li><span>48 pcs Gunkan</span><span></span></li>
                 <li><span>7x Dragon Roll</span><span></span></li>
                 <li><span>5x Rainbow Roll</span><span></span></li>
                 <li><span>6x Philadelphia Roll</span><span></span></li>
@@ -938,7 +1074,7 @@
       <h4>Contact info</h4>
       <ul class="contact-info">
         <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
-        <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li>
+        <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 249999 (also WhatsApp)</li>
         <li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li>
         <li><i class="fas fa-clock" style="color: #e31b23;"></i> Pre-order: 24h advance required</li>
       </ul>
@@ -958,39 +1094,74 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
 <script>
-  // Mobile menu toggle
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navMenu = document.getElementById('navMenu');
-  
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navMenu.classList.toggle('show');
-      if (navMenu.classList.contains('show')) {
-        navMenu.style.display = 'flex';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '70px';
-        navMenu.style.left = '0';
-        navMenu.style.right = '0';
-        navMenu.style.background = '#0a0505';
-        navMenu.style.padding = '20px';
-        navMenu.style.borderBottom = '2px solid #e31b23';
-      } else {
-        navMenu.style.display = '';
+  (function() {
+    // Protected mobile navigation – robust and reliable
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileToggle && navMenu) {
+      // Remove any previously attached event listeners by cloning
+      const newToggle = mobileToggle.cloneNode(true);
+      mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+      
+      newToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+        // Update icon based on state
+        const icon = this.querySelector('i');
+        if (navMenu.classList.contains('show')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      // Close menu when a link is clicked (mobile friendly)
+      const navLinks = document.querySelectorAll('#navMenu a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          if (navMenu.classList.contains('show')) {
+            navMenu.classList.remove('show');
+            const icon = document.querySelector('#mobileToggle i');
+            if (icon) {
+              icon.classList.remove('fa-times');
+              icon.classList.add('fa-bars');
+            }
+          }
+        });
+      });
+
+      // Close menu if clicking outside navigation
+      document.addEventListener('click', function(event) {
+        const isClickInsideNav = document.getElementById('mainNav').contains(event.target);
+        const isClickOnToggle = event.target.closest('#mobileToggle');
+        
+        if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('show')) {
+          navMenu.classList.remove('show');
+          const icon = document.querySelector('#mobileToggle i');
+          if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        }
+      });
+    }
+
+    // Ensure menu resets correctly on window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1024 && navMenu) {
+        navMenu.classList.remove('show');
+        const icon = document.querySelector('#mobileToggle i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
       }
     });
-    
-    const navLinks = document.querySelectorAll('.main-nav a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('show');
-        navMenu.style.display = '';
-      });
-    });
-  }
+  })();
 </script>
 </body>
 </html>
