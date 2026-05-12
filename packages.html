@@ -26,7 +26,7 @@
       padding: 0 24px;
     }
 
-    /* Header & Navigation (Protected & Robust) */
+    /* Header & Navigation */
     .site-header {
       background: #0a0505;
       border-bottom: 1px solid #2a1010;
@@ -151,7 +151,7 @@
       gap: 16px;
     }
 
-    /* Mobile navigation protected styles */
+    /* Mobile navigation styles */
     @media (max-width: 1024px) {
       .mobile-toggle {
         display: block;
@@ -276,6 +276,8 @@
     }
     .combo-price-badge {
       display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
       background: #1f0a0aaa;
       backdrop-filter: blur(8px);
       border-radius: 100px;
@@ -643,7 +645,7 @@
 </head>
 <body>
 
-<!-- ================= NAVIGATION (PROTECTED) ================= -->
+<!-- ================= NAVIGATION ================= -->
 <header class="site-header">
   <div class="container nav-container">
     <div class="logo">
@@ -653,7 +655,7 @@
       </a>
     </div>
     
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+    <button class="mobile-toggle" aria-label="Toggle navigation menu">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -792,7 +794,7 @@
           </div>
         </div>
 
-        <!-- 6. Gunkan Lover Set (UPDATED) -->
+        <!-- 6. Gunkan Lover Set -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🍙 Gunkan Lover Set</span>
@@ -828,7 +830,7 @@
           </div>
         </div>
 
-        <!-- 8. Party Combo (UPDATED: rainbow roll replaced) -->
+        <!-- 8. Party Combo -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">🎉 Party Combo</span>
@@ -846,7 +848,7 @@
           </div>
         </div>
 
-        <!-- 9. Premium Deluxe Platter (UPDATED: 6 gunkan maki) -->
+        <!-- 9. Premium Deluxe Platter -->
         <div class="combo-card">
           <div class="combo-card-header">
             <span class="combo-card-title">✨ Premium Deluxe Platter</span>
@@ -877,7 +879,7 @@
       </div>
 
       <div class="combo-contact">
-        📞 +251 927 249 999 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fab fa-instagram"></i> @Sushi_vibe26
+        📞 +251 927 249999 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fab fa-instagram"></i> @Sushi_vibe26
       </div>
       <div class="combo-footer-note">
         🔥 THANK YOU FOR CHOOSING SUSHI VIBE — FRESH, AUTHENTIC & MADE WITH INTENSE FLAVOR 🔥
@@ -980,7 +982,7 @@
         </div>
       </div>
 
-      <!-- 13. OMAKASE RESERVE (UPDATED: removed assorted premium / tuna salmon) -->
+      <!-- 13. OMAKASE RESERVE -->
       <div class="package-card featured" id="omakase">
         <div class="package-badge">👨‍🍳 CHEF'S SIGNATURE — 24 PEOPLE</div>
         <div class="package-grid">
@@ -1075,7 +1077,7 @@
       <ul class="contact-info">
         <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
         <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 249999 (also WhatsApp)</li>
-        <li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li>
+        <li><i class="fas fa-envelope" style="color: #e31b23;"></i> Sushivibe26@gmail.com</li>
         <li><i class="fas fa-clock" style="color: #e31b23;"></i> Pre-order: 24h advance required</li>
       </ul>
     </div>
@@ -1094,74 +1096,6 @@
   </div>
 </footer>
 
-<script>
-  (function() {
-    // Protected mobile navigation – robust and reliable
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (mobileToggle && navMenu) {
-      // Remove any previously attached event listeners by cloning
-      const newToggle = mobileToggle.cloneNode(true);
-      mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
-      
-      newToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        navMenu.classList.toggle('show');
-        // Update icon based on state
-        const icon = this.querySelector('i');
-        if (navMenu.classList.contains('show')) {
-          icon.classList.remove('fa-bars');
-          icon.classList.add('fa-times');
-        } else {
-          icon.classList.remove('fa-times');
-          icon.classList.add('fa-bars');
-        }
-      });
-
-      // Close menu when a link is clicked (mobile friendly)
-      const navLinks = document.querySelectorAll('#navMenu a');
-      navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          if (navMenu.classList.contains('show')) {
-            navMenu.classList.remove('show');
-            const icon = document.querySelector('#mobileToggle i');
-            if (icon) {
-              icon.classList.remove('fa-times');
-              icon.classList.add('fa-bars');
-            }
-          }
-        });
-      });
-
-      // Close menu if clicking outside navigation
-      document.addEventListener('click', function(event) {
-        const isClickInsideNav = document.getElementById('mainNav').contains(event.target);
-        const isClickOnToggle = event.target.closest('#mobileToggle');
-        
-        if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('show')) {
-          navMenu.classList.remove('show');
-          const icon = document.querySelector('#mobileToggle i');
-          if (icon) {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-          }
-        }
-      });
-    }
-
-    // Ensure menu resets correctly on window resize
-    window.addEventListener('resize', function() {
-      if (window.innerWidth > 1024 && navMenu) {
-        navMenu.classList.remove('show');
-        const icon = document.querySelector('#mobileToggle i');
-        if (icon) {
-          icon.classList.remove('fa-times');
-          icon.classList.add('fa-bars');
-        }
-      }
-    });
-  })();
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
