@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Circular logo styles */
+    /* Circular logo styles (consistent across site) */
     .logo a {
       display: flex;
       align-items: center;
@@ -23,7 +23,9 @@
       border: 2px solid #e31b23;
       transition: transform 0.3s;
     }
-    .logo-img:hover { transform: scale(1.05); }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
     .logo-text {
       font-size: 1.5rem;
       font-weight: 800;
@@ -45,102 +47,119 @@
       .logo-text { font-size: 1.2rem; }
     }
 
+    /* Reviews specific styles */
     .reviews-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .reviews-hero { text-align: center; margin-bottom: 3rem; }
+    .reviews-hero h1 { font-size: 2.5rem; color: white; margin-bottom: 0.5rem; }
+    .reviews-hero p { color: #aaaaaa; font-size: 1.1rem; }
     
-    /* Elfsight Widget Wrapper */
-    .elfsight-wrapper {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 2rem;
-      border: 2px solid #e31b23;
-      box-shadow: 0 10px 30px rgba(227, 27, 35, 0.15);
-      margin-bottom: 3rem;
-    }
-    .elfsight-wrapper h2 {
-      color: #1a1a1a;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
+    .rating-summary {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 10px;
-    }
-    .elfsight-wrapper h2 i {
-      color: #e31b23;
-    }
-    
-    /* Tally Form Wrapper */
-    .tally-wrapper {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 2rem;
-      border: 2px solid #e31b23;
-      box-shadow: 0 10px 30px rgba(227, 27, 35, 0.15);
+      gap: 3rem;
       margin-bottom: 3rem;
-    }
-    .tally-wrapper h2 {
-      color: #1a1a1a;
-      margin-bottom: 0.5rem;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .tally-wrapper h2 i { color: #e31b23; }
-    .tally-wrapper .tally-subtitle {
-      color: #666;
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-    }
-    .tally-iframe {
-      border-radius: 16px;
-      width: 100%;
-      min-height: 500px;
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-    }
-
-    /* Footer */
-    .site-footer {
-      background: #030101;
-      padding: 40px 0 20px;
-      border-top: 1px solid #e31b23;
-    }
-    .footer-inner {
-      display: flex;
       flex-wrap: wrap;
-      gap: 30px;
-      justify-content: space-between;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 24px;
+      background: #111111;
+      padding: 2rem;
+      border-radius: 28px;
+      border: 1px solid #e31b23;
     }
-    .footer-col { flex: 1 1 180px; }
-    .footer-logo { font-size: 1.8rem; font-weight: 800; color: #e31b23; }
-    .social-icons { margin-top: 10px; }
-    .social-icons a { color: #e0e0e0; margin-right: 12px; font-size: 1.3rem; transition: color 0.2s; }
-    .social-icons a:hover { color: #e31b23; }
-    .footer-col h4 { color: #e31b23; margin-bottom: 12px; }
-    .footer-col ul { list-style: none; padding: 0; }
-    .footer-col li { margin-bottom: 8px; }
-    .footer-col a { color: #ccc; text-decoration: none; transition: color 0.2s; }
-    .footer-col a:hover { color: #e31b23; }
-    .contact-info { list-style: none; padding: 0; }
-    .contact-info li { margin-bottom: 8px; color: #ccc; }
-    .contact-info i { width: 20px; margin-right: 5px; }
-    .footer-bottom {
-      text-align: center;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid #2a1010;
-      color: #888;
+    .average-rating { text-align: center; }
+    .average-rating .avg-number { font-size: 3.5rem; font-weight: 800; color: #e31b23; }
+    .average-rating .avg-stars i { color: #ffc107; font-size: 1.2rem; }
+    .average-rating .avg-count { color: #888; font-size: 0.9rem; }
+    
+    .rating-bars { flex: 1; max-width: 300px; }
+    .rating-bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .rating-bar-item span:first-child { width: 40px; font-size: 0.85rem; color: #ccc; }
+    .rating-bar-item .bar { flex: 1; height: 8px; background: #2a2a2a; border-radius: 10px; overflow: hidden; }
+    .rating-bar-item .bar-fill { height: 100%; background: #ffc107; border-radius: 10px; width: 0%; }
+    .rating-bar-item .count { width: 30px; font-size: 0.85rem; color: #ccc; }
+    
+    .review-form-card {
+      background: #111111;
+      border-radius: 28px;
+      padding: 2rem;
+      border: 1px solid #e31b23;
+      margin-bottom: 3rem;
     }
-    .footer-bottom a { color: #e31b23; text-decoration: none; }
-    .footer-bottom a:hover { text-decoration: underline; }
-
+    .review-form-card h2 { color: white; margin-bottom: 1.5rem; font-size: 1.5rem; }
+    .review-form-card h2 i { color: #e31b23; margin-right: 10px; }
+    
+    .rating-select {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+    }
+    .rating-select input { display: none; }
+    .rating-select label { font-size: 2rem; color: #444; cursor: pointer; transition: 0.2s; }
+    .rating-select label:hover, .rating-select label:hover ~ label, .rating-select input:checked ~ label { color: #ffc107; }
+    
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e5e5e5; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      color: white;
+      font-family: inherit;
+    }
+    .name-email-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    
+    .btn-submit {
+      background: linear-gradient(135deg, #e31b23, #c0151c);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s;
+    }
+    .btn-submit:hover { transform: scale(1.02); background: linear-gradient(135deg, #c0151c, #a01016); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+    
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .review-card {
+      background: #111111;
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-5px); border-color: #e31b23; }
+    .review-stars { margin-bottom: 0.8rem; }
+    .review-stars i { color: #ffc107; font-size: 0.9rem; }
+    .review-stars i.far { color: #444; }
+    .review-text { color: #e5e5e5; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; }
+    .review-author .avatar { width: 45px; height: 45px; background: linear-gradient(135deg, #e31b23, #b8151c); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; color: white; }
+    .review-author .info h4 { color: white; font-size: 1rem; margin-bottom: 0.2rem; }
+    .review-author .info p { color: #e31b23; font-size: 0.7rem; }
+    .review-date { font-size: 0.7rem; color: #666; margin-left: auto; }
+    
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 24px; border-radius: 12px; display: none; z-index: 2000; }
+    .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-right: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .no-reviews { text-align: center; padding: 2rem; color: #888; grid-column: 1 / -1; }
+    
     @media (max-width: 768px) {
-      .reviews-container { padding: 1rem; }
-      .elfsight-wrapper, .tally-wrapper { padding: 1.2rem; }
-      .tally-iframe { min-height: 600px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .rating-select label { font-size: 1.5rem; }
+      .name-email-row { grid-template-columns: 1fr; }
+      .rating-summary { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -172,36 +191,53 @@
     <section class="page-hero">
       <div class="container">
         <h1>Customer Reviews</h1>
-        <p>See what our amazing customers say about Sushi Vibe</p>
+        <p>What our amazing customers say about Sushi Vibe</p>
       </div>
     </section>
 
     <div class="reviews-container">
-      <!-- Elfsight Reviews Widget -->
-      <div class="elfsight-wrapper">
-        <h2><i class="fas fa-star"></i> What Our Customers Say</h2>
-        <script src="https://static.elfsight.com/platform/platform.js" async></script>
-        <div class="elfsight-app-c92d732d-f8bd-44b3-bb3d-108dcc60002c" data-elfsight-app-lazy></div>
+      <!-- Rating Summary -->
+      <div class="rating-summary" id="ratingSummary">
+        <div class="average-rating">
+          <div class="avg-number">4.8</div>
+          <div class="avg-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <div class="avg-count">12 reviews</div>
+        </div>
+        <div class="rating-bars">
+          <div class="rating-bar-item"><span>5 ★</span><div class="bar"><div class="bar-fill" style="width: 75%"></div></div><span class="count">9</span></div>
+          <div class="rating-bar-item"><span>4 ★</span><div class="bar"><div class="bar-fill" style="width: 17%"></div></div><span class="count">2</span></div>
+          <div class="rating-bar-item"><span>3 ★</span><div class="bar"><div class="bar-fill" style="width: 8%"></div></div><span class="count">1</span></div>
+          <div class="rating-bar-item"><span>2 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+          <div class="rating-bar-item"><span>1 ★</span><div class="bar"><div class="bar-fill" style="width: 0%"></div></div><span class="count">0</span></div>
+        </div>
       </div>
 
-      <!-- Tally Form for New Reviews -->
-      <div class="tally-wrapper">
+      <!-- Review Form -->
+      <div class="review-form-card">
         <h2><i class="fas fa-pen-alt"></i> Share Your Experience</h2>
-        <p class="tally-subtitle">We'd love to hear from you! Your review helps us serve you better.</p>
-        <iframe 
-          class="tally-iframe"
-          data-tally-src="https://tally.so/embed/YOUR_TALLY_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-          loading="lazy" 
-          width="100%" 
-          height="500" 
-          frameborder="0" 
-          marginheight="0" 
-          marginwidth="0" 
-          title="Submit Your Review">
-        </iframe>
-        <script>
-          var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
-        </script>
+        <form id="reviewForm">
+          <div class="rating-select">
+            <input type="radio" name="rating" value="5" id="star5"><label for="star5"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="4" id="star4"><label for="star4"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="3" id="star3"><label for="star3"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="2" id="star2"><label for="star2"><i class="fas fa-star"></i></label>
+            <input type="radio" name="rating" value="1" id="star1"><label for="star1"><i class="fas fa-star"></i></label>
+          </div>
+          <div class="form-group">
+            <textarea rows="4" id="reviewText" placeholder="Share your experience with our sushi catering..." required></textarea>
+          </div>
+          <div class="name-email-row">
+            <div class="form-group"><input type="text" id="reviewerName" placeholder="ስምዎ (Your name) - e.g., Selam, Dawit, Mekdes" required></div>
+            <div class="form-group"><input type="email" id="reviewerEmail" placeholder="ኢሜይልዎ (Your email) - not published" required></div>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+        </form>
+      </div>
+
+      <!-- Reviews Display -->
+      <h3 style="color: white; margin-bottom: 1rem;"><i class="fas fa-star" style="color: #e31b23;"></i> What Our Customers Say</h3>
+      <div id="reviewsGrid" class="reviews-grid">
+        <div class="no-reviews"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div>
       </div>
     </div>
   </main>
@@ -230,7 +266,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact info</h4>
+        <h4>Contact</h4>
         <ul class="contact-info">
           <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
           <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 249999</li>
@@ -239,9 +275,9 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Important notes</h4>
+        <h4>Notes</h4>
         <p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p>
-        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Tell us about any allergies</p>
+        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p>
         <p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p>
       </div>
     </div>
@@ -250,6 +286,150 @@
     </div>
   </footer>
 
+  <div id="toast" class="toast"></div>
+
   <script src="js/main.js"></script>
+  <script>
+    // Reviews fully functional demo - no backend, saved in localStorage
+    const REVIEWS_KEY = 'sushi_vibe_reviews';
+    
+    // Ethiopian sample reviews
+    const sampleReviews = [
+      { id: 1, name: "Selam Tesfaye", rating: 5, text: "Absolutely amazing sushi! The Celebration Feast was perfect for our daughter's birthday. Every guest was impressed!", date: "2026-05-10", approved: true },
+      { id: 2, name: "Dawit Hailu", rating: 5, text: "Best sushi catering in Addis! Professional delivery, everything on time, outstanding quality. Highly recommended!", date: "2026-05-09", approved: true },
+      { id: 3, name: "Mekdes Ayalew", rating: 5, text: "Great experience! The Vibe Party Set was perfect for our small gathering. Sushi was delicious!", date: "2026-05-08", approved: true },
+      { id: 4, name: "Henok Gebre", rating: 5, text: "We had Sushi Vibe cater our wedding and it was a huge hit! The sushi boat presentation was stunning!", date: "2026-05-07", approved: true },
+      { id: 5, name: "Bethelhem Assefa", rating: 4, text: "Very good quality sushi. The California and Dragon rolls were excellent.", date: "2026-05-06", approved: true },
+      { id: 6, name: "Yonas Solomon", rating: 5, text: "The Omakase Reserve is next level! Every piece was perfectly crafted.", date: "2026-05-05", approved: true }
+    ];
+    
+    function initReviews() {
+      if (!localStorage.getItem(REVIEWS_KEY)) {
+        localStorage.setItem(REVIEWS_KEY, JSON.stringify(sampleReviews));
+      }
+    }
+    
+    function getApprovedReviews() {
+      const stored = localStorage.getItem(REVIEWS_KEY);
+      return stored ? JSON.parse(stored).filter(r => r.approved === true) : [];
+    }
+    
+    function displayReviews() {
+      const reviews = getApprovedReviews();
+      const grid = document.getElementById('reviewsGrid');
+      if (!grid) return;
+      if (reviews.length === 0) {
+        grid.innerHTML = '<div class="no-reviews">⭐ No reviews yet. Be the first!</div>';
+        return;
+      }
+      grid.innerHTML = reviews.map(review => `
+        <div class="review-card">
+          <div class="review-stars">${generateStars(review.rating)}</div>
+          <p class="review-text">"${escapeHtml(review.text)}"</p>
+          <div class="review-author">
+            <div class="avatar">${review.name.charAt(0)}</div>
+            <div class="info"><h4>${escapeHtml(review.name)}</h4><p>Verified Customer</p></div>
+            <div class="review-date">${review.date}</div>
+          </div>
+        </div>
+      `).join('');
+      updateRatingSummary(reviews);
+    }
+    
+    function generateStars(rating) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+      }
+      return stars;
+    }
+    
+    function updateRatingSummary(reviews) {
+      const total = reviews.length;
+      if (total === 0) return;
+      const sum = reviews.reduce((a, r) => a + r.rating, 0);
+      const avg = (sum / total).toFixed(1);
+      const counts = {5:0,4:0,3:0,2:0,1:0};
+      reviews.forEach(r => {
+        const floorRating = Math.floor(r.rating);
+        if (counts[floorRating] !== undefined) counts[floorRating]++;
+      });
+      
+      document.querySelector('.avg-number').textContent = avg;
+      document.querySelector('.avg-stars').innerHTML = generateStars(Math.round(avg));
+      document.querySelector('.avg-count').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+      
+      for (let i = 5; i >= 1; i--) {
+        const percent = total > 0 ? (counts[i] / total) * 100 : 0;
+        const bar = document.querySelector(`.rating-bar-item:nth-child(${6-i}) .bar-fill`);
+        const countSpan = document.querySelector(`.rating-bar-item:nth-child(${6-i}) .count`);
+        if (bar) bar.style.width = `${percent}%`;
+        if (countSpan) countSpan.textContent = counts[i];
+      }
+    }
+    
+    function saveReview(review) {
+      const allReviews = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
+      const newReview = {
+        id: Date.now(),
+        name: review.name,
+        email: review.email,
+        rating: review.rating,
+        text: review.text,
+        date: new Date().toISOString().split('T')[0],
+        approved: true
+      };
+      allReviews.unshift(newReview);
+      localStorage.setItem(REVIEWS_KEY, JSON.stringify(allReviews));
+      return newReview;
+    }
+    
+    document.getElementById('reviewForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const rating = document.querySelector('input[name="rating"]:checked');
+      const text = document.getElementById('reviewText').value.trim();
+      const name = document.getElementById('reviewerName').value.trim();
+      const email = document.getElementById('reviewerEmail').value.trim();
+      
+      if (!rating || !text || !name || !email) {
+        showToast('Please fill all fields', true);
+        return;
+      }
+      
+      const reviewData = { name, email, rating: parseInt(rating.value), text };
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+      
+      // Simulate a tiny delay for user feedback
+      setTimeout(() => {
+        saveReview(reviewData);
+        showToast('✅ Thank you for your review!', false);
+        document.getElementById('reviewForm').reset();
+        document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+        displayReviews();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+      }, 600);
+    });
+    
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 4000);
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Start everything
+    initReviews();
+    displayReviews();
+  </script>
 </body>
 </html>
