@@ -1,59 +1,43 @@
 // ========== MOBILE SIDE SLIDE NAVIGATION ==========
 document.addEventListener('DOMContentLoaded', function() {
-  // ONLY create mobile sidebar if screen width is less than or equal to 900px
-  if (window.innerWidth <= 900) {
-    createMobileSidebar();
-  }
+  // Always create mobile sidebar functionality on all pages
+  initMobileNavigation();
   
   initGalleryFilters();
   initContactForm();
-  
-  // Listen for window resize to add/remove mobile sidebar dynamically
-  let mobileSidebarCreated = false;
-  
-  window.addEventListener('resize', function() {
-    if (window.innerWidth <= 900 && !mobileSidebarCreated && !document.querySelector('.mobile-nav-drawer')) {
-      createMobileSidebar();
-      mobileSidebarCreated = true;
-    } else if (window.innerWidth > 900 && document.querySelector('.mobile-nav-drawer')) {
-      // Remove mobile sidebar if it exists on desktop
-      const drawer = document.querySelector('.mobile-nav-drawer');
-      const overlay = document.querySelector('.mobile-nav-overlay');
-      if (drawer) drawer.remove();
-      if (overlay) overlay.remove();
-      mobileSidebarCreated = false;
-      document.body.style.overflow = '';
-    }
-  });
 });
 
-// Create mobile sidebar navigation
-function createMobileSidebar() {
-  // Check if already exists
-  if (document.querySelector('.mobile-nav-drawer')) {
-    return;
-  }
-  
+// Initialize mobile navigation for all screen sizes
+function initMobileNavigation() {
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  if (!mobileToggle) return;
+
+  // Remove any existing drawers/overlays to prevent duplicates
+  const existingDrawer = document.querySelector('.mobile-nav-drawer');
+  const existingOverlay = document.querySelector('.mobile-nav-overlay');
+  if (existingDrawer) existingDrawer.remove();
+  if (existingOverlay) existingOverlay.remove();
+
   // Get current page for active state
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
   // Get logo image source
   const logoImg = document.querySelector('.logo img');
-  const logoSrc = logoImg ? logoImg.src : 'logo.png';
+  const logoSrc = logoImg ? logoImg.src : 'https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true';
   
   // Create overlay
   const overlay = document.createElement('div');
   overlay.className = 'mobile-nav-overlay';
   document.body.appendChild(overlay);
   
-  // Create drawer
+  // Create drawer with updated contact info
   const drawer = document.createElement('div');
   drawer.className = 'mobile-nav-drawer';
   drawer.innerHTML = `
     <div class="drawer-header">
       <div class="drawer-logo">
-        <img src="${logoSrc}" alt="Sushi Vibe Logo">
-        <span>Sushi Vibe</span>
+        <img src="${logoSrc}" alt="Sushi Vibe Logo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #e31b23;">
+        <span style="font-weight:800;color:#e31b23;font-size:1.2rem;">Sushi Vibe</span>
       </div>
       <button class="close-drawer"><i class="fas fa-times"></i></button>
     </div>
@@ -68,41 +52,160 @@ function createMobileSidebar() {
         <li><a href="order.html" class="order-drawer-cta ${currentPage === 'order.html' ? 'active' : ''}"><i class="fas fa-shopping-cart"></i> Order Now</a></li>
       </ul>
     </div>
-    <div class="drawer-contact">
-      <p><i class="fas fa-phone-alt"></i> +251 927 299999</p>
-      <p><i class="fas fa-envelope"></i> sushivibes@proton.me</p>
-      <p><i class="fab fa-telegram"></i> @sushivib</p>
+    <div class="drawer-contact" style="padding:1rem;border-top:1px solid #2a1010;margin-top:1rem;">
+      <p style="color:#ccc;font-size:0.85rem;margin-bottom:0.5rem;"><i class="fas fa-phone-alt" style="color:#e31b23;width:20px;"></i> +251 927 249999</p>
+      <p style="color:#ccc;font-size:0.85rem;margin-bottom:0.5rem;"><i class="fas fa-envelope" style="color:#e31b23;width:20px;"></i> Sushivibe26@gmail.com</p>
+      <p style="color:#ccc;font-size:0.85rem;margin-bottom:0.5rem;"><i class="fab fa-telegram" style="color:#e31b23;width:20px;"></i> @sushivib</p>
     </div>
-    <div class="drawer-social">
-      <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
-      <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+    <div class="drawer-social" style="display:flex;gap:15px;padding:0.5rem 1rem;justify-content:center;border-top:1px solid #2a1010;">
+      <a href="https://instagram.com/Sushi_vibe26" target="_blank" style="color:#e31b23;font-size:1.3rem;"><i class="fab fa-instagram"></i></a>
+      <a href="https://tiktok.com/@sushivibe.caterin" target="_blank" style="color:#e31b23;font-size:1.3rem;"><i class="fab fa-tiktok"></i></a>
+      <a href="https://t.me/sushivib" target="_blank" style="color:#e31b23;font-size:1.3rem;"><i class="fab fa-telegram"></i></a>
+      <a href="https://wa.me/251927249999" target="_blank" style="color:#e31b23;font-size:1.3rem;"><i class="fab fa-whatsapp"></i></a>
     </div>
   `;
   document.body.appendChild(drawer);
   
-  // Get mobile toggle button
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  if (!mobileToggle) return;
-  
-  // Open drawer
+  // Add required CSS for drawer if not already present
+  if (!document.getElementById('mobile-nav-styles')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'mobile-nav-styles';
+    styleEl.textContent = `
+      .mobile-nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .mobile-nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .mobile-nav-drawer {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 300px;
+        height: 100%;
+        background: #0a0505;
+        z-index: 9999;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        border-left: 2px solid #e31b23;
+      }
+      .mobile-nav-drawer.active {
+        right: 0;
+      }
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #2a1010;
+        background: #0f0707;
+      }
+      .drawer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .close-drawer {
+        background: none;
+        border: none;
+        color: #e31b23;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 5px;
+      }
+      .drawer-nav {
+        padding: 1rem;
+      }
+      .drawer-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .drawer-nav li {
+        margin-bottom: 8px;
+      }
+      .drawer-nav a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #e0e0e0;
+        text-decoration: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        transition: all 0.2s;
+        font-weight: 500;
+      }
+      .drawer-nav a:hover, .drawer-nav a.active {
+        background: #1a0a0a;
+        color: #e31b23;
+      }
+      .drawer-nav a i {
+        width: 20px;
+        text-align: center;
+        color: #e31b23;
+      }
+      .order-drawer-cta {
+        background: linear-gradient(135deg, #e31b23, #c0151c) !important;
+        color: white !important;
+        justify-content: center;
+        font-weight: 700 !important;
+        margin-top: 10px;
+      }
+      .order-drawer-cta i {
+        color: white !important;
+      }
+      .order-drawer-cta:hover, .order-drawer-cta.active {
+        background: linear-gradient(135deg, #c0151c, #a01016) !important;
+        color: white !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+
+  // Open drawer function
   function openDrawer() {
     overlay.classList.add('active');
     drawer.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
   
-  // Close drawer
+  // Close drawer function
   function closeDrawer() {
     overlay.classList.remove('active');
     drawer.classList.remove('active');
     document.body.style.overflow = '';
   }
   
-  // Event listeners
-  mobileToggle.addEventListener('click', openDrawer);
+  // Remove old event listener by cloning the toggle button
+  const newToggle = mobileToggle.cloneNode(true);
+  mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+  
+  // Add fresh event listener
+  newToggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    openDrawer();
+  });
+  
+  // Overlay click to close
   overlay.addEventListener('click', closeDrawer);
-  drawer.querySelector('.close-drawer').addEventListener('click', closeDrawer);
+  
+  // Close button
+  const closeBtn = drawer.querySelector('.close-drawer');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeDrawer);
+  }
   
   // Close on escape key
   document.addEventListener('keydown', function(e) {
@@ -111,9 +214,12 @@ function createMobileSidebar() {
     }
   });
   
-  // Close when clicking a link
+  // Close when clicking any navigation link
   drawer.querySelectorAll('.drawer-nav a').forEach(link => {
-    link.addEventListener('click', closeDrawer);
+    link.addEventListener('click', function() {
+      // Small delay to allow the navigation to happen
+      setTimeout(closeDrawer, 150);
+    });
   });
 }
 
@@ -181,7 +287,7 @@ function initContactForm() {
     submitBtn.disabled = true;
     
     try {
-      const response = await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
+      const response = await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -211,7 +317,7 @@ ${formData.message}
       `);
       
       showFormStatus(
-        `⚠️ Unable to send automatically. <a href="mailto:sushivibes@proton.me?subject=Sushi Vibe Inquiry - ${formData.name}&body=${emailBody}" style="color: #e31b23;">Click here to send via email</a>`,
+        `⚠️ Unable to send automatically. <a href="mailto:Sushivibe26@gmail.com?subject=Sushi Vibe Inquiry - ${formData.name}&body=${emailBody}" style="color: #e31b23;">Click here to send via email</a>`,
         'warning',
         formStatus
       );
@@ -227,7 +333,6 @@ function initOrderForm() {
   const orderForm = document.getElementById('orderForm');
   if (!orderForm) return;
   
-  // Package selection
   const radioPackages = document.querySelectorAll('input[name="package"]');
   const summaryPackageSpan = document.getElementById('summaryPackage');
   const summaryPriceSpan = document.getElementById('summaryPrice');
@@ -271,7 +376,6 @@ function initOrderForm() {
     deliveryRadio.forEach(d => d.addEventListener('change', updateSummary));
   }
   
-  // Show/hide delivery address
   const deliveryGroup = document.getElementById('deliveryAddressGroup');
   function toggleAddress() {
     const val = document.querySelector('input[name="deliveryType"]:checked')?.value;
@@ -285,7 +389,6 @@ function initOrderForm() {
   }
   toggleAddress();
   
-  // Save order to localStorage
   function saveOrderToLocalStorage(orderData) {
     try {
       let existingOrders = JSON.parse(localStorage.getItem('sushi_vibe_orders') || '[]');
@@ -303,7 +406,6 @@ function initOrderForm() {
     }
   }
   
-  // Submit order
   orderForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -369,7 +471,6 @@ function initOrderForm() {
     
     const orderId = saveOrderToLocalStorage(orderData);
     
-    // Send email notification
     try {
       const emailBody = `
 📦 NEW SUSHI ORDER #${orderId}
@@ -397,7 +498,7 @@ function initOrderForm() {
    Requests: ${orderData.special_requests || 'None'}
       `;
       
-      await fetch('https://formsubmit.co/ajax/sushivibes@proton.me', {
+      await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -411,7 +512,7 @@ function initOrderForm() {
       ✅ <strong>Order received!</strong><br>
       Order #${orderId || 'received'}<br><br>
       We will contact you within 2 hours to confirm delivery details.<br><br>
-      📞 Call us: +251 927 299999 if urgent.<br>
+      📞 Call us: +251 927 249999 if urgent.<br>
       🍣 Thank you for choosing Sushi Vibe!
     `, 'success');
     
@@ -456,7 +557,6 @@ function initOrderForm() {
     }
   }
   
-  // Auto-update from URL params
   const urlParams = new URLSearchParams(window.location.search);
   const preset = urlParams.get('package');
   if(preset === 'vibe') document.querySelector('input[value="Vibe Party Set"]')?.click();
@@ -465,7 +565,6 @@ function initOrderForm() {
   updateSummary();
 }
 
-// Helper function for form status
 function showFormStatus(message, type, element) {
   if (!element) return;
   
