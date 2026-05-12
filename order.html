@@ -8,46 +8,168 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* Circular logo styles */
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e31b23;
+      transition: transform 0.3s;
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e31b23;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-text span {
+      font-size: 0.7rem;
+      background: #e31b23;
+      color: #0a0505;
+      padding: 2px 10px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      .logo-img { width: 40px; height: 40px; }
+      .logo-text { font-size: 1.2rem; }
+    }
+    
     .order-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
     .tally-wrapper { 
-      background: #111111; 
+      background: #ffffff; 
       border-radius: 24px; 
       padding: 2rem; 
-      border: 1px solid #e31b23;
+      border: 2px solid #e31b23;
+      box-shadow: 0 10px 30px rgba(227, 27, 35, 0.15);
     }
     .tally-wrapper h2 {
-      color: white;
+      color: #1a1a1a;
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 10px;
+      font-size: 1.5rem;
+    }
+    .tally-wrapper h2 i {
+      color: #e31b23;
     }
     
-    /* Style the iframe to blend better */
+    /* Tally iframe with white background */
     .tally-iframe {
       border-radius: 16px;
       width: 100%;
       min-height: 1454px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-    }
-    
-    /* Force dark theme on Tally form */
-    .tally-wrapper iframe {
-      color-scheme: dark;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
     }
     
     @media (max-width: 768px) {
       .order-container { padding: 1rem; }
-      .tally-wrapper { padding: 1rem; }
+      .tally-wrapper { padding: 1.2rem; }
       .tally-iframe { min-height: 1600px; }
+    }
+
+    /* Footer styles */
+    .site-footer {
+      background: #030101;
+      padding: 40px 0 20px;
+      border-top: 1px solid #e31b23;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+    .footer-col {
+      flex: 1 1 180px;
+    }
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #e31b23;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #e0e0e0;
+      margin-right: 12px;
+      font-size: 1.3rem;
+      transition: color 0.2s;
+    }
+    .social-icons a:hover {
+      color: #e31b23;
+    }
+    .footer-col h4 {
+      color: #e31b23;
+      margin-bottom: 12px;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-col li {
+      margin-bottom: 8px;
+    }
+    .footer-col a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: #e31b23;
+    }
+    .contact-info {
+      list-style: none;
+      padding: 0;
+    }
+    .contact-info li {
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+    .contact-info i {
+      width: 20px;
+      margin-right: 5px;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #2a1010;
+      color: #888;
+    }
+    .footer-bottom a {
+      color: #e31b23;
+      text-decoration: none;
+    }
+    .footer-bottom a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-container">
-      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <div class="logo">
+        <a href="index.html">
+          <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="logo-img">
+          <span class="logo-text">Sushi Vibe <span>Catering</span></span>
+        </a>
+      </div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -75,7 +197,7 @@
       <div class="tally-wrapper">
         <h2><i class="fas fa-clipboard-list"></i> Order Form</h2>
         
-        <!-- Tally Embed with better visibility -->
+        <!-- Tally Embed -->
         <iframe 
           class="tally-iframe"
           data-tally-src="https://tally.so/embed/81Ajp5?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
@@ -85,7 +207,7 @@
           frameborder="0" 
           marginheight="0" 
           marginwidth="0" 
-          title="sushivibe order">
+          title="Sushi Vibe Order Form">
         </iframe>
         <script>
           var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
@@ -96,9 +218,49 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering — newly opened in Addis Ababa.</p></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="order.html">Order</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><p>+251 927 299999<br>sushivibes@proton.me</p></div>
+      <div class="footer-col">
+        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <p>Authentic Japanese catering — newly opened in Addis Ababa.</p>
+        <div class="social-icons">
+          <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
+          <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 249999</li>
+          <li><i class="fas fa-envelope" style="color: #e31b23;"></i> Sushivibe26@gmail.com</li>
+          <li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Important notes</h4>
+        <p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p>
+        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Tell us about any allergies</p>
+        <p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p>
+        <p><i class="fas fa-clock" style="color: #e31b23;"></i> Pre-order: 24h advance required</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+        Follow us: <a href="https://instagram.com/Sushi_vibe26" target="_blank">@Sushi_vibe26</a>
+      </p>
     </div>
   </footer>
 
