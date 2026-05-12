@@ -8,6 +8,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* Circular logo styles (consistent across site) */
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e31b23;
+      transition: transform 0.3s;
+    }
+    .logo-img:hover {
+      transform: scale(1.05);
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e31b23;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .logo-text span {
+      font-size: 0.7rem;
+      background: #e31b23;
+      color: #0a0505;
+      padding: 2px 10px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      .logo-img { width: 40px; height: 40px; }
+      .logo-text { font-size: 1.2rem; }
+    }
+
+    /* Reviews specific styles */
     .reviews-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
     .reviews-hero { text-align: center; margin-bottom: 3rem; }
     .reviews-hero h1 { font-size: 2.5rem; color: white; margin-bottom: 0.5rem; }
@@ -126,7 +166,12 @@
 <body>
   <header class="site-header">
     <div class="container nav-container">
-      <div class="logo"><a href="index.html"><i class="fas fa-fish"></i> Sushi Vibe <span>Catering</span></a></div>
+      <div class="logo">
+        <a href="index.html">
+          <img src="https://github.com/developereth/sushivibecatering/blob/27378fcaefd2f675fcb6f9c939523e32846b1526/logo.png?raw=true" alt="Sushi Vibe Logo" class="logo-img">
+          <span class="logo-text">Sushi Vibe <span>Catering</span></span>
+        </a>
+      </div>
       <nav class="main-nav">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -199,19 +244,53 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-col"><div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div><p>Authentic Japanese catering in Addis Ababa.</p><div class="social-icons"><a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a><a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a></div></div>
-      <div class="footer-col"><h4>Quick links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="packages.html">Packages</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="contact.html">Contact</a></li><li><a href="order.html">Order</a></li></ul></div>
-      <div class="footer-col"><h4>Contact</h4><ul class="contact-info"><li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li><li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 299999</li><li><i class="fas fa-envelope" style="color: #e31b23;"></i> sushivibes@proton.me</li><li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li></ul></div>
-      <div class="footer-col"><h4>Notes</h4><p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p><p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p><p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p></div>
+      <div class="footer-col">
+        <div class="footer-logo"><i class="fas fa-fish"></i> Sushi Vibe</div>
+        <p>Authentic Japanese catering — newly opened in Addis Ababa.</p>
+        <div class="social-icons">
+          <a href="https://instagram.com/Sushi_vibe26" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@sushivibe.caterin" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a href="https://t.me/sushivib" target="_blank"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="packages.html">Packages</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order.html">Order</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt" style="color: #e31b23;"></i> Addis Ababa, Ethiopia</li>
+          <li><i class="fas fa-phone-alt" style="color: #e31b23;"></i> +251 927 249999</li>
+          <li><i class="fas fa-envelope" style="color: #e31b23;"></i> Sushivibe26@gmail.com</li>
+          <li><i class="fab fa-telegram" style="color: #e31b23;"></i> @sushivib</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Notes</h4>
+        <p><i class="fas fa-exclamation-circle" style="color: #e31b23;"></i> Delivery charges may apply</p>
+        <p><i class="fas fa-allergies" style="color: #e31b23;"></i> Allergies? Let us know</p>
+        <p><i class="fas fa-gift" style="color: #e31b23;"></i> Free wasabi, ginger & soy sauce</p>
+      </div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p></div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Sushi Vibe Catering — 快乐寿司 — All Rights Reserved.</p>
+    </div>
   </footer>
 
   <div id="toast" class="toast"></div>
 
   <script src="js/main.js"></script>
   <script>
-    // Review storage
+    // Reviews fully functional demo - no backend, saved in localStorage
     const REVIEWS_KEY = 'sushi_vibe_reviews';
     
     // Ethiopian sample reviews
@@ -239,7 +318,10 @@
       const reviews = getApprovedReviews();
       const grid = document.getElementById('reviewsGrid');
       if (!grid) return;
-      if (reviews.length === 0) { grid.innerHTML = '<div class="no-reviews">⭐ No reviews yet. Be the first!</div>'; return; }
+      if (reviews.length === 0) {
+        grid.innerHTML = '<div class="no-reviews">⭐ No reviews yet. Be the first!</div>';
+        return;
+      }
       grid.innerHTML = reviews.map(review => `
         <div class="review-card">
           <div class="review-stars">${generateStars(review.rating)}</div>
@@ -256,7 +338,9 @@
     
     function generateStars(rating) {
       let stars = '';
-      for (let i = 1; i <= 5; i++) stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+      }
       return stars;
     }
     
@@ -266,10 +350,15 @@
       const sum = reviews.reduce((a, r) => a + r.rating, 0);
       const avg = (sum / total).toFixed(1);
       const counts = {5:0,4:0,3:0,2:0,1:0};
-      reviews.forEach(r => counts[Math.floor(r.rating)]++);
+      reviews.forEach(r => {
+        const floorRating = Math.floor(r.rating);
+        if (counts[floorRating] !== undefined) counts[floorRating]++;
+      });
+      
       document.querySelector('.avg-number').textContent = avg;
       document.querySelector('.avg-stars').innerHTML = generateStars(Math.round(avg));
       document.querySelector('.avg-count').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+      
       for (let i = 5; i >= 1; i--) {
         const percent = total > 0 ? (counts[i] / total) * 100 : 0;
         const bar = document.querySelector(`.rating-bar-item:nth-child(${6-i}) .bar-fill`);
@@ -279,41 +368,49 @@
       }
     }
     
-    async function sendReviewNotification(review) {
-      try {
-        await fetch('https://formsubmit.co/ajax/abdulchater@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ _subject: `⭐ New ${review.rating}⭐ Review from ${review.name}`, message: `Name: ${review.name}\nEmail: ${review.email}\nRating: ${review.rating}★\nReview: "${review.text}"` })
-        });
-      } catch(e) { console.log('Email error:', e); }
-    }
-    
     function saveReview(review) {
       const allReviews = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
-      const newReview = { id: Date.now(), name: review.name, email: review.email, rating: review.rating, text: review.text, date: new Date().toISOString().split('T')[0], approved: true };
+      const newReview = {
+        id: Date.now(),
+        name: review.name,
+        email: review.email,
+        rating: review.rating,
+        text: review.text,
+        date: new Date().toISOString().split('T')[0],
+        approved: true
+      };
       allReviews.unshift(newReview);
       localStorage.setItem(REVIEWS_KEY, JSON.stringify(allReviews));
       return newReview;
     }
     
-    document.getElementById('reviewForm')?.addEventListener('submit', async (e) => {
+    document.getElementById('reviewForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
       const rating = document.querySelector('input[name="rating"]:checked');
       const text = document.getElementById('reviewText').value.trim();
       const name = document.getElementById('reviewerName').value.trim();
       const email = document.getElementById('reviewerEmail').value.trim();
-      if (!rating || !text || !name || !email) { showToast('Please fill all fields', true); return; }
+      
+      if (!rating || !text || !name || !email) {
+        showToast('Please fill all fields', true);
+        return;
+      }
+      
       const reviewData = { name, email, rating: parseInt(rating.value), text };
       const btn = document.getElementById('submitBtn');
-      btn.disabled = true; btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
-      saveReview(reviewData);
-      await sendReviewNotification(reviewData);
-      showToast('✅ Thank you for your review!', false);
-      document.getElementById('reviewForm').reset();
-      document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
-      displayReviews();
-      btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+      
+      // Simulate a tiny delay for user feedback
+      setTimeout(() => {
+        saveReview(reviewData);
+        showToast('✅ Thank you for your review!', false);
+        document.getElementById('reviewForm').reset();
+        document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+        displayReviews();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+      }, 600);
     });
     
     function showToast(msg, isError) {
@@ -324,8 +421,13 @@
       setTimeout(() => toast.style.display = 'none', 4000);
     }
     
-    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
     
+    // Start everything
     initReviews();
     displayReviews();
   </script>
